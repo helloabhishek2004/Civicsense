@@ -18,7 +18,8 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#E4ECE1",
+        "monochromeImage": "./assets/monochrome.png"
       },
       "package": "org.civicsense.mobile"
     },

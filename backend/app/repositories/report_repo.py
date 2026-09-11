@@ -4,7 +4,7 @@ import uuid
 from sqlalchemy import desc, func, select
 from sqlalchemy.orm import Session, joinedload
 
-from app.models.enums import ReportStatus
+from app.models.enums import PriorityLevel, ReportStatus
 from app.models.evidence import Evidence
 from app.models.report import Report
 from app.repositories.base import BaseRepository
@@ -66,6 +66,7 @@ class ReportRepository(BaseRepository[Report]):
                 joinedload(Report.evidences),
                 joinedload(Report.ai_analyses),
                 joinedload(Report.verifications),
+                joinedload(Report.ai_jobs),
             )
             .where(Report.id == report_id)
         )
@@ -79,6 +80,7 @@ class ReportRepository(BaseRepository[Report]):
                 joinedload(Report.evidences),
                 joinedload(Report.ai_analyses),
                 joinedload(Report.verifications),
+                joinedload(Report.ai_jobs),
             )
             .where(Report.tracking_id == tracking_id)
         )
@@ -95,6 +97,7 @@ class ReportRepository(BaseRepository[Report]):
                 joinedload(Report.evidences),
                 joinedload(Report.ai_analyses),
                 joinedload(Report.verifications),
+                joinedload(Report.ai_jobs),
             )
             .order_by(desc(Report.created_at))
             .offset(skip)
@@ -103,9 +106,23 @@ class ReportRepository(BaseRepository[Report]):
         items = list(db.scalars(stmt).unique().all())
         return items, total
 
-    def update_status(self, db: Session, report: Report, new_status: ReportStatus) -> Report:
+    def update_status(
+        self,
+        db: Session,
+        report: Report,
+        new_status: ReportStatus,
+        department: str | None = None,
+        assigned_officer: str | None = None,
+        priority: PriorityLevel | None = None,
+    ) -> Report:
         """Update report status and commit timestamp."""
         report.status = new_status
+        if department is not None:
+            report.department = department
+        if assigned_officer is not None:
+            report.assigned_officer = assigned_officer
+        if priority is not None:
+            report.priority = priority
         report.updated_at = datetime.datetime.now(datetime.UTC)
         db.commit()
         db.refresh(report)

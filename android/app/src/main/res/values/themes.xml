@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/civic_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_civicsense_path_logo</item>
+        <item name="postSplashScreenTheme">@style/Theme.CivicSense</item>
+    </style>
+
+    <style name="Theme.CivicSense" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/civic_background</item>
+        <item name="android:navigationBarColor">@color/civic_background</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+</resources>

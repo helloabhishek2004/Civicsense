@@ -1,0 +1,25 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="300dp"
+    android:height="200dp"
+    android:viewportWidth="300"
+    android:viewportHeight="200">
+    <path
+        android:fillColor="#E3DCCF"
+        android:pathData="M0,0h300v200h-300z" />
+    <path
+        android:fillColor="#8C8374"
+        android:pathData="M0,140h300v60h-300z" />
+    <!-- Trash bags and waste items -->
+    <path
+        android:fillColor="#3A3E39"
+        android:pathData="M70,145 C65,115 100,105 125,120 C145,130 140,165 110,165 C80,165 75,155 70,145 Z" />
+    <path
+        android:fillColor="#527059"
+        android:pathData="M120,150 C115,120 155,110 175,130 C190,145 180,170 155,170 C130,170 125,160 120,150 Z" />
+    <path
+        android:fillColor="#9C8158"
+        android:pathData="M165,135 h40 v30 h-40 z" />
+    <path
+        android:fillColor="#70624E"
+        android:pathData="M170,138 h15 v20 h-15 z" />
+</vector>

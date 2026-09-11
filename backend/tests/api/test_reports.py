@@ -82,3 +82,62 @@ def test_create_report_validation_failure(client: TestClient) -> None:
     assert "error" in body
     assert body["error"]["code"] == "VALIDATION_ERROR"
     assert len(body["error"]["details"]) >= 2
+
+
+def test_transition_report_status_valid_and_invalid(
+    client: TestClient, sample_report_payload: dict[str, Any]
+) -> None:
+    """Verify state transitions via PATCH /api/v1/reports/{id}/transition."""
+    create_resp = client.post("/api/v1/reports", json=sample_report_payload)
+    assert create_resp.status_code == 201
+    report = create_resp.json()
+    report_id = report["id"]
+    assert report["status"] == "SUBMITTED"
+
+    # Valid transition: SUBMITTED -> AI_PROCESSING
+    patch_resp = client.patch(
+        f"/api/v1/reports/{report_id}/transition",
+        json={"next_status": "AI_PROCESSING", "actor": "Test Officer"},
+    )
+    assert patch_resp.status_code == 200
+    assert patch_resp.json()["status"] == "AI_PROCESSING"
+
+    # Invalid transition: AI_PROCESSING -> RESOLVED (Illegal skip)
+    invalid_patch = client.patch(
+        f"/api/v1/reports/{report_id}/transition",
+        json={"next_status": "RESOLVED"},
+    )
+    assert invalid_patch.status_code == 400
+    assert invalid_patch.json()["error"]["code"] == "INVALID_STATE_TRANSITION"
+
+
+def test_verify_report_endpoint(client: TestClient, sample_report_payload: dict[str, Any]) -> None:
+    """Verify human review verdict via POST /api/v1/reports/{id}/verify."""
+    create_resp = client.post("/api/v1/reports", json=sample_report_payload)
+    assert create_resp.status_code == 201
+    report_id = create_resp.json()["id"]
+
+    # Transition to AI_PROCESSING -> AI_PROCESSED -> VERIFICATION_REQUIRED
+    client.patch(f"/api/v1/reports/{report_id}/transition", json={"next_status": "AI_PROCESSING"})
+    client.patch(
+        f"/api/v1/reports/{report_id}/transition", json={"next_status": "VERIFICATION_REQUIRED"}
+    )
+
+    # Verify report with CONFIRMED decision
+    verify_resp = client.post(
+        f"/api/v1/reports/{report_id}/verify",
+        json={
+            "decision": "CONFIRMED",
+            "reviewer_id": "Officer Sharma",
+            "verified_category": "Pothole",
+            "verified_severity": "HIGH",
+            "notes": "Verified severe pothole requiring priority resurfacing.",
+        },
+    )
+    assert verify_resp.status_code == 200
+    updated = verify_resp.json()
+    assert updated["status"] == "VERIFIED"
+    assert len(updated["verifications"]) == 1
+    assert updated["verifications"][0]["decision"] == "CONFIRMED"
+    assert updated["verifications"][0]["reviewer_id"] == "Officer Sharma"
+    assert updated["verifications"][0]["verified_severity"] == "HIGH"

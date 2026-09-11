@@ -1,0 +1,29 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="300dp"
+    android:height="200dp"
+    android:viewportWidth="300"
+    android:viewportHeight="200">
+    <!-- Road Background -->
+    <path
+        android:fillColor="#5A6158"
+        android:pathData="M0,0h300v200h-300z" />
+    <!-- Road texture / lines -->
+    <path
+        android:fillColor="#4A4F48"
+        android:pathData="M0,30h300v4h-300z M0,170h300v4h-300z" />
+    <path
+        android:fillColor="#E0E2DB"
+        android:pathData="M20,98h50v4h-50z M110,98h50v4h-50z M200,98h50v4h-50z" />
+    <!-- Pothole crater outer -->
+    <path
+        android:fillColor="#343932"
+        android:pathData="M110,90 C150,75 210,80 230,115 C240,135 190,165 140,155 C95,145 80,105 110,90 Z" />
+    <!-- Pothole crater deep inner -->
+    <path
+        android:fillColor="#1E221D"
+        android:pathData="M125,102 C155,90 195,95 210,120 C215,135 180,150 145,145 C115,138 105,112 125,102 Z" />
+    <!-- Water reflection in puddle -->
+    <path
+        android:fillColor="#4B6A78"
+        android:pathData="M135,115 C150,110 180,112 188,125 C190,132 170,140 150,138 C135,135 128,122 135,115 Z" />
+</vector>

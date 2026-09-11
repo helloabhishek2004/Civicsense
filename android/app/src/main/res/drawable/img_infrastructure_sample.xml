@@ -1,0 +1,27 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="300dp"
+    android:height="200dp"
+    android:viewportWidth="300"
+    android:viewportHeight="200">
+    <path
+        android:fillColor="#4D5650"
+        android:pathData="M0,0h300v200h-300z" />
+    <!-- Footpath tiles -->
+    <path
+        android:fillColor="#8C9388"
+        android:pathData="M0,120h300v80h-300z" />
+    <path
+        android:fillColor="#70766D"
+        android:pathData="M50,120v80h3v-80z M120,120v80h3v-80z M190,120v80h3v-80z M260,120v80h3v-80z" />
+    <!-- Broken streetlight post -->
+    <path
+        android:fillColor="#343833"
+        android:pathData="M70,40 h10 v120 h-10 z" />
+    <path
+        android:fillColor="#B7791F"
+        android:pathData="M60,35 h30 v12 h-30 z" />
+    <!-- Cracked slab -->
+    <path
+        android:fillColor="#222521"
+        android:pathData="M115,145 L140,165 L135,185 L160,195 L145,198 L125,180 L130,160 Z" />
+</vector>

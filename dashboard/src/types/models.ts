@@ -1,0 +1,150 @@
+import {
+  BackendReportStatus,
+  BackendSeverityLevel,
+  BackendPriorityLevel,
+  BackendVerificationDecision,
+  BackendEvidenceRead,
+  BackendAIAnalysisRead,
+  BackendVerificationRead,
+} from './api/backendContracts';
+
+export type {
+  BackendReportStatus,
+  BackendSeverityLevel,
+  BackendPriorityLevel,
+  BackendVerificationDecision,
+};
+
+export type CivicCategory =
+  | 'Pothole'
+  | 'Garbage'
+  | 'Water Leakage'
+  | 'Streetlight'
+  | 'Road Damage'
+  | 'Drainage'
+  | 'Other';
+
+export type DepartmentName =
+  | 'Roads & Bridges'
+  | 'Solid Waste Management'
+  | 'Water Supply & Sewerage'
+  | 'Street Lighting & Electrical'
+  | 'Town Planning & Enforcement'
+  | 'General Public Works';
+
+export type ClosureReason =
+  | 'INVALID_REPORT'
+  | 'DUPLICATE'
+  | 'OUT_OF_SCOPE'
+  | 'INSUFFICIENT_EVIDENCE'
+  | 'RESOLVED_EXTERNALLY'
+  | 'OTHER';
+
+export type LifecyclePhase = 'ALL' | 'INTAKE' | 'VERIFICATION' | 'WORKFLOW' | 'RESOLUTION';
+
+export interface AuditEvent {
+  id: string;
+  timestamp: string;
+  actor: string;
+  action: string;
+  fromStatus?: BackendReportStatus;
+  toStatus?: BackendReportStatus;
+  notes?: string;
+}
+
+export interface InternalNote {
+  id: string;
+  author: string;
+  authorRole: string;
+  content: string;
+  createdAt: string;
+}
+
+export interface SlaInfo {
+  targetHours: number;
+  remainingHours: number;
+  isBreached: boolean;
+  deadline: string;
+}
+
+export interface ReportItem {
+  id: string;
+  trackingId: string;
+  status: BackendReportStatus;
+  category: CivicCategory;
+  description: string;
+  citizenId?: string;
+  citizenName?: string;
+  citizenPhone?: string;
+  latitude: number;
+  longitude: number;
+  addressHint?: string;
+  department?: DepartmentName;
+  assignedOfficer?: string;
+  severity: BackendSeverityLevel;
+  priority: BackendPriorityLevel;
+  confidence?: number;
+  evidenceAgreement?: number;
+  reviewRequired: boolean;
+  evidences: BackendEvidenceRead[];
+  aiAnalyses: BackendAIAnalysisRead[];
+  verifications: BackendVerificationRead[];
+  internalNotes?: InternalNote[];
+  sla?: SlaInfo;
+  closureReason?: ClosureReason;
+  closureNotes?: string;
+  auditTrail: AuditEvent[];
+  createdAt: string;
+  updatedAt: string;
+  resolvedAt?: string;
+}
+
+/**
+ * Server-authoritative transition map strictly matching backend ReportLifecycleManager._TRANSITION_MAP
+ */
+export const ALLOWED_TRANSITIONS: Record<BackendReportStatus, readonly BackendReportStatus[]> = {
+  SUBMITTED: ['AI_PROCESSING', 'CLOSED'],
+  AI_PROCESSING: ['AI_PROCESSED', 'VERIFICATION_REQUIRED'],
+  AI_PROCESSED: ['VERIFICATION_REQUIRED', 'VERIFIED', 'PRIORITIZED'],
+  VERIFICATION_REQUIRED: ['VERIFIED', 'CLOSED'],
+  VERIFIED: ['PRIORITIZED', 'CLOSED'],
+  PRIORITIZED: ['ASSIGNED', 'IN_PROGRESS'],
+  ASSIGNED: ['IN_PROGRESS', 'PRIORITIZED'],
+  IN_PROGRESS: ['RESOLVED', 'ASSIGNED'],
+  RESOLVED: ['RESOLUTION_VERIFIED', 'IN_PROGRESS'],
+  RESOLUTION_VERIFIED: ['CLOSED'],
+  CLOSED: [],
+} as const;
+
+export interface ReportFilterParams {
+  phase?: LifecyclePhase;
+  status?: BackendReportStatus;
+  category?: CivicCategory | 'ALL';
+  severity?: BackendSeverityLevel | 'ALL';
+  priority?: BackendPriorityLevel | 'ALL';
+  department?: DepartmentName | 'ALL';
+  search?: string;
+  page?: number;
+  pageSize?: number;
+  sortBy?: 'createdAt' | 'priority' | 'severity' | 'updatedAt';
+  sortOrder?: 'asc' | 'desc';
+}
+
+export interface ReportListResult {
+  items: ReportItem[];
+  total: number;
+  page: number;
+  pageSize: number;
+  totalPages: number;
+}
+
+export interface ReportStats {
+  totalReports: number;
+  pendingReview: number;
+  inProgress: number;
+  resolvedToday: number;
+  criticalIssues: number;
+  avgResolutionDays: number;
+  humanOverrideRate: number; // Defensible metric (e.g. 8.4%)
+  aiAgreementRate: number; // Defensible metric (e.g. 91.2%)
+}

@@ -1,0 +1,20 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="300dp"
+    android:height="200dp"
+    android:viewportWidth="300"
+    android:viewportHeight="200">
+    <path
+        android:fillColor="#68736B"
+        android:pathData="M0,0h300v200h-300z" />
+    <!-- Water stream and puddle -->
+    <path
+        android:fillColor="#3A647B"
+        android:pathData="M110,30 C130,50 120,90 145,110 C165,125 210,130 240,155 C260,175 220,195 160,190 C100,185 70,165 75,140 C80,115 100,105 105,70 Z" />
+    <path
+        android:fillColor="#5A8BA8"
+        android:pathData="M125,75 C135,90 130,110 145,125 C160,135 190,140 210,155 C220,165 190,178 150,175 C110,170 95,155 100,140 C105,125 120,115 120,95 Z" />
+    <!-- Pipe fracture -->
+    <path
+        android:fillColor="#2D3330"
+        android:pathData="M80,30 h50 v25 h-50 z" />
+</vector>

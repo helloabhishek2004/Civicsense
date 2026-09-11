@@ -1,0 +1,142 @@
+@import "leaflet/dist/leaflet.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-civic-green: #526B55;
+    --color-civic-green-container: #E4ECE2;
+    --color-civic-bg: #F7F7F2;
+    --color-civic-surface: #FFFFFF;
+    --color-civic-border: #E6E8E3;
+    --color-civic-text: #20231F;
+    --color-civic-muted: #5F6368;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .dark {
+    --color-civic-green: #6E8B72;
+    --color-civic-green-container: #222C24;
+    --color-civic-bg: #121411;
+    --color-civic-surface: #1A1E1A;
+    --color-civic-border: #2E352D;
+    --color-civic-text: #E2E5DF;
+    --color-civic-muted: #9EA49D;
+  }
+
+  /* Apple Design Optical Sizing & Typographic Hierarchy */
+  h1, .text-display {
+    letter-spacing: -0.028em;
+    line-height: 1.15;
+    font-weight: 700;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  h2 {
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    font-weight: 600;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  h3 {
+    letter-spacing: -0.015em;
+    line-height: 1.35;
+    font-weight: 600;
+  }
+
+  p, span, td, th, input, select, textarea {
+    letter-spacing: -0.005em;
+    line-height: 1.45;
+  }
+
+  .text-caps, .badge {
+    letter-spacing: 0.04em;
+    font-weight: 600;
+  }
+
+  /* Button and interactive press feedback (Apple direct response) */
+  button:active, a:active {
+    transform: scale(0.98);
+    transition: transform 100ms ease-out;
+  }
+
+  /* Calm, subtle selection styling */
+  ::selection {
+    background-color: #E4ECE2;
+    color: #111F13;
+  }
+
+  .dark ::selection {
+    background-color: #3B4E3D;
+    color: #FFFFFF;
+  }
+}
+
+/* Reduced Motion Support (Apple Rule 14) */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Subtle, polished scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 9999px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* Leaflet container fixes */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  font-family: inherit;
+  z-index: 10;
+}
+
+/* Dropdown animate-in helpers (used by legacy dropdown patterns) */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes zoom-in-95 {
+  from { transform: scale(0.95); }
+  to   { transform: scale(1); }
+}
+.animate-in {
+  animation-duration: 140ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-fill-mode: both;
+}
+.fade-in { animation-name: fade-in; }
+.zoom-in-95 { animation-name: zoom-in-95; }
+

@@ -15,6 +15,7 @@ class ReportLifecycleManager:
     _TRANSITION_MAP: dict[ReportStatus, set[ReportStatus]] = {
         ReportStatus.SUBMITTED: {
             ReportStatus.AI_PROCESSING,
+            ReportStatus.VERIFIED,  # Direct officer intake verification
             ReportStatus.CLOSED,  # e.g., immediate spam/abuse discard
         },
         ReportStatus.AI_PROCESSING: {
