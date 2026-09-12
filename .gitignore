@@ -4,6 +4,7 @@
 !.env.example
 *.properties
 !gradle.properties
+!**/gradle/wrapper/gradle-wrapper.properties
 local.properties
 **/local.properties
 
@@ -44,10 +45,15 @@ Thumbs.db
 # ML / Data (Phase 0 safety guards)
 data/raw/
 data/processed/
-models/
-checkpoints/
+/models/
+/checkpoints/
+!backend/app/models/
 
 # Local databases & logs
 *.log
 *.sqlite
 *.db
+
+# Uploaded test & runtime evidence
+backend/uploads/*
+!backend/uploads/.gitkeep

@@ -1,9 +1,11 @@
 import time
 import uuid
+from pathlib import Path
 
 from fastapi import FastAPI, Request, Response
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoint
 
 from app.api.v1.api import api_v1_router
@@ -80,6 +82,7 @@ def create_application() -> FastAPI:
     app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.CORS_ORIGINS,
+        allow_origin_regex=r"^https?://(localhost|127\.0\.0\.1)(:\d+)?$",
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
@@ -92,6 +95,11 @@ def create_application() -> FastAPI:
 
     # Root Health check
     app.include_router(health_router, tags=["Health"])
+
+    # Static uploads directory for evidence media
+    uploads_path = Path(settings.UPLOADS_DIR)
+    uploads_path.mkdir(parents=True, exist_ok=True)
+    app.mount("/uploads", StaticFiles(directory=str(uploads_path)), name="uploads")
 
     # Versioned API
     app.include_router(api_v1_router, prefix="/api/v1")

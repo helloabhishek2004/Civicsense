@@ -92,8 +92,8 @@ fun ReportWizardScreen(
                 ImageCaptureScreen(
                     uiState = uiState,
                     onPrepareCameraUri = { viewModel.prepareCameraCaptureUri(context) },
-                    onCameraSuccess = { viewModel.onCameraCaptured() },
-                    onImageSelected = { uri -> viewModel.onImageSelected(uri) },
+                    onCameraSuccess = { viewModel.onCameraCaptured(context) },
+                    onImageSelected = { uri -> viewModel.onImageSelected(uri, context) },
                     onSelectMockSample = { res, cat -> viewModel.onSelectMockSampleImage(res, cat) },
                     onRemoveImage = { viewModel.removeImage() },
                     onContinue = { viewModel.setStep(ReportStep.DESCRIPTION) },
@@ -133,7 +133,7 @@ fun ReportWizardScreen(
                     },
                     onEditDescription = { viewModel.setStep(ReportStep.DESCRIPTION) },
                     onEditLocation = { viewModel.setStep(ReportStep.LOCATION) },
-                    onSubmitReport = { viewModel.submitReport() },
+                    onSubmitReport = { viewModel.submitReport(context) },
                     onNavigateBack = { viewModel.setStep(ReportStep.LOCATION) }
                 )
             }

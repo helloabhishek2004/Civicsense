@@ -11,6 +11,8 @@ import {
   BackendSeverityLevel,
   BackendPriorityLevel,
   BackendVerificationDecision,
+  BackendAssignmentRead,
+  BackendDepartmentRejectionReason,
 } from '@/types/api/backendContracts';
 import {
   AIJob,
@@ -47,6 +49,23 @@ export interface IReportRepository {
     assignedOfficer?: string,
     actor?: string
   ): Promise<ReportItem>;
+  acknowledgeJob(
+    id: string,
+    assignedOfficer?: string,
+    notes?: string
+  ): Promise<ReportItem>;
+  completeJob(
+    id: string,
+    resolverNotes: string,
+    resolvedBy?: string
+  ): Promise<ReportItem>;
+  rejectJob(
+    id: string,
+    rejectionReason: BackendDepartmentRejectionReason,
+    notes: string,
+    suggestedDepartment?: string
+  ): Promise<ReportItem>;
+  getReportAssignments(id: string): Promise<BackendAssignmentRead[]>;
   prioritizeReport(
     id: string,
     priority: BackendPriorityLevel,

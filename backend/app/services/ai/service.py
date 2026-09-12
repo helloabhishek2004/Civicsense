@@ -191,12 +191,13 @@ class AIService:
                 )
             ).all()
         )
-        if completed_jobs:
-            total_lat_ms = sum(
-                max(1.0, (j.completed_at - j.started_at).total_seconds() * 1000.0)
-                for j in completed_jobs
-            )
-            avg_latency = total_lat_ms / len(completed_jobs)
+        valid_durations = [
+            max(1.0, (j.completed_at - j.started_at).total_seconds() * 1000.0)
+            for j in completed_jobs
+            if j.completed_at is not None and j.started_at is not None
+        ]
+        if valid_durations:
+            avg_latency = sum(valid_durations) / len(valid_durations)
         else:
             avg_latency = None
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { MapRenderer } from '../map/MapRenderer';
@@ -7,6 +7,7 @@ import {
   MapPin,
   User,
   Phone,
+  Mail,
   Bot,
   CheckCircle,
   AlertTriangle,
@@ -31,12 +32,15 @@ import {
   Cpu,
   GitCompare,
   RefreshCw,
+  Smartphone,
 } from 'lucide-react';
 import { reportRepository } from '@/services/repository/reportRepository';
 import { queryKeys } from '@/services/queryKeys';
 import { useAuth } from '@/core/auth/AuthContext';
 import { can } from '@/core/auth/permissions';
 import { env } from '@/core/config/env';
+import { resolveMediaUrl } from '@/core/utils/mediaUtils';
+import { parseUtcDate, formatDateTime, formatTime, formatDateFull } from '@/core/utils/dateUtils';
 import {
   ALLOWED_TRANSITIONS,
   BackendReportStatus,
@@ -47,6 +51,7 @@ import {
   DepartmentName,
   ReportItem,
 } from '@/types/models';
+import { BackendDepartmentRejectionReason } from '@/types/api/backendContracts';
 import { StatusBadge } from '@/core/components/StatusBadge';
 import { SeverityBadge } from '@/core/components/SeverityBadge';
 import { PriorityBadge } from '@/core/components/PriorityBadge';
@@ -87,7 +92,7 @@ export const ReportDetailPage: React.FC = () => {
 
   // Active modal state
   const [activeModal, setActiveModal] = useState<
-    'VERIFY' | 'REJECT' | 'PRIORITIZE' | 'ASSIGN' | 'RESOLVE' | 'IMAGE_PREVIEW' | null
+    'VERIFY' | 'REJECT' | 'PRIORITIZE' | 'ASSIGN' | 'RESOLVE' | 'DECLINE_JOB' | 'IMAGE_PREVIEW' | null
   >(null);
 
   // Form states for transitions
@@ -98,8 +103,12 @@ export const ReportDetailPage: React.FC = () => {
   const [targetDepartment, setTargetDepartment] = useState<DepartmentName>('Roads & Bridges');
   const [assignedOfficer, setAssignedOfficer] = useState('');
   const [actionNotes, setActionNotes] = useState('');
+  const [declineReason, setDeclineReason] =
+    useState<BackendDepartmentRejectionReason>('OUT_OF_JURISDICTION');
+  const [declineNotes, setDeclineNotes] = useState('');
   const [previewImageUri, setPreviewImageUri] = useState<string | null>(null);
   const [newNoteContent, setNewNoteContent] = useState('');
+  const [imageLoadFailed, setImageLoadFailed] = useState(false);
 
   // Fetch report data
   const {
@@ -112,7 +121,30 @@ export const ReportDetailPage: React.FC = () => {
     queryKey: queryKeys.reports.detail(id || ''),
     queryFn: () => reportRepository.getReportById(id || ''),
     enabled: !!id,
+    refetchInterval: 4000,
+    refetchIntervalInBackground: false,
+    refetchOnWindowFocus: true,
   });
+
+  const rawImageUri = report?.evidences?.[0]?.storage_uri;
+  const resolvedImageUrl = resolveMediaUrl(rawImageUri);
+
+  useEffect(() => {
+    setImageLoadFailed(false);
+  }, [report?.id]);
+
+  useEffect(() => {
+    if (report) {
+      console.log('[CivicSense][Audit] Detail fields presence:', {
+        reportId: report.id,
+        trackingId: report.trackingId,
+        hasRawImage: !!rawImageUri,
+        hasResolvedImage: !!resolvedImageUrl,
+        hasCitizenName: !!report.citizenName,
+        hasCitizenPhone: !!report.citizenPhone,
+      });
+    }
+  }, [report, rawImageUri, resolvedImageUrl]);
 
   // Fetch persisted AI Result and Job State
   const {
@@ -222,8 +254,44 @@ export const ReportDetailPage: React.FC = () => {
     onSuccess: (updated) => {
       queryClient.setQueryData(queryKeys.reports.detail(updated.id), updated);
       queryClient.invalidateQueries({ queryKey: queryKeys.reports.all });
+      queryClient.invalidateQueries({ queryKey: queryKeys.departments.all });
       setActiveModal(null);
       setActionNotes('');
+    },
+  });
+
+  // Acknowledge Job Mutation (Department Workflow)
+  const acknowledgeJobMutation = useMutation({
+    mutationFn: async () => {
+      return reportRepository.acknowledgeJob(
+        report!.id,
+        user ? `${user.name} (${user.role})` : 'Department Supervisor',
+        actionNotes || 'Job acknowledged and crew mobilization commenced'
+      );
+    },
+    onSuccess: (updated) => {
+      queryClient.setQueryData(queryKeys.reports.detail(updated.id), updated);
+      queryClient.invalidateQueries({ queryKey: queryKeys.reports.all });
+      queryClient.invalidateQueries({ queryKey: queryKeys.departments.all });
+      setActionNotes('');
+    },
+  });
+
+  // Decline Job Mutation (Department Workflow)
+  const declineJobMutation = useMutation({
+    mutationFn: async () => {
+      return reportRepository.rejectJob(
+        report!.id,
+        declineReason,
+        declineNotes
+      );
+    },
+    onSuccess: (updated) => {
+      queryClient.setQueryData(queryKeys.reports.detail(updated.id), updated);
+      queryClient.invalidateQueries({ queryKey: queryKeys.reports.all });
+      queryClient.invalidateQueries({ queryKey: queryKeys.departments.all });
+      setActiveModal(null);
+      setDeclineNotes('');
     },
   });
 
@@ -333,7 +401,7 @@ export const ReportDetailPage: React.FC = () => {
       LOW: 168,
     };
     const targetHours = slaHoursMap[item.priority] || 72;
-    const createdMs = new Date(item.createdAt).getTime();
+    const createdMs = parseUtcDate(item.createdAt)?.getTime() ?? Date.now();
     const deadlineMs = createdMs + targetHours * 3600 * 1000;
     const nowMs = Date.now();
     const remainingHours = Math.round((deadlineMs - nowMs) / (3600 * 1000));
@@ -501,8 +569,8 @@ export const ReportDetailPage: React.FC = () => {
               </span>
             </div>
             <p className="text-xs text-civic-text-secondary dark:text-civic-dark-text-secondary mt-0.5">
-              Submitted on {new Date(report.createdAt).toLocaleString()} • Last modified{' '}
-              {new Date(report.updatedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              Submitted on <span title={formatDateFull(report.createdAt)}>{formatDateTime(report.createdAt)}</span> • Last modified{' '}
+              <span title={formatDateFull(report.updatedAt)}>{formatTime(report.updatedAt)}</span>
             </p>
           </div>
         </div>
@@ -513,6 +581,24 @@ export const ReportDetailPage: React.FC = () => {
           <PriorityBadge priority={report.priority} />
         </div>
       </motion.div>
+
+      {/* Reassignment Required Callout */}
+      {report.reassignmentRequired && (
+        <motion.div
+          variants={itemVariants}
+          className="p-4 rounded-civic border border-amber-300 bg-amber-50 dark:bg-amber-950/40 dark:border-amber-900/60 flex items-start gap-3 text-xs shadow-civic-card"
+        >
+          <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+          <div className="space-y-1">
+            <h3 className="font-semibold text-amber-900 dark:text-amber-200 text-sm">
+              Department Reassignment Required
+            </h3>
+            <p className="text-amber-800 dark:text-amber-300 leading-relaxed">
+              A municipal department previously declined this work order. Review the assignment history below to verify the decline reason and reassign this report to the appropriate department.
+            </p>
+          </div>
+        </motion.div>
+      )}
 
       {/* Operational Stage Banner */}
       <motion.div variants={itemVariants} className="p-4 rounded-civic border border-civic-border bg-civic-surface dark:bg-civic-dark-surface dark:border-civic-dark-border shadow-civic-card flex items-center justify-between gap-4 relative overflow-hidden">
@@ -550,18 +636,19 @@ export const ReportDetailPage: React.FC = () => {
               </span>
             </div>
 
-            {report.evidences.length > 0 ? (
+            {resolvedImageUrl && !imageLoadFailed ? (
               <div className="space-y-3">
                 <div className="relative rounded-lg overflow-hidden border border-civic-border dark:border-civic-dark-border bg-black/5 aspect-video flex items-center justify-center group">
                   <img
-                    src={report.evidences[0].storage_uri}
+                    src={resolvedImageUrl}
                     alt="Citizen submitted evidence"
+                    onError={() => setImageLoadFailed(true)}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.01]"
                   />
                   <button
                     type="button"
                     onClick={() => {
-                      setPreviewImageUri(report.evidences[0].storage_uri);
+                      setPreviewImageUri(resolvedImageUrl);
                       setActiveModal('IMAGE_PREVIEW');
                     }}
                     className="absolute bottom-3 right-3 px-3 py-1.5 rounded-lg bg-black/70 hover:bg-black/90 text-white text-xs font-medium backdrop-blur-sm flex items-center gap-1.5 transition-colors shadow-sm"
@@ -578,21 +665,113 @@ export const ReportDetailPage: React.FC = () => {
                       SHA-256:
                     </span>
                     <span className="truncate max-w-[240px] sm:max-w-xs text-civic-text-primary dark:text-civic-dark-text-primary font-bold">
-                      {report.evidences[0].file_hash || 'Simulated SHA-256 Fixture'}
+                      {report.evidences[0]?.file_hash || 'Simulated SHA-256 Fixture'}
                     </span>
                   </div>
                   <span className="text-civic-text-secondary dark:text-civic-dark-text-secondary">
-                    {report.evidences[0].mime_type || 'image/jpeg'} •{' '}
-                    {report.evidences[0].file_size_bytes
+                    {report.evidences[0]?.mime_type || 'image/jpeg'} •{' '}
+                    {report.evidences[0]?.file_size_bytes
                       ? `${(report.evidences[0].file_size_bytes / 1024 / 1024).toFixed(2)} MB`
                       : 'High resolution'}
                   </span>
                 </div>
               </div>
             ) : (
-              <div className="p-8 text-center text-xs text-civic-text-muted border border-dashed rounded-lg">
-                No photographic evidence attached to this report.
+              <div className="p-8 text-center text-xs text-civic-text-muted border border-dashed rounded-lg bg-gray-50/50 dark:bg-civic-dark-surface-elevated/20">
+                {imageLoadFailed
+                  ? 'Photographic evidence attachment could not be loaded.'
+                  : 'No photographic evidence attached to this report.'}
               </div>
+            )}
+          </div>
+
+          {/* Edge Preprocessing Provenance Card (Phase 1) */}
+          <div className="p-5 rounded-civic bg-civic-surface border border-civic-border shadow-civic-card dark:bg-civic-dark-surface dark:border-civic-dark-border">
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <div className="flex items-center gap-2">
+                <div className="p-1.5 rounded-lg bg-teal-50 text-teal-700 dark:bg-teal-950/50 dark:text-teal-300">
+                  <Smartphone className="w-4 h-4" />
+                </div>
+                <div>
+                  <h2 className="text-sm font-semibold text-civic-text-primary dark:text-civic-dark-text-primary">
+                    Client Edge Preprocessing Provenance
+                  </h2>
+                  <span className="text-[10px] text-civic-text-muted font-mono">
+                    {report.edgeMetadata
+                      ? `Contract v${(report.edgeMetadata as any).contract_version || '1.0.0'} • Client Processor v${(report.edgeMetadata as any).client_processing?.processor_version || '1.0.0'}`
+                      : 'Non-edge / legacy citizen submission'}
+                  </span>
+                </div>
+              </div>
+
+              {report.edgeMetadata ? (
+                <span className="inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-0.5 rounded-full border bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800">
+                  <CheckCircle className="w-3 h-3" /> Preprocessed on Device
+                </span>
+              ) : (
+                <span className="inline-flex items-center gap-1 text-[11px] font-medium px-2.5 py-0.5 rounded-full border bg-gray-50 text-gray-600 border-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700">
+                  Direct Ingestion
+                </span>
+              )}
+            </div>
+
+            {report.edgeMetadata ? (
+              <div className="space-y-3">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                  <div className="p-2.5 rounded-lg bg-gray-50 dark:bg-civic-dark-surface-elevated border border-civic-border/60 dark:border-civic-dark-border/60">
+                    <span className="block text-[10px] text-civic-text-muted uppercase tracking-wider">Preview Scaled</span>
+                    <span className="text-xs font-semibold text-civic-text-primary dark:text-civic-dark-text-primary">
+                      {(report.edgeMetadata as any).image_quality?.width && (report.edgeMetadata as any).image_quality?.height
+                        ? `${(report.edgeMetadata as any).image_quality.width} × ${(report.edgeMetadata as any).image_quality.height} px`
+                        : 'No image'}
+                    </span>
+                  </div>
+
+                  <div className="p-2.5 rounded-lg bg-gray-50 dark:bg-civic-dark-surface-elevated border border-civic-border/60 dark:border-civic-dark-border/60">
+                    <span className="block text-[10px] text-civic-text-muted uppercase tracking-wider">Lighting & Focus</span>
+                    <span className="text-xs font-semibold text-civic-text-primary dark:text-civic-dark-text-primary">
+                      {(report.edgeMetadata as any).image_quality
+                        ? `${(report.edgeMetadata as any).image_quality.is_blurry ? 'Blurry' : 'Sharp'} (Lum: ${(((report.edgeMetadata as any).image_quality.brightness ?? 0.5) as number).toFixed(2)})`
+                        : 'N/A'}
+                    </span>
+                  </div>
+
+                  <div className="p-2.5 rounded-lg bg-gray-50 dark:bg-civic-dark-surface-elevated border border-civic-border/60 dark:border-civic-dark-border/60">
+                    <span className="block text-[10px] text-civic-text-muted uppercase tracking-wider">Text Features</span>
+                    <span className="text-xs font-semibold text-civic-text-primary dark:text-civic-dark-text-primary">
+                      {(report.edgeMetadata as any).text_features
+                        ? `${(report.edgeMetadata as any).text_features.word_count || 0} words normalized`
+                        : 'Raw text'}
+                    </span>
+                  </div>
+
+                  <div className="p-2.5 rounded-lg bg-gray-50 dark:bg-civic-dark-surface-elevated border border-civic-border/60 dark:border-civic-dark-border/60">
+                    <span className="block text-[10px] text-civic-text-muted uppercase tracking-wider">On-Device Embeddings</span>
+                    <span className="text-xs font-semibold text-amber-600 dark:text-amber-400">
+                      Not Enabled (Phase 1)
+                    </span>
+                  </div>
+                </div>
+
+                {/* Structured Linguistic Hints Extracted Deterministically on Edge */}
+                {(report.edgeMetadata as any).text_features && (
+                  <div className="p-3 rounded-lg bg-teal-50/40 dark:bg-teal-950/20 border border-teal-200/60 dark:border-teal-900/40 text-xs">
+                    <span className="font-medium text-teal-800 dark:text-teal-300">Client Linguistic Hints: </span>
+                    <span className="text-civic-text-secondary dark:text-civic-dark-text-secondary">
+                      {[
+                        ...(((report.edgeMetadata as any).text_features.category_terms as string[]) || []).map((t: string) => `[Category: ${t}]`),
+                        ...(((report.edgeMetadata as any).text_features.severity_terms as string[]) || []).map((t: string) => `[Severity: ${t}]`),
+                        ...(((report.edgeMetadata as any).text_features.urgency_terms as string[]) || []).map((t: string) => `[Urgency: ${t}]`),
+                        ...(((report.edgeMetadata as any).text_features.location_terms as string[]) || []).map((t: string) => `[Location: ${t}]`),
+                      ].join(' ') || 'No dictionary terms matched'}
+                    </span>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <p className="text-xs text-civic-text-secondary dark:text-civic-dark-text-secondary">
+                This report was ingested directly without client-side edge preprocessing metadata. Server-side validation and feature extraction applied canonical defaults.
+              </p>
             )}
           </div>
 
@@ -1307,24 +1486,33 @@ export const ReportDetailPage: React.FC = () => {
                     <CivicButton
                       variant="primary"
                       size="md"
-                      className="w-full"
-                      isLoading={transitionMutation.isPending}
+                      className="w-full bg-indigo-600 hover:bg-indigo-700"
+                      isLoading={acknowledgeJobMutation.isPending}
                       leftIcon={<Flame className="w-4 h-4" />}
-                      onClick={() =>
-                        transitionMutation.mutate({
-                          nextStatus: 'IN_PROGRESS',
-                          notes: 'Department field unit logged commencement of repairs',
-                        })
-                      }
+                      onClick={() => acknowledgeJobMutation.mutate()}
                     >
-                      Mobilize Crew (Start Work)
+                      Acknowledge Job & Start Work
                     </CivicButton>
                   )}
 
+                  <CivicButton
+                    variant="outline"
+                    size="md"
+                    className="w-full text-red-600 hover:bg-red-50 dark:hover:bg-red-950/20"
+                    leftIcon={<XCircle className="w-4 h-4" />}
+                    onClick={() => {
+                      setDeclineReason('OUT_OF_JURISDICTION');
+                      setDeclineNotes('');
+                      setActiveModal('DECLINE_JOB');
+                    }}
+                  >
+                    Decline Job & Return to Triage
+                  </CivicButton>
+
                   {canAssign && (
                     <CivicButton
-                      variant="outline"
-                      size="md"
+                      variant="ghost"
+                      size="sm"
                       className="w-full"
                       leftIcon={<Building className="w-4 h-4" />}
                       onClick={() => {
@@ -1452,6 +1640,90 @@ export const ReportDetailPage: React.FC = () => {
             </div>
           </div>
 
+          {/* Citizen Reporter Information (Authorized View Only) */}
+          <div className="p-5 rounded-civic bg-civic-surface border border-civic-border shadow-civic-card dark:bg-civic-dark-surface dark:border-civic-dark-border">
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-sm font-semibold text-civic-text-primary dark:text-civic-dark-text-primary flex items-center gap-1.5">
+                <User className="w-4 h-4 text-civic-green" />
+                Citizen Reporter Information
+              </h2>
+              <span className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800/60">
+                <Lock className="w-3 h-3" />
+                Authorized View Only
+              </span>
+            </div>
+
+            <div className="space-y-3 text-xs">
+              <div className="p-3 rounded-lg bg-gray-50 dark:bg-civic-dark-surface-elevated border border-civic-border/60 dark:border-civic-dark-border/60 space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-civic-text-muted flex items-center gap-1.5">
+                    <User className="w-3.5 h-3.5" /> Full Name:
+                  </span>
+                  <strong className="text-civic-text-primary dark:text-civic-dark-text-primary font-medium text-right">
+                    {report.citizenName || 'Unspecified Citizen'}
+                  </strong>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-civic-text-muted flex items-center gap-1.5">
+                    <Phone className="w-3.5 h-3.5" /> Phone Number:
+                  </span>
+                  {report.citizenPhone ? (
+                    <a
+                      href={`tel:${report.citizenPhone}`}
+                      className="text-civic-green hover:underline font-mono font-medium text-right"
+                    >
+                      {report.citizenPhone}
+                    </a>
+                  ) : (
+                    <span className="text-civic-text-muted font-mono text-right">
+                      Not provided
+                    </span>
+                  )}
+                </div>
+                <div className="flex justify-between items-center gap-2">
+                  <span className="text-civic-text-muted flex items-center gap-1.5 shrink-0">
+                    <Mail className="w-3.5 h-3.5" /> Email Address:
+                  </span>
+                  {report.citizenEmail ? (
+                    <a
+                      href={`mailto:${report.citizenEmail}`}
+                      className="text-civic-green hover:underline font-medium text-right break-all max-w-[200px]"
+                    >
+                      {report.citizenEmail}
+                    </a>
+                  ) : (
+                    <span className="text-civic-text-muted text-right">
+                      Not provided
+                    </span>
+                  )}
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-civic-text-muted flex items-center gap-1.5">
+                    <MapPin className="w-3.5 h-3.5" /> Postal Code:
+                  </span>
+                  <span className="font-mono text-civic-text-primary dark:text-civic-dark-text-primary text-right">
+                    {report.citizenPostalCode || 'Not provided'}
+                  </span>
+                </div>
+                {report.citizenId && (
+                  <div className="flex justify-between items-center pt-1 border-t border-civic-border/40 dark:border-civic-dark-border/40">
+                    <span className="text-civic-text-muted text-[11px]">Citizen ID:</span>
+                    <span className="font-mono text-[11px] text-civic-text-secondary dark:text-civic-dark-text-secondary text-right">
+                      {report.citizenId}
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              <div className="flex items-start gap-1.5 text-[11px] text-civic-text-muted">
+                <ShieldCheck className="w-3.5 h-3.5 text-civic-green shrink-0 mt-0.5" />
+                <span>
+                  Citizen contact details are confidential and accessible solely for official municipal triage, investigation, and resolution verification.
+                </span>
+              </div>
+            </div>
+          </div>
+
           {/* 2. Department Assignment & Response SLA Tracking */}
           <div className="p-5 rounded-civic bg-civic-surface border border-civic-border shadow-civic-card dark:bg-civic-dark-surface dark:border-civic-dark-border">
             <div className="flex items-center justify-between mb-3">
@@ -1510,7 +1782,7 @@ export const ReportDetailPage: React.FC = () => {
                   )}
                 </div>
                 <div className="text-[11px] text-civic-text-muted text-right">
-                  Deadline: {new Date(slaInfo.deadline).toLocaleString()}
+                  Deadline: {formatDateTime(slaInfo.deadline)}
                 </div>
               </div>
             </div>
@@ -1584,8 +1856,8 @@ export const ReportDetailPage: React.FC = () => {
                       <span className="font-semibold text-civic-text-primary dark:text-civic-dark-text-primary">
                         {note.author} ({note.authorRole})
                       </span>
-                      <span className="text-civic-text-muted font-mono">
-                        {new Date(note.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      <span className="text-civic-text-muted font-mono" title={formatDateFull(note.createdAt)}>
+                        {formatTime(note.createdAt)}
                       </span>
                     </div>
                     <p className="text-civic-text-secondary dark:text-civic-dark-text-secondary leading-relaxed">
@@ -1623,6 +1895,77 @@ export const ReportDetailPage: React.FC = () => {
             </div>
           </div>
 
+          {/* Department Assignment History */}
+          <div className="p-5 rounded-civic bg-civic-surface border border-civic-border shadow-civic-card dark:bg-civic-dark-surface dark:border-civic-dark-border">
+            <div className="flex items-center gap-2 mb-3">
+              <Building className="w-4 h-4 text-civic-green" />
+              <h2 className="text-sm font-semibold text-civic-text-primary dark:text-civic-dark-text-primary">
+                Department Assignment History
+              </h2>
+            </div>
+
+            {report.assignments && report.assignments.length > 0 ? (
+              <div className="space-y-3">
+                {report.assignments.map((assignment) => (
+                  <div
+                    key={assignment.id}
+                    className="p-3 rounded-lg border border-civic-border/70 dark:border-civic-dark-border/70 bg-gray-50/50 dark:bg-civic-dark-surface-elevated/40 text-xs space-y-1.5"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="font-semibold text-civic-text-primary dark:text-civic-dark-text-primary">
+                        {assignment.department_name}
+                      </span>
+                      <span
+                        className={`text-[10px] font-bold px-2 py-0.5 rounded ${
+                          assignment.status === 'COMPLETED'
+                            ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300'
+                            : assignment.status === 'REJECTED'
+                            ? 'bg-red-100 text-red-800 dark:bg-red-950/60 dark:text-red-300'
+                            : assignment.status === 'IN_PROGRESS'
+                            ? 'bg-orange-100 text-orange-800 dark:bg-orange-950/60 dark:text-orange-300'
+                            : 'bg-indigo-100 text-indigo-800 dark:bg-indigo-950/60 dark:text-indigo-300'
+                        }`}
+                      >
+                        {assignment.status}
+                      </span>
+                    </div>
+
+                    <div className="text-[11px] text-civic-text-muted flex justify-between">
+                      <span>Assigned by: {assignment.assigned_by}</span>
+                      <span title={formatDateFull(assignment.created_at)}>
+                        {formatDateTime(assignment.created_at)}
+                      </span>
+                    </div>
+
+                    {assignment.assigned_to_officer && (
+                      <div className="text-[11px] text-civic-text-secondary dark:text-civic-dark-text-secondary">
+                        Officer: {assignment.assigned_to_officer}
+                      </div>
+                    )}
+
+                    {assignment.rejection_reason && (
+                      <div className="mt-1 p-2 rounded bg-red-50 dark:bg-red-950/30 text-red-700 dark:text-red-300 text-[11px] border border-red-200 dark:border-red-900/40 space-y-0.5">
+                        <div className="font-bold">Declined: {assignment.rejection_reason}</div>
+                        {assignment.notes && <div className="italic">"{assignment.notes}"</div>}
+                      </div>
+                    )}
+
+                    {assignment.status === 'COMPLETED' && assignment.notes && (
+                      <div className="mt-1 p-2 rounded bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-300 text-[11px] border border-emerald-200 dark:border-emerald-900/40">
+                        <div className="font-medium">Completion Report:</div>
+                        <div className="italic">"{assignment.notes}"</div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="p-4 rounded-lg bg-gray-50/70 dark:bg-civic-dark-surface-elevated/40 text-center text-xs text-civic-text-muted italic">
+                No departmental assignments recorded yet.
+              </div>
+            )}
+          </div>
+
           {/* 5. Audit Trail & Timeline */}
           <div className="p-5 rounded-civic bg-civic-surface border border-civic-border shadow-civic-card dark:bg-civic-dark-surface dark:border-civic-dark-border">
             <div className="flex items-center gap-2 mb-4">
@@ -1640,8 +1983,8 @@ export const ReportDetailPage: React.FC = () => {
                     <span className="font-semibold text-civic-text-primary dark:text-civic-dark-text-primary">
                       {ev.actor}
                     </span>
-                    <span className="font-mono">
-                      {new Date(ev.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    <span className="font-mono" title={formatDateFull(ev.timestamp)}>
+                      {formatTime(ev.timestamp)}
                     </span>
                   </div>
                   <p className="text-civic-text-secondary dark:text-civic-dark-text-secondary">
@@ -1971,6 +2314,66 @@ export const ReportDetailPage: React.FC = () => {
             />
           </div>
         )}
+      </Modal>
+
+      {/* 7. Decline Job Modal */}
+      <Modal
+        isOpen={activeModal === 'DECLINE_JOB'}
+        onClose={() => setActiveModal(null)}
+        title="Decline Department Job Order"
+        description={`Return work ticket ${report.trackingId} back to municipal triage with structured justification.`}
+        footer={
+          <>
+            <CivicButton variant="ghost" size="sm" onClick={() => setActiveModal(null)}>
+              Cancel
+            </CivicButton>
+            <CivicButton
+              variant="danger"
+              size="sm"
+              isLoading={declineJobMutation.isPending}
+              disabled={!declineNotes.trim()}
+              onClick={() => declineJobMutation.mutate()}
+            >
+              Confirm Decline & Return to Triage
+            </CivicButton>
+          </>
+        }
+      >
+        <div className="space-y-4 text-xs">
+          <div>
+            <label className="block font-medium text-civic-text-secondary mb-1">
+              Decline Justification Reason <span className="text-red-500">*</span>
+            </label>
+            <select
+              value={declineReason}
+              onChange={(e) =>
+                setDeclineReason(e.target.value as BackendDepartmentRejectionReason)
+              }
+              className="w-full h-9 px-3 rounded-lg border border-civic-border bg-civic-surface text-civic-text-primary focus:outline-none focus:ring-2 focus:ring-civic-green/30 dark:bg-civic-dark-surface-elevated dark:border-civic-dark-border"
+            >
+              <option value="OUT_OF_JURISDICTION">Outside Department Jurisdiction / Scope</option>
+              <option value="INSUFFICIENT_ACCESS">Inaccessible Location / Physical Barrier</option>
+              <option value="DUPLICATE_WORK_ORDER">Duplicate Existing Work Order</option>
+              <option value="REQUIRES_MAJOR_BUDGET">Requires Capital Budget / Tender</option>
+              <option value="INSUFFICIENT_INFORMATION">Insufficient Evidence / Unlocatable</option>
+              <option value="OTHER">Other Operational Ground</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block font-medium text-civic-text-secondary mb-1">
+              Operational Justification Notes <span className="text-red-500">*</span>
+            </label>
+            <textarea
+              rows={4}
+              required
+              value={declineNotes}
+              onChange={(e) => setDeclineNotes(e.target.value)}
+              placeholder="Explain why this department cannot execute this job order..."
+              className="w-full p-2.5 rounded-lg border border-civic-border bg-civic-surface text-civic-text-primary focus:outline-none focus:ring-2 focus:ring-civic-green/30 dark:bg-civic-dark-surface-elevated dark:border-civic-dark-border"
+            />
+          </div>
+        </div>
       </Modal>
     </motion.div>
   );

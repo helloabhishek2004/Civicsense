@@ -1,5 +1,7 @@
 package com.civicsense.data.model
 
+import com.civicsense.core.util.InputValidators
+
 enum class AppTheme(val displayName: String, val storageKey: String) {
     SYSTEM("System default", "system"),
     LIGHT("Light", "light"),
@@ -55,16 +57,28 @@ enum class ReportCategory(val displayName: String, val shortName: String) {
     WATER_LEAKAGE("Water leakage / broken pipe", "Water leakage"),
     INFRASTRUCTURE("Damaged public infrastructure", "Infrastructure"),
     OTHER("Other civic issue", "Other"),
-    NOT_SURE("Not sure / Need help identifying", "Not sure")
+    NOT_SURE("Not sure / Need help identifying", "Not sure");
+
+    val backendCategory: String
+        get() = when (this) {
+            ROAD_DAMAGE -> "Road Damage"
+            GARBAGE -> "Garbage"
+            WATER_LEAKAGE -> "Water Leakage"
+            INFRASTRUCTURE -> "Infrastructure"
+            OTHER -> "Other"
+            NOT_SURE -> "Other"
+        }
 }
 
 enum class ReportStatus(val displayName: String) {
+    QUEUED_OFFLINE("Saved offline"),
     SUBMITTED("Submitted"),
     UNDER_REVIEW("Under review"),
     CONFIRMED("Confirmed"),
     ASSIGNED("Assigned"),
     IN_PROGRESS("In progress"),
-    RESOLVED("Resolved")
+    RESOLVED("Resolved"),
+    CLOSED("Closed")
 }
 
 enum class SeverityLevel(val displayName: String) {
@@ -102,6 +116,13 @@ data class TimelineStage(
     val isCurrent: Boolean
 )
 
+enum class OnboardingState {
+    LOADING,
+    NEEDS_BOARDING,
+    NEEDS_PROFILE,
+    READY
+}
+
 data class UserProfile(
     val fullName: String = "",
     val mobileNumber: String = "",
@@ -110,7 +131,18 @@ data class UserProfile(
     val postalPin: String = "",
     val isOnboardingCompleted: Boolean = false,
     val isProfileCompleted: Boolean = false
-)
+) {
+    val isProfileValid: Boolean
+        get() = InputValidators.isValidFullName(fullName) &&
+                InputValidators.normalizeIndianMobile(mobileNumber).first
+}
+
+fun resolveOnboardingState(profile: UserProfile?): OnboardingState {
+    if (profile == null) return OnboardingState.LOADING
+    if (!profile.isOnboardingCompleted) return OnboardingState.NEEDS_BOARDING
+    if (!profile.isProfileCompleted || !profile.isProfileValid) return OnboardingState.NEEDS_PROFILE
+    return OnboardingState.READY
+}
 
 data class Report(
     val id: String,
@@ -127,5 +159,8 @@ data class Report(
     val imageUri: String? = null,
     val mockImageDrawableRes: Int? = null,
     val isImageProcessingComplete: Boolean = true,
-    val timeline: List<TimelineStage> = emptyList()
+    val timeline: List<TimelineStage> = emptyList(),
+    val serverStatus: String? = null,
+    val assignedDepartment: String? = null,
+    val reassignmentRequired: Boolean = false
 )

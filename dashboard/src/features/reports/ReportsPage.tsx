@@ -13,6 +13,7 @@ import { SeverityBadge } from '@/core/components/SeverityBadge';
 import { PriorityBadge } from '@/core/components/PriorityBadge';
 import { CivicButton } from '@/core/components/CivicButton';
 import { ErrorBanner } from '@/core/components/ErrorBanner';
+import { formatDateShort, formatDateFull, formatRelativeTime } from '@/core/utils/dateUtils';
 import { motion, type Variants } from 'motion/react';
 
 const containerVariants: Variants = {
@@ -63,6 +64,9 @@ export const ReportsPage: React.FC = () => {
   } = useQuery({
     queryKey: queryKeys.reports.list(filters),
     queryFn: () => reportRepository.getReports(filters),
+    refetchInterval: 5000,
+    refetchIntervalInBackground: false,
+    refetchOnWindowFocus: true,
   });
 
   const handleFilterChange = (newFilters: Partial<ReportFilterParams>) => {
@@ -163,12 +167,18 @@ export const ReportsPage: React.FC = () => {
       header: 'Submitted',
       sortable: true,
       cell: (item) => {
-        const date = new Date(item.createdAt);
+        const shortDate = formatDateShort(item.createdAt);
+        const fullTooltip = formatDateFull(item.createdAt);
+        const relative = formatRelativeTime(item.createdAt);
         return (
-          <span className="text-xs text-civic-text-muted">
-            {date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}{' '}
-            {date.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })}
-          </span>
+          <div className="flex flex-col" title={fullTooltip}>
+            <span className="text-xs font-medium text-civic-text-primary">
+              {shortDate}
+            </span>
+            <span className="text-[10px] text-civic-text-muted">
+              {relative}
+            </span>
+          </div>
         );
       },
     },

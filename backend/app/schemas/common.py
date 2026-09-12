@@ -1,4 +1,15 @@
+import datetime
+
 from pydantic import BaseModel, Field
+
+
+def ensure_utc(dt: datetime.datetime | None) -> datetime.datetime | None:
+    """Ensure datetime is explicitly timezone-aware in UTC."""
+    if dt is None:
+        return None
+    if dt.tzinfo is None:
+        return dt.replace(tzinfo=datetime.UTC)
+    return dt.astimezone(datetime.UTC)
 
 
 class LocationSchema(BaseModel):

@@ -1,20 +1,22 @@
-﻿"""Add AI jobs, job events, and report operational assignment fields
+"""Add AI jobs, job events, and report operational assignment fields
 
 Revision ID: 0002_ai_jobs_and_events
 Revises: 0001_initial
 Create Date: 2026-09-11 23:00:00.000000
 
 """
-from typing import Sequence, Union
+
+from collections.abc import Sequence
+
+import sqlalchemy as sa
 
 from alembic import op
-import sqlalchemy as sa
 
 # revision identifiers, used by Alembic.
 revision: str = "0002_ai_jobs_and_events"
-down_revision: Union[str, None] = "0001_initial"
-branch_labels: Union[str, Sequence[str], None] = None
-depends_on: Union[str, Sequence[str], None] = None
+down_revision: str | None = "0001_initial"
+branch_labels: str | Sequence[str] | None = None
+depends_on: str | Sequence[str] | None = None
 
 
 def upgrade() -> None:
@@ -69,8 +71,18 @@ def upgrade() -> None:
         sa.Column("error_code", sa.String(length=64), nullable=True),
         sa.Column("error_message", sa.Text(), nullable=True),
         sa.Column("attempt_count", sa.Integer(), nullable=False, server_default="1"),
-        sa.Column("execution_mode", sa.String(length=64), nullable=False, server_default="synchronous_demo"),
-        sa.Column("processor_name", sa.String(length=128), nullable=False, server_default="Deterministic Demo Processor"),
+        sa.Column(
+            "execution_mode",
+            sa.String(length=64),
+            nullable=False,
+            server_default="synchronous_demo",
+        ),
+        sa.Column(
+            "processor_name",
+            sa.String(length=128),
+            nullable=False,
+            server_default="Deterministic Demo Processor",
+        ),
         sa.Column("worker_id", sa.String(length=128), nullable=True),
         sa.Column("created_at", sa.DateTime(timezone=True), nullable=False),
         sa.Column("updated_at", sa.DateTime(timezone=True), nullable=False),

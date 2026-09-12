@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { Map as MapIcon, List, Eye, Filter } from 'lucide-react';
@@ -46,6 +46,9 @@ export const MapPage: React.FC = () => {
   const { data: reports, isLoading } = useQuery({
     queryKey: queryKeys.reports.mapPoints(),
     queryFn: () => reportRepository.getMapPoints(),
+    refetchInterval: 15000,
+    refetchIntervalInBackground: false,
+    refetchOnWindowFocus: true,
   });
 
   const filteredReports = (reports || []).filter((r) => {
@@ -54,9 +57,12 @@ export const MapPage: React.FC = () => {
     return true;
   });
 
-  // Calculate center of reports or default to central city location
-  const centerLat = filteredReports.length > 0 ? filteredReports[0].latitude : 12.9716;
-  const centerLng = filteredReports.length > 0 ? filteredReports[0].longitude : 77.5946;
+  // Preserve initial center across polls so map viewport is not reset
+  const initialCenterRef = useRef<[number, number] | null>(null);
+  if (!initialCenterRef.current && filteredReports.length > 0) {
+    initialCenterRef.current = [filteredReports[0].latitude, filteredReports[0].longitude];
+  }
+  const mapCenter = initialCenterRef.current || [12.9716, 77.5946];
 
   return (
     <motion.div
@@ -167,7 +173,7 @@ export const MapPage: React.FC = () => {
           </div>
         ) : viewMode === 'map' ? (
           <MapRenderer
-            center={[centerLat, centerLng]}
+            center={mapCenter}
             zoom={13}
             points={filteredReports}
             onSelectPoint={(selectedId) => navigate(`/reports/${selectedId}`)}

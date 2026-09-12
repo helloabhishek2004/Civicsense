@@ -96,16 +96,35 @@ class DeterministicDemoProcessor:
             ]
 
             s2_dur_ms = max(1, int((time.perf_counter() - stage_start) * 1000))
+            edge_meta = report.edge_metadata or {}
+            edge_enabled = bool(
+                edge_meta.get("client_processing", {}).get("enabled", False)
+                if isinstance(edge_meta, dict)
+                else False
+            )
+            processor_ver = (
+                edge_meta.get("client_processing", {}).get("processor_version", "1.0.0")
+                if isinstance(edge_meta, dict)
+                else "1.0.0"
+            )
+            stage_msg = (
+                f"Preprocessing completed: Evidence cataloged (Edge Preprocessed v{processor_ver})."
+                if edge_enabled
+                else "Preprocessing completed: Text and evidence cataloged."
+            )
+
             db.add(
                 AIJobEvent(
                     job_id=job.id,
                     report_id=report.id,
                     stage=AIProcessingStage.PREPROCESSING,
                     status="COMPLETED",
-                    message="Preprocessing completed: Text and evidence cataloged.",
+                    message=stage_msg,
                     metadata_json={
                         "text_token_count_approx": len(report.description.split()),
                         "evidence_catalog": evidence_summary,
+                        "edge_preprocessed": edge_enabled,
+                        "client_processor_version": processor_ver if edge_enabled else None,
                     },
                     started_at=s2_started,
                     completed_at=datetime.datetime.now(datetime.UTC),

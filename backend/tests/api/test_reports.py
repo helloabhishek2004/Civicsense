@@ -141,3 +141,45 @@ def test_verify_report_endpoint(client: TestClient, sample_report_payload: dict[
     assert updated["verifications"][0]["decision"] == "CONFIRMED"
     assert updated["verifications"][0]["reviewer_id"] == "Officer Sharma"
     assert updated["verifications"][0]["verified_severity"] == "HIGH"
+
+
+def test_create_report_idempotent_replay(
+    client: TestClient, sample_report_payload: dict[str, Any]
+) -> None:
+    """Submitting the same client_report_id twice must replay original report with HTTP 200."""
+    import uuid
+
+    client_id = str(uuid.uuid4())
+    payload = sample_report_payload.copy()
+    payload["client_report_id"] = client_id
+
+    # First submission
+    first_resp = client.post("/api/v1/reports", json=payload)
+    assert first_resp.status_code == 201
+    first_data = first_resp.json()
+
+    # Second submission with same client_report_id
+    second_resp = client.post("/api/v1/reports", json=payload)
+    assert second_resp.status_code == 200
+    assert second_resp.headers.get("X-Idempotent-Replay") == "true"
+    second_data = second_resp.json()
+
+    # Both responses must refer to the exact same report
+    assert first_data["id"] == second_data["id"]
+    assert first_data["tracking_id"] == second_data["tracking_id"]
+
+
+def test_get_report_stats(client: TestClient, sample_report_payload: dict[str, Any]) -> None:
+    """GET /api/v1/reports/stats must return 200 with aggregated operational metrics."""
+    client.post("/api/v1/reports", json=sample_report_payload)
+    resp = client.get("/api/v1/reports/stats")
+    assert resp.status_code == 200
+    data = resp.json()
+    assert "totalReports" in data
+    assert "pendingReview" in data
+    assert "inProgress" in data
+    assert "resolvedToday" in data
+    assert "criticalIssues" in data
+    assert data["totalReports"] >= 1
+
+

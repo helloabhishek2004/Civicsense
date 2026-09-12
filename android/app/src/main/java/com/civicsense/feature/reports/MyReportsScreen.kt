@@ -27,12 +27,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import android.util.Log
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import com.civicsense.core.design.CivicEmptyState
 import com.civicsense.core.design.CivicFilterChip
 import com.civicsense.core.design.CivicReportCard
@@ -40,7 +45,11 @@ import com.civicsense.data.model.Report
 import com.civicsense.data.model.ReportStatus
 import com.civicsense.data.repository.RefreshResult
 import com.civicsense.data.repository.ReportFilter
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+
+private const val MY_REPORTS_POLL_INTERVAL_MS = 10_000L
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -56,11 +65,40 @@ fun MyReportsScreen(
     var isRefreshing by rememberSaveable { mutableStateOf(false) }
     val pullToRefreshState = rememberPullToRefreshState()
     val snackbarHostState = remember { SnackbarHostState() }
+    val lifecycleOwner = LocalLifecycleOwner.current
 
     val filteredReports = when (selectedFilter) {
         ReportFilter.ALL -> reports
-        ReportFilter.ACTIVE -> reports.filter { it.status != ReportStatus.RESOLVED }
-        ReportFilter.RESOLVED -> reports.filter { it.status == ReportStatus.RESOLVED }
+        ReportFilter.ACTIVE -> reports.filter { it.status != ReportStatus.RESOLVED && it.status != ReportStatus.CLOSED }
+        ReportFilter.RESOLVED -> reports.filter { it.status == ReportStatus.RESOLVED || it.status == ReportStatus.CLOSED }
+    }
+
+    // Initial refresh on first composition if list is empty
+    LaunchedEffect(Unit) {
+        if (reports.isEmpty()) {
+            isRefreshing = true
+            try {
+                onRefresh?.invoke()
+            } catch (_: Throwable) {
+            } finally {
+                isRefreshing = false
+            }
+        }
+    }
+
+    // Lifecycle-aware, visibility-aware silent polling while RESUMED
+    LaunchedEffect(lifecycleOwner) {
+        if (onRefresh == null) return@LaunchedEffect
+        lifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+            while (isActive) {
+                delay(MY_REPORTS_POLL_INTERVAL_MS)
+                try {
+                    onRefresh.invoke()
+                } catch (e: Exception) {
+                    Log.d("CivicSenseSync", "Silent my-reports polling skipped on error: ${e.message}")
+                }
+            }
+        }
     }
 
     Scaffold(
@@ -139,12 +177,12 @@ fun MyReportsScreen(
                         onClick = { selectedFilter = ReportFilter.ALL }
                     )
                     CivicFilterChip(
-                        label = "Active (${reports.count { it.status != ReportStatus.RESOLVED }})",
+                        label = "Active (${reports.count { it.status != ReportStatus.RESOLVED && it.status != ReportStatus.CLOSED }})",
                         selected = selectedFilter == ReportFilter.ACTIVE,
                         onClick = { selectedFilter = ReportFilter.ACTIVE }
                     )
                     CivicFilterChip(
-                        label = "Resolved (${reports.count { it.status == ReportStatus.RESOLVED }})",
+                        label = "Resolved (${reports.count { it.status == ReportStatus.RESOLVED || it.status == ReportStatus.CLOSED }})",
                         selected = selectedFilter == ReportFilter.RESOLVED,
                         onClick = { selectedFilter = ReportFilter.RESOLVED }
                     )

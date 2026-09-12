@@ -403,18 +403,37 @@ This is the direct link into MLOps.
 
 ## 21. Report Lifecycle
 
+CivicSense implements an explicit 11-state server-authoritative report lifecycle:
+
 ```
 SUBMITTED → AI_PROCESSING → AI_PROCESSED → VERIFICATION_REQUIRED
   → VERIFIED → PRIORITIZED → ASSIGNED → IN_PROGRESS → RESOLVED
   → RESOLUTION_VERIFIED → CLOSED
 ```
-Some states may be skipped depending on workflow.
+
+### The Municipal Department Execution Workflow
+Once an issue is verified by human review and prioritized, operational resolution shifts to municipal departments:
+1. **Assignment (`PRIORITIZED` → `ASSIGNED`)**: The central triage officer assigns the report to a responsible municipal department (e.g. Roads & Bridges, Water Supply & Sewerage). The assignment record is immutably logged with `AssignmentStatus.ASSIGNED`.
+2. **Acknowledgment (`ASSIGNED` → `IN_PROGRESS`)**: The department acknowledges the job order and assigns it to an operational field officer/crew. The report advances to `IN_PROGRESS`.
+3. **Completion (`IN_PROGRESS` → `RESOLVED`)**: Upon fixing the defect on the ground, the department officer submits a completion report with mandatory field remediation notes (`resolver_notes` $\ge$ 5 characters). The assignment is marked `COMPLETED` and the report transitions to `RESOLVED`.
+4. **Resolution Verification (`RESOLVED` → `RESOLUTION_VERIFIED`)**: A municipal inspector or triage officer inspects and verifies the resolution quality.
+5. **Closure (`RESOLUTION_VERIFIED` → `CLOSED`)**: The report is formally closed. `CLOSED` is an immutable terminal state.
+
+### The Department Rejection & Reassignment Loop
+A critical operational reality is that departments may decline a dispatched ticket if it falls outside their purview or cannot be executed as dispatched:
+- **Non-Destructive Rejection**: If a department declines an assigned job (due to `OUT_OF_JURISDICTION`, `INSUFFICIENT_ACCESS`, `DUPLICATE_WORK_ORDER`, `REQUIRES_MAJOR_BUDGET`, `INSUFFICIENT_INFORMATION`, or `OTHER`), the report is **NEVER closed, dismissed, or deleted**.
+- **State Reversion**: The report transitions backwards from `ASSIGNED` back to `PRIORITIZED`.
+- **Reassignment Flag**: The report is marked with `reassignment_required = True`.
+- **Historical Context Preservation**: The previous department reference is preserved for triage transparency.
+- **Audit Logging**: The active `ReportAssignment` record is updated to `AssignmentStatus.REJECTED` with the structured rejection reason, officer notes, and timestamp.
+- **Triage Action**: The triage dashboard highlights the report with an urgent alert banner, allowing triage officers to reassign the report to the correct department with full historical context.
 
 **Resolution tracking example:**
 ```
 Issue: Pothole
-Reported: 10:30 → Verified: 11:02 → Assigned: 12:15
-Resolved: [date] → Resolution: Completed → Resolution verified: Yes
+Reported: 10:30 → Verified: 11:02 → Prioritized: 11:15 → Assigned (Roads): 12:15
+Acknowledged (In Progress): 13:00 → Resolved (Asphalt patched): 16:30
+Resolution verified: Next day 09:00 → Closed: Next day 09:15
 ```
 Retain the issue and its resolution history — never delete the issue record after repair.
 
@@ -450,28 +469,139 @@ MEDIUM   — #10271 Road crack, 3 reports
 
 ---
 
+## 23b. Municipal Department Operations Subsystem & System-Wide Influence
+
+Central triage officers and AI models do not fix potholes, repair blown streetlights, or clear blocked sewers—operational municipal divisions do. The Municipal Department Operations Subsystem is the operational bridge between administrative triage and physical ground resolution.
+
+### 1. The `Department` Class & Model
+`Department` serves as the canonical registry of real-world municipal operational divisions responsible for resolving civic defects:
+
+- **Entity Schema**:
+  - `id`: UUID (Primary Key)
+  - `name`: VARCHAR(64), unique, indexed (e.g., `"Roads & Bridges"`, `"Solid Waste Management"`)
+  - `code`: VARCHAR(32), unique, indexed short identifier (e.g., `"ROADS"`, `"WASTE"`, `"WATER"`, `"ELECTRICAL"`, `"PLANNING"`, `"PUBLIC_WORKS"`)
+  - `description`: TEXT detailing jurisdictional scope and defect responsibilities
+  - `head_name`: VARCHAR(128) operational lead/engineer title
+  - `contact_email` & `contact_phone`: Official communication coordinates
+  - `sla_hours_default`: Integer default Service Level Agreement window (hours)
+  - `is_active`: Boolean operational availability flag
+  - `created_at` & `updated_at`: Timezone-aware audit timestamps
+- **Relational Integrity**:
+  - `reports`: One-to-many relationship with `Report` (`Report.department_id` foreign key)
+  - `assignments`: One-to-many relationship with `ReportAssignment` (`ReportAssignment.department_id` foreign key)
+- **Canonical Default Divisions**:
+  1. `ROADS` (Roads & Bridges): Road networks, potholes, asphalt paving, flyovers, footpaths, storm drains (48h SLA).
+  2. `WASTE` (Solid Waste Management): Garbage clearance, municipal dumpsters, street sweeping, illegal dumping remediation (24h SLA).
+  3. `WATER` (Water Supply & Sewerage): Potable water mains, leaks, manhole overflows, sewage blockages (36h SLA).
+  4. `ELECTRICAL` (Street Lighting & Electrical): Streetlight fixtures, high-mast lamps, exposed electrical cables, feeder pillars (24h SLA).
+  5. `PLANNING` (Town Planning & Enforcement): Public right-of-way encroachments, unauthorized construction, zoning violations (72h SLA).
+  6. `PUBLIC_WORKS` (Public Works & Infrastructure): Municipal buildings, parks, structural maintenance, general civil works (72h SLA).
+
+### 2. The `ReportAssignment` Class & Audit Ledger
+`ReportAssignment` is an immutable historical audit entity recording each dispatch attempt:
+
+- **Entity Schema**:
+  - `id`: UUID (Primary Key)
+  - `report_id`: UUID, Foreign Key to `reports.id` (ON DELETE CASCADE, indexed)
+  - `department_id`: UUID, Foreign Key to `departments.id` (ON DELETE SET NULL, indexed)
+  - `department_name`: VARCHAR(64), snapshot of department name at dispatch
+  - `assigned_by`: VARCHAR(128), triage officer or system actor initiating dispatch
+  - `assigned_to_officer`: VARCHAR(128), field officer/crew assigned within department
+  - `status`: `AssignmentStatus` enum (`ASSIGNED`, `IN_PROGRESS`, `COMPLETED`, `REJECTED`)
+  - `rejection_reason`: Structured `DepartmentRejectionReason` enum:
+    - `OUT_OF_JURISDICTION`: Physical defect falls under a different municipal division
+    - `INSUFFICIENT_ACCESS`: Site is inaccessible (e.g., locked private gate, flooded road)
+    - `DUPLICATE_WORK_ORDER`: Another active ticket already addresses this physical defect
+    - `REQUIRES_MAJOR_BUDGET`: Exceeds routine maintenance; requires capital budget approval
+    - `INSUFFICIENT_INFORMATION`: Photos/coordinates insufficient to locate defect
+    - `OTHER`: Exceptional operational circumstances (detailed in notes)
+  - `notes`: TEXT containing dispatch instructions, remediation notes, or rejection explanations
+  - `created_at` & `resolved_at`: Dispatch and completion/rejection timestamps
+
+### 3. Domain Functionalities (`DepartmentService`)
+The service layer exposes the operational capabilities required for municipal workflows:
+
+- `list_departments(db, active_only)`: Directory listing of all divisions with calculated real-time workload statistics.
+- `get_department(db, identifier)`: Resilient multi-identifier lookup by UUID, uppercase short code (`ROADS`), or name.
+- `get_workload_stats(db, identifier)`: Real-time query calculating operational workload metrics:
+  - `total_assigned`: Cumulative reports linked to the division.
+  - `pending_acknowledgment`: Reports in `ASSIGNED` status awaiting departmental pickup.
+  - `in_progress`: Reports actively being repaired by field crews.
+  - `resolved`: Remediated reports awaiting inspector verification or closed.
+  - `rejected_assignments`: Historical count of tickets declined by this department.
+  - `reassignment_required`: Reports where previous assignment was rejected and reassignment is pending.
+- `get_department_reports(db, identifier, status, priority, skip, limit)`: Paginated job queue with status/priority filtering.
+- `assign_report(db, report_id, department_id, assigned_by, ...)`: Enforces `PRIORITIZED` → `ASSIGNED` lifecycle transition, creates `ReportAssignment` ledger entry, updates `Report.department_id`, and resets `reassignment_required = False`.
+- `acknowledge_report(db, report_id, assigned_to_officer, notes)`: Transitions `AssignmentStatus` and `ReportStatus` from `ASSIGNED` to `IN_PROGRESS`.
+- `complete_report(db, report_id, resolver_notes, resolved_by)`: Enforces $\ge 5$ char remediation notes, marks assignment `COMPLETED`, sets `resolved_at`, and advances `ReportStatus` to `RESOLVED`.
+- `reject_report(db, report_id, rejection_reason, notes, suggested_department)`: Enforces structured reason and notes, marks assignment `REJECTED`, transitions `ReportStatus` from `ASSIGNED` back to `PRIORITIZED`, flags `reassignment_required = True`, and preserves historical department for triage review.
+- `get_assignment_history(db, report_id)`: Fetches complete chronological audit trail of all assignment attempts.
+
+### 4. System-Wide Influence Matrix
+The Department entity is not an isolated CRUD table—it directly influences all layers of the CivicSense ecosystem:
+
+| Domain / Subsystem | How Department Influences This Domain |
+| :--- | :--- |
+| **Report Lifecycle & State Machine** | Acts as the operational execution engine between administrative triage (`PRIORITIZED`) and physical remediation (`RESOLVED`). Drives state transitions (`PRIORITIZED` → `ASSIGNED` → `IN_PROGRESS` → `RESOLVED`). Governs the non-destructive rejection loop (`ASSIGNED` → `PRIORITIZED` with `reassignment_required=True`), preventing valid civic reports from being discarded due to departmental misrouting. |
+| **Authority Dashboard** | Powers dedicated Department Operations Hub (`/departments`) and Department Workspace (`/departments/:code`) with live job queues and 5-metric workload counters. Real-time TanStack Query polling (5s) keeps department queues fresh. Prominently displays "Department Reassignment Required" alert banners on `ReportDetailPage`. Renders immutable "Department Assignment History" cards with officer names, timestamps, rejection reasons, and completion notes. Adds Department filter to global reports queue and map. |
+| **Citizen Mobile App (Android & Expo)** | Directly influences citizen transparency and trust: Stage 4 of the 6-stage resolution timeline displays the assigned division (`"Assigned to [Department Name]."`). If a department declines a ticket (`reassignment_required=True`), Stage 3 transparently informs the citizen (`"Triage team is reassigning issue to the appropriate division."`) without alarming them with internal rejection jargon. Polling sync keeps citizen devices updated in near-real-time. |
+| **AI & Decision Engine** | Feeds category-to-department recommendation rules during triage. Determines baseline SLA calculation windows based on `Department.sla_hours_default` (e.g., 24h for Sanitation vs 48h for Roads). Enables human-in-the-loop verification of both category classification and proposed department routing. |
+| **Data Mining & Analytics (Academic Domain 3)** | **Cross-Department Defect Correlation**: Discovers systemic inter-departmental root causes (e.g., Water pipeline excavation by Water Dept causing recurring pothole complaints for Roads Dept; or garbage dumping blocking stormwater drainage).<br>**Operational Bottleneck Mining**: Measures acknowledgment latency, repair lead times, and SLA breach rates across municipal divisions.<br>**Jurisdictional Ambiguity Mining**: Analyzing high rejection rates per category pinpoints municipal gray areas (e.g. roadside tree branches between Electrical Dept and Forest/Public Works) requiring policy or classification adjustments. |
+
+---
+
 ## 24. Data Model (conceptual)
 
 ```
 Report
 ------
-report_id
-citizen_id / anonymous identifier
+report_id (UUID)
+tracking_id (unique human-readable string, e.g. REP-YYYYMM-XXXXXX)
+citizen_id (installation-scoped identifier / anonymous token)
+citizen_name, citizen_phone, citizen_email, citizen_postal_code (privacy-controlled)
 timestamp
 latitude, longitude
-category, secondary_category
-description_reference
-image_reference
+category (citizen-selected / verified)
+description
+department_id (FK -> Department.id, nullable)
+department (cached department name string)
+assigned_officer (current assignee name/ID)
+reassignment_required (boolean flag)
+image_reference, image_hash
 image_embedding, text_embedding
 local_prediction, server_prediction
 confidence, severity, priority
-status, verification_status, verification_result
-duplicate_group_id
-model_version
+status (11-state enum), verification_status, verification_result
+issue_id (FK -> Issue.id, real-world defect grouping)
 created_at, updated_at
+
+Department
+----------
+id (UUID)
+name (unique string, e.g. "Roads & Bridges")
+code (unique slug, e.g. "ROADS")
+description (jurisdiction scope)
+head_name (division lead)
+contact_email, contact_phone
+sla_hours_default (integer default SLA hours)
+is_active (boolean)
+created_at, updated_at
+
+ReportAssignment
+----------------
+id (UUID)
+report_id (FK -> Report.id)
+department_id (FK -> Department.id)
+department_name (snapshot string)
+assigned_by (triage officer / system)
+assigned_to_officer (field officer / crew lead)
+status (ASSIGNED | IN_PROGRESS | COMPLETED | REJECTED)
+rejection_reason (OUT_OF_JURISDICTION | INSUFFICIENT_ACCESS | DUPLICATE_WORK_ORDER | REQUIRES_MAJOR_BUDGET | INSUFFICIENT_INFORMATION | OTHER)
+notes (dispatch instructions, remediation notes, or rejection explanation)
+created_at, resolved_at
 ```
 
-**Suggested entities:** User, Report, ReportEvidence, AIAnalysis, Verification, IssueGroup, Location, Resolution, ModelVersion, FeedbackEvent.
+**Suggested entities:** User, Report, ReportEvidence, AIAnalysis, Verification, Department, ReportAssignment, IssueGroup (Issue), Location, Resolution, ModelVersion, FeedbackEvent.
 
 Data mining should ideally operate on **analytical views** derived from these tables rather than being tightly coupled to transactional tables. Schema evolves during implementation.
 
@@ -584,11 +714,11 @@ Production → Predictions → Human Corrections → Verified Dataset
 Represented through the full software lifecycle: OOP design, requirements, architecture, UML, Agile/Scrum, API design, testing, deployment, MLOps, monitoring, human-in-the-loop, maintainability.
 
 ### UML Deliverables
-- **Use Case Diagram** — actors: Citizen, Authority Officer, Reviewer, Administrator, ML/MLOps System
-- **Class Diagram** — core entities: User, Report, Evidence, AIAnalysis, Verification, IssueGroup, Resolution, ModelVersion
-- **Activity Diagram** — citizen report processing
-- **Sequence Diagram** — Citizen → Mobile App → API → AI Service → Decision Engine → Database → Dashboard
-- **State Chart** — report lifecycle
+- **Use Case Diagram** — actors: Citizen, Triage Officer, Department Officer/Admin, Municipal Inspector, Reviewer, Administrator, ML/MLOps System
+- **Class Diagram** — core entities: User, Report, Evidence, AIAnalysis, Verification, Department, ReportAssignment, IssueGroup (Issue), Resolution, ModelVersion
+- **Activity Diagram** — citizen report processing and municipal department remediation
+- **Sequence Diagram** — Citizen → Mobile App → API → AI Pipeline → Triage Officer → Department Dispatch → Department Remediation → Inspector Verification → Database → Dashboard
+- **State Chart** — 11-stage report lifecycle with department operational loops (assignment, acknowledgment, completion, rejection & reassignment)
 
 ---
 
@@ -724,15 +854,15 @@ Then layer on: duplicate detection → geospatial hotspots → frequent patterns
                   lightweight AI, quality check)
                              │
                              ▼
-                        API LAYER
+                         API LAYER
                              │
                              ▼
-              SERVER AI (Vision, Text, Fusion,
-              Similarity, Duplicate detection)
+               SERVER AI (Vision, Text, Fusion,
+               Similarity, Duplicate detection)
                              │
                              ▼
-              DECISION ENGINE (Category, Confidence,
-              Severity, Priority, Conflict)
+               DECISION ENGINE (Category, Confidence,
+               Severity, Priority, Conflict)
                              │
                   ┌──────────┴──────────┐
                   ▼                     ▼
@@ -740,21 +870,38 @@ Then layer on: duplicate detection → geospatial hotspots → frequent patterns
                   │                     │
                   └──────────┬──────────┘
                              ▼
+               CENTRAL TRIAGE & PRIORITIZATION
+                             │
+                             ▼
+               MUNICIPAL DEPARTMENT DISPATCH
+       (Roads, Waste, Water, Electrical, Planning, etc.)
+            ┌────────────────┴────────────────┐
+            ▼                                 ▼
+   FIELD ACKNOWLEDGE & REMEDIATION    DEPARTMENT REJECTION
+        (In Progress → Resolved)      (Return to Prioritized
+            │                         reassignment_required=True)
+            ▼                                 │
+   RESOLUTION VERIFICATION                    │
+   (Inspector review → Closed)                │
+            │                                 │
+            └───────────────┬─────────────────┘
+                            ▼
                   CIVIC DATABASE (Reports, Evidence,
-                  Verification, Resolution, Model versions)
-                             │
-                             ▼
+                  Verification, Departments, Assignments,
+                  Resolutions, Model versions)
+                            │
+                            ▼
                   DATA MINING (Hotspots, Clustering,
-                  Trends, Patterns, Correlations)
-                             │
-                             ▼
-                  AUTHORITY DASHBOARD (Priority, Map,
-                  Analytics, Lifecycle)
-                             │
-                             ▼
-                        RESOLUTION → FEEDBACK → MLOps
-                             │
-                             └──────────► MODEL IMPROVEMENT
+                  Trends, Patterns, Correlations, Lead-times)
+                            │
+                            ▼
+            AUTHORITY DASHBOARD & DEPARTMENT WORKSPACES
+            (Queue, Map, Analytics, SLAs, Live Polling)
+                            │
+                            ▼
+                  RESOLUTION → FEEDBACK → MLOps
+                            │
+                            └──────────► MODEL IMPROVEMENT
 ```
 
 ---

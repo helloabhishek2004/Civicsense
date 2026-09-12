@@ -2,8 +2,10 @@ package com.civicsense.feature.report
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.civicsense.BuildConfig
 import com.civicsense.core.util.CameraHelper
 import com.civicsense.core.util.InputValidators
 import com.civicsense.core.util.LocationHelper
@@ -18,17 +20,28 @@ import com.civicsense.data.model.ReportLocation
 import com.civicsense.data.model.ReportStatus
 import com.civicsense.data.model.SeverityLevel
 import com.civicsense.data.model.TimelineStage
+import com.civicsense.data.repository.PreferenceRepository
 import com.civicsense.data.repository.ReportRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+
+import com.civicsense.core.edge.CivicImagePreprocessor
+import com.civicsense.core.edge.CivicSenseEdgeProcessor
+import com.civicsense.core.edge.ImageQualityMetrics
+import com.civicsense.core.edge.ProcessedReportPackage
+import com.civicsense.core.network.CivicReportUploadClient
+import com.civicsense.core.network.UploadResult
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 enum class ReportStep {
     INTRO,
@@ -45,6 +58,7 @@ enum class SubmissionState {
     IDLE,
     SUBMITTING,
     SUCCESS,
+    QUEUED_OFFLINE,
     ERROR
 }
 
@@ -61,6 +75,8 @@ data class ReportUiState(
     val mockImageDrawableRes: Int? = null,
     val hasImage: Boolean = false,
     val imageProcessingState: ImageProcessingState = ImageProcessingState(),
+    val imageMetrics: ImageQualityMetrics? = null,
+    val edgePackage: ProcessedReportPackage? = null,
     val description: String = "",
     val descriptionError: String? = null,
     val reportLocation: ReportLocation = ReportLocation(),
@@ -77,7 +93,10 @@ data class ReportUiState(
 )
 
 class ReportViewModel(
-    private val reportRepository: ReportRepository = ReportRepository.getInstance()
+    private val reportRepository: ReportRepository = ReportRepository.getInstance(),
+    private val edgeProcessor: CivicSenseEdgeProcessor = CivicSenseEdgeProcessor.getInstance(),
+    private val uploadClient: CivicReportUploadClient = CivicReportUploadClient(),
+    private val preferenceRepository: PreferenceRepository? = null
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ReportUiState())
@@ -103,7 +122,7 @@ class ReportViewModel(
     /**
      * Called when the camera capture successfully writes to tempCameraUri.
      */
-    fun onCameraCaptured() {
+    fun onCameraCaptured(context: Context? = null) {
         val uri = _uiState.value.tempCameraUri ?: return
         _uiState.update {
             it.copy(
@@ -113,10 +132,14 @@ class ReportViewModel(
                 currentStep = ReportStep.IMAGE_PREVIEW
             )
         }
-        startNonBlockingImageProcessing()
+        if (context != null) {
+            startRealImageProcessing(context, uri)
+        } else {
+            startNonBlockingImageProcessing()
+        }
     }
 
-    fun onImageSelected(uri: Uri?) {
+    fun onImageSelected(uri: Uri?, context: Context? = null) {
         if (uri == null) return
         _uiState.update {
             it.copy(
@@ -126,7 +149,11 @@ class ReportViewModel(
                 currentStep = ReportStep.IMAGE_PREVIEW
             )
         }
-        startNonBlockingImageProcessing()
+        if (context != null) {
+            startRealImageProcessing(context, uri)
+        } else {
+            startNonBlockingImageProcessing()
+        }
     }
 
     fun onSelectMockSampleImage(drawableRes: Int, category: ReportCategory) {
@@ -150,8 +177,66 @@ class ReportViewModel(
                 mockImageDrawableRes = null,
                 hasImage = false,
                 imageProcessingState = ImageProcessingState(),
+                imageMetrics = null,
                 currentStep = ReportStep.IMAGE_CAPTURE
             )
+        }
+    }
+
+    private fun startRealImageProcessing(context: Context, uri: Uri) {
+        imageProcessingJob?.cancel()
+        imageProcessingJob = viewModelScope.launch {
+            _uiState.update {
+                it.copy(
+                    imageProcessingState = ImageProcessingState(
+                        stage = ImageProcessingStage.PREPARING,
+                        feedback = ImageQualityFeedback.GOOD,
+                        isComplete = false
+                    )
+                )
+            }
+
+            val result = withContext(Dispatchers.IO) {
+                CivicImagePreprocessor.preprocess(context, uri)
+            }
+
+            _uiState.update {
+                it.copy(
+                    imageProcessingState = it.imageProcessingState.copy(
+                        stage = ImageProcessingStage.CHECKING_QUALITY
+                    )
+                )
+            }
+            delay(150)
+
+            if (result.isSuccess && result.metrics != null) {
+                val feedback = when {
+                    result.metrics.brightness != null && result.metrics.brightness < 0.22f -> ImageQualityFeedback.TOO_DARK
+                    result.metrics.isBlurry == true -> ImageQualityFeedback.BLURRY
+                    else -> ImageQualityFeedback.GOOD
+                }
+                _uiState.update {
+                    it.copy(
+                        selectedImageUri = result.previewUri ?: it.selectedImageUri,
+                        imageMetrics = result.metrics,
+                        imageProcessingState = ImageProcessingState(
+                            stage = ImageProcessingStage.READY,
+                            feedback = feedback,
+                            isComplete = true
+                        )
+                    )
+                }
+            } else {
+                _uiState.update {
+                    it.copy(
+                        imageProcessingState = ImageProcessingState(
+                            stage = ImageProcessingStage.READY,
+                            feedback = ImageQualityFeedback.GOOD,
+                            isComplete = true
+                        )
+                    )
+                }
+            }
         }
     }
 
@@ -431,16 +516,35 @@ class ReportViewModel(
         discardDraftAndReset(null)
     }
 
-    fun submitReport() {
+    fun submitReport(context: Context? = null) {
         val currentState = _uiState.value
         if (currentState.isSubmitting || currentState.submissionState == SubmissionState.SUBMITTING) {
             return
         }
 
+        val totalSubmitStart = System.currentTimeMillis()
+        val clientReportId = java.util.UUID.randomUUID().toString()
+
+        Log.i("CivicSenseSubmit", "SUBMIT_START client_report_id=$clientReportId api_base_url=${BuildConfig.API_BASE_URL}")
+
+        // Client validation check
+        val valStart = System.currentTimeMillis()
+        val isValid = currentState.description.trim().length >= 5
+        val valDuration = System.currentTimeMillis() - valStart
+        Log.i("CivicSenseSubmit", "VALIDATION_COMPLETE duration_ms=$valDuration valid=$isValid")
+
+        // Location check
+        val locStart = System.currentTimeMillis()
+        Log.i("CivicSenseSubmit", "LOCATION_START")
+        val hasCoords = currentState.reportLocation.hasCoordinates
+        val locDuration = System.currentTimeMillis() - locStart
+        Log.i("CivicSenseSubmit", "LOCATION_COMPLETE duration_ms=$locDuration has_coords=$hasCoords address=${currentState.reportLocation.address}")
+
         _uiState.update {
             it.copy(
                 isSubmitting = true,
                 submissionState = SubmissionState.SUBMITTING,
+                submissionStage = SubmissionStage.PREPARING,
                 submissionError = null
             )
         }
@@ -448,97 +552,203 @@ class ReportViewModel(
         viewModelScope.launch {
             try {
                 val timestamp = SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault()).format(Date())
-                val randomNum = (10000..99999).random()
-                val newReportId = "CS-DEMO-$randomNum"
 
-                val title = if (currentState.description.length > 35) {
-                    currentState.description.take(35).trim() + "…"
-                } else {
-                    currentState.description.ifBlank { "Citizen Civic Report" }
-                }
+                if (context != null) {
+                    val userProfile = preferenceRepository?.userProfileFlow?.firstOrNull()
+                    val citizenId = preferenceRepository?.getOrCreateCitizenId()
+                    val citizenName = userProfile?.fullName?.trim()?.ifEmpty { null }
+                    val citizenPhone = userProfile?.mobileNumber?.trim()?.ifEmpty { null }
+                    val citizenEmail = userProfile?.email?.trim()?.ifEmpty { null }
+                    val citizenPostalCode = userProfile?.postalPin?.trim()?.ifEmpty { null }
 
-                val location = currentState.reportLocation
-                val newReport = Report(
-                    id = newReportId,
-                    title = title,
-                    description = currentState.description,
-                    category = currentState.selectedCategory,
-                    status = ReportStatus.SUBMITTED,
-                    severity = SeverityLevel.MEDIUM,
-                    dateTime = timestamp,
-                    address = location.displayAddress,
-                    postalPin = location.postalPin.orEmpty(),
-                    latitude = location.latitude,
-                    longitude = location.longitude,
-                    imageUri = currentState.selectedImageUri?.toString(),
-                    mockImageDrawableRes = currentState.mockImageDrawableRes,
-                    isImageProcessingComplete = true,
-                    timeline = listOf(
-                        TimelineStage(
-                            status = ReportStatus.SUBMITTED,
-                            date = timestamp,
-                            description = "Report received and evidence cryptographically recorded.",
-                            isCompleted = true,
-                            isCurrent = true
-                        ),
-                        TimelineStage(
-                            status = ReportStatus.UNDER_REVIEW,
-                            date = null,
-                            description = "Triage team is verifying the issue location and severity.",
-                            isCompleted = false,
-                            isCurrent = false
-                        ),
-                        TimelineStage(
-                            status = ReportStatus.CONFIRMED,
-                            date = null,
-                            description = "Verification by municipal ward engineer.",
-                            isCompleted = false,
-                            isCurrent = false
-                        ),
-                        TimelineStage(
-                            status = ReportStatus.ASSIGNED,
-                            date = null,
-                            description = "Work order issued to municipal maintenance crew.",
-                            isCompleted = false,
-                            isCurrent = false
-                        ),
-                        TimelineStage(
-                            status = ReportStatus.IN_PROGRESS,
-                            date = null,
-                            description = "On-site repair and defect remediation.",
-                            isCompleted = false,
-                            isCurrent = false
-                        ),
-                        TimelineStage(
-                            status = ReportStatus.RESOLVED,
-                            date = null,
-                            description = "Final inspection and defect closure.",
-                            isCompleted = false,
-                            isCurrent = false
+                    // 1. Real On-Device Edge Preprocessing
+                    val processingResult = withContext(Dispatchers.IO) {
+                        edgeProcessor.process(
+                            context = context,
+                            rawDescription = currentState.description,
+                            imageUri = currentState.selectedImageUri,
+                            location = currentState.reportLocation,
+                            category = currentState.selectedCategory.backendCategory,
+                            categoryHint = currentState.selectedCategory.shortName,
+                            clientReportId = clientReportId,
+                            citizenId = citizenId,
+                            citizenName = citizenName,
+                            citizenPhone = citizenPhone,
+                            citizenEmail = citizenEmail,
+                            citizenPostalCode = citizenPostalCode
                         )
-                    )
-                )
+                    }
 
-                // Real repository persistence without artificial delays
-                reportRepository.addReport(newReport)
+                    _uiState.update {
+                        it.copy(
+                            edgePackage = processingResult.reportPackage,
+                            submissionStage = SubmissionStage.UPLOADING
+                        )
+                    }
 
-                _uiState.update {
-                    it.copy(
-                        isSubmitting = false,
-                        submissionState = SubmissionState.SUCCESS,
-                        createdReport = newReport,
-                        currentStep = ReportStep.SUCCESS
+                    // 2. Reliable Upload Pipeline with Bounded Exponential Backoff
+                    val uploadResult = withContext(Dispatchers.IO) {
+                        uploadClient.uploadReport(processingResult.reportPackage)
+                    }
+
+                    when (uploadResult) {
+                        is UploadResult.Success -> {
+                            preferenceRepository?.addSubmittedReportId(uploadResult.serverTrackingId)
+                            val newReport = createReportModel(
+                                reportId = uploadResult.serverTrackingId,
+                                currentState = currentState,
+                                timestamp = timestamp,
+                                status = ReportStatus.SUBMITTED
+                            )
+                            reportRepository.addReport(newReport)
+                            _uiState.update {
+                                it.copy(
+                                    submissionState = SubmissionState.SUCCESS,
+                                    createdReport = newReport,
+                                    currentStep = ReportStep.SUCCESS
+                                )
+                            }
+                        }
+                        is UploadResult.OfflineQueued -> {
+                            val offlineId = "CS-OFFLINE-${clientReportId.take(5).uppercase()}"
+                            preferenceRepository?.addSubmittedReportId(offlineId)
+                            val offlineReport = createReportModel(
+                                reportId = offlineId,
+                                currentState = currentState,
+                                timestamp = timestamp,
+                                status = ReportStatus.QUEUED_OFFLINE
+                            )
+                            reportRepository.addReport(offlineReport)
+                            _uiState.update {
+                                it.copy(
+                                    submissionState = SubmissionState.QUEUED_OFFLINE,
+                                    createdReport = offlineReport,
+                                    currentStep = ReportStep.SUCCESS
+                                )
+                            }
+                        }
+                        is UploadResult.Error -> {
+                            _uiState.update {
+                                it.copy(
+                                    submissionState = SubmissionState.ERROR,
+                                    submissionError = uploadResult.message
+                                )
+                            }
+                        }
+                    }
+                } else {
+                    // Headless local fallback (for unit tests without Android Context)
+                    val randomNum = (10000..99999).random()
+                    val newReportId = "CS-DEMO-$randomNum"
+                    val newReport = createReportModel(
+                        reportId = newReportId,
+                        currentState = currentState,
+                        timestamp = timestamp,
+                        status = ReportStatus.SUBMITTED
                     )
+                    reportRepository.addReport(newReport)
+                    _uiState.update {
+                        it.copy(
+                            submissionState = SubmissionState.SUCCESS,
+                            createdReport = newReport,
+                            currentStep = ReportStep.SUCCESS
+                        )
+                    }
                 }
             } catch (e: Exception) {
+                Log.e("CivicSenseSubmit", "SUBMISSION_UNCAUGHT_EXCEPTION error=${e.message}", e)
                 _uiState.update {
                     it.copy(
-                        isSubmitting = false,
                         submissionState = SubmissionState.ERROR,
                         submissionError = e.message ?: "Failed to submit report. Please try again."
                     )
                 }
+            } finally {
+                val totalDuration = System.currentTimeMillis() - totalSubmitStart
+                _uiState.update { it.copy(isSubmitting = false) }
+                Log.i("CivicSenseSubmit", "SUBMIT_END total_duration_ms=$totalDuration status=${_uiState.value.submissionState}")
             }
         }
+    }
+
+    private fun createReportModel(
+        reportId: String,
+        currentState: ReportUiState,
+        timestamp: String,
+        status: ReportStatus = ReportStatus.SUBMITTED
+    ): Report {
+        val title = if (currentState.description.length > 35) {
+            currentState.description.take(35).trim() + "…"
+        } else {
+            currentState.description.ifBlank { "Citizen Civic Report" }
+        }
+
+        val location = currentState.reportLocation
+        val initialTimelineDesc = if (status == ReportStatus.QUEUED_OFFLINE) {
+            "Report preserved locally on this device. Network connection pending."
+        } else {
+            "Report received and evidence cryptographically recorded."
+        }
+
+        return Report(
+            id = reportId,
+            title = title,
+            description = currentState.description,
+            category = currentState.selectedCategory,
+            status = status,
+            severity = SeverityLevel.MEDIUM,
+            dateTime = timestamp,
+            address = location.displayAddress,
+            postalPin = location.postalPin.orEmpty(),
+            latitude = location.latitude,
+            longitude = location.longitude,
+            imageUri = currentState.selectedImageUri?.toString(),
+            mockImageDrawableRes = currentState.mockImageDrawableRes,
+            isImageProcessingComplete = true,
+            timeline = listOf(
+                TimelineStage(
+                    status = status,
+                    date = timestamp,
+                    description = initialTimelineDesc,
+                    isCompleted = true,
+                    isCurrent = true
+                ),
+                TimelineStage(
+                    status = ReportStatus.UNDER_REVIEW,
+                    date = null,
+                    description = "Triage team is verifying the issue location and severity.",
+                    isCompleted = false,
+                    isCurrent = false
+                ),
+                TimelineStage(
+                    status = ReportStatus.CONFIRMED,
+                    date = null,
+                    description = "Verification by municipal ward engineer.",
+                    isCompleted = false,
+                    isCurrent = false
+                ),
+                TimelineStage(
+                    status = ReportStatus.ASSIGNED,
+                    date = null,
+                    description = "Work order issued to municipal maintenance crew.",
+                    isCompleted = false,
+                    isCurrent = false
+                ),
+                TimelineStage(
+                    status = ReportStatus.IN_PROGRESS,
+                    date = null,
+                    description = "On-site repair and defect remediation.",
+                    isCompleted = false,
+                    isCurrent = false
+                ),
+                TimelineStage(
+                    status = ReportStatus.RESOLVED,
+                    date = null,
+                    description = "Final inspection and defect closure.",
+                    isCompleted = false,
+                    isCurrent = false
+                )
+            )
+        )
     }
 }

@@ -23,7 +23,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.civicsense.R
+import com.civicsense.data.model.OnboardingState
 import com.civicsense.data.model.UserProfile
+import com.civicsense.data.model.resolveOnboardingState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import kotlinx.coroutines.delay
 
 @Composable
@@ -35,6 +40,7 @@ fun SplashScreen(
     modifier: Modifier = Modifier
 ) {
     val alphaAnim = remember { Animatable(0f) }
+    var hasNavigated by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         alphaAnim.animateTo(
@@ -43,13 +49,21 @@ fun SplashScreen(
         )
     }
 
-    LaunchedEffect(userProfile) {
-        if (userProfile != null) {
+    val onboardingState = remember(userProfile) {
+        resolveOnboardingState(userProfile)
+    }
+
+    LaunchedEffect(onboardingState) {
+        if (!hasNavigated && onboardingState != OnboardingState.LOADING) {
             delay(500) // Brief natural transition, no artificial 3-5s delay
-            when {
-                !userProfile.isOnboardingCompleted -> onNavigateToOnboarding()
-                !userProfile.isProfileCompleted -> onNavigateToProfileSetup()
-                else -> onNavigateToHome()
+            if (!hasNavigated) {
+                hasNavigated = true
+                when (onboardingState) {
+                    OnboardingState.NEEDS_BOARDING -> onNavigateToOnboarding()
+                    OnboardingState.NEEDS_PROFILE -> onNavigateToProfileSetup()
+                    OnboardingState.READY -> onNavigateToHome()
+                    OnboardingState.LOADING -> { /* maintain splash screen */ }
+                }
             }
         }
     }

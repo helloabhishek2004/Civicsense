@@ -20,6 +20,56 @@ export type BackendPriorityLevel = 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
 export type BackendEvidenceType = 'IMAGE' | 'TEXT' | 'METADATA';
 export type BackendVerificationDecision = 'CONFIRMED' | 'CORRECTED' | 'REJECTED' | 'DUPLICATE';
 
+export type BackendAssignmentStatus = 'ASSIGNED' | 'IN_PROGRESS' | 'COMPLETED' | 'REJECTED';
+export type BackendDepartmentRejectionReason =
+  | 'OUT_OF_JURISDICTION'
+  | 'INSUFFICIENT_ACCESS'
+  | 'DUPLICATE_WORK_ORDER'
+  | 'REQUIRES_MAJOR_BUDGET'
+  | 'INSUFFICIENT_INFORMATION'
+  | 'OTHER';
+
+export interface BackendAssignmentRead {
+  id: string;
+  report_id: string;
+  department_id?: string | null;
+  department_name: string;
+  assigned_by: string;
+  assigned_to_officer?: string | null;
+  status: BackendAssignmentStatus;
+  rejection_reason?: BackendDepartmentRejectionReason | null;
+  notes?: string | null;
+  created_at: string;
+  resolved_at?: string | null;
+}
+
+export interface BackendDepartmentWorkloadStats {
+  department_id: string;
+  department_name: string;
+  department_code: string;
+  total_assigned: number;
+  pending_acknowledgment: number;
+  in_progress: number;
+  resolved: number;
+  rejected_assignments: number;
+  reassignment_required: number;
+}
+
+export interface BackendDepartmentRead {
+  id: string;
+  name: string;
+  code: string;
+  description?: string | null;
+  head_name?: string | null;
+  contact_email?: string | null;
+  contact_phone?: string | null;
+  sla_hours_default: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+  stats?: BackendDepartmentWorkloadStats | null;
+}
+
 export interface BackendEvidenceRead {
   id: string;
   report_id: string;
@@ -71,15 +121,28 @@ export interface BackendReportRead {
   id: string;
   tracking_id: string;
   status: BackendReportStatus;
+  category?: string | null;
   citizen_id?: string | null;
+  citizen_name?: string | null;
+  citizen_phone?: string | null;
+  citizen_email?: string | null;
+  citizen_postal_code?: string | null;
   latitude: number;
   longitude: number;
   address_hint?: string | null;
   description: string;
   issue_id?: string | null;
+  department_id?: string | null;
+  department?: string | null;
+  assigned_officer?: string | null;
+  priority?: BackendPriorityLevel | null;
+  reassignment_required?: boolean;
   evidences: BackendEvidenceRead[];
   ai_analyses: BackendAIAnalysisRead[];
   verifications: BackendVerificationRead[];
+  assignments?: BackendAssignmentRead[];
+  current_assignment?: BackendAssignmentRead | null;
+  edge_metadata?: Record<string, unknown> | null;
   created_at: string;
   updated_at: string;
 }

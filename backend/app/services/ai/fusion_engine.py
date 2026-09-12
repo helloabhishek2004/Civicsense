@@ -45,8 +45,8 @@ class PrototypeFusionEngine:
             )
 
         # Severity agreement
-        v_weight = self.SEVERITY_WEIGHTS.get(v_sev, 2)
-        t_weight = self.SEVERITY_WEIGHTS.get(t_sev, 2)
+        v_weight = self.SEVERITY_WEIGHTS.get(v_sev, 2) if isinstance(v_sev, SeverityLevel) else 2
+        t_weight = self.SEVERITY_WEIGHTS.get(t_sev, 2) if isinstance(t_sev, SeverityLevel) else 2
         sev_diff = abs(v_weight - t_weight)
         sev_agree = sev_diff == 0
         if not sev_agree:

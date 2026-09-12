@@ -81,11 +81,17 @@ export const OverviewPage: React.FC = () => {
   const { data: stats, isLoading: isStatsLoading } = useQuery({
     queryKey: queryKeys.reports.stats(),
     queryFn: () => reportRepository.getStats(),
+    refetchInterval: 10000,
+    refetchIntervalInBackground: false,
+    refetchOnWindowFocus: true,
   });
 
   const { data: urgentReports, isLoading: isUrgentLoading } = useQuery({
     queryKey: queryKeys.reports.list({ pageSize: 5, sortBy: 'priority', sortOrder: 'desc' }),
     queryFn: () => reportRepository.getReports({ pageSize: 5, sortBy: 'priority', sortOrder: 'desc' }),
+    refetchInterval: 10000,
+    refetchIntervalInBackground: false,
+    refetchOnWindowFocus: true,
   });
 
   return (

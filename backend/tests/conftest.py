@@ -1,3 +1,4 @@
+import datetime
 from collections.abc import Generator
 from typing import Any
 
@@ -10,6 +11,7 @@ from sqlalchemy.pool import StaticPool
 from app.api.dependencies import get_db
 from app.db.base import Base
 from app.main import app
+from app.models.department import DEFAULT_DEPARTMENTS, Department
 
 # In-memory SQLite database isolated per test session
 TEST_DATABASE_URL = "sqlite:///:memory:"
@@ -27,6 +29,24 @@ def db_session() -> Generator[Session, None, None]:
     """Create fresh database tables for each test function and yield a session."""
     Base.metadata.create_all(bind=test_engine)
     session = TestingSessionLocal()
+    now = datetime.datetime.now(datetime.UTC)
+    for d in DEFAULT_DEPARTMENTS:
+        session.add(
+            Department(
+                id=d["id"],
+                name=d["name"],
+                code=d["code"],
+                description=d["description"],
+                head_name=d["head_name"],
+                contact_email=d["contact_email"],
+                contact_phone=d["contact_phone"],
+                sla_hours_default=d["sla_hours_default"],
+                is_active=d["is_active"],
+                created_at=now,
+                updated_at=now,
+            )
+        )
+    session.commit()
     try:
         yield session
     finally:

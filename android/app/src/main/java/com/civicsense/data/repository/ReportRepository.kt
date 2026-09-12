@@ -33,6 +33,7 @@ sealed interface RefreshResult {
  */
 interface ReportsDataSource {
     suspend fun fetchReports(): List<Report>
+    suspend fun fetchReport(identifier: String): Report? = null
 }
 
 /**
@@ -43,6 +44,10 @@ class LocalReportsDataSource(
 ) : ReportsDataSource {
     override suspend fun fetchReports(): List<Report> {
         return seedSupplier()
+    }
+
+    override suspend fun fetchReport(identifier: String): Report? {
+        return seedSupplier().find { it.id == identifier }
     }
 }
 
@@ -65,7 +70,8 @@ class ReportRepository private constructor(
 
     fun addReport(report: Report) {
         _reports.update { current ->
-            listOf(report) + current
+            val withoutDuplicate = current.filter { it.id != report.id }
+            listOf(report) + withoutDuplicate
         }
     }
 
@@ -76,20 +82,46 @@ class ReportRepository private constructor(
         }
         return try {
             val fetchedReports = dataSource.fetchReports()
-            if (fetchedReports.isEmpty()) {
-                _reports.value = emptyList()
+            _reports.update { current ->
+                val queuedOffline = current.filter { it.status == ReportStatus.QUEUED_OFFLINE }
+                val serverMap = fetchedReports.associateBy { it.id }
+                val offlinePreserved = queuedOffline.filter { it.id !in serverMap }
+                val merged = (offlinePreserved + fetchedReports).sortedByDescending { it.dateTime }
+                if (current == merged) current else merged
+            }
+            if (_reports.value.isEmpty()) {
                 RefreshResult.NoData
             } else {
-                _reports.update { current ->
-                    val combined = current + fetchedReports
-                    combined.distinctBy { it.id }
-                }
                 RefreshResult.Success(_reports.value.size)
             }
         } catch (e: Exception) {
             RefreshResult.Error(e.message ?: "Failed to refresh civic reports", e)
         } finally {
             isRefreshing.set(false)
+        }
+    }
+
+    suspend fun fetchReportDetail(identifier: String): Report? {
+        val cached = getReportById(identifier)
+        return try {
+            val remote = dataSource.fetchReport(identifier)
+            if (remote != null) {
+                _reports.update { current ->
+                    val existing = current.find { it.id == remote.id }
+                    if (existing == remote) {
+                        current
+                    } else {
+                        val map = current.associateBy { it.id }.toMutableMap()
+                        map[remote.id] = remote
+                        map.values.sortedByDescending { it.dateTime }
+                    }
+                }
+                remote
+            } else {
+                cached
+            }
+        } catch (_: Exception) {
+            cached
         }
     }
 
@@ -102,8 +134,8 @@ class ReportRepository private constructor(
         val current = _reports.value
         return when (filter) {
             ReportFilter.ALL -> current
-            ReportFilter.ACTIVE -> current.filter { it.status != ReportStatus.RESOLVED }
-            ReportFilter.RESOLVED -> current.filter { it.status == ReportStatus.RESOLVED }
+            ReportFilter.ACTIVE -> current.filter { it.status != ReportStatus.RESOLVED && it.status != ReportStatus.CLOSED }
+            ReportFilter.RESOLVED -> current.filter { it.status == ReportStatus.RESOLVED || it.status == ReportStatus.CLOSED }
         }
     }
 

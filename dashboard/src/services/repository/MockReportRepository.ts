@@ -13,6 +13,8 @@ import {
   BackendSeverityLevel,
   BackendPriorityLevel,
   BackendVerificationDecision,
+  BackendAssignmentRead,
+  BackendDepartmentRejectionReason,
 } from '@/types/api/backendContracts';
 import {
   AIJob,
@@ -363,6 +365,59 @@ export class MockReportRepository implements IReportRepository {
 
     report.updatedAt = now;
     return JSON.parse(JSON.stringify(report));
+  }
+
+  async acknowledgeJob(
+    id: string,
+    assignedOfficer?: string,
+    notes?: string
+  ): Promise<ReportItem> {
+    await this.simulateLatency();
+    const index = this.reports.findIndex((r) => r.id === id || r.trackingId === id);
+    if (index === -1) {
+      throw new RepositoryError(`Report not found`, 'NOT_FOUND', { statusCode: 404 });
+    }
+    const report = this.reports[index];
+    if (assignedOfficer) report.assignedOfficer = assignedOfficer;
+    return this.transitionStatus(id, 'IN_PROGRESS', undefined, notes, assignedOfficer || 'Department Officer');
+  }
+
+  async completeJob(
+    id: string,
+    resolverNotes: string,
+    resolvedBy?: string
+  ): Promise<ReportItem> {
+    await this.simulateLatency();
+    return this.transitionStatus(id, 'RESOLVED', undefined, resolverNotes, resolvedBy || 'Department Officer');
+  }
+
+  async rejectJob(
+    id: string,
+    rejectionReason: BackendDepartmentRejectionReason,
+    notes: string,
+    suggestedDepartment?: string
+  ): Promise<ReportItem> {
+    await this.simulateLatency();
+    const index = this.reports.findIndex((r) => r.id === id || r.trackingId === id);
+    if (index === -1) {
+      throw new RepositoryError(`Report not found`, 'NOT_FOUND', { statusCode: 404 });
+    }
+    const report = this.reports[index];
+    report.reassignmentRequired = true;
+    return this.transitionStatus(
+      id,
+      'PRIORITIZED',
+      `Rejected (${rejectionReason})`,
+      `${notes}${suggestedDepartment ? ` [Suggested: ${suggestedDepartment}]` : ''}`,
+      'Department Officer'
+    );
+  }
+
+  async getReportAssignments(id: string): Promise<BackendAssignmentRead[]> {
+    await this.simulateLatency();
+    const index = this.reports.findIndex((r) => r.id === id || r.trackingId === id);
+    if (index === -1) return [];
+    return this.reports[index].assignments || [];
   }
 
   async addInternalNote(

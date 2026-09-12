@@ -38,9 +38,13 @@ fun CivicStatusChip(
     modifier: Modifier = Modifier
 ) {
     val (bgColor, textColor) = when (status) {
-        ReportStatus.SUBMITTED -> Pair(
+        ReportStatus.QUEUED_OFFLINE -> Pair(
             MaterialTheme.colorScheme.surfaceVariant,
             MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        ReportStatus.SUBMITTED -> Pair(
+            MaterialTheme.civicColors.successContainer,
+            MaterialTheme.civicColors.onSuccessContainer
         )
         ReportStatus.UNDER_REVIEW -> Pair(
             MaterialTheme.civicColors.warningContainer,
@@ -61,6 +65,10 @@ fun CivicStatusChip(
         ReportStatus.RESOLVED -> Pair(
             MaterialTheme.civicColors.successContainer,
             MaterialTheme.civicColors.onSuccessContainer
+        )
+        ReportStatus.CLOSED -> Pair(
+            MaterialTheme.colorScheme.surfaceVariant,
+            MaterialTheme.colorScheme.onSurfaceVariant
         )
     }
 

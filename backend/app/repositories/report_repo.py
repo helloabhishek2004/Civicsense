@@ -1,9 +1,13 @@
+import base64
 import datetime
+import hashlib
 import uuid
+from pathlib import Path
 
 from sqlalchemy import desc, func, select
 from sqlalchemy.orm import Session, joinedload
 
+from app.core.config import get_settings
 from app.models.enums import PriorityLevel, ReportStatus
 from app.models.evidence import Evidence
 from app.models.report import Report
@@ -25,30 +29,85 @@ class ReportRepository(BaseRepository[Report]):
     def __init__(self) -> None:
         super().__init__(Report)
 
-    def create(self, db: Session, schema: ReportCreate) -> Report:
-        """Create a new report in SUBMITTED state with attached evidence."""
+    def create(self, db: Session, schema: ReportCreate) -> tuple[Report, bool]:
+        """Create a new report in SUBMITTED state with attached evidence.
+
+        Returns a tuple of (report, is_created). If client_report_id was already
+        ingested, returns (existing_report, False) for idempotent replay.
+        """
+        if schema.client_report_id is not None:
+            existing = self.get_by_id_with_relations(db, schema.client_report_id)
+            if existing is not None:
+                return existing, False
+
         tracking_id = generate_tracking_id()
         report_id = schema.client_report_id or uuid.uuid4()
+
+        edge_metadata_dump = (
+            schema.edge_metadata.model_dump() if schema.edge_metadata is not None else None
+        )
+
+        category = schema.category
+        if not category and schema.edge_metadata and schema.edge_metadata.category_hint:
+            category = schema.edge_metadata.category_hint
 
         report = Report(
             id=report_id,
             tracking_id=tracking_id,
+            category=category,
             citizen_id=schema.citizen_id,
+            citizen_name=schema.citizen_name,
+            citizen_phone=schema.citizen_phone,
+            citizen_email=schema.citizen_email,
+            citizen_postal_code=schema.citizen_postal_code,
             status=ReportStatus.SUBMITTED,
             latitude=schema.location.latitude,
             longitude=schema.location.longitude,
             address_hint=schema.location.address_hint,
             description=schema.description,
+            edge_metadata=edge_metadata_dump,
         )
 
         for ev in schema.evidence:
+            storage_uri = ev.storage_uri
+            file_hash = ev.file_hash
+            mime_type = ev.mime_type or "image/jpeg"
+            file_size_bytes = ev.file_size_bytes
+
+            if ev.data_base64:
+                try:
+                    raw_bytes = base64.b64decode(ev.data_base64)
+                    file_size_bytes = len(raw_bytes)
+                    file_hash = hashlib.sha256(raw_bytes).hexdigest()
+
+                    ext = ".jpg"
+                    if raw_bytes.startswith(b"\x89PNG"):
+                        ext = ".png"
+                        mime_type = "image/png"
+                    elif raw_bytes.startswith(b"RIFF") and b"WEBP" in raw_bytes[:16]:
+                        ext = ".webp"
+                        mime_type = "image/webp"
+
+                    settings = get_settings()
+                    upload_dir = Path(settings.UPLOADS_DIR)
+                    upload_dir.mkdir(parents=True, exist_ok=True)
+
+                    filename = f"rep_{report.id}_{uuid.uuid4().hex[:8]}{ext}"
+                    filepath = upload_dir / filename
+                    with open(filepath, "wb") as f:
+                        f.write(raw_bytes)
+
+                    storage_uri = f"/uploads/{filename}"
+                except Exception:
+                    pass
+
             evidence_model = Evidence(
                 report_id=report.id,
                 evidence_type=ev.evidence_type,
-                storage_uri=ev.storage_uri,
-                file_hash=ev.file_hash,
-                mime_type=ev.mime_type,
-                file_size_bytes=ev.file_size_bytes,
+                storage_uri=storage_uri,
+                file_hash=file_hash,
+                mime_type=mime_type,
+                file_size_bytes=file_size_bytes,
                 metadata_json=ev.metadata_json,
             )
             report.evidences.append(evidence_model)
@@ -56,7 +115,7 @@ class ReportRepository(BaseRepository[Report]):
         db.add(report)
         db.commit()
         db.refresh(report)
-        return report
+        return report, True
 
     def get_by_id_with_relations(self, db: Session, report_id: uuid.UUID) -> Report | None:
         """Fetch report with eagerly loaded relations."""
@@ -67,6 +126,7 @@ class ReportRepository(BaseRepository[Report]):
                 joinedload(Report.ai_analyses),
                 joinedload(Report.verifications),
                 joinedload(Report.ai_jobs),
+                joinedload(Report.assignments),
             )
             .where(Report.id == report_id)
         )
@@ -81,14 +141,46 @@ class ReportRepository(BaseRepository[Report]):
                 joinedload(Report.ai_analyses),
                 joinedload(Report.verifications),
                 joinedload(Report.ai_jobs),
+                joinedload(Report.assignments),
             )
             .where(Report.tracking_id == tracking_id)
         )
         return db.scalars(stmt).unique().first()
 
-    def list_reports(self, db: Session, skip: int = 0, limit: int = 20) -> tuple[list[Report], int]:
-        """List reports sorted descending by creation time with total count."""
+    def list_reports(
+        self,
+        db: Session,
+        skip: int = 0,
+        limit: int = 20,
+        citizen_id: str | None = None,
+        department: str | None = None,
+        department_id: uuid.UUID | None = None,
+        status: ReportStatus | None = None,
+        category: str | None = None,
+        priority: PriorityLevel | None = None,
+        reassignment_required: bool | None = None,
+    ) -> tuple[list[Report], int]:
+        """List reports sorted descending by creation time with total count.
+
+        Supports filtering by citizen_id, department name, department_id,
+        status, category, priority, and reassignment_required.
+        """
         count_stmt = select(func.count()).select_from(Report)
+        if citizen_id is not None:
+            count_stmt = count_stmt.where(Report.citizen_id == citizen_id)
+        if department_id is not None:
+            count_stmt = count_stmt.where(Report.department_id == department_id)
+        elif department is not None:
+            count_stmt = count_stmt.where(Report.department == department)
+        if status is not None:
+            count_stmt = count_stmt.where(Report.status == status)
+        if category is not None:
+            count_stmt = count_stmt.where(Report.category == category)
+        if priority is not None:
+            count_stmt = count_stmt.where(Report.priority == priority)
+        if reassignment_required is not None:
+            count_stmt = count_stmt.where(Report.reassignment_required == reassignment_required)
+
         total = db.scalar(count_stmt) or 0
 
         stmt = (
@@ -98,8 +190,26 @@ class ReportRepository(BaseRepository[Report]):
                 joinedload(Report.ai_analyses),
                 joinedload(Report.verifications),
                 joinedload(Report.ai_jobs),
+                joinedload(Report.assignments),
             )
-            .order_by(desc(Report.created_at))
+        )
+        if citizen_id is not None:
+            stmt = stmt.where(Report.citizen_id == citizen_id)
+        if department_id is not None:
+            stmt = stmt.where(Report.department_id == department_id)
+        elif department is not None:
+            stmt = stmt.where(Report.department == department)
+        if status is not None:
+            stmt = stmt.where(Report.status == status)
+        if category is not None:
+            stmt = stmt.where(Report.category == category)
+        if priority is not None:
+            stmt = stmt.where(Report.priority == priority)
+        if reassignment_required is not None:
+            stmt = stmt.where(Report.reassignment_required == reassignment_required)
+
+        stmt = (
+            stmt.order_by(desc(Report.created_at))
             .offset(skip)
             .limit(limit)
         )
@@ -112,17 +222,23 @@ class ReportRepository(BaseRepository[Report]):
         report: Report,
         new_status: ReportStatus,
         department: str | None = None,
+        department_id: uuid.UUID | None = None,
         assigned_officer: str | None = None,
         priority: PriorityLevel | None = None,
+        reassignment_required: bool | None = None,
     ) -> Report:
-        """Update report status and commit timestamp."""
+        """Update report status, department assignment, and commit timestamp."""
         report.status = new_status
         if department is not None:
             report.department = department
+        if department_id is not None:
+            report.department_id = department_id
         if assigned_officer is not None:
             report.assigned_officer = assigned_officer
         if priority is not None:
             report.priority = priority
+        if reassignment_required is not None:
+            report.reassignment_required = reassignment_required
         report.updated_at = datetime.datetime.now(datetime.UTC)
         db.commit()
         db.refresh(report)

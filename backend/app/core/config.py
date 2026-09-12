@@ -17,11 +17,14 @@ class Settings(BaseSettings):
 
     # Security & Limits
     CORS_ORIGINS: list[str] = [
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
         "http://localhost:3000",
         "http://localhost:8081",
         "http://localhost:19006",
     ]
     MAX_PAYLOAD_SIZE_BYTES: int = 10 * 1024 * 1024  # 10 MB
+    UPLOADS_DIR: str = "uploads"
 
     model_config = SettingsConfigDict(
         env_file=".env",

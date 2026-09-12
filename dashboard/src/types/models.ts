@@ -6,6 +6,11 @@ import {
   BackendEvidenceRead,
   BackendAIAnalysisRead,
   BackendVerificationRead,
+  BackendAssignmentStatus,
+  BackendDepartmentRejectionReason,
+  BackendAssignmentRead,
+  BackendDepartmentWorkloadStats,
+  BackendDepartmentRead,
 } from './api/backendContracts';
 
 export type {
@@ -13,6 +18,11 @@ export type {
   BackendSeverityLevel,
   BackendPriorityLevel,
   BackendVerificationDecision,
+  BackendAssignmentStatus,
+  BackendDepartmentRejectionReason,
+  BackendAssignmentRead,
+  BackendDepartmentWorkloadStats,
+  BackendDepartmentRead,
 };
 
 export type CivicCategory =
@@ -22,6 +32,7 @@ export type CivicCategory =
   | 'Streetlight'
   | 'Road Damage'
   | 'Drainage'
+  | 'Infrastructure'
   | 'Other';
 
 export type DepartmentName =
@@ -76,19 +87,26 @@ export interface ReportItem {
   citizenId?: string;
   citizenName?: string;
   citizenPhone?: string;
+  citizenEmail?: string;
+  citizenPostalCode?: string;
   latitude: number;
   longitude: number;
   addressHint?: string;
+  departmentId?: string;
   department?: DepartmentName;
   assignedOfficer?: string;
   severity: BackendSeverityLevel;
   priority: BackendPriorityLevel;
+  reassignmentRequired?: boolean;
   confidence?: number;
   evidenceAgreement?: number;
   reviewRequired: boolean;
   evidences: BackendEvidenceRead[];
   aiAnalyses: BackendAIAnalysisRead[];
   verifications: BackendVerificationRead[];
+  assignments?: BackendAssignmentRead[];
+  currentAssignment?: BackendAssignmentRead | null;
+  edgeMetadata?: Record<string, unknown> | null;
   internalNotes?: InternalNote[];
   sla?: SlaInfo;
   closureReason?: ClosureReason;
@@ -123,6 +141,7 @@ export interface ReportFilterParams {
   severity?: BackendSeverityLevel | 'ALL';
   priority?: BackendPriorityLevel | 'ALL';
   department?: DepartmentName | 'ALL';
+  reassignmentRequired?: boolean;
   search?: string;
   page?: number;
   pageSize?: number;

@@ -52,7 +52,10 @@ fun CivicSenseNavHost(
     val scope = rememberCoroutineScope()
 
     val reportViewModel: ReportViewModel = viewModel {
-        ReportViewModel(reportRepository)
+        ReportViewModel(
+            reportRepository = reportRepository,
+            preferenceRepository = preferenceRepository
+        )
     }
 
     NavHost(
@@ -107,6 +110,11 @@ fun CivicSenseNavHost(
 
         composable(AppDestinations.MAIN) {
             var selectedTab by rememberSaveable { mutableStateOf(BottomDestination.Home.route) }
+
+            // Trigger background remote refresh on entering main
+            androidx.compose.runtime.LaunchedEffect(Unit) {
+                reportRepository.refreshReports()
+            }
 
             // Root tabs back behavior: return to Home first before exiting
             BackHandler(enabled = selectedTab != BottomDestination.Home.route) {
@@ -219,7 +227,10 @@ fun CivicSenseNavHost(
             val report = reports.find { it.id == reportId }
             ReportDetailScreen(
                 report = report,
-                onNavigateBack = { navController.popBackStack() }
+                onNavigateBack = { navController.popBackStack() },
+                onRefreshDetail = {
+                    reportRepository.fetchReportDetail(reportId)
+                }
             )
         }
     }

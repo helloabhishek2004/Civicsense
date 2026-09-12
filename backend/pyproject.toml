@@ -41,6 +41,7 @@ select = [
 ]
 ignore = [
     "B008",  # do not perform function calls in argument defaults (standard for FastAPI Depends)
+    "UP042", # allow class inheritance from (str, Enum) for SQLAlchemy SQLEnum compatibility
     "UP046", # allow typing.Generic for Python 3.11+ compatibility
 ]
 
@@ -53,7 +54,7 @@ strict = true
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true
-plugins = []
+plugins = ["pydantic.mypy"]
 
 
 [tool.pytest.ini_options]

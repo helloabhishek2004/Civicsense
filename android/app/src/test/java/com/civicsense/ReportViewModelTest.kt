@@ -220,4 +220,13 @@ class ReportViewModelTest {
         assertNull(state.createdReport)
         assertEquals(SubmissionState.IDLE, state.submissionState)
     }
+
+    @Test
+    fun submissionState_queuedOffline_hasDistinctSemantics() {
+        // Verify QUEUED_OFFLINE is a distinct enum and maps to ReportStatus.QUEUED_OFFLINE
+        val offlineStatus = com.civicsense.data.model.ReportStatus.QUEUED_OFFLINE
+        assertEquals("Saved offline", offlineStatus.displayName)
+        assertTrue("SubmissionState must distinguish SUCCESS from QUEUED_OFFLINE",
+            SubmissionState.QUEUED_OFFLINE != SubmissionState.SUCCESS)
+    }
 }

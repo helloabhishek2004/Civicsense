@@ -21,6 +21,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -100,19 +101,24 @@ fun ReportSuccessScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            // Subtle animated success icon
+            val isOffline = report.status == com.civicsense.data.model.ReportStatus.QUEUED_OFFLINE
+
+            // Subtle animated status icon
             Box(
                 modifier = Modifier
                     .scale(scaleAnim.value)
                     .size(76.dp)
                     .clip(CircleShape)
-                    .background(MaterialTheme.civicColors.successContainer),
+                    .background(
+                        if (isOffline) MaterialTheme.civicColors.warningContainer
+                        else MaterialTheme.civicColors.successContainer
+                    ),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    imageVector = Icons.Default.Check,
-                    contentDescription = "Success",
-                    tint = MaterialTheme.civicColors.success,
+                    imageVector = if (isOffline) Icons.Default.Info else Icons.Default.Check,
+                    contentDescription = if (isOffline) "Saved Offline" else "Success",
+                    tint = if (isOffline) MaterialTheme.civicColors.onWarningContainer else MaterialTheme.civicColors.success,
                     modifier = Modifier.size(40.dp)
                 )
             }
@@ -120,7 +126,7 @@ fun ReportSuccessScreen(
             Spacer(modifier = Modifier.height(24.dp))
 
             Text(
-                text = "Report submitted",
+                text = if (isOffline) "Report saved on this device" else "Report submitted",
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onBackground,
@@ -130,7 +136,11 @@ fun ReportSuccessScreen(
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "Your report has been received and is waiting for verification.",
+                text = if (isOffline) {
+                    "Network connection was unavailable. Your report is preserved locally on this device."
+                } else {
+                    "Your report has been received and is waiting for verification."
+                },
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center
@@ -183,7 +193,7 @@ fun ReportSuccessScreen(
 
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = "Report ID",
+                            text = if (isOffline) "Local Reference" else "Server Tracking ID",
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )

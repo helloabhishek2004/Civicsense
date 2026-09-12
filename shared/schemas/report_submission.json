@@ -55,6 +55,11 @@
       "minLength": 3,
       "maxLength": 5000
     },
+    "category": {
+      "type": "string",
+      "description": "Citizen-selected civic issue category",
+      "maxLength": 64
+    },
     "evidence": {
       "type": "array",
       "description": "List of evidence items attached to this submission",

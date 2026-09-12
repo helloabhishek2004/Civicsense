@@ -4,6 +4,7 @@ import { clsx } from 'clsx';
 import {
   LifecyclePhase,
   CivicCategory,
+  DepartmentName,
   ReportFilterParams,
 } from '@/types/models';
 import { BackendSeverityLevel, BackendPriorityLevel } from '@/types/api/backendContracts';
@@ -32,11 +33,20 @@ const CATEGORIES: CivicCategory[] = [
   'Streetlight',
   'Road Damage',
   'Drainage',
+  'Infrastructure',
   'Other',
 ];
 
 const SEVERITIES: BackendSeverityLevel[] = ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL'];
 const PRIORITIES: BackendPriorityLevel[] = ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL'];
+const DEPARTMENTS: DepartmentName[] = [
+  'Roads & Bridges',
+  'Solid Waste Management',
+  'Water Supply & Sewerage',
+  'Street Lighting & Electrical',
+  'Town Planning & Enforcement',
+  'General Public Works',
+];
 
 export const FilterBar: React.FC<FilterBarProps> = ({
   filters,
@@ -50,6 +60,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
     (filters.category && filters.category !== 'ALL') ||
     (filters.severity && filters.severity !== 'ALL') ||
     (filters.priority && filters.priority !== 'ALL') ||
+    (filters.department && filters.department !== 'ALL') ||
     (filters.search && filters.search.trim().length > 0);
 
   return (
@@ -154,6 +165,26 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             {PRIORITIES.map((pri) => (
               <option key={pri} value={pri}>
                 {pri} Priority
+              </option>
+            ))}
+          </select>
+
+          {/* Department Dropdown */}
+          <select
+            value={filters.department || 'ALL'}
+            onChange={(e) =>
+              onChange({
+                department: e.target.value as DepartmentName | 'ALL',
+                page: 1,
+              })
+            }
+            aria-label="Filter by department"
+            className="h-9 px-3 text-xs rounded-lg border border-civic-border bg-civic-surface text-civic-text-primary focus:outline-none focus:ring-2 focus:ring-civic-green/30 focus:border-civic-green dark:bg-civic-dark-surface dark:border-civic-dark-border dark:text-civic-dark-text-primary cursor-pointer"
+          >
+            <option value="ALL">All Departments</option>
+            {DEPARTMENTS.map((dept) => (
+              <option key={dept} value={dept}>
+                {dept}
               </option>
             ))}
           </select>

@@ -13,6 +13,8 @@ import {
   BackendSeverityLevel,
   BackendPriorityLevel,
   BackendVerificationDecision,
+  BackendAssignmentRead,
+  BackendDepartmentRejectionReason,
 } from '@/types/api/backendContracts';
 import {
   AIJob,
@@ -25,26 +27,41 @@ import {
 import { IReportRepository } from './IReportRepository';
 import { apiClient } from '../api/apiClient';
 import { ENDPOINTS } from '../api/endpoints';
+import { normalizeIsoUtc } from '@/core/utils/dateUtils';
 
-function mapBackendToReportItem(raw: BackendReportRead): ReportItem {
+export function normalizeCategory(rawCat?: string | null): CivicCategory {
+  if (!rawCat) return 'Other';
+  const p = rawCat.toLowerCase().trim();
+  if (p.includes('pothole')) return 'Pothole';
+  if (p.includes('garbage') || p.includes('waste')) return 'Garbage';
+  if (p.includes('water') || p.includes('leak')) return 'Water Leakage';
+  if (p.includes('streetlight') || p.includes('light')) return 'Streetlight';
+  if (p.includes('road')) return 'Road Damage';
+  if (p.includes('drain')) return 'Drainage';
+  if (p.includes('infra')) return 'Infrastructure';
+  return 'Other';
+}
+
+export function mapBackendToReportItem(raw: BackendReportRead): ReportItem {
   const latestAi = raw.ai_analyses && raw.ai_analyses.length > 0 ? raw.ai_analyses[0] : null;
   const latestVer = raw.verifications && raw.verifications.length > 0 ? raw.verifications[0] : null;
 
-  // Infer category from AI or evidence
+  // Resolve category with clear authority order:
+  // 1. Human verification override (highest authority)
+  // 2. Report category (from citizen submission / DB)
+  // 3. AI prediction (if citizen report was unclassified or Other)
+  // 4. Edge metadata category_hint fallback
   let category: CivicCategory = 'Other';
-  if (latestAi?.predicted_category) {
-    const p = latestAi.predicted_category.toLowerCase();
-    if (p.includes('pothole')) category = 'Pothole';
-    else if (p.includes('garbage') || p.includes('waste')) category = 'Garbage';
-    else if (p.includes('water') || p.includes('leak')) category = 'Water Leakage';
-    else if (p.includes('streetlight') || p.includes('light')) category = 'Streetlight';
-    else if (p.includes('road')) category = 'Road Damage';
-    else if (p.includes('drain')) category = 'Drainage';
-  }
-
-  // Human verification override takes precedence
   if (latestVer?.verified_category) {
-    category = latestVer.verified_category as CivicCategory;
+    category = normalizeCategory(latestVer.verified_category);
+  } else if (raw.category && normalizeCategory(raw.category) !== 'Other') {
+    category = normalizeCategory(raw.category);
+  } else if (latestAi?.predicted_category && normalizeCategory(latestAi.predicted_category) !== 'Other') {
+    category = normalizeCategory(latestAi.predicted_category);
+  } else if (raw.edge_metadata && typeof (raw.edge_metadata as any).category_hint === 'string') {
+    category = normalizeCategory((raw.edge_metadata as any).category_hint);
+  } else if (raw.category) {
+    category = normalizeCategory(raw.category);
   }
 
   const severity: BackendSeverityLevel =
@@ -59,6 +76,7 @@ function mapBackendToReportItem(raw: BackendReportRead): ReportItem {
     else if (category === 'Garbage') department = 'Solid Waste Management';
     else if (category === 'Water Leakage' || category === 'Drainage') department = 'Water Supply & Sewerage';
     else if (category === 'Streetlight') department = 'Street Lighting & Electrical';
+    else if (category === 'Infrastructure') department = 'Town Planning & Enforcement';
   }
 
   return {
@@ -68,12 +86,18 @@ function mapBackendToReportItem(raw: BackendReportRead): ReportItem {
     category,
     description: raw.description,
     citizenId: raw.citizen_id || undefined,
+    citizenName: raw.citizen_name || undefined,
+    citizenPhone: raw.citizen_phone || undefined,
+    citizenEmail: raw.citizen_email || undefined,
+    citizenPostalCode: raw.citizen_postal_code || undefined,
     latitude: raw.latitude,
     longitude: raw.longitude,
     addressHint: raw.address_hint || undefined,
+    departmentId: (raw as any).department_id || undefined,
     department,
     severity,
     priority,
+    reassignmentRequired: (raw as any).reassignment_required ?? false,
     assignedOfficer: (raw as any).assigned_officer || undefined,
     confidence: latestAi?.confidence ?? undefined,
     evidenceAgreement: latestAi?.evidence_agreement ?? undefined,
@@ -81,10 +105,13 @@ function mapBackendToReportItem(raw: BackendReportRead): ReportItem {
     evidences: raw.evidences || [],
     aiAnalyses: raw.ai_analyses || [],
     verifications: raw.verifications || [],
+    assignments: (raw as any).assignments || [],
+    currentAssignment: (raw as any).current_assignment || null,
+    edgeMetadata: raw.edge_metadata || null,
     auditTrail: [
       {
         id: `aud-${raw.id}-0`,
-        timestamp: raw.created_at,
+        timestamp: normalizeIsoUtc(raw.created_at),
         actor: 'Citizen Client',
         action: 'Report Submitted',
         toStatus: 'SUBMITTED',
@@ -93,7 +120,7 @@ function mapBackendToReportItem(raw: BackendReportRead): ReportItem {
         ? [
             {
               id: `aud-${raw.id}-1`,
-              timestamp: raw.updated_at,
+              timestamp: normalizeIsoUtc(raw.updated_at),
               actor: 'System / Officer',
               action: `Updated state to ${raw.status}`,
               toStatus: raw.status,
@@ -101,17 +128,32 @@ function mapBackendToReportItem(raw: BackendReportRead): ReportItem {
           ]
         : []),
     ],
-    createdAt: raw.created_at,
-    updatedAt: raw.updated_at,
+    createdAt: normalizeIsoUtc(raw.created_at),
+    updatedAt: normalizeIsoUtc(raw.updated_at),
   };
 }
 
 export class ApiReportRepository implements IReportRepository {
   async getReports(params: ReportFilterParams = {}): Promise<ReportListResult> {
-    const queryParams: Record<string, string | number | undefined> = {
+    const queryParams: Record<string, string | number | boolean | undefined> = {
       page: params.page || 1,
       page_size: params.pageSize || 10,
     };
+    if (params.department && params.department !== 'ALL') {
+      queryParams.department = params.department;
+    }
+    if (params.status) {
+      queryParams.status = params.status;
+    }
+    if (params.category && params.category !== 'ALL') {
+      queryParams.category = params.category;
+    }
+    if (params.priority && params.priority !== 'ALL') {
+      queryParams.priority = params.priority;
+    }
+    if (params.reassignmentRequired !== undefined) {
+      queryParams.reassignment_required = params.reassignmentRequired;
+    }
 
     const response = await apiClient.get<BackendReportListResponse>(ENDPOINTS.REPORTS, {
       params: queryParams,
@@ -219,16 +261,69 @@ export class ApiReportRepository implements IReportRepository {
     assignedOfficer?: string,
     actor?: string
   ): Promise<ReportItem> {
-    const raw = await apiClient.patch<BackendReportRead>(
-      ENDPOINTS.TRANSITION_REPORT(id),
+    const raw = await apiClient.post<BackendReportRead>(
+      ENDPOINTS.REPORT_ASSIGN(id),
       {
-        next_status: 'ASSIGNED',
-        department,
-        assigned_officer: assignedOfficer,
-        actor,
+        department_name: department,
+        assigned_to_officer: assignedOfficer,
+        assigned_by: actor || 'Triage Officer',
       }
     );
     return mapBackendToReportItem(raw);
+  }
+
+  async acknowledgeJob(
+    id: string,
+    assignedOfficer?: string,
+    notes?: string
+  ): Promise<ReportItem> {
+    const raw = await apiClient.post<BackendReportRead>(
+      ENDPOINTS.REPORT_ACKNOWLEDGE(id),
+      {
+        assigned_to_officer: assignedOfficer,
+        notes,
+      }
+    );
+    return mapBackendToReportItem(raw);
+  }
+
+  async completeJob(
+    id: string,
+    resolverNotes: string,
+    resolvedBy?: string
+  ): Promise<ReportItem> {
+    const raw = await apiClient.post<BackendReportRead>(
+      ENDPOINTS.REPORT_COMPLETE(id),
+      {
+        resolver_notes: resolverNotes,
+        resolved_by: resolvedBy,
+      }
+    );
+    return mapBackendToReportItem(raw);
+  }
+
+  async rejectJob(
+    id: string,
+    rejectionReason: BackendDepartmentRejectionReason,
+    notes: string,
+    suggestedDepartment?: string
+  ): Promise<ReportItem> {
+    const raw = await apiClient.post<BackendReportRead>(
+      ENDPOINTS.REPORT_DEPARTMENT_REJECT(id),
+      {
+        rejection_reason: rejectionReason,
+        notes,
+        suggested_department: suggestedDepartment,
+      }
+    );
+    return mapBackendToReportItem(raw);
+  }
+
+  async getReportAssignments(id: string): Promise<BackendAssignmentRead[]> {
+    const response = await apiClient.get<BackendAssignmentRead[]>(
+      ENDPOINTS.REPORT_ASSIGNMENTS(id)
+    );
+    return response || [];
   }
 
   async prioritizeReport(

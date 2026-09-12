@@ -30,6 +30,13 @@ class MainActivity : ComponentActivity() {
 
         preferenceRepository = PreferenceRepository(applicationContext)
         reportRepository = ReportRepository.getInstance()
+        reportRepository.setDataSource(
+            com.civicsense.data.remote.RemoteReportsDataSource(
+                preferenceRepository = preferenceRepository
+            )
+        )
+
+        Log.i("CivicSenseSubmit", "APP_STARTUP resolved_api_base_url=${BuildConfig.API_BASE_URL}")
 
         setContent {
             val appTheme by preferenceRepository.appThemeFlow.collectAsState(initial = AppTheme.SYSTEM)

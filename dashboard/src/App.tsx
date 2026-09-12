@@ -15,6 +15,7 @@ import { AIOperationsPage } from '@/features/ai-operations/AIOperationsPage';
 import { MapPage } from '@/features/map/MapPage';
 import { AnalyticsPage } from '@/features/analytics/AnalyticsPage';
 import { DepartmentsPage } from '@/features/departments/DepartmentsPage';
+import { DepartmentDetailPage } from '@/features/departments/DepartmentDetailPage';
 import { UsersPage } from '@/features/users/UsersPage';
 import { SettingsPage } from '@/features/settings/SettingsPage';
 
@@ -54,6 +55,7 @@ export const App: React.FC = () => {
                 <Route path="/map" element={<MapPage />} />
                 <Route path="/analytics" element={<AnalyticsPage />} />
                 <Route path="/departments" element={<DepartmentsPage />} />
+                <Route path="/departments/:id" element={<DepartmentDetailPage />} />
                 <Route path="/users" element={<UsersPage />} />
                 <Route path="/settings" element={<SettingsPage />} />
               </Route>
