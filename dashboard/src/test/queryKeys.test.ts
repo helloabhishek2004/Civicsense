@@ -30,4 +30,16 @@ describe('Query Keys Factory', () => {
   it('generates mapPoints key', () => {
     expect(queryKeys.reports.mapPoints()).toEqual(['reports', 'map']);
   });
+
+  it('generates issue query keys', () => {
+    expect(queryKeys.issues.all).toEqual(['issues']);
+    expect(queryKeys.issues.detail('iss-123')).toEqual(['issues', 'detail', 'iss-123']);
+    expect(queryKeys.issues.priority('iss-123')).toEqual(['issues', 'priority', 'iss-123']);
+    expect(queryKeys.issues.reports('iss-123', 1, 10)).toEqual(['issues', 'reports', 'iss-123', { page: 1, pageSize: 10 }]);
+  });
+
+  it('generates candidate matches query keys', () => {
+    expect(queryKeys.matches.all).toEqual(['matches']);
+    expect(queryKeys.matches.pending()).toEqual(['matches', 'pending']);
+  });
 });

@@ -1,0 +1,732 @@
+{
+  "classes": [
+    "Pothole",
+    "Road Damage",
+    "Garbage",
+    "Water Leakage",
+    "Streetlight",
+    "Other"
+  ],
+  "class_performance": {
+    "Pothole": {
+      "text_precision": 0.9434,
+      "text_recall": 1.0,
+      "text_f1": 0.9709,
+      "fused_precision": 0.8929,
+      "fused_recall": 1.0,
+      "fused_f1": 0.9434,
+      "delta_f1": -0.0275,
+      "delta_recall": 0.0
+    },
+    "Road Damage": {
+      "text_precision": 0.875,
+      "text_recall": 0.42,
+      "text_f1": 0.5676,
+      "fused_precision": 0.88,
+      "fused_recall": 0.44,
+      "fused_f1": 0.5867,
+      "delta_f1": 0.0191,
+      "delta_recall": 0.02
+    },
+    "Garbage": {
+      "text_precision": 1.0,
+      "text_recall": 1.0,
+      "text_f1": 1.0,
+      "fused_precision": 0.8929,
+      "fused_recall": 1.0,
+      "fused_f1": 0.9434,
+      "delta_f1": -0.0566,
+      "delta_recall": 0.0
+    },
+    "Water Leakage": {
+      "text_precision": 1.0,
+      "text_recall": 0.74,
+      "text_f1": 0.8506,
+      "fused_precision": 0.881,
+      "fused_recall": 0.74,
+      "fused_f1": 0.8044,
+      "delta_f1": -0.0462,
+      "delta_recall": 0.0
+    },
+    "Streetlight": {
+      "text_precision": 1.0,
+      "text_recall": 0.58,
+      "text_f1": 0.7342,
+      "fused_precision": 0.878,
+      "fused_recall": 0.72,
+      "fused_f1": 0.7912,
+      "delta_f1": 0.057,
+      "delta_recall": 0.14
+    },
+    "Other": {
+      "text_precision": 0.4673,
+      "text_recall": 1.0,
+      "text_f1": 0.637,
+      "fused_precision": 0.55,
+      "fused_recall": 0.88,
+      "fused_f1": 0.6769,
+      "delta_f1": 0.0399,
+      "delta_recall": -0.12
+    }
+  },
+  "text_per_class": {
+    "Pothole": {
+      "precision": 0.9434,
+      "recall": 1.0,
+      "f1_score": 0.9709,
+      "support": 50,
+      "tp": 50,
+      "fp": 3,
+      "fn": 0
+    },
+    "Road Damage": {
+      "precision": 0.875,
+      "recall": 0.42,
+      "f1_score": 0.5676,
+      "support": 50,
+      "tp": 21,
+      "fp": 3,
+      "fn": 29
+    },
+    "Garbage": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "support": 50,
+      "tp": 50,
+      "fp": 0,
+      "fn": 0
+    },
+    "Water Leakage": {
+      "precision": 1.0,
+      "recall": 0.74,
+      "f1_score": 0.8506,
+      "support": 50,
+      "tp": 37,
+      "fp": 0,
+      "fn": 13
+    },
+    "Streetlight": {
+      "precision": 1.0,
+      "recall": 0.58,
+      "f1_score": 0.7342,
+      "support": 50,
+      "tp": 29,
+      "fp": 0,
+      "fn": 21
+    },
+    "Other": {
+      "precision": 0.4673,
+      "recall": 1.0,
+      "f1_score": 0.637,
+      "support": 50,
+      "tp": 50,
+      "fp": 57,
+      "fn": 0
+    }
+  },
+  "vision_per_class": {
+    "Pothole": {
+      "precision": 0.5422,
+      "recall": 0.9,
+      "f1_score": 0.6767,
+      "support": 50,
+      "tp": 45,
+      "fp": 38,
+      "fn": 5
+    },
+    "Road Damage": {
+      "precision": 0.6,
+      "recall": 0.12,
+      "f1_score": 0.2,
+      "support": 50,
+      "tp": 6,
+      "fp": 4,
+      "fn": 44
+    },
+    "Garbage": {
+      "precision": 0.3947,
+      "recall": 0.3,
+      "f1_score": 0.3409,
+      "support": 50,
+      "tp": 15,
+      "fp": 23,
+      "fn": 35
+    },
+    "Water Leakage": {
+      "precision": 0.4444,
+      "recall": 0.24,
+      "f1_score": 0.3117,
+      "support": 50,
+      "tp": 12,
+      "fp": 15,
+      "fn": 38
+    },
+    "Streetlight": {
+      "precision": 0.5172,
+      "recall": 0.3,
+      "f1_score": 0.3797,
+      "support": 50,
+      "tp": 15,
+      "fp": 14,
+      "fn": 35
+    },
+    "Other": {
+      "precision": 0.3274,
+      "recall": 0.74,
+      "f1_score": 0.454,
+      "support": 50,
+      "tp": 37,
+      "fp": 76,
+      "fn": 13
+    }
+  },
+  "fused_per_class": {
+    "Pothole": {
+      "precision": 0.8929,
+      "recall": 1.0,
+      "f1_score": 0.9434,
+      "support": 50,
+      "tp": 50,
+      "fp": 6,
+      "fn": 0
+    },
+    "Road Damage": {
+      "precision": 0.88,
+      "recall": 0.44,
+      "f1_score": 0.5867,
+      "support": 50,
+      "tp": 22,
+      "fp": 3,
+      "fn": 28
+    },
+    "Garbage": {
+      "precision": 0.8929,
+      "recall": 1.0,
+      "f1_score": 0.9434,
+      "support": 50,
+      "tp": 50,
+      "fp": 6,
+      "fn": 0
+    },
+    "Water Leakage": {
+      "precision": 0.881,
+      "recall": 0.74,
+      "f1_score": 0.8044,
+      "support": 50,
+      "tp": 37,
+      "fp": 5,
+      "fn": 13
+    },
+    "Streetlight": {
+      "precision": 0.878,
+      "recall": 0.72,
+      "f1_score": 0.7912,
+      "support": 50,
+      "tp": 36,
+      "fp": 5,
+      "fn": 14
+    },
+    "Other": {
+      "precision": 0.55,
+      "recall": 0.88,
+      "f1_score": 0.6769,
+      "support": 50,
+      "tp": 44,
+      "fp": 36,
+      "fn": 6
+    }
+  },
+  "confusion_matrices": {
+    "text": [
+      [
+        50,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        21,
+        0,
+        0,
+        0,
+        29
+      ],
+      [
+        0,
+        0,
+        50,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        3,
+        0,
+        37,
+        0,
+        10
+      ],
+      [
+        3,
+        0,
+        0,
+        0,
+        29,
+        18
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        50
+      ]
+    ],
+    "vision": [
+      [
+        45,
+        1,
+        1,
+        0,
+        0,
+        3
+      ],
+      [
+        9,
+        6,
+        1,
+        9,
+        10,
+        15
+      ],
+      [
+        8,
+        0,
+        15,
+        0,
+        1,
+        26
+      ],
+      [
+        9,
+        2,
+        10,
+        12,
+        3,
+        14
+      ],
+      [
+        6,
+        1,
+        4,
+        6,
+        15,
+        18
+      ],
+      [
+        6,
+        0,
+        7,
+        0,
+        0,
+        37
+      ]
+    ],
+    "fused": [
+      [
+        50,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        22,
+        1,
+        3,
+        5,
+        19
+      ],
+      [
+        0,
+        0,
+        50,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        3,
+        0,
+        37,
+        0,
+        9
+      ],
+      [
+        4,
+        0,
+        0,
+        2,
+        36,
+        8
+      ],
+      [
+        1,
+        0,
+        5,
+        0,
+        0,
+        44
+      ]
+    ]
+  },
+  "overturned_cases_count": 12,
+  "overturned_cases": [
+    {
+      "sample_id": "pilot_wmroad_193694220",
+      "gt": "Road Damage",
+      "text_pred": "Other",
+      "vision_pred": "Road Damage",
+      "fused_pred": "Road Damage",
+      "fused_correct": true,
+      "fused_conf": 0.4279,
+      "text_snippet": "<div class=\"description\">\nThis project was made possible in "
+    },
+    {
+      "sample_id": "pilot_wmlight_116135118",
+      "gt": "Streetlight",
+      "text_pred": "Other",
+      "vision_pred": "Streetlight",
+      "fused_pred": "Other",
+      "fused_correct": false,
+      "fused_conf": 0.4991,
+      "text_snippet": "<a href=\"https://en.wikipedia.org/wiki/Prague\" class=\"extiw\""
+    },
+    {
+      "sample_id": "pilot_wmlight_118327313",
+      "gt": "Streetlight",
+      "text_pred": "Other",
+      "vision_pred": "Streetlight",
+      "fused_pred": "Streetlight",
+      "fused_correct": true,
+      "fused_conf": 0.4633,
+      "text_snippet": "Damage in Ottawa on Merivale Rd. from the derecho on Saturda"
+    },
+    {
+      "sample_id": "pilot_wmlight_195529521",
+      "gt": "Streetlight",
+      "text_pred": "Other",
+      "vision_pred": "Streetlight",
+      "fused_pred": "Streetlight",
+      "fused_correct": true,
+      "fused_conf": 0.2712,
+      "text_snippet": "<div class=\"description\">\nEngineering News and American Cont"
+    },
+    {
+      "sample_id": "pilot_wmlight_31376323",
+      "gt": "Streetlight",
+      "text_pred": "Other",
+      "vision_pred": "Streetlight",
+      "fused_pred": "Streetlight",
+      "fused_correct": true,
+      "fused_conf": 0.5106,
+      "text_snippet": "Liudgerhaus (left), Di\u00f6zesanbibliothek (right), <a href=\"htt"
+    },
+    {
+      "sample_id": "pilot_wmlight_31376481",
+      "gt": "Streetlight",
+      "text_pred": "Other",
+      "vision_pred": "Streetlight",
+      "fused_pred": "Streetlight",
+      "fused_correct": true,
+      "fused_conf": 0.3627,
+      "text_snippet": "Liudgerhaus (left), Di\u00f6zesanbibliothek (right), <a href=\"htt"
+    },
+    {
+      "sample_id": "pilot_wmlight_31633230",
+      "gt": "Streetlight",
+      "text_pred": "Other",
+      "vision_pred": "Streetlight",
+      "fused_pred": "Streetlight",
+      "fused_correct": true,
+      "fused_conf": 0.4875,
+      "text_snippet": "Liudgerhaus (left), Diocesan <a href=\"https://en.wikipedia.o"
+    },
+    {
+      "sample_id": "pilot_wmlight_31633291",
+      "gt": "Streetlight",
+      "text_pred": "Other",
+      "vision_pred": "Streetlight",
+      "fused_pred": "Streetlight",
+      "fused_correct": true,
+      "fused_conf": 0.4204,
+      "text_snippet": "Liudgerhaus (left), Diocesan <a href=\"https://en.wikipedia.o"
+    },
+    {
+      "sample_id": "pilot_wmlight_32966493",
+      "gt": "Streetlight",
+      "text_pred": "Other",
+      "vision_pred": "Streetlight",
+      "fused_pred": "Other",
+      "fused_correct": false,
+      "fused_conf": 0.4462,
+      "text_snippet": "Liudgerhaus (left), Di\u00f6zesanbibliothek (right), <a href=\"htt"
+    },
+    {
+      "sample_id": "pilot_wmlight_37414302",
+      "gt": "Streetlight",
+      "text_pred": "Other",
+      "vision_pred": "Streetlight",
+      "fused_pred": "Streetlight",
+      "fused_correct": true,
+      "fused_conf": 0.454,
+      "text_snippet": "<a href=\"https://en.wikipedia.org/wiki/M%C3%BCnster_Cathedra"
+    },
+    {
+      "sample_id": "pilot_wmwater_15563499",
+      "gt": "Water Leakage",
+      "text_pred": "Other",
+      "vision_pred": "Water Leakage",
+      "fused_pred": "Other",
+      "fused_correct": false,
+      "fused_conf": 0.2921,
+      "text_snippet": "Wandaufriss nach Rohrbruch."
+    },
+    {
+      "sample_id": "pilot_wmwater_3412625",
+      "gt": "Water Leakage",
+      "text_pred": "Road Damage",
+      "vision_pred": "Water Leakage",
+      "fused_pred": "Road Damage",
+      "fused_correct": false,
+      "fused_conf": 0.5493,
+      "text_snippet": "cracked valve due to internal formation of ice"
+    }
+  ],
+  "high_confidence_errors_count": 15,
+  "high_confidence_errors": [
+    {
+      "sample_id": "pilot_wmroad_181433541",
+      "gt": "Road Damage",
+      "fused_pred": "Other",
+      "fused_conf": 0.8797,
+      "category_agreement": true,
+      "modality_agreement": 0.9346,
+      "requires_review": true,
+      "review_reasons": [
+        "UNCLASSIFIED_ISSUE"
+      ],
+      "text_pred": "Other",
+      "vision_pred": "Other"
+    },
+    {
+      "sample_id": "pilot_wmroad_181579429",
+      "gt": "Road Damage",
+      "fused_pred": "Other",
+      "fused_conf": 0.8752,
+      "category_agreement": true,
+      "modality_agreement": 0.9106,
+      "requires_review": true,
+      "review_reasons": [
+        "UNCLASSIFIED_ISSUE"
+      ],
+      "text_pred": "Other",
+      "vision_pred": "Other"
+    },
+    {
+      "sample_id": "pilot_wmroad_181867647",
+      "gt": "Road Damage",
+      "fused_pred": "Other",
+      "fused_conf": 0.7484,
+      "category_agreement": true,
+      "modality_agreement": 0.8925,
+      "requires_review": true,
+      "review_reasons": [
+        "UNCLASSIFIED_ISSUE"
+      ],
+      "text_pred": "Other",
+      "vision_pred": "Other"
+    },
+    {
+      "sample_id": "pilot_wmroad_181942887",
+      "gt": "Road Damage",
+      "fused_pred": "Other",
+      "fused_conf": 0.7498,
+      "category_agreement": true,
+      "modality_agreement": 0.965,
+      "requires_review": true,
+      "review_reasons": [
+        "UNCLASSIFIED_ISSUE"
+      ],
+      "text_pred": "Other",
+      "vision_pred": "Other"
+    },
+    {
+      "sample_id": "pilot_wmroad_182056315",
+      "gt": "Road Damage",
+      "fused_pred": "Other",
+      "fused_conf": 0.8036,
+      "category_agreement": true,
+      "modality_agreement": 0.9198,
+      "requires_review": true,
+      "review_reasons": [
+        "UNCLASSIFIED_ISSUE"
+      ],
+      "text_pred": "Other",
+      "vision_pred": "Other"
+    },
+    {
+      "sample_id": "pilot_wmroad_182058896",
+      "gt": "Road Damage",
+      "fused_pred": "Other",
+      "fused_conf": 0.9079,
+      "category_agreement": true,
+      "modality_agreement": 0.9228,
+      "requires_review": true,
+      "review_reasons": [
+        "UNCLASSIFIED_ISSUE"
+      ],
+      "text_pred": "Other",
+      "vision_pred": "Other"
+    },
+    {
+      "sample_id": "pilot_wmroad_182783850",
+      "gt": "Road Damage",
+      "fused_pred": "Other",
+      "fused_conf": 0.8758,
+      "category_agreement": true,
+      "modality_agreement": 0.9281,
+      "requires_review": true,
+      "review_reasons": [
+        "UNCLASSIFIED_ISSUE"
+      ],
+      "text_pred": "Other",
+      "vision_pred": "Other"
+    },
+    {
+      "sample_id": "pilot_wmroad_186567795",
+      "gt": "Road Damage",
+      "fused_pred": "Other",
+      "fused_conf": 0.9429,
+      "category_agreement": true,
+      "modality_agreement": 0.891,
+      "requires_review": true,
+      "review_reasons": [
+        "UNCLASSIFIED_ISSUE"
+      ],
+      "text_pred": "Other",
+      "vision_pred": "Other"
+    },
+    {
+      "sample_id": "pilot_wmroad_196374957",
+      "gt": "Road Damage",
+      "fused_pred": "Other",
+      "fused_conf": 0.7338,
+      "category_agreement": true,
+      "modality_agreement": 0.8182,
+      "requires_review": true,
+      "review_reasons": [
+        "UNCLASSIFIED_ISSUE"
+      ],
+      "text_pred": "Other",
+      "vision_pred": "Other"
+    },
+    {
+      "sample_id": "pilot_wmlight_116135102",
+      "gt": "Streetlight",
+      "fused_pred": "Other",
+      "fused_conf": 0.8925,
+      "category_agreement": true,
+      "modality_agreement": 0.9339,
+      "requires_review": true,
+      "review_reasons": [
+        "UNCLASSIFIED_ISSUE"
+      ],
+      "text_pred": "Other",
+      "vision_pred": "Other"
+    },
+    {
+      "sample_id": "pilot_wmlight_31376445",
+      "gt": "Streetlight",
+      "fused_pred": "Other",
+      "fused_conf": 0.7036,
+      "category_agreement": true,
+      "modality_agreement": 0.8781,
+      "requires_review": true,
+      "review_reasons": [
+        "UNCLASSIFIED_ISSUE"
+      ],
+      "text_pred": "Other",
+      "vision_pred": "Other"
+    },
+    {
+      "sample_id": "pilot_wmlight_32966442",
+      "gt": "Streetlight",
+      "fused_pred": "Other",
+      "fused_conf": 0.9278,
+      "category_agreement": true,
+      "modality_agreement": 0.9028,
+      "requires_review": true,
+      "review_reasons": [
+        "UNCLASSIFIED_ISSUE"
+      ],
+      "text_pred": "Other",
+      "vision_pred": "Other"
+    },
+    {
+      "sample_id": "pilot_wmwater_15563432",
+      "gt": "Water Leakage",
+      "fused_pred": "Other",
+      "fused_conf": 0.7904,
+      "category_agreement": true,
+      "modality_agreement": 0.8503,
+      "requires_review": true,
+      "review_reasons": [
+        "UNCLASSIFIED_ISSUE"
+      ],
+      "text_pred": "Other",
+      "vision_pred": "Other"
+    },
+    {
+      "sample_id": "pilot_wmwater_53377782",
+      "gt": "Water Leakage",
+      "fused_pred": "Other",
+      "fused_conf": 0.741,
+      "category_agreement": true,
+      "modality_agreement": 0.9281,
+      "requires_review": true,
+      "review_reasons": [
+        "UNCLASSIFIED_ISSUE"
+      ],
+      "text_pred": "Other",
+      "vision_pred": "Other"
+    },
+    {
+      "sample_id": "pilot_wmwater_73650378",
+      "gt": "Water Leakage",
+      "fused_pred": "Other",
+      "fused_conf": 0.805,
+      "category_agreement": true,
+      "modality_agreement": 0.9149,
+      "requires_review": true,
+      "review_reasons": [
+        "UNCLASSIFIED_ISSUE"
+      ],
+      "text_pred": "Other",
+      "vision_pred": "Other"
+    }
+  ],
+  "weight_recommendation": {
+    "recommendation": "retain_global_weights_and_conservative_review",
+    "justification": "Class-specific weights risk severe benchmark overfitting on n=300. Global weights (0.6 text / 0.4 vision) with strict safety interception (73% review rate) achieve empirical lift while containing risk."
+  }
+}

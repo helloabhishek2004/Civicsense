@@ -3,7 +3,7 @@ import { clsx } from 'clsx';
 import { BackendPriorityLevel } from '@/types/api/backendContracts';
 
 export interface PriorityBadgeProps {
-  priority: BackendPriorityLevel;
+  priority?: BackendPriorityLevel | 'UNRANKED' | null;
   size?: 'sm' | 'md';
   className?: string;
 }
@@ -47,12 +47,28 @@ export const PriorityBadge: React.FC<PriorityBadgeProps> = ({
   size = 'md',
   className,
 }) => {
-  const config = PRIORITY_CONFIG[priority] || PRIORITY_CONFIG.LOW;
-
   const sizeClasses = {
     sm: 'text-[11px] px-2 py-0.5 gap-1',
     md: 'text-xs px-2.5 py-1 gap-1.5',
   };
+
+  if (!priority || priority === 'UNRANKED' || !(priority in PRIORITY_CONFIG)) {
+    return (
+      <span
+        className={clsx(
+          'inline-flex items-center font-medium rounded-md border font-mono tracking-tight bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700',
+          sizeClasses[size],
+          className
+        )}
+        title="Priority Level: Unranked"
+      >
+        <span className="font-bold">--</span>
+        <span className="font-sans font-normal opacity-80">UNRANKED</span>
+      </span>
+    );
+  }
+
+  const config = PRIORITY_CONFIG[priority];
 
   return (
     <span

@@ -1,0 +1,29 @@
+{
+  "benchmark_version": "1.0.0",
+  "generation_timestamp": "2026-09-13T02:54:16.980456Z",
+  "total_sample_count": 300,
+  "category_counts": {
+    "Pothole": 50,
+    "Road Damage": 50,
+    "Garbage": 50,
+    "Water Leakage": 50,
+    "Streetlight": 50,
+    "Other": 50
+  },
+  "source_dataset_counts": {
+    "boston311": 157,
+    "wikimedia_road_damage": 45,
+    "wikimedia_streetlight": 48,
+    "wikimedia_water": 50
+  },
+  "verification_level_counts": {
+    "source_verified": 300
+  },
+  "visual_relevance_counts": {
+    "direct_issue_visible": 300
+  },
+  "image_root": "images",
+  "schema_version": "1.0.0",
+  "generator_version": "1.0.0",
+  "integrity_hash": "e988474dd46cee4c3b17010fb32af1a50ff750ea32579d8e8ab7ef8b0fd2e60b"
+}

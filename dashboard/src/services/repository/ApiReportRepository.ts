@@ -128,6 +128,7 @@ export function mapBackendToReportItem(raw: BackendReportRead): ReportItem {
           ]
         : []),
     ],
+    issueId: raw.issue_id || undefined,
     createdAt: normalizeIsoUtc(raw.created_at),
     updatedAt: normalizeIsoUtc(raw.updated_at),
   };
@@ -153,6 +154,9 @@ export class ApiReportRepository implements IReportRepository {
     }
     if (params.reassignmentRequired !== undefined) {
       queryParams.reassignment_required = params.reassignmentRequired;
+    }
+    if (params.issueId) {
+      queryParams.issue_id = params.issueId;
     }
 
     const response = await apiClient.get<BackendReportListResponse>(ENDPOINTS.REPORTS, {

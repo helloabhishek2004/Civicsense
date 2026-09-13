@@ -1,0 +1,18 @@
+{
+  "manifest_integrity_hash": "e988474dd46cee4c3b17010fb32af1a50ff750ea32579d8e8ab7ef8b0fd2e60b",
+  "evaluation_timestamp": "2026-09-13T03:27:33.449007+00:00",
+  "git_commit": "ab6203dced42cf698952a785b418538df683bd2a",
+  "python_version": "3.14.3 (tags/v3.14.3:323c59a, Feb  3 2026, 16:04:56) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "official_baselines_preserved": true,
+  "official_multimodal_accuracy": 0.79,
+  "official_vision_accuracy": 0.1667,
+  "official_text_accuracy": 0.79,
+  "official_review_required_rate": 0.9967,
+  "forensic_conclusions": {
+    "text_dependency": "CRITICAL (Accuracy drops by 52.67% when keywords are masked)",
+    "vision_readiness": "ZERO (Prototype metadata prior only; no neural weights or visual features)",
+    "fusion_behavior": "CONFIDENCE_SUPPRESSION (Depresses 299/300 predictions below 0.70 threshold)",
+    "source_bias": "MUNICIPAL_VOCABULARY_CORRELATION (157/157 Boston 311 correct vs 80/143 Wikimedia)"
+  }
+}

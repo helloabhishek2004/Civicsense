@@ -123,7 +123,7 @@ export const LoginPage: React.FC = () => {
                       {off.name}
                     </p>
                     <p className="text-[11px] text-civic-text-muted">
-                      {off.badgeNumber} • {off.department}
+                      {off.badgeNumber} ï¿½ {off.department}
                     </p>
                   </div>
                   <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-black/5 dark:bg-white/10 text-civic-text-secondary dark:text-civic-dark-text-secondary">
@@ -136,8 +136,16 @@ export const LoginPage: React.FC = () => {
         </div>
 
         <p className="mt-4 text-center text-xs text-civic-text-muted">
-          CivicSense Municipal Operations • Secure Government Portal
+          CivicSense Municipal Operations â€” Secure Government Portal
         </p>
+
+        {/* Prototype Authentication Disclosure */}
+        <div className="mt-3 p-3 rounded-lg border border-amber-200 bg-amber-50/80 dark:bg-amber-950/30 dark:border-amber-900/50 text-center">
+          <p className="text-[11px] text-amber-800 dark:text-amber-300 leading-relaxed">
+            <span className="font-semibold">Prototype Mode:</span> Authentication is simulated for controlled demonstrations only.
+            Production deployment requires authenticated role-based access control (RBAC).
+          </p>
+        </div>
       </div>
     </div>
   );

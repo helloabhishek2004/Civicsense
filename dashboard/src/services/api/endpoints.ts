@@ -20,4 +20,11 @@ export const ENDPOINTS = {
   DEPARTMENT_BY_ID: (id: string) => `/departments/${id}`,
   DEPARTMENT_STATS: (id: string) => `/departments/${id}/stats`,
   DEPARTMENT_REPORTS: (id: string) => `/departments/${id}/reports`,
+  ISSUES: '/issues',
+  ISSUE_BY_ID: (id: string) => `/issues/${id}`,
+  ISSUE_PRIORITY: (id: string) => `/issues/${id}/priority`,
+  ISSUE_REPORTS: (id: string) => `/issues/${id}/reports`,
+  MATCHES_PENDING: '/matches/pending',
+  MATCH_APPROVE: (matchId: string) => `/matches/${matchId}/approve`,
+  MATCH_REJECT: (matchId: string) => `/matches/${matchId}/reject`,
 } as const;

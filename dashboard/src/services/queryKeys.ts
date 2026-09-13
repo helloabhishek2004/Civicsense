@@ -32,4 +32,18 @@ export const queryKeys = {
     metrics: () => ['ai', 'metrics'] as const,
     health: () => ['ai', 'health'] as const,
   },
+  issues: {
+    all: ['issues'] as const,
+    lists: () => [...queryKeys.issues.all, 'list'] as const,
+    list: (params?: Record<string, unknown>) => [...queryKeys.issues.lists(), params || {}] as const,
+    details: () => [...queryKeys.issues.all, 'detail'] as const,
+    detail: (id: string) => [...queryKeys.issues.details(), id] as const,
+    priority: (id: string) => [...queryKeys.issues.all, 'priority', id] as const,
+    reports: (id: string, page?: number, pageSize?: number) =>
+      [...queryKeys.issues.all, 'reports', id, { page, pageSize }] as const,
+  },
+  matches: {
+    all: ['matches'] as const,
+    pending: () => [...queryKeys.matches.all, 'pending'] as const,
+  },
 };

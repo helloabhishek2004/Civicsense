@@ -1,0 +1,574 @@
+{
+  "total_samples": 995,
+  "exact_duplicates_count": 1,
+  "same_source_assets_count": 0,
+  "near_duplicates_count": 28,
+  "borderline_matches_count": 51,
+  "exact_duplicates": [
+    {
+      "sample_id_1": "train_pilot_bost311_101006649062",
+      "sample_id_2": "train_pilot_bost311_101006649193",
+      "match_type": "exact_duplicate",
+      "dhash_distance": 0,
+      "details": "Identical SHA-256: 1f01b3b60ca9814f471080a698a48c4cee0ccfb4062729e52a8e703b6b6196f5"
+    }
+  ],
+  "same_source_assets": [],
+  "near_duplicates": [
+    {
+      "sample_id_1": "train_pilot_bost311_101006649062",
+      "sample_id_2": "train_pilot_bost311_101006649193",
+      "match_type": "near_duplicate",
+      "dhash_distance": 0,
+      "details": "dHash Hamming distance: 0 bits"
+    },
+    {
+      "sample_id_1": "train_pilot_wmroad_92242638",
+      "sample_id_2": "train_pilot_wmroad_91941220",
+      "match_type": "near_duplicate",
+      "dhash_distance": 2,
+      "details": "dHash Hamming distance: 2 bits"
+    },
+    {
+      "sample_id_1": "train_pilot_wmroad_92242638",
+      "sample_id_2": "train_pilot_wmroad_91981361",
+      "match_type": "near_duplicate",
+      "dhash_distance": 2,
+      "details": "dHash Hamming distance: 2 bits"
+    },
+    {
+      "sample_id_1": "train_pilot_wmroad_92242638",
+      "sample_id_2": "train_pilot_wmroad_193696778",
+      "match_type": "near_duplicate",
+      "dhash_distance": 3,
+      "details": "dHash Hamming distance: 3 bits"
+    },
+    {
+      "sample_id_1": "train_pilot_wmroad_91941220",
+      "sample_id_2": "train_pilot_wmroad_91981361",
+      "match_type": "near_duplicate",
+      "dhash_distance": 2,
+      "details": "dHash Hamming distance: 2 bits"
+    },
+    {
+      "sample_id_1": "train_pilot_wmroad_91941220",
+      "sample_id_2": "train_pilot_wmroad_93941235",
+      "match_type": "near_duplicate",
+      "dhash_distance": 4,
+      "details": "dHash Hamming distance: 4 bits"
+    },
+    {
+      "sample_id_1": "train_pilot_wmroad_91941220",
+      "sample_id_2": "train_pilot_wmroad_193696778",
+      "match_type": "near_duplicate",
+      "dhash_distance": 1,
+      "details": "dHash Hamming distance: 1 bits"
+    },
+    {
+      "sample_id_1": "train_pilot_wmroad_91981361",
+      "sample_id_2": "train_pilot_wmroad_193696778",
+      "match_type": "near_duplicate",
+      "dhash_distance": 3,
+      "details": "dHash Hamming distance: 3 bits"
+    },
+    {
+      "sample_id_1": "train_pilot_wmroad_91981361",
+      "sample_id_2": "train_wmlight_b2_93437943",
+      "match_type": "near_duplicate",
+      "dhash_distance": 4,
+      "details": "dHash Hamming distance: 4 bits"
+    },
+    {
+      "sample_id_1": "train_pilot_wmroad_92584228",
+      "sample_id_2": "train_pilot_wmroad_92584237",
+      "match_type": "near_duplicate",
+      "dhash_distance": 3,
+      "details": "dHash Hamming distance: 3 bits"
+    },
+    {
+      "sample_id_1": "train_pilot_wmroad_92584228",
+      "sample_id_2": "train_wmroad_b2_92601548",
+      "match_type": "near_duplicate",
+      "dhash_distance": 3,
+      "details": "dHash Hamming distance: 3 bits"
+    },
+    {
+      "sample_id_1": "train_pilot_wmroad_92584237",
+      "sample_id_2": "train_wmroad_b2_92601548",
+      "match_type": "near_duplicate",
+      "dhash_distance": 2,
+      "details": "dHash Hamming distance: 2 bits"
+    },
+    {
+      "sample_id_1": "train_pilot_wmroad_98094502",
+      "sample_id_2": "train_wmwater_b3_197819489",
+      "match_type": "near_duplicate",
+      "dhash_distance": 4,
+      "details": "dHash Hamming distance: 4 bits"
+    },
+    {
+      "sample_id_1": "train_wmroad_b2_91499040",
+      "sample_id_2": "train_wmroad_b2_91516793",
+      "match_type": "near_duplicate",
+      "dhash_distance": 4,
+      "details": "dHash Hamming distance: 4 bits"
+    },
+    {
+      "sample_id_1": "train_wmroad_b2_91473397",
+      "sample_id_2": "train_wmroad_b2_91498754",
+      "match_type": "near_duplicate",
+      "dhash_distance": 4,
+      "details": "dHash Hamming distance: 4 bits"
+    },
+    {
+      "sample_id_1": "train_wmroad_b2_91531056",
+      "sample_id_2": "train_wmroad_b2_91499112",
+      "match_type": "near_duplicate",
+      "dhash_distance": 4,
+      "details": "dHash Hamming distance: 4 bits"
+    },
+    {
+      "sample_id_1": "train_wmroad_b2_91531056",
+      "sample_id_2": "train_wmroad_b2_91516793",
+      "match_type": "near_duplicate",
+      "dhash_distance": 3,
+      "details": "dHash Hamming distance: 3 bits"
+    },
+    {
+      "sample_id_1": "train_wmroad_b2_91640472",
+      "sample_id_2": "train_wmwater_b3_197819489",
+      "match_type": "near_duplicate",
+      "dhash_distance": 4,
+      "details": "dHash Hamming distance: 4 bits"
+    },
+    {
+      "sample_id_1": "train_wmroad_b2_91356945",
+      "sample_id_2": "train_wmroad_b2_91357693",
+      "match_type": "near_duplicate",
+      "dhash_distance": 4,
+      "details": "dHash Hamming distance: 4 bits"
+    },
+    {
+      "sample_id_1": "train_wmroad_b2_91499112",
+      "sample_id_2": "train_wmwater_b2_91453638",
+      "match_type": "near_duplicate",
+      "dhash_distance": 2,
+      "details": "dHash Hamming distance: 2 bits"
+    },
+    {
+      "sample_id_1": "train_wmroad_b2_153026017",
+      "sample_id_2": "train_wmroad_b2_153026029",
+      "match_type": "near_duplicate",
+      "dhash_distance": 4,
+      "details": "dHash Hamming distance: 4 bits"
+    },
+    {
+      "sample_id_1": "train_wmroad_b3_97750219",
+      "sample_id_2": "train_wmroad_b3_195599566",
+      "match_type": "near_duplicate",
+      "dhash_distance": 2,
+      "details": "dHash Hamming distance: 2 bits"
+    },
+    {
+      "sample_id_1": "train_wmroad_b3_91569708",
+      "sample_id_2": "train_wmlight_b2_93383831",
+      "match_type": "near_duplicate",
+      "dhash_distance": 2,
+      "details": "dHash Hamming distance: 2 bits"
+    },
+    {
+      "sample_id_1": "train_wmlight_b2_95220217",
+      "sample_id_2": "train_wmlight_b3_97747849",
+      "match_type": "near_duplicate",
+      "dhash_distance": 4,
+      "details": "dHash Hamming distance: 4 bits"
+    },
+    {
+      "sample_id_1": "train_wmlight_b3_95814734",
+      "sample_id_2": "train_wmwater_b3_97514690",
+      "match_type": "near_duplicate",
+      "dhash_distance": 4,
+      "details": "dHash Hamming distance: 4 bits"
+    },
+    {
+      "sample_id_1": "train_wmlight_b3_95814734",
+      "sample_id_2": "train_wmwater_b3_91464324",
+      "match_type": "near_duplicate",
+      "dhash_distance": 2,
+      "details": "dHash Hamming distance: 2 bits"
+    },
+    {
+      "sample_id_1": "train_wmlight_b3_96698080",
+      "sample_id_2": "train_wmlight_b3_96698038",
+      "match_type": "near_duplicate",
+      "dhash_distance": 3,
+      "details": "dHash Hamming distance: 3 bits"
+    },
+    {
+      "sample_id_1": "train_wmwater_b3_97514690",
+      "sample_id_2": "train_wmwater_b3_91464324",
+      "match_type": "near_duplicate",
+      "dhash_distance": 4,
+      "details": "dHash Hamming distance: 4 bits"
+    }
+  ],
+  "borderline_matches": [
+    {
+      "sample_id_1": "train_pilot_wmroad_92242638",
+      "sample_id_2": "train_pilot_wmroad_93941235",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_pilot_wmroad_92242638",
+      "sample_id_2": "train_pilot_wmroad_98094502",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_pilot_wmroad_92242638",
+      "sample_id_2": "train_wmlight_b2_93437943",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_pilot_wmroad_92242638",
+      "sample_id_2": "train_wmlight_b3_97747849",
+      "match_type": "borderline_match",
+      "dhash_distance": 5,
+      "details": "Borderline dHash Hamming distance: 5 bits"
+    },
+    {
+      "sample_id_1": "train_pilot_wmroad_92242638",
+      "sample_id_2": "train_wmwater_b3_96115457",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_pilot_wmroad_91941220",
+      "sample_id_2": "train_wmroad_b3_91569708",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_pilot_wmroad_91941220",
+      "sample_id_2": "train_wmlight_b2_93383831",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_pilot_wmroad_91941220",
+      "sample_id_2": "train_wmlight_b2_93437943",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_pilot_wmroad_91941220",
+      "sample_id_2": "train_wmlight_b3_95814734",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_pilot_wmroad_91941220",
+      "sample_id_2": "train_wmlight_b3_91748576",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_pilot_wmroad_91941220",
+      "sample_id_2": "train_wmwater_b3_97514690",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_pilot_wmroad_91941220",
+      "sample_id_2": "train_wmwater_b3_96115457",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_pilot_wmroad_91981361",
+      "sample_id_2": "train_pilot_wmroad_93941235",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_pilot_wmroad_91981361",
+      "sample_id_2": "train_pilot_wmroad_98094502",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_pilot_wmroad_93941235",
+      "sample_id_2": "train_pilot_wmroad_193696778",
+      "match_type": "borderline_match",
+      "dhash_distance": 5,
+      "details": "Borderline dHash Hamming distance: 5 bits"
+    },
+    {
+      "sample_id_1": "train_pilot_wmroad_98094502",
+      "sample_id_2": "train_wmroad_b2_91640472",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_wmroad_b2_91499040",
+      "sample_id_2": "train_wmroad_b2_91498396",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_wmroad_b2_91499040",
+      "sample_id_2": "train_wmroad_b2_91531056",
+      "match_type": "borderline_match",
+      "dhash_distance": 5,
+      "details": "Borderline dHash Hamming distance: 5 bits"
+    },
+    {
+      "sample_id_1": "train_wmroad_b2_91499040",
+      "sample_id_2": "train_wmroad_b2_91517469",
+      "match_type": "borderline_match",
+      "dhash_distance": 5,
+      "details": "Borderline dHash Hamming distance: 5 bits"
+    },
+    {
+      "sample_id_1": "train_wmroad_b2_91499040",
+      "sample_id_2": "train_wmroad_b2_91522957",
+      "match_type": "borderline_match",
+      "dhash_distance": 5,
+      "details": "Borderline dHash Hamming distance: 5 bits"
+    },
+    {
+      "sample_id_1": "train_wmroad_b2_91588385",
+      "sample_id_2": "train_wmlight_b3_95167609",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_wmroad_b2_91588385",
+      "sample_id_2": "train_wmwater_b3_91464324",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_wmroad_b2_91498396",
+      "sample_id_2": "train_wmroad_b2_91517469",
+      "match_type": "borderline_match",
+      "dhash_distance": 5,
+      "details": "Borderline dHash Hamming distance: 5 bits"
+    },
+    {
+      "sample_id_1": "train_wmroad_b2_91531056",
+      "sample_id_2": "train_wmroad_b2_91522957",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_wmroad_b2_91531056",
+      "sample_id_2": "train_wmwater_b2_91453638",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_wmroad_b2_91354510",
+      "sample_id_2": "train_wmroad_b2_91356945",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_wmroad_b2_91499112",
+      "sample_id_2": "train_wmroad_b2_91517469",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_wmroad_b2_91499112",
+      "sample_id_2": "train_wmroad_b2_91522957",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_wmroad_b2_91522957",
+      "sample_id_2": "train_wmwater_b2_91453638",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_wmroad_b2_153026017",
+      "sample_id_2": "train_wmroad_b2_153690401",
+      "match_type": "borderline_match",
+      "dhash_distance": 5,
+      "details": "Borderline dHash Hamming distance: 5 bits"
+    },
+    {
+      "sample_id_1": "train_wmroad_b2_153026029",
+      "sample_id_2": "train_wmroad_b2_153690401",
+      "match_type": "borderline_match",
+      "dhash_distance": 5,
+      "details": "Borderline dHash Hamming distance: 5 bits"
+    },
+    {
+      "sample_id_1": "train_wmroad_b3_91569708",
+      "sample_id_2": "train_wmlight_b2_91791079",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_wmroad_b3_93964195",
+      "sample_id_2": "train_wmwater_b3_94021180",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_wmlight_b2_95220217",
+      "sample_id_2": "train_wmwater_b3_96107721",
+      "match_type": "borderline_match",
+      "dhash_distance": 5,
+      "details": "Borderline dHash Hamming distance: 5 bits"
+    },
+    {
+      "sample_id_1": "train_wmlight_b2_91791079",
+      "sample_id_2": "train_wmlight_b2_93383831",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_wmlight_b2_91791079",
+      "sample_id_2": "train_wmlight_b3_95814734",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_wmlight_b2_91791079",
+      "sample_id_2": "train_wmwater_b3_95184155",
+      "match_type": "borderline_match",
+      "dhash_distance": 5,
+      "details": "Borderline dHash Hamming distance: 5 bits"
+    },
+    {
+      "sample_id_1": "train_wmlight_b2_91791079",
+      "sample_id_2": "train_wmwater_b3_97514690",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_wmlight_b2_91791079",
+      "sample_id_2": "train_wmwater_b3_91464324",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_wmlight_b2_91814589",
+      "sample_id_2": "train_wmwater_b3_96107721",
+      "match_type": "borderline_match",
+      "dhash_distance": 5,
+      "details": "Borderline dHash Hamming distance: 5 bits"
+    },
+    {
+      "sample_id_1": "train_wmlight_b3_97508945",
+      "sample_id_2": "train_wmlight_b3_97747849",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_wmlight_b3_92271743",
+      "sample_id_2": "train_wmwater_b3_194785914",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_wmlight_b3_95916661",
+      "sample_id_2": "train_wmwater_b3_194785914",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_wmwater_b2_98087313",
+      "sample_id_2": "train_wmwater_b3_98087284",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_wmwater_b2_98087549",
+      "sample_id_2": "train_wmwater_b2_98087571",
+      "match_type": "borderline_match",
+      "dhash_distance": 5,
+      "details": "Borderline dHash Hamming distance: 5 bits"
+    },
+    {
+      "sample_id_1": "train_wmwater_b2_91672032",
+      "sample_id_2": "train_wmwater_b2_91687380",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_wmwater_b3_95480093",
+      "sample_id_2": "train_wmwater_b3_97514690",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_wmwater_b3_96974703",
+      "sample_id_2": "train_wmwater_b3_97514690",
+      "match_type": "borderline_match",
+      "dhash_distance": 5,
+      "details": "Borderline dHash Hamming distance: 5 bits"
+    },
+    {
+      "sample_id_1": "train_wmwater_b3_95184155",
+      "sample_id_2": "train_wmwater_b3_91464324",
+      "match_type": "borderline_match",
+      "dhash_distance": 5,
+      "details": "Borderline dHash Hamming distance: 5 bits"
+    },
+    {
+      "sample_id_1": "train_wmwater_b3_97514690",
+      "sample_id_2": "train_wmwater_b3_96115457",
+      "match_type": "borderline_match",
+      "dhash_distance": 6,
+      "details": "Borderline dHash Hamming distance: 6 bits"
+    },
+    {
+      "sample_id_1": "train_wmwater_b3_96107674",
+      "sample_id_2": "train_wmwater_b3_96107963",
+      "match_type": "borderline_match",
+      "dhash_distance": 5,
+      "details": "Borderline dHash Hamming distance: 5 bits"
+    }
+  ]
+}

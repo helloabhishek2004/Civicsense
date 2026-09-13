@@ -1,0 +1,24 @@
+# Ignore raw downloaded datasets and heavy image archives
+raw/
+benchmark_v1/images/
+training_v1/images/
+*.zip
+*.tar.gz
+*.tar
+*.tgz
+*.tmp
+*.cache
+__pycache__/
+
+# Do not ignore benchmark metadata and manifest files
+!benchmark_dataset.jsonl
+!manifest.json
+!manifest.jsonl
+!splits.json
+!splits/
+!reports/
+!provenance/
+!acquisition/
+!README.md
+!.gitignore
+

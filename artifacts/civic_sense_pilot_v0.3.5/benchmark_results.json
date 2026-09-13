@@ -1,0 +1,17 @@
+{
+  "benchmark_sha256": "e988474dd46cee4c3b17010fb32af1a50ff750ea32579d8e8ab7ef8b0fd2e60b",
+  "sample_count": 300,
+  "text_accuracy": 0.79,
+  "vision_accuracy": 0.4333,
+  "fused_accuracy": 0.7967,
+  "accuracy_lift_pp": 0.6667,
+  "additional_correct_samples": 2,
+  "selective_triage": {
+    "auto_accepted_count": 81,
+    "auto_accepted_correct": 81,
+    "selective_accuracy": 1.0,
+    "human_review_count": 219,
+    "review_rate": 0.73,
+    "observed_false_dispatches": 0
+  }
+}

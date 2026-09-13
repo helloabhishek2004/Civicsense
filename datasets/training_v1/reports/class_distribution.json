@@ -1,0 +1,50 @@
+{
+  "Water Leakage": {
+    "train": 78,
+    "validation": 19,
+    "quarantine": 73,
+    "total": 170
+  },
+  "Pothole": {
+    "train": 78,
+    "validation": 20,
+    "quarantine": 62,
+    "total": 160
+  },
+  "Garbage": {
+    "train": 84,
+    "validation": 21,
+    "quarantine": 63,
+    "total": 168
+  },
+  "Other": {
+    "train": 79,
+    "validation": 20,
+    "quarantine": 61,
+    "total": 160
+  },
+  "Road Damage": {
+    "train": 78,
+    "validation": 20,
+    "quarantine": 72,
+    "total": 170
+  },
+  "Streetlight": {
+    "train": 76,
+    "validation": 19,
+    "quarantine": 72,
+    "total": 167
+  },
+  "Infrastructure": {
+    "train": 0,
+    "validation": 0,
+    "quarantine": 0,
+    "total": 0
+  },
+  "Drainage": {
+    "train": 0,
+    "validation": 0,
+    "quarantine": 0,
+    "total": 0
+  }
+}

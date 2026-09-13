@@ -2,10 +2,6 @@ import base64
 
 from fastapi.testclient import TestClient
 
-from app.main import app
-
-client = TestClient(app)
-
 # Minimal 1x1 valid JPEG bytes in base64
 TINY_JPEG_BYTES = (
     b"\xff\xd8\xff\xe0\x00\x10JFIF\x00\x01\x01\x01\x00`\x00`\x00\x00"
@@ -20,7 +16,7 @@ TINY_JPEG_BYTES = (
 TINY_JPEG_B64 = base64.b64encode(TINY_JPEG_BYTES).decode("ascii")
 
 
-def test_create_report_with_citizen_identity_and_base64_image() -> None:
+def test_create_report_with_citizen_identity_and_base64_image(client: TestClient) -> None:
     payload = {
         "location": {
             "latitude": 12.9716,

@@ -1,13 +1,11 @@
 from typing import Any
 
+from app.core.config import get_settings
 from app.models.enums import PriorityLevel, SeverityLevel
 
 
 class PrototypeDecisionEngine:
     """Policy-based decision engine producing category, severity, and review routing."""
-
-    CONFIDENCE_THRESHOLD = 0.70
-    AGREEMENT_THRESHOLD = 0.60
 
     PRIORITY_LOOKUP = {
         SeverityLevel.CRITICAL: PriorityLevel.CRITICAL,
@@ -16,6 +14,14 @@ class PrototypeDecisionEngine:
         SeverityLevel.LOW: PriorityLevel.LOW,
     }
 
+    @property
+    def confidence_threshold(self) -> float:
+        return get_settings().AI_REVIEW_CONFIDENCE_THRESHOLD
+
+    @property
+    def agreement_threshold(self) -> float:
+        return get_settings().AI_MODALITY_AGREEMENT_THRESHOLD
+
     def decide(
         self,
         vision_result: dict[str, Any],
@@ -23,27 +29,39 @@ class PrototypeDecisionEngine:
         fusion_result: dict[str, Any],
     ) -> dict[str, Any]:
         """Synthesize final recommendations and check verification policy gates."""
-        v_cat = vision_result.get("predicted_category")
-        t_cat = text_result.get("predicted_category")
-        v_conf = vision_result.get("confidence", 0.5)
-        t_conf = text_result.get("confidence", 0.5)
-        mod_agreement = fusion_result.get("modality_agreement", 0.5)
-
-        # Decide category
-        if t_cat and t_cat != "Other":
-            final_category = t_cat
-        elif v_cat and v_cat != "Other":
-            final_category = v_cat
+        # Check if modern probability fusion result is provided
+        if "fused_category" in fusion_result and "fused_confidence" in fusion_result:
+            final_category = fusion_result["fused_category"]
+            overall_confidence = float(fusion_result["fused_confidence"])
+            mod_agreement = fusion_result.get("modality_agreement")
+            fallback_mode = fusion_result.get("fallback_mode", "MULTIMODAL")
+            has_image = fallback_mode != "TEXT_ONLY"
+            disagree_detected = bool(fusion_result.get("disagreement_detected", False))
         else:
-            final_category = "Other"
+            v_cat = vision_result.get("predicted_category")
+            t_cat = text_result.get("predicted_category")
+            v_conf = vision_result.get("confidence", 0.5)
+            t_conf = text_result.get("confidence", 0.5)
+            has_image = vision_result.get("has_image", False)
+            mod_agreement = fusion_result.get("modality_agreement")
+            disagree_detected = False
 
-        # Overall confidence: weighted blend of text, vision, and agreement
-        if vision_result.get("has_image", False):
-            overall_confidence = round(
-                (t_conf * 0.45) + (v_conf * 0.35) + (mod_agreement * 0.20), 2
-            )
-        else:
-            overall_confidence = round(t_conf * 0.85, 2)  # Penalty for missing visual corroboration
+            # Decide category
+            if t_cat and t_cat != "Other":
+                final_category = t_cat
+            elif v_cat and v_cat != "Other":
+                final_category = v_cat
+            else:
+                final_category = "Other"
+
+            # Overall confidence: weighted blend of text, vision, and agreement
+            if has_image:
+                mod_num = float(mod_agreement) if mod_agreement is not None else 0.50
+                overall_confidence = round((t_conf * 0.45) + (v_conf * 0.35) + (mod_num * 0.20), 2)
+                fallback_mode = "MULTIMODAL"
+            else:
+                overall_confidence = round(t_conf * 0.70, 2)
+                fallback_mode = "TEXT_ONLY"
 
         # Suggested severity: pick the higher urgency signal for safety
         t_sev = text_result.get("predicted_severity", SeverityLevel.LOW)
@@ -68,14 +86,29 @@ class PrototypeDecisionEngine:
         review_reason = None
         decision_reasons = []
 
-        if overall_confidence < self.CONFIDENCE_THRESHOLD:
+        if not has_image:
             review_required = True
-            review_reason = "LOW_CONFIDENCE"
+            review_reason = "UNIMODAL_TEXT_FALLBACK"
             decision_reasons.append(
-                f"Confidence ({overall_confidence:.2f}) < threshold ({self.CONFIDENCE_THRESHOLD})."
+                "Report processed in unimodal text fallback mode "
+                "(photographic evidence absent or invalid). "
+                "0.70 policy penalty applied (administrative safety policy, "
+                "not statistical probability). Verification required."
             )
 
-        if mod_agreement < self.AGREEMENT_THRESHOLD and vision_result.get("has_image", False):
+        if overall_confidence < self.confidence_threshold:
+            review_required = True
+            if not review_reason:
+                review_reason = "LOW_CONFIDENCE"
+            decision_reasons.append(
+                f"Confidence ({overall_confidence:.2f}) < "
+                f"threshold ({self.confidence_threshold:.2f})."
+            )
+
+        if has_image and (
+            disagree_detected
+            or (mod_agreement is not None and mod_agreement < self.agreement_threshold)
+        ):
             review_required = True
             review_reason = (
                 "MODALITY_DISAGREEMENT"
@@ -84,6 +117,8 @@ class PrototypeDecisionEngine:
             )
             decision_reasons.append(
                 f"Agreement ({mod_agreement:.2f}) indicates cross-modal contradiction."
+                if mod_agreement is not None
+                else "Cross-modal category discrepancy detected."
             )
 
         if final_category == "Other":
@@ -91,11 +126,6 @@ class PrototypeDecisionEngine:
             review_reason = "UNCLASSIFIED_ISSUE" if not review_reason else review_reason
             decision_reasons.append(
                 "Defect does not match canonical civic categories; review required."
-            )
-
-        if not vision_result.get("has_image", False):
-            decision_reasons.append(
-                "Report without photographic evidence. Verification recommended prior to dispatch."
             )
 
         if not decision_reasons:
@@ -110,5 +140,6 @@ class PrototypeDecisionEngine:
             "confidence": overall_confidence,
             "review_required": review_required,
             "review_reason": review_reason,
+            "fallback_mode": fallback_mode,
             "decision_explanation": " | ".join(decision_reasons),
         }

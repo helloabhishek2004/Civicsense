@@ -1,0 +1,160 @@
+{
+  "evaluation_name": "exp_a_benchmark",
+  "dataset_manifest": "C:\\Users\\abhis\\OneDrive\\Desktop\\Civicsense\\datasets\\benchmark_v1\\benchmark_dataset.jsonl",
+  "checkpoint_file": "exp_a_best.pt",
+  "total_samples": 300,
+  "accuracy": 0.42,
+  "macro_precision": 0.5013,
+  "macro_recall": 0.42,
+  "macro_f1": 0.3891,
+  "per_class": {
+    "Pothole": {
+      "precision": 0.6087,
+      "recall": 0.84,
+      "f1_score": 0.7059,
+      "support": 50
+    },
+    "Road Damage": {
+      "precision": 0.7,
+      "recall": 0.14,
+      "f1_score": 0.2333,
+      "support": 50
+    },
+    "Garbage": {
+      "precision": 0.3243,
+      "recall": 0.48,
+      "f1_score": 0.3871,
+      "support": 50
+    },
+    "Water Leakage": {
+      "precision": 0.5833,
+      "recall": 0.14,
+      "f1_score": 0.2258,
+      "support": 50
+    },
+    "Streetlight": {
+      "precision": 0.5,
+      "recall": 0.32,
+      "f1_score": 0.3902,
+      "support": 50
+    },
+    "Other": {
+      "precision": 0.2913,
+      "recall": 0.6,
+      "f1_score": 0.3922,
+      "support": 50
+    }
+  },
+  "confusion_matrix": {
+    "classes": [
+      "Pothole",
+      "Road Damage",
+      "Garbage",
+      "Water Leakage",
+      "Streetlight",
+      "Other"
+    ],
+    "matrix": [
+      [
+        42,
+        1,
+        4,
+        0,
+        0,
+        3
+      ],
+      [
+        9,
+        7,
+        1,
+        3,
+        12,
+        18
+      ],
+      [
+        4,
+        0,
+        24,
+        0,
+        0,
+        22
+      ],
+      [
+        8,
+        2,
+        16,
+        7,
+        4,
+        13
+      ],
+      [
+        5,
+        0,
+        10,
+        2,
+        16,
+        17
+      ],
+      [
+        1,
+        0,
+        19,
+        0,
+        0,
+        30
+      ]
+    ]
+  },
+  "latency_ms": {
+    "mean": 2.49,
+    "p50": 2.37,
+    "p95": 3.37,
+    "device": "cpu"
+  },
+  "confidence_stats": {
+    "mean_confidence_overall": 0.6853,
+    "mean_confidence_correct": 0.7518,
+    "mean_confidence_incorrect": 0.6371
+  },
+  "error_analysis_summary": {
+    "total_errors": 174,
+    "high_confidence_errors_count": 65,
+    "low_confidence_correct_count": 18,
+    "top_confusion_pairs": [
+      [
+        "Garbage -> Other",
+        22
+      ],
+      [
+        "Other -> Garbage",
+        19
+      ],
+      [
+        "Road Damage -> Other",
+        18
+      ],
+      [
+        "Streetlight -> Other",
+        17
+      ],
+      [
+        "Water Leakage -> Garbage",
+        16
+      ],
+      [
+        "Water Leakage -> Other",
+        13
+      ],
+      [
+        "Road Damage -> Streetlight",
+        12
+      ],
+      [
+        "Streetlight -> Garbage",
+        10
+      ]
+    ]
+  },
+  "evaluated_at": "2026-09-13T07:56:12.208901+00:00",
+  "evaluation_duration_sec": 8.117
+}

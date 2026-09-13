@@ -1,3 +1,35 @@
 from app.services.similarity.interface import ISimilarityService
+from app.services.similarity.service import (
+    MatchAction,
+    MatchComponent,
+    MatchStatus,
+    SimilarityConfig,
+    SimilarityMatch,
+    category_score,
+    cosine_similarity,
+    distance_score,
+    generate_issue_title,
+    haversine_distance_meters,
+    match_report_to_issue,
+    process_similarity_match,
+    store_match_metadata,
+    validate_model_availability,
+)
 
-__all__ = ["ISimilarityService"]
+__all__ = [
+    "ISimilarityService",
+    "MatchAction",
+    "MatchComponent",
+    "MatchStatus",
+    "SimilarityConfig",
+    "SimilarityMatch",
+    "cosine_similarity",
+    "distance_score",
+    "category_score",
+    "generate_issue_title",
+    "haversine_distance_meters",
+    "match_report_to_issue",
+    "process_similarity_match",
+    "store_match_metadata",
+    "validate_model_availability",
+]

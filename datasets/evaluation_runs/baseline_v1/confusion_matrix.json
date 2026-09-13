@@ -1,0 +1,78 @@
+{
+  "classes": [
+    "Pothole",
+    "Road Damage",
+    "Garbage",
+    "Water Leakage",
+    "Streetlight",
+    "Other"
+  ],
+  "matrix": [
+    [
+      50,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      21,
+      0,
+      0,
+      0,
+      29
+    ],
+    [
+      0,
+      0,
+      50,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      3,
+      0,
+      37,
+      0,
+      10
+    ],
+    [
+      3,
+      0,
+      0,
+      0,
+      29,
+      18
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      50
+    ]
+  ],
+  "row_ground_truth": [
+    "Pothole",
+    "Road Damage",
+    "Garbage",
+    "Water Leakage",
+    "Streetlight",
+    "Other"
+  ],
+  "col_predicted": [
+    "Pothole",
+    "Road Damage",
+    "Garbage",
+    "Water Leakage",
+    "Streetlight",
+    "Other"
+  ],
+  "total_samples": 300,
+  "matrix_sum": 300
+}

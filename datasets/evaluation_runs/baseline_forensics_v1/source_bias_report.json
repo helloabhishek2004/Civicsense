@@ -1,0 +1,209 @@
+{
+  "manifest_integrity_hash": "e988474dd46cee4c3b17010fb32af1a50ff750ea32579d8e8ab7ef8b0fd2e60b",
+  "evaluation_timestamp": "2026-09-13T03:27:33.448538+00:00",
+  "report": {
+    "total_samples": 300,
+    "source_distribution": {
+      "boston311": 157,
+      "wikimedia_road_damage": 45,
+      "wikimedia_streetlight": 48,
+      "wikimedia_water": 50
+    },
+    "source_distribution_by_category": {
+      "Garbage": {
+        "boston311": 50
+      },
+      "Other": {
+        "boston311": 50
+      },
+      "Pothole": {
+        "boston311": 50
+      },
+      "Road Damage": {
+        "boston311": 5,
+        "wikimedia_road_damage": 45
+      },
+      "Streetlight": {
+        "boston311": 2,
+        "wikimedia_streetlight": 48
+      },
+      "Water Leakage": {
+        "wikimedia_water": 50
+      }
+    },
+    "caption_length_statistics": {
+      "by_category": {
+        "Garbage": {
+          "mean_chars": 15.0,
+          "min_chars": 15,
+          "max_chars": 15
+        },
+        "Other": {
+          "mean_chars": 27.0,
+          "min_chars": 27,
+          "max_chars": 27
+        },
+        "Pothole": {
+          "mean_chars": 25.2,
+          "min_chars": 7,
+          "max_chars": 26
+        },
+        "Road Damage": {
+          "mean_chars": 220.7,
+          "min_chars": 14,
+          "max_chars": 300
+        },
+        "Streetlight": {
+          "mean_chars": 188.5,
+          "min_chars": 17,
+          "max_chars": 300
+        },
+        "Water Leakage": {
+          "mean_chars": 174.3,
+          "min_chars": 10,
+          "max_chars": 300
+        }
+      },
+      "by_source": {
+        "boston311": {
+          "mean_chars": 22.3,
+          "min_chars": 7,
+          "max_chars": 32
+        },
+        "wikimedia_road_damage": {
+          "mean_chars": 243.6,
+          "min_chars": 33,
+          "max_chars": 300
+        },
+        "wikimedia_streetlight": {
+          "mean_chars": 195.0,
+          "min_chars": 17,
+          "max_chars": 300
+        },
+        "wikimedia_water": {
+          "mean_chars": 174.3,
+          "min_chars": 10,
+          "max_chars": 300
+        }
+      }
+    },
+    "explicit_keyword_presence_rate": {
+      "Pothole": {
+        "matched_count": 50,
+        "percentage": 100.0
+      },
+      "Road Damage": {
+        "matched_count": 21,
+        "percentage": 42.0
+      },
+      "Garbage": {
+        "matched_count": 50,
+        "percentage": 100.0
+      },
+      "Water Leakage": {
+        "matched_count": 37,
+        "percentage": 74.0
+      },
+      "Streetlight": {
+        "matched_count": 32,
+        "percentage": 64.0
+      },
+      "Other": {
+        "matched_count": 0,
+        "percentage": 0.0
+      }
+    },
+    "multilingual_non_english_captions": {
+      "Pothole": {
+        "count": 0,
+        "percentage": 0.0
+      },
+      "Road Damage": {
+        "count": 1,
+        "percentage": 2.0
+      },
+      "Garbage": {
+        "count": 0,
+        "percentage": 0.0
+      },
+      "Water Leakage": {
+        "count": 5,
+        "percentage": 10.0
+      },
+      "Streetlight": {
+        "count": 17,
+        "percentage": 34.0
+      },
+      "Other": {
+        "count": 0,
+        "percentage": 0.0
+      }
+    },
+    "most_frequent_words_by_category": {
+      "Pothole": [
+        "pothole",
+        "request",
+        "for",
+        "repair"
+      ],
+      "Road Damage": [
+        "description",
+        "location",
+        "coordinates",
+        "the",
+        "wikimapia"
+      ],
+      "Garbage": [
+        "illegal",
+        "dumping"
+      ],
+      "Water Leakage": [
+        "the",
+        "water",
+        "burst",
+        "main",
+        "org"
+      ],
+      "Streetlight": [
+        "the",
+        "href",
+        "org",
+        "class",
+        "https"
+      ],
+      "Other": [
+        "poor",
+        "conditions",
+        "property"
+      ]
+    },
+    "source_accuracy_correlation": {
+      "boston311": {
+        "total": 157,
+        "correct": 157,
+        "accuracy": 1.0
+      },
+      "wikimedia_road_damage": {
+        "total": 45,
+        "correct": 16,
+        "accuracy": 0.3556
+      },
+      "wikimedia_streetlight": {
+        "total": 48,
+        "correct": 27,
+        "accuracy": 0.5625
+      },
+      "wikimedia_water": {
+        "total": 50,
+        "correct": 37,
+        "accuracy": 0.74
+      }
+    },
+    "key_findings": [
+      "100.00% of Boston 311 samples (157/157) are predicted correctly due to standardized, terse municipal service labels ('Pothole repair', 'Trash', 'Street light outage').",
+      "100.00% of pipeline errors (63/63) originate from Wikimedia Commons open-data images.",
+      "Wikimedia records feature natural photographic captions with high vocabulary variance and non-English phrasing (Italian, French, German, Spanish) lacking exact English regex matches.",
+      "The 50 'Other' category samples in Boston 311 contain zero civic defect keywords and correctly default to 'Other', yielding 100% recall for that class."
+    ]
+  }
+}

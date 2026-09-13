@@ -1,0 +1,257 @@
+{
+  "primary_comparison": {
+    "contrast": "MiniLM (Trained Head) vs Deterministic Text Baseline",
+    "mcnemar": {
+      "n11_both_correct": 230,
+      "n10_text_correct_fusion_wrong": 7,
+      "n01_text_wrong_fusion_correct": 32,
+      "n00_both_wrong": 31,
+      "discordant_total": 39,
+      "text_accuracy": 0.79,
+      "fusion_accuracy": 0.8733,
+      "accuracy_difference_pp": 8.3333,
+      "mcnemar_method": "continuity_corrected_chisquare",
+      "statistic": 14.7692,
+      "p_value": 0.000122,
+      "ci_95_difference_pp": [
+        4.3638,
+        12.3028
+      ],
+      "is_statistically_significant": true,
+      "interpretation": "Statistically significant paired difference (p=0.0001 < 0.05, difference = +8.33 pp, 95% CI [+4.36, +12.30] pp)."
+    },
+    "bootstrap_10000_intervals": {
+      "bootstrap_iterations": 10000,
+      "seed": 42,
+      "sample_size": 300,
+      "confidence_level": 0.95,
+      "metrics": {
+        "text_accuracy": {
+          "mean": 0.79,
+          "median": 0.79,
+          "std": 0.0233,
+          "ci_95_low": 0.7433,
+          "ci_95_high": 0.8367,
+          "unit": "fraction"
+        },
+        "fusion_accuracy": {
+          "mean": 0.873,
+          "median": 0.8733,
+          "std": 0.0189,
+          "ci_95_low": 0.8333,
+          "ci_95_high": 0.9067,
+          "unit": "fraction"
+        },
+        "accuracy_difference_pp": {
+          "mean": 8.2924,
+          "median": 8.3333,
+          "std": 1.9982,
+          "ci_95_low": 4.3333,
+          "ci_95_high": 12.3333,
+          "unit": "percentage_points"
+        },
+        "text_macro_f1": {
+          "mean": 0.792,
+          "median": 0.7924,
+          "std": 0.0217,
+          "ci_95_low": 0.749,
+          "ci_95_high": 0.8341,
+          "unit": "fraction"
+        },
+        "fusion_macro_f1": {
+          "mean": 0.869,
+          "median": 0.8692,
+          "std": 0.0178,
+          "ci_95_low": 0.8332,
+          "ci_95_high": 0.9023,
+          "unit": "fraction"
+        },
+        "macro_f1_difference": {
+          "mean": 0.077,
+          "median": 0.0771,
+          "std": 0.022,
+          "ci_95_low": 0.0338,
+          "ci_95_high": 0.1204,
+          "unit": "fraction"
+        }
+      }
+    }
+  },
+  "secondary_comparisons": {
+    "tfidf_vs_deterministic": {
+      "mcnemar": {
+        "n11_both_correct": 222,
+        "n10_text_correct_fusion_wrong": 15,
+        "n01_text_wrong_fusion_correct": 38,
+        "n00_both_wrong": 25,
+        "discordant_total": 53,
+        "text_accuracy": 0.79,
+        "fusion_accuracy": 0.8667,
+        "accuracy_difference_pp": 7.6667,
+        "mcnemar_method": "continuity_corrected_chisquare",
+        "statistic": 9.1321,
+        "p_value": 0.002512,
+        "ci_95_difference_pp": [
+          2.9902,
+          12.3431
+        ],
+        "is_statistically_significant": true,
+        "interpretation": "Statistically significant paired difference (p=0.0025 < 0.05, difference = +7.67 pp, 95% CI [+2.99, +12.34] pp)."
+      },
+      "bootstrap": {
+        "bootstrap_iterations": 10000,
+        "seed": 42,
+        "sample_size": 300,
+        "confidence_level": 0.95,
+        "metrics": {
+          "text_accuracy": {
+            "mean": 0.79,
+            "median": 0.79,
+            "std": 0.0233,
+            "ci_95_low": 0.7433,
+            "ci_95_high": 0.8367,
+            "unit": "fraction"
+          },
+          "fusion_accuracy": {
+            "mean": 0.8665,
+            "median": 0.8667,
+            "std": 0.0196,
+            "ci_95_low": 0.8267,
+            "ci_95_high": 0.9033,
+            "unit": "fraction"
+          },
+          "accuracy_difference_pp": {
+            "mean": 7.6501,
+            "median": 7.6667,
+            "std": 2.3522,
+            "ci_95_low": 3.0,
+            "ci_95_high": 12.3333,
+            "unit": "percentage_points"
+          },
+          "text_macro_f1": {
+            "mean": 0.792,
+            "median": 0.7924,
+            "std": 0.0217,
+            "ci_95_low": 0.749,
+            "ci_95_high": 0.8341,
+            "unit": "fraction"
+          },
+          "fusion_macro_f1": {
+            "mean": 0.8632,
+            "median": 0.8638,
+            "std": 0.0191,
+            "ci_95_low": 0.8249,
+            "ci_95_high": 0.8991,
+            "unit": "fraction"
+          },
+          "macro_f1_difference": {
+            "mean": 0.0712,
+            "median": 0.0713,
+            "std": 0.026,
+            "ci_95_low": 0.0203,
+            "ci_95_high": 0.1219,
+            "unit": "fraction"
+          }
+        }
+      }
+    },
+    "minilm_vs_tfidf": {
+      "mcnemar": {
+        "n11_both_correct": 246,
+        "n10_text_correct_fusion_wrong": 14,
+        "n01_text_wrong_fusion_correct": 16,
+        "n00_both_wrong": 24,
+        "discordant_total": 30,
+        "text_accuracy": 0.8667,
+        "fusion_accuracy": 0.8733,
+        "accuracy_difference_pp": 0.6667,
+        "mcnemar_method": "continuity_corrected_chisquare",
+        "statistic": 0.0333,
+        "p_value": 0.855132,
+        "ci_95_difference_pp": [
+          -2.9109,
+          4.2443
+        ],
+        "is_statistically_significant": false,
+        "interpretation": "Empirical difference of +0.67 pp is not statistically significant on paired benchmark (p=0.8551 >= 0.05, 95% CI [-2.91, +4.24] pp). Discordant pairs: Text-correct/Fusion-wrong=14, Text-wrong/Fusion-correct=16."
+      }
+    },
+    "ensemble_alpha_0_1_vs_deterministic": {
+      "mcnemar": {
+        "n11_both_correct": 232,
+        "n10_text_correct_fusion_wrong": 5,
+        "n01_text_wrong_fusion_correct": 32,
+        "n00_both_wrong": 31,
+        "discordant_total": 37,
+        "text_accuracy": 0.79,
+        "fusion_accuracy": 0.88,
+        "accuracy_difference_pp": 9.0,
+        "mcnemar_method": "continuity_corrected_chisquare",
+        "statistic": 18.2703,
+        "p_value": 1.9e-05,
+        "ci_95_difference_pp": [
+          5.1587,
+          12.8413
+        ],
+        "is_statistically_significant": true,
+        "interpretation": "Statistically significant paired difference (p=0.0000 < 0.05, difference = +9.00 pp, 95% CI [+5.16, +12.84] pp)."
+      },
+      "bootstrap": {
+        "bootstrap_iterations": 10000,
+        "seed": 42,
+        "sample_size": 300,
+        "confidence_level": 0.95,
+        "metrics": {
+          "text_accuracy": {
+            "mean": 0.79,
+            "median": 0.79,
+            "std": 0.0233,
+            "ci_95_low": 0.7433,
+            "ci_95_high": 0.8367,
+            "unit": "fraction"
+          },
+          "fusion_accuracy": {
+            "mean": 0.8797,
+            "median": 0.88,
+            "std": 0.0185,
+            "ci_95_low": 0.8433,
+            "ci_95_high": 0.9133,
+            "unit": "fraction"
+          },
+          "accuracy_difference_pp": {
+            "mean": 8.9644,
+            "median": 9.0,
+            "std": 1.9395,
+            "ci_95_low": 5.3333,
+            "ci_95_high": 12.6667,
+            "unit": "percentage_points"
+          },
+          "text_macro_f1": {
+            "mean": 0.792,
+            "median": 0.7924,
+            "std": 0.0217,
+            "ci_95_low": 0.749,
+            "ci_95_high": 0.8341,
+            "unit": "fraction"
+          },
+          "fusion_macro_f1": {
+            "mean": 0.8765,
+            "median": 0.8769,
+            "std": 0.0175,
+            "ci_95_low": 0.841,
+            "ci_95_high": 0.9091,
+            "unit": "fraction"
+          },
+          "macro_f1_difference": {
+            "mean": 0.0845,
+            "median": 0.0846,
+            "std": 0.0213,
+            "ci_95_low": 0.0426,
+            "ci_95_high": 0.1268,
+            "unit": "fraction"
+          }
+        }
+      }
+    }
+  }
+}

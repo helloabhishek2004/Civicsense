@@ -181,5 +181,3 @@ def test_get_report_stats(client: TestClient, sample_report_payload: dict[str, A
     assert "resolvedToday" in data
     assert "criticalIssues" in data
     assert data["totalReports"] >= 1
-
-

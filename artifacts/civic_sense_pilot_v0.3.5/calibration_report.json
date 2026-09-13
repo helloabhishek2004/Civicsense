@@ -1,0 +1,367 @@
+{
+  "calibration_paradigm": "probability_power_law_entropy_scaling",
+  "temperature": 0.5,
+  "tuning_split": "in_domain_validation_n119",
+  "frozen_benchmark_excluded_from_tuning": true,
+  "mathematical_audit": {
+    "applied_to": "convex_combination_fused_probabilities",
+    "formula": "P_calib(c) = P_raw(c)^(1/T) / sum_j P_raw(j)^(1/T)",
+    "is_formal_logit_scaling": false,
+    "distinction_note": "Applied at probability level because text analyzer lacks neural logits. Preserves top-1 category argmax strictly for any T > 0 while concentrating mass."
+  },
+  "metrics_summary": {
+    "brier_scores": {
+      "text_baseline": 0.34,
+      "vision_only": 0.8448,
+      "fused_calibrated": 0.3747
+    },
+    "nll_scores": {
+      "text_baseline": 0.8022,
+      "vision_only": 2.6137,
+      "fused_calibrated": 0.8824
+    },
+    "ece_scores": {
+      "text_baseline": 0.1561,
+      "vision_only": 0.3139,
+      "fused_calibrated": 0.1788
+    }
+  },
+  "reliability_diagram_bins": {
+    "text": [
+      {
+        "bin_index": 0,
+        "range": [
+          0.0,
+          0.1
+        ],
+        "count": 0,
+        "accuracy": null,
+        "confidence": null,
+        "gap": 0.0
+      },
+      {
+        "bin_index": 1,
+        "range": [
+          0.1,
+          0.2
+        ],
+        "count": 0,
+        "accuracy": null,
+        "confidence": null,
+        "gap": 0.0
+      },
+      {
+        "bin_index": 2,
+        "range": [
+          0.2,
+          0.3
+        ],
+        "count": 0,
+        "accuracy": null,
+        "confidence": null,
+        "gap": 0.0
+      },
+      {
+        "bin_index": 3,
+        "range": [
+          0.3,
+          0.4
+        ],
+        "count": 0,
+        "accuracy": null,
+        "confidence": null,
+        "gap": 0.0
+      },
+      {
+        "bin_index": 4,
+        "range": [
+          0.4,
+          0.5
+        ],
+        "count": 107,
+        "accuracy": 0.4673,
+        "confidence": 0.45,
+        "gap": 0.0173
+      },
+      {
+        "bin_index": 5,
+        "range": [
+          0.5,
+          0.6
+        ],
+        "count": 0,
+        "accuracy": null,
+        "confidence": null,
+        "gap": 0.0
+      },
+      {
+        "bin_index": 6,
+        "range": [
+          0.6,
+          0.7
+        ],
+        "count": 0,
+        "accuracy": null,
+        "confidence": null,
+        "gap": 0.0
+      },
+      {
+        "bin_index": 7,
+        "range": [
+          0.7,
+          0.8
+        ],
+        "count": 180,
+        "accuracy": 0.9667,
+        "confidence": 0.73,
+        "gap": 0.2367
+      },
+      {
+        "bin_index": 8,
+        "range": [
+          0.8,
+          0.9
+        ],
+        "count": 13,
+        "accuracy": 1.0,
+        "confidence": 0.8162,
+        "gap": 0.1838
+      },
+      {
+        "bin_index": 9,
+        "range": [
+          0.9,
+          1.0
+        ],
+        "count": 0,
+        "accuracy": null,
+        "confidence": null,
+        "gap": 0.0
+      }
+    ],
+    "vision": [
+      {
+        "bin_index": 0,
+        "range": [
+          0.0,
+          0.1
+        ],
+        "count": 0,
+        "accuracy": null,
+        "confidence": null,
+        "gap": 0.0
+      },
+      {
+        "bin_index": 1,
+        "range": [
+          0.1,
+          0.2
+        ],
+        "count": 0,
+        "accuracy": null,
+        "confidence": null,
+        "gap": 0.0
+      },
+      {
+        "bin_index": 2,
+        "range": [
+          0.2,
+          0.3
+        ],
+        "count": 4,
+        "accuracy": 0.25,
+        "confidence": 0.2694,
+        "gap": 0.0194
+      },
+      {
+        "bin_index": 3,
+        "range": [
+          0.3,
+          0.4
+        ],
+        "count": 13,
+        "accuracy": 0.0769,
+        "confidence": 0.3601,
+        "gap": 0.2831
+      },
+      {
+        "bin_index": 4,
+        "range": [
+          0.4,
+          0.5
+        ],
+        "count": 37,
+        "accuracy": 0.1892,
+        "confidence": 0.4516,
+        "gap": 0.2624
+      },
+      {
+        "bin_index": 5,
+        "range": [
+          0.5,
+          0.6
+        ],
+        "count": 33,
+        "accuracy": 0.3939,
+        "confidence": 0.5503,
+        "gap": 0.1563
+      },
+      {
+        "bin_index": 6,
+        "range": [
+          0.6,
+          0.7
+        ],
+        "count": 26,
+        "accuracy": 0.3846,
+        "confidence": 0.6531,
+        "gap": 0.2685
+      },
+      {
+        "bin_index": 7,
+        "range": [
+          0.7,
+          0.8
+        ],
+        "count": 36,
+        "accuracy": 0.3889,
+        "confidence": 0.7532,
+        "gap": 0.3643
+      },
+      {
+        "bin_index": 8,
+        "range": [
+          0.8,
+          0.9
+        ],
+        "count": 56,
+        "accuracy": 0.4821,
+        "confidence": 0.8479,
+        "gap": 0.3658
+      },
+      {
+        "bin_index": 9,
+        "range": [
+          0.9,
+          1.0
+        ],
+        "count": 95,
+        "accuracy": 0.6,
+        "confidence": 0.968,
+        "gap": 0.368
+      }
+    ],
+    "fused": [
+      {
+        "bin_index": 0,
+        "range": [
+          0.0,
+          0.1
+        ],
+        "count": 0,
+        "accuracy": null,
+        "confidence": null,
+        "gap": 0.0
+      },
+      {
+        "bin_index": 1,
+        "range": [
+          0.1,
+          0.2
+        ],
+        "count": 0,
+        "accuracy": null,
+        "confidence": null,
+        "gap": 0.0
+      },
+      {
+        "bin_index": 2,
+        "range": [
+          0.2,
+          0.3
+        ],
+        "count": 15,
+        "accuracy": 0.1333,
+        "confidence": 0.2517,
+        "gap": 0.1184
+      },
+      {
+        "bin_index": 3,
+        "range": [
+          0.3,
+          0.4
+        ],
+        "count": 34,
+        "accuracy": 0.7941,
+        "confidence": 0.3639,
+        "gap": 0.4303
+      },
+      {
+        "bin_index": 4,
+        "range": [
+          0.4,
+          0.5
+        ],
+        "count": 60,
+        "accuracy": 0.6833,
+        "confidence": 0.4479,
+        "gap": 0.2354
+      },
+      {
+        "bin_index": 5,
+        "range": [
+          0.5,
+          0.6
+        ],
+        "count": 40,
+        "accuracy": 0.825,
+        "confidence": 0.5482,
+        "gap": 0.2768
+      },
+      {
+        "bin_index": 6,
+        "range": [
+          0.6,
+          0.7
+        ],
+        "count": 15,
+        "accuracy": 1.0,
+        "confidence": 0.6429,
+        "gap": 0.3571
+      },
+      {
+        "bin_index": 7,
+        "range": [
+          0.7,
+          0.8
+        ],
+        "count": 15,
+        "accuracy": 0.6,
+        "confidence": 0.7481,
+        "gap": 0.1481
+      },
+      {
+        "bin_index": 8,
+        "range": [
+          0.8,
+          0.9
+        ],
+        "count": 16,
+        "accuracy": 0.625,
+        "confidence": 0.8667,
+        "gap": 0.2417
+      },
+      {
+        "bin_index": 9,
+        "range": [
+          0.9,
+          1.0
+        ],
+        "count": 105,
+        "accuracy": 0.9714,
+        "confidence": 0.9659,
+        "gap": 0.0055
+      }
+    ]
+  }
+}

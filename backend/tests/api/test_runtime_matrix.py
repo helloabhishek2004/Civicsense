@@ -17,6 +17,7 @@ def test_case_a_high_confidence_agreement(client: TestClient) -> None:
                 "file_hash": "a" * 64,
                 "mime_type": "image/jpeg",
                 "file_size_bytes": 2048500,
+                "metadata_json": {"prototype_category": "Pothole"},
             }
         ],
     }
@@ -100,6 +101,7 @@ def test_case_c_modality_disagreement_routes_to_verification_required(client: Te
                 "file_hash": "c" * 64,
                 "mime_type": "image/jpeg",
                 "file_size_bytes": 1048576,
+                "metadata_json": {"prototype_category": "Pothole"},
             }
         ],
     }
@@ -157,6 +159,7 @@ def test_case_e_reprocessing_preserves_history_and_creates_new_job(client: TestC
                 "file_hash": "d" * 64,
                 "mime_type": "image/jpeg",
                 "file_size_bytes": 1048576,
+                "metadata_json": {"prototype_category": "Water Leakage"},
             }
         ],
     }

@@ -104,6 +104,25 @@ def create_application() -> FastAPI:
     # Versioned API
     app.include_router(api_v1_router, prefix="/api/v1")
 
+    # Validate MiniLM model at startup
+    @app.on_event("startup")
+    def _validate_similarity_model() -> None:
+        from app.services.similarity.service import validate_model_availability
+
+        report = validate_model_availability()
+        if report["degraded_mode"]:
+            logger.warning(
+                "Similarity engine running in DEGRADED mode: %s",
+                report.get("load_error", "model not found"),
+            )
+        else:
+            logger.info(
+                "Similarity engine ready: model=%s dim=%d version=%s",
+                report["model_dir"],
+                report["embedding_dim"],
+                settings.SIMILARITY_EMBEDDING_MODEL_VERSION,
+            )
+
     return app
 
 

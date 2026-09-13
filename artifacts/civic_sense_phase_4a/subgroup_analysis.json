@@ -1,0 +1,42 @@
+{
+  "all_samples": {
+    "count": 300,
+    "deterministic_accuracy": 0.79,
+    "tfidf_accuracy": 0.8667,
+    "minilm_accuracy": 0.8733,
+    "ensemble_accuracy": 0.88,
+    "minilm_lift_over_deterministic_pp": 8.33
+  },
+  "keyword_containing": {
+    "count": 151,
+    "deterministic_accuracy": 1.0,
+    "tfidf_accuracy": 0.9536,
+    "minilm_accuracy": 0.9669,
+    "ensemble_accuracy": 0.9735,
+    "minilm_lift_over_deterministic_pp": -3.31
+  },
+  "keyword_free": {
+    "count": 149,
+    "deterministic_accuracy": 0.5772,
+    "tfidf_accuracy": 0.7785,
+    "minilm_accuracy": 0.7785,
+    "ensemble_accuracy": 0.7852,
+    "minilm_lift_over_deterministic_pp": 20.13
+  },
+  "citizen_like": {
+    "count": 117,
+    "deterministic_accuracy": 0.7265,
+    "tfidf_accuracy": 0.812,
+    "minilm_accuracy": 0.7521,
+    "ensemble_accuracy": 0.7607,
+    "minilm_lift_over_deterministic_pp": 2.56
+  },
+  "metadata_rich": {
+    "count": 100,
+    "deterministic_accuracy": 1.0,
+    "tfidf_accuracy": 1.0,
+    "minilm_accuracy": 1.0,
+    "ensemble_accuracy": 1.0,
+    "minilm_lift_over_deterministic_pp": 0.0
+  }
+}

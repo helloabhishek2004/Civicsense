@@ -92,7 +92,9 @@ class ReportRepository(BaseRepository[Report]):
                     upload_dir = Path(settings.UPLOADS_DIR)
                     upload_dir.mkdir(parents=True, exist_ok=True)
 
-                    filename = f"rep_{report.id}_{uuid.uuid4().hex[:8]}{ext}"
+                    stem = Path(storage_uri).stem[:24] if storage_uri else "img"
+                    clean_stem = "".join(c for c in stem if c.isalnum() or c in ("-", "_"))
+                    filename = f"rep_{report.id}_{clean_stem}_{uuid.uuid4().hex[:6]}{ext}"
                     filepath = upload_dir / filename
                     with open(filepath, "wb") as f:
                         f.write(raw_bytes)
@@ -159,11 +161,12 @@ class ReportRepository(BaseRepository[Report]):
         category: str | None = None,
         priority: PriorityLevel | None = None,
         reassignment_required: bool | None = None,
+        issue_id: uuid.UUID | None = None,
     ) -> tuple[list[Report], int]:
         """List reports sorted descending by creation time with total count.
 
         Supports filtering by citizen_id, department name, department_id,
-        status, category, priority, and reassignment_required.
+        status, category, priority, reassignment_required, and issue_id.
         """
         count_stmt = select(func.count()).select_from(Report)
         if citizen_id is not None:
@@ -180,18 +183,17 @@ class ReportRepository(BaseRepository[Report]):
             count_stmt = count_stmt.where(Report.priority == priority)
         if reassignment_required is not None:
             count_stmt = count_stmt.where(Report.reassignment_required == reassignment_required)
+        if issue_id is not None:
+            count_stmt = count_stmt.where(Report.issue_id == issue_id)
 
         total = db.scalar(count_stmt) or 0
 
-        stmt = (
-            select(Report)
-            .options(
-                joinedload(Report.evidences),
-                joinedload(Report.ai_analyses),
-                joinedload(Report.verifications),
-                joinedload(Report.ai_jobs),
-                joinedload(Report.assignments),
-            )
+        stmt = select(Report).options(
+            joinedload(Report.evidences),
+            joinedload(Report.ai_analyses),
+            joinedload(Report.verifications),
+            joinedload(Report.ai_jobs),
+            joinedload(Report.assignments),
         )
         if citizen_id is not None:
             stmt = stmt.where(Report.citizen_id == citizen_id)
@@ -207,12 +209,10 @@ class ReportRepository(BaseRepository[Report]):
             stmt = stmt.where(Report.priority == priority)
         if reassignment_required is not None:
             stmt = stmt.where(Report.reassignment_required == reassignment_required)
+        if issue_id is not None:
+            stmt = stmt.where(Report.issue_id == issue_id)
 
-        stmt = (
-            stmt.order_by(desc(Report.created_at))
-            .offset(skip)
-            .limit(limit)
-        )
+        stmt = stmt.order_by(desc(Report.created_at)).offset(skip).limit(limit)
         items = list(db.scalars(stmt).unique().all())
         return items, total
 

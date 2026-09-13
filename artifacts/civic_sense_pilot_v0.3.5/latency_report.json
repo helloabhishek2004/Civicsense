@@ -1,0 +1,108 @@
+{
+  "profiling_metadata": {
+    "warmup_iterations": 50,
+    "measured_iterations": 200,
+    "batch_size": 1,
+    "image_resolution": "224x224 RGB",
+    "model_loading_included": false,
+    "model_architecture": "MobileNetV3-Small (1.52M params)",
+    "device": "CPU",
+    "cpu_architecture": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+    "os": "Windows 11",
+    "python_version": "3.14.3",
+    "torch_version": "2.10.0+cpu",
+    "disclaimer": "These measurements describe the current evaluation environment and do not establish Android/on-device performance."
+  },
+  "stages": {
+    "text_preprocessing_ms": {
+      "mean_ms": 0.003,
+      "median_p50_ms": 0.003,
+      "p90_ms": 0.004,
+      "p95_ms": 0.004,
+      "p99_ms": 0.005,
+      "min_ms": 0.002,
+      "max_ms": 0.012,
+      "std_ms": 0.001
+    },
+    "text_inference_ms": {
+      "mean_ms": 0.04,
+      "median_p50_ms": 0.039,
+      "p90_ms": 0.047,
+      "p95_ms": 0.051,
+      "p99_ms": 0.065,
+      "min_ms": 0.022,
+      "max_ms": 0.069,
+      "std_ms": 0.006
+    },
+    "image_disk_loading_ms": {
+      "mean_ms": 0.245,
+      "median_p50_ms": 0.243,
+      "p90_ms": 0.287,
+      "p95_ms": 0.312,
+      "p99_ms": 0.345,
+      "min_ms": 0.15,
+      "max_ms": 0.387,
+      "std_ms": 0.035
+    },
+    "image_preprocessing_ms": {
+      "mean_ms": 0.001,
+      "median_p50_ms": 0.001,
+      "p90_ms": 0.001,
+      "p95_ms": 0.001,
+      "p99_ms": 0.002,
+      "min_ms": 0.001,
+      "max_ms": 0.007,
+      "std_ms": 0.001
+    },
+    "vision_inference_ms": {
+      "mean_ms": 17.109,
+      "median_p50_ms": 17.147,
+      "p90_ms": 19.275,
+      "p95_ms": 20.366,
+      "p99_ms": 22.329,
+      "min_ms": 12.506,
+      "max_ms": 24.198,
+      "std_ms": 1.995
+    },
+    "probability_calibration_ms": {
+      "mean_ms": 0.023,
+      "median_p50_ms": 0.023,
+      "p90_ms": 0.029,
+      "p95_ms": 0.03,
+      "p99_ms": 0.048,
+      "min_ms": 0.014,
+      "max_ms": 0.053,
+      "std_ms": 0.005
+    },
+    "fusion_calculation_ms": {
+      "mean_ms": 0.087,
+      "median_p50_ms": 0.085,
+      "p90_ms": 0.102,
+      "p95_ms": 0.111,
+      "p99_ms": 0.135,
+      "min_ms": 0.061,
+      "max_ms": 0.163,
+      "std_ms": 0.014
+    },
+    "policy_routing_ms": {
+      "mean_ms": 0.001,
+      "median_p50_ms": 0.001,
+      "p90_ms": 0.001,
+      "p95_ms": 0.001,
+      "p99_ms": 0.001,
+      "min_ms": 0.0,
+      "max_ms": 0.002,
+      "std_ms": 0.0
+    },
+    "end_to_end_total_ms": {
+      "mean_ms": 17.512,
+      "median_p50_ms": 17.555,
+      "p90_ms": 19.711,
+      "p95_ms": 20.806,
+      "p99_ms": 22.69,
+      "min_ms": 12.876,
+      "max_ms": 24.655,
+      "std_ms": 2.007
+    }
+  }
+}

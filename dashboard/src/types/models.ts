@@ -112,6 +112,7 @@ export interface ReportItem {
   closureReason?: ClosureReason;
   closureNotes?: string;
   auditTrail: AuditEvent[];
+  issueId?: string;
   createdAt: string;
   updatedAt: string;
   resolvedAt?: string;
@@ -142,6 +143,7 @@ export interface ReportFilterParams {
   priority?: BackendPriorityLevel | 'ALL';
   department?: DepartmentName | 'ALL';
   reassignmentRequired?: boolean;
+  issueId?: string;
   search?: string;
   page?: number;
   pageSize?: number;

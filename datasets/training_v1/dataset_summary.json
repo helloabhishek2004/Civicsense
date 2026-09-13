@@ -1,0 +1,79 @@
+{
+  "dataset_version": "training_v1",
+  "total_samples": 995,
+  "train_samples": 473,
+  "validation_samples": 119,
+  "quarantine_samples": 403,
+  "class_distribution": {
+    "Water Leakage": {
+      "train": 78,
+      "validation": 19,
+      "quarantine": 73,
+      "total": 170
+    },
+    "Pothole": {
+      "train": 78,
+      "validation": 20,
+      "quarantine": 62,
+      "total": 160
+    },
+    "Garbage": {
+      "train": 84,
+      "validation": 21,
+      "quarantine": 63,
+      "total": 168
+    },
+    "Other": {
+      "train": 79,
+      "validation": 20,
+      "quarantine": 61,
+      "total": 160
+    },
+    "Road Damage": {
+      "train": 78,
+      "validation": 20,
+      "quarantine": 72,
+      "total": 170
+    },
+    "Streetlight": {
+      "train": 76,
+      "validation": 19,
+      "quarantine": 72,
+      "total": 167
+    },
+    "Infrastructure": {
+      "train": 0,
+      "validation": 0,
+      "quarantine": 0,
+      "total": 0
+    },
+    "Drainage": {
+      "train": 0,
+      "validation": 0,
+      "quarantine": 0,
+      "total": 0
+    }
+  },
+  "source_distribution": {
+    "boston311": 477,
+    "taco": 3,
+    "wikimedia_other": 15,
+    "wikimedia_road_damage": 165,
+    "wikimedia_streetlight": 165,
+    "wikimedia_water": 170
+  },
+  "group_count": 995,
+  "multi_issue_count": 6,
+  "quality_flags_summary": {
+    "Image flagged as blurry": 17,
+    "is_blurry": 17
+  },
+  "leakage_check_summary": {
+    "FAILED_EXACT_SHA256": 301,
+    "FAILED_SOURCE_ID": 0,
+    "FAILED_SOURCE_URL": 0,
+    "FAILED_DHASH_NEAR_DUPLICATE": 4
+  },
+  "created_at": "2026-09-13T07:33:35.196271+00:00",
+  "schema_version": "1.0.0"
+}

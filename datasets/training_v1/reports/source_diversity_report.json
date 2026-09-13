@@ -1,0 +1,278 @@
+{
+  "report_version": "1.0.0",
+  "generated_at": "2026-09-13T07:33:40.663729+00:00",
+  "summary": {
+    "total_manifest_records": 995,
+    "clean_total": 592,
+    "clean_train": 473,
+    "clean_validation": 119,
+    "quarantined_total": 403,
+    "clean_pool_acceptance_rate": "59.5%"
+  },
+  "source_distribution": {
+    "boston311": {
+      "total": 477,
+      "clean": 286,
+      "train": 229,
+      "validation": 57,
+      "quarantine": 191
+    },
+    "taco": {
+      "total": 3,
+      "clean": 3,
+      "train": 2,
+      "validation": 1,
+      "quarantine": 0
+    },
+    "wikimedia_other": {
+      "total": 15,
+      "clean": 13,
+      "train": 10,
+      "validation": 3,
+      "quarantine": 2
+    },
+    "wikimedia_road_damage": {
+      "total": 165,
+      "clean": 98,
+      "train": 78,
+      "validation": 20,
+      "quarantine": 67
+    },
+    "wikimedia_streetlight": {
+      "total": 165,
+      "clean": 95,
+      "train": 76,
+      "validation": 19,
+      "quarantine": 70
+    },
+    "wikimedia_water": {
+      "total": 170,
+      "clean": 97,
+      "train": 78,
+      "validation": 19,
+      "quarantine": 73
+    }
+  },
+  "clean_samples_by_class_and_source": {
+    "Pothole": {
+      "boston311": 98
+    },
+    "Garbage": {
+      "boston311": 102,
+      "taco": 3
+    },
+    "Other": {
+      "boston311": 86,
+      "wikimedia_other": 13
+    },
+    "Road Damage": {
+      "wikimedia_road_damage": 98
+    },
+    "Streetlight": {
+      "wikimedia_streetlight": 95
+    },
+    "Water Leakage": {
+      "wikimedia_water": 97
+    }
+  },
+  "acquisition_batch_distribution": {
+    "initial_pool": {
+      "total": 365,
+      "clean": 60,
+      "train": 47,
+      "validation": 13,
+      "quarantine": 305
+    },
+    "batch_1": {
+      "total": 100,
+      "clean": 91,
+      "train": 78,
+      "validation": 13,
+      "quarantine": 9
+    },
+    "batch_2": {
+      "total": 220,
+      "clean": 182,
+      "train": 144,
+      "validation": 38,
+      "quarantine": 38
+    },
+    "batch_3": {
+      "total": 310,
+      "clean": 259,
+      "train": 204,
+      "validation": 55,
+      "quarantine": 51
+    }
+  },
+  "clean_samples_by_class_and_batch": {
+    "Pothole": {
+      "initial_pool": 4,
+      "batch_1": 46,
+      "batch_3": 48
+    },
+    "Garbage": {
+      "initial_pool": 8,
+      "batch_2": 58,
+      "batch_3": 39
+    },
+    "Other": {
+      "initial_pool": 5,
+      "batch_1": 45,
+      "batch_3": 49
+    },
+    "Road Damage": {
+      "initial_pool": 16,
+      "batch_2": 41,
+      "batch_3": 41
+    },
+    "Streetlight": {
+      "initial_pool": 17,
+      "batch_2": 40,
+      "batch_3": 38
+    },
+    "Water Leakage": {
+      "initial_pool": 10,
+      "batch_2": 43,
+      "batch_3": 44
+    }
+  },
+  "license_distribution": {
+    "clean_pool": {
+      "ODC-PDDL": 286,
+      "ODC-ODbL-1.0 (OpenLitterMap & Contributors)": 3,
+      "CC BY-SA 2.0": 30,
+      "Public domain": 250,
+      "CC BY-SA 3.0": 2,
+      "CC BY-SA 4.0": 12,
+      "CC0": 1,
+      "CC BY 3.0": 2,
+      "CC BY 4.0": 2,
+      "CC BY 2.5": 1,
+      "CC BY 3.0 ch": 2,
+      "CC BY 2.0": 1
+    },
+    "total_manifest": {
+      "ODC-PDDL": 477,
+      "ODC-ODbL-1.0 (OpenLitterMap & Contributors)": 3,
+      "CC BY-SA 2.0": 50,
+      "Public domain": 334,
+      "CC BY-SA 3.0": 40,
+      "CC BY-SA 4.0": 58,
+      "CC0": 8,
+      "CC BY 3.0": 8,
+      "CC BY 4.0": 4,
+      "CC BY 2.5": 1,
+      "CC BY 3.0 ch": 2,
+      "CC BY 2.0": 10
+    }
+  },
+  "geographic_distribution_clean_pool": {
+    "locations_identified": {
+      "Global / Wikimedia Commons": 303,
+      "Boston, MA (Dorchester)": 36,
+      "Boston, MA (Roxbury)": 32,
+      "Boston, MA (Allston / Brighton)": 22,
+      "Boston, MA (South End)": 22,
+      "Boston, MA (Back Bay)": 20,
+      "Boston, MA (East Boston)": 19,
+      "Boston, MA (Downtown / Financial District)": 18,
+      "Boston, MA (Jamaica Plain)": 16,
+      "Boston, MA (Greater Mattapan)": 15,
+      "Boston, MA": 14,
+      "Boston, MA (Beacon Hill)": 11,
+      "Boston, MA (Roslindale)": 10,
+      "Boston, MA (South Boston / South Boston Waterfront)": 10,
+      "Boston, MA (Hyde Park)": 9,
+      "Boston, MA (West Roxbury)": 8,
+      "Boston, MA (Boston)": 5,
+      "Boston, MA (Charlestown)": 5,
+      "Boston, MA (Mission Hill)": 5,
+      "Boston, MA (South Boston)": 4
+    },
+    "samples_with_coordinates": 272,
+    "coordinate_coverage_pct": 45.9
+  },
+  "incident_group_analysis": {
+    "total_unique_clean_groups": 592,
+    "train_unique_groups": 473,
+    "validation_unique_groups": 119,
+    "overlapping_groups_between_splits": 0,
+    "group_isolation_verified": true,
+    "mean_images_per_group": 1.0,
+    "max_images_in_single_group": 1,
+    "min_images_in_group": 1,
+    "single_image_groups_count": 592,
+    "multi_image_groups_count": 0
+  },
+  "concentration_and_balance_metrics": {
+    "source_herfindahl_index": 0.3139,
+    "source_diversity_interpretation": "Moderately concentrated",
+    "class_balance_ratio_min_to_max": 0.905,
+    "class_entropy": 2.584,
+    "max_possible_entropy": 2.585,
+    "entropy_ratio": 1.0,
+    "min_class_count": 95,
+    "max_class_count": 105
+  },
+  "other_subtype_breakdown": {
+    "clean_pool": {
+      "unspecified": 5,
+      "graffiti": 36,
+      "other_documented_civic_defect": 36,
+      "damaged_sidewalk": 9,
+      "damaged_road_sign": 13
+    },
+    "quarantine_pool": {
+      "unspecified": 50,
+      "graffiti": 4,
+      "other_documented_civic_defect": 4,
+      "damaged_sidewalk": 1,
+      "damaged_road_sign": 2
+    }
+  },
+  "source_acceptance_and_quarantine_rates": {
+    "boston311": {
+      "total_evaluated": 477,
+      "accepted_clean": 286,
+      "quarantined": 191,
+      "acceptance_rate_pct": 60.0,
+      "quarantine_rate_pct": 40.0
+    },
+    "taco": {
+      "total_evaluated": 3,
+      "accepted_clean": 3,
+      "quarantined": 0,
+      "acceptance_rate_pct": 100.0,
+      "quarantine_rate_pct": 0.0
+    },
+    "wikimedia_other": {
+      "total_evaluated": 15,
+      "accepted_clean": 13,
+      "quarantined": 2,
+      "acceptance_rate_pct": 86.7,
+      "quarantine_rate_pct": 13.3
+    },
+    "wikimedia_road_damage": {
+      "total_evaluated": 165,
+      "accepted_clean": 98,
+      "quarantined": 67,
+      "acceptance_rate_pct": 59.4,
+      "quarantine_rate_pct": 40.6
+    },
+    "wikimedia_streetlight": {
+      "total_evaluated": 165,
+      "accepted_clean": 95,
+      "quarantined": 70,
+      "acceptance_rate_pct": 57.6,
+      "quarantine_rate_pct": 42.4
+    },
+    "wikimedia_water": {
+      "total_evaluated": 170,
+      "accepted_clean": 97,
+      "quarantined": 73,
+      "acceptance_rate_pct": 57.1,
+      "quarantine_rate_pct": 42.9
+    }
+  }
+}

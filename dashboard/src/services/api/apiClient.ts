@@ -16,6 +16,10 @@ export class ApiClient {
     this.defaultTimeoutMs = defaultTimeoutMs;
   }
 
+  public setBaseUrl(url: string): void {
+    this.baseUrl = url.replace(/\/+$/, '');
+  }
+
   private generateRequestId(): string {
     return `req-${Date.now()}-${Math.random().toString(36).substring(2, 8)}`;
   }
@@ -46,17 +50,41 @@ export class ApiClient {
     headers.set('Accept', 'application/json');
     headers.set('X-Request-ID', requestId);
 
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+    if (!headers.has('X-Reviewer-ID') && typeof window !== 'undefined' && window.localStorage) {
+      try {
+        const stored = window.localStorage.getItem('civicsense_active_officer');
+        if (stored) {
+          const officer = JSON.parse(stored);
+          const reviewerId = officer?.badgeNumber || officer?.id;
+          if (reviewerId && typeof reviewerId === 'string' && reviewerId.trim()) {
+            headers.set('X-Reviewer-ID', reviewerId.trim());
+          }
+        }
+      } catch {
+        // Ignore JSON parse error from corrupted storage
+      }
+    }
+
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
+    const timeoutPromise = new Promise<never>((_, reject) => {
+      timeoutId = setTimeout(() => {
+        reject(new Error(`Request timed out after ${timeoutMs}ms`));
+      }, timeoutMs);
+    });
+
+    const fetchPromise = fetch(url, {
+      ...fetchOptions,
+      headers,
+      ...(fetchOptions.signal ? { signal: fetchOptions.signal } : {}),
+    });
 
     try {
-      const response = await fetch(url, {
-        ...fetchOptions,
-        headers,
-        signal: controller.signal,
-      });
+      const response = await Promise.race([fetchPromise, timeoutPromise]);
 
-      clearTimeout(timeoutId);
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
 
       if (!response.ok) {
         let errorData: BackendErrorResponse | null = null;

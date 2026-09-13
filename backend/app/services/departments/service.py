@@ -68,49 +68,64 @@ class DepartmentService:
         # Count reports assigned to this department
         base_filter = or_(Report.department_id == dept.id, Report.department == dept.name)
 
-        total_assigned = db.scalar(
-            select(func.count()).select_from(Report).where(base_filter)
-        ) or 0
+        total_assigned = db.scalar(select(func.count()).select_from(Report).where(base_filter)) or 0
 
-        pending_ack = db.scalar(
-            select(func.count())
-            .select_from(Report)
-            .where(base_filter, Report.status == ReportStatus.ASSIGNED)
-        ) or 0
-
-        in_progress = db.scalar(
-            select(func.count())
-            .select_from(Report)
-            .where(base_filter, Report.status == ReportStatus.IN_PROGRESS)
-        ) or 0
-
-        resolved = db.scalar(
-            select(func.count())
-            .select_from(Report)
-            .where(
-                base_filter,
-                Report.status.in_([
-                    ReportStatus.RESOLVED,
-                    ReportStatus.RESOLUTION_VERIFIED,
-                    ReportStatus.CLOSED,
-                ]),
+        pending_ack = (
+            db.scalar(
+                select(func.count())
+                .select_from(Report)
+                .where(base_filter, Report.status == ReportStatus.ASSIGNED)
             )
-        ) or 0
+            or 0
+        )
 
-        rejected = db.scalar(
-            select(func.count())
-            .select_from(ReportAssignment)
-            .where(
-                ReportAssignment.department_id == dept.id,
-                ReportAssignment.status == AssignmentStatus.REJECTED,
+        in_progress = (
+            db.scalar(
+                select(func.count())
+                .select_from(Report)
+                .where(base_filter, Report.status == ReportStatus.IN_PROGRESS)
             )
-        ) or 0
+            or 0
+        )
 
-        reassignment_req = db.scalar(
-            select(func.count())
-            .select_from(Report)
-            .where(base_filter, Report.reassignment_required == True)  # noqa: E712
-        ) or 0
+        resolved = (
+            db.scalar(
+                select(func.count())
+                .select_from(Report)
+                .where(
+                    base_filter,
+                    Report.status.in_(
+                        [
+                            ReportStatus.RESOLVED,
+                            ReportStatus.RESOLUTION_VERIFIED,
+                            ReportStatus.CLOSED,
+                        ]
+                    ),
+                )
+            )
+            or 0
+        )
+
+        rejected = (
+            db.scalar(
+                select(func.count())
+                .select_from(ReportAssignment)
+                .where(
+                    ReportAssignment.department_id == dept.id,
+                    ReportAssignment.status == AssignmentStatus.REJECTED,
+                )
+            )
+            or 0
+        )
+
+        reassignment_req = (
+            db.scalar(
+                select(func.count())
+                .select_from(Report)
+                .where(base_filter, Report.reassignment_required == True)  # noqa: E712
+            )
+            or 0
+        )
 
         return DepartmentWorkloadStats(
             department_id=dept.id,

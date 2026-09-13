@@ -1,0 +1,275 @@
+{
+  "schema_version": "1.0.0",
+  "task": "single_label_civic_defect_classification",
+  "canonical_categories": [
+    "Pothole",
+    "Road Damage",
+    "Garbage",
+    "Water Leakage",
+    "Streetlight",
+    "Other"
+  ],
+  "evaluated_at": "2026-09-13T09:18:00Z",
+  "candidates": [
+    {
+      "candidate_id": "mobilenet_v3_small",
+      "model_name": "MobileNetV3-Small",
+      "architecture_family": "MobileNet",
+      "developer": "Google Research",
+      "publication_year": 2019,
+      "parameter_count": 2542856,
+      "approx_model_size_mb": {
+        "float32": 9.7,
+        "int8": 2.6
+      },
+      "default_input_resolution": [224, 224],
+      "pretraining_dataset": "ImageNet-1k",
+      "license": "Apache-2.0",
+      "runtime_support": {
+        "pytorch": "native",
+        "onnx": "fully_supported",
+        "tflite": "native_target",
+        "onnxruntime": "fully_supported"
+      },
+      "quantization_support": {
+        "post_training_int8": "excellent",
+        "quantization_aware_training": "supported",
+        "activation_types": ["hard_swish", "relu"]
+      },
+      "cpu_inference_profile": {
+        "expected_latency_ms": 8.5,
+        "memory_overhead_mb": 25,
+        "hardware_acceleration_needed": false
+      },
+      "fine_tuning_complexity": "low",
+      "known_limitations": [
+        "Lower theoretical top-1 accuracy on ImageNet (~67.5%) compared to larger backbones",
+        "Requires careful learning rate scheduling during transfer learning to prevent catastrophic forgetting in early layers"
+      ],
+      "suitability_for_civicsense": "ideal_primary"
+    },
+    {
+      "candidate_id": "mobilenet_v4_conv_small",
+      "model_name": "MobileNetV4-Conv-Small",
+      "architecture_family": "MobileNetV4",
+      "developer": "Google Research",
+      "publication_year": 2024,
+      "parameter_count": 3770000,
+      "approx_model_size_mb": {
+        "float32": 14.8,
+        "int8": 3.9
+      },
+      "default_input_resolution": [224, 224],
+      "pretraining_dataset": "ImageNet-1k",
+      "license": "Apache-2.0",
+      "runtime_support": {
+        "pytorch": "via_timm_or_custom",
+        "onnx": "supported_opset_18+",
+        "tflite": "supported",
+        "onnxruntime": "supported"
+      },
+      "quantization_support": {
+        "post_training_int8": "state_of_the_art",
+        "quantization_aware_training": "supported",
+        "activation_types": ["relu", "gelu"]
+      },
+      "cpu_inference_profile": {
+        "expected_latency_ms": 11.2,
+        "memory_overhead_mb": 35,
+        "hardware_acceleration_needed": false
+      },
+      "fine_tuning_complexity": "medium",
+      "known_limitations": [
+        "Very new architecture (2024); not yet integrated into standard torchvision",
+        "Requires timm dependency or custom layer implementation"
+      ],
+      "suitability_for_civicsense": "strong_alternative"
+    },
+    {
+      "candidate_id": "efficientnet_b0",
+      "model_name": "EfficientNet-B0",
+      "architecture_family": "EfficientNet",
+      "developer": "Google Brain",
+      "publication_year": 2019,
+      "parameter_count": 5288548,
+      "approx_model_size_mb": {
+        "float32": 20.8,
+        "int8": 5.4
+      },
+      "default_input_resolution": [224, 224],
+      "pretraining_dataset": "ImageNet-1k",
+      "license": "Apache-2.0",
+      "runtime_support": {
+        "pytorch": "native",
+        "onnx": "supported",
+        "tflite": "supported",
+        "onnxruntime": "supported"
+      },
+      "quantization_support": {
+        "post_training_int8": "moderate",
+        "quantization_aware_training": "recommended_for_swish",
+        "activation_types": ["swish"]
+      },
+      "cpu_inference_profile": {
+        "expected_latency_ms": 22.0,
+        "memory_overhead_mb": 45,
+        "hardware_acceleration_needed": false
+      },
+      "fine_tuning_complexity": "low",
+      "known_limitations": [
+        "Squeeze-and-Excitation sigmoid branches increase memory bandwidth pressure on edge CPUs",
+        "Swish activation can experience slight quantization precision degradation under naive post-training INT8"
+      ],
+      "suitability_for_civicsense": "viable_backup"
+    },
+    {
+      "candidate_id": "efficientnet_lite0",
+      "model_name": "EfficientNet-Lite0",
+      "architecture_family": "EfficientNet-Lite",
+      "developer": "Google TensorFlow / Coral",
+      "publication_year": 2020,
+      "parameter_count": 4650000,
+      "approx_model_size_mb": {
+        "float32": 18.2,
+        "int8": 4.7
+      },
+      "default_input_resolution": [224, 224],
+      "pretraining_dataset": "ImageNet-1k",
+      "license": "Apache-2.0",
+      "runtime_support": {
+        "pytorch": "via_timm_or_custom",
+        "onnx": "fully_supported",
+        "tflite": "native_target",
+        "onnxruntime": "fully_supported"
+      },
+      "quantization_support": {
+        "post_training_int8": "exceptional",
+        "quantization_aware_training": "supported",
+        "activation_types": ["relu6"]
+      },
+      "cpu_inference_profile": {
+        "expected_latency_ms": 14.5,
+        "memory_overhead_mb": 30,
+        "hardware_acceleration_needed": false
+      },
+      "fine_tuning_complexity": "low",
+      "known_limitations": [
+        "Slight reduction in ImageNet top-1 (~75.1%) compared to standard B0 due to removal of Squeeze-and-Excitation",
+        "Pretrained weights primarily curated in TensorFlow format; PyTorch ports available via timm"
+      ],
+      "suitability_for_civicsense": "ideal_backup"
+    },
+    {
+      "candidate_id": "dinov2_small",
+      "model_name": "DINOv2-Small (ViT-S/14)",
+      "architecture_family": "Vision Transformer (Self-Supervised)",
+      "developer": "Meta AI",
+      "publication_year": 2023,
+      "parameter_count": 22058688,
+      "approx_model_size_mb": {
+        "float32": 85.5,
+        "int8": 22.0
+      },
+      "default_input_resolution": [224, 224],
+      "pretraining_dataset": "LVD-142M (Self-supervised)",
+      "license": "Apache-2.0",
+      "runtime_support": {
+        "pytorch": "via_transformers_or_torch_hub",
+        "onnx": "supported",
+        "tflite": "partial",
+        "onnxruntime": "supported"
+      },
+      "quantization_support": {
+        "post_training_int8": "complex",
+        "quantization_aware_training": "heavy",
+        "activation_types": ["gelu"]
+      },
+      "cpu_inference_profile": {
+        "expected_latency_ms": 95.0,
+        "memory_overhead_mb": 180,
+        "hardware_acceleration_needed": true
+      },
+      "fine_tuning_complexity": "high",
+      "known_limitations": [
+        "High CPU latency (~95ms) exceeds real-time interactive thresholds on modest municipal servers",
+        "High memory consumption (85MB weights, >180MB runtime working set)",
+        "Attention mechanisms do not quantize as simply as pure convolutional operations"
+      ],
+      "suitability_for_civicsense": "rejected_for_realtime_serving"
+    },
+    {
+      "candidate_id": "resnet_18",
+      "model_name": "ResNet-18",
+      "architecture_family": "ResNet",
+      "developer": "Microsoft Research",
+      "publication_year": 2015,
+      "parameter_count": 11689512,
+      "approx_model_size_mb": {
+        "float32": 45.8,
+        "int8": 11.6
+      },
+      "default_input_resolution": [224, 224],
+      "pretraining_dataset": "ImageNet-1k",
+      "license": "BSD-3-Clause",
+      "runtime_support": {
+        "pytorch": "native",
+        "onnx": "native",
+        "tflite": "supported",
+        "onnxruntime": "native"
+      },
+      "quantization_support": {
+        "post_training_int8": "mature",
+        "quantization_aware_training": "mature",
+        "activation_types": ["relu"]
+      },
+      "cpu_inference_profile": {
+        "expected_latency_ms": 28.0,
+        "memory_overhead_mb": 65,
+        "hardware_acceleration_needed": false
+      },
+      "fine_tuning_complexity": "very_low",
+      "known_limitations": [
+        "Parameter efficiency is low (11.7M parameters for only ~69.8% top-1 accuracy)",
+        "4x larger than MobileNetV3 with inferior latency-accuracy Pareto frontier"
+      ],
+      "suitability_for_civicsense": "rejected_inefficient"
+    },
+    {
+      "candidate_id": "convnext_tiny",
+      "model_name": "ConvNeXt-Tiny",
+      "architecture_family": "ConvNeXt",
+      "developer": "Meta AI / UC Berkeley",
+      "publication_year": 2022,
+      "parameter_count": 28589128,
+      "approx_model_size_mb": {
+        "float32": 111.4,
+        "int8": 28.5
+      },
+      "default_input_resolution": [224, 224],
+      "pretraining_dataset": "ImageNet-1k",
+      "license": "MIT",
+      "runtime_support": {
+        "pytorch": "native",
+        "onnx": "supported",
+        "tflite": "partial",
+        "onnxruntime": "supported"
+      },
+      "quantization_support": {
+        "post_training_int8": "moderate",
+        "quantization_aware_training": "supported",
+        "activation_types": ["gelu"]
+      },
+      "cpu_inference_profile": {
+        "expected_latency_ms": 72.0,
+        "memory_overhead_mb": 140,
+        "hardware_acceleration_needed": true
+      },
+      "fine_tuning_complexity": "medium",
+      "known_limitations": [
+        "Excessive parameter count (28.6M) and 111 MB disk footprint",
+        "CPU latency (~72ms) is 8x slower than MobileNetV3-Small"
+      ],
+      "suitability_for_civicsense": "rejected_overweight"
+    }
+  ]
+}

@@ -1,0 +1,314 @@
+{
+  "metadata": {
+    "audit_name": "Phase 4A Text Dataset Provenance and Leakage Audit",
+    "total_samples_audited": 892,
+    "splits": [
+      "train (n=473)",
+      "validation (n=119)",
+      "benchmark (n=300)"
+    ],
+    "cross_split_text_duplicates_count": 24,
+    "cross_split_duplicates": [
+      {
+        "type": "train_benchmark_collision",
+        "text": "mta new york city transit crews worked quickly to restore service on the a, c and d lines on manhattan's upper west side after a city-owned water main ruptured on central park west and w103 st on sunday, january 19, 2020. the ruptured occurred around 7:50 a.m., and the city turned off the water a..."
+      },
+      {
+        "type": "train_benchmark_collision",
+        "text": "poor conditions of property"
+      },
+      {
+        "type": "train_benchmark_collision",
+        "text": "request for pothole repair"
+      },
+      {
+        "type": "train_benchmark_collision",
+        "text": "road damage infrastructure defect photographed in public right-of-way"
+      },
+      {
+        "type": "train_benchmark_collision",
+        "text": "illegal dumping"
+      },
+      {
+        "type": "val_benchmark_collision",
+        "text": "poor conditions of property"
+      },
+      {
+        "type": "val_benchmark_collision",
+        "text": "illegal dumping"
+      },
+      {
+        "type": "val_benchmark_collision",
+        "text": "request for pothole repair"
+      },
+      {
+        "type": "train_val_overlap",
+        "text": "publisher varies subjects: water-supply"
+      },
+      {
+        "type": "train_val_overlap",
+        "text": "title varies slightly publisher and place of publication vary some vols. include the annual reports of other city departments and lists of persons taxed subjects: finance, public"
+      },
+      {
+        "type": "train_val_overlap",
+        "text": "request for pothole repair"
+      },
+      {
+        "type": "train_val_overlap",
+        "text": "ca-r notes for ia: image may appear dark or faded due to the nature of microfilm. some text runs off the page, inherent to the original.series title: tropico inter-urban sentineldescription: these newspapers document the earliest history of glendale as an incorporated city and the later-annexed c..."
+      },
+      {
+        "type": "train_val_overlap",
+        "text": "vol. 1- prepared in the information division subjects: soil conservation united states periodicals; water conservation united states periodicals"
+      },
+      {
+        "type": "train_val_overlap",
+        "text": "the metadata below describe the original scanning. follow the \"all files: http\" link in the \"view the book\" box to the left to find xml files that contain more metadata about the original images and the derived formats (ocr results, pdf etc.). see also the what is the directory structure for the ..."
+      },
+      {
+        "type": "train_val_overlap",
+        "text": "streetlight infrastructure defect, public right-of-way"
+      },
+      {
+        "type": "train_val_overlap",
+        "text": "improper storage of trash (barrels)"
+      },
+      {
+        "type": "train_val_overlap",
+        "text": "graffiti removal"
+      },
+      {
+        "type": "train_val_overlap",
+        "text": "poor conditions of property"
+      },
+      {
+        "type": "train_val_overlap",
+        "text": "subjects:"
+      },
+      {
+        "type": "train_val_overlap",
+        "text": "road damage infrastructure defect, public right-of-way"
+      },
+      {
+        "type": "train_val_overlap",
+        "text": "<a href=\"https://en.wikipedia.org/wiki/prague\" class=\"extiw\" title=\"en:prague\">prague</a>-<a href=\"https://en.wikipedia.org/wiki/stod%c5%aflky\" class=\"extiw\" title=\"en:stod\u016flky\">stod\u016flky</a>, <a href=\"https://en.wikipedia.org/wiki/czech_republic\" class=\"extiw\" title=\"en:czech republic\">czech repu..."
+      },
+      {
+        "type": "train_val_overlap",
+        "text": "water leakage infrastructure defect, public right-of-way"
+      },
+      {
+        "type": "train_val_overlap",
+        "text": "illegal dumping"
+      },
+      {
+        "type": "train_val_overlap",
+        "text": "the metadata below describe the original scanning. follow the \"all files: http\" link in the \"view the book\" box to the left to find xml files that contain more metadata about the original images and the derived formats (ocr results, pdf etc.). see also the &lt;a href=\"https://archive.org/about/fa..."
+      }
+    ]
+  },
+  "overall_summary": {
+    "total_samples": 892,
+    "source_type_distribution": {
+      "Structured category label": 302,
+      "Citizen-like description": 264,
+      "Other": 95,
+      "Archive/catalog description": 179,
+      "Image caption": 52
+    },
+    "keyword_containing_count": 415,
+    "keyword_free_count": 477,
+    "pct_with_keyword": 46.52
+  },
+  "split_summaries": {
+    "train": {
+      "total_samples": 473,
+      "source_type_distribution": {
+        "Structured category label": 162,
+        "Citizen-like description": 112,
+        "Other": 40,
+        "Archive/catalog description": 142,
+        "Image caption": 17
+      },
+      "keyword_containing_count": 205,
+      "keyword_free_count": 268,
+      "pct_with_keyword": 43.34,
+      "metadata_label_leakage_count": 190,
+      "pct_metadata_leakage": 40.17,
+      "class_distribution": {
+        "Pothole": 78,
+        "Garbage": 84,
+        "Other": 79,
+        "Road Damage": 78,
+        "Streetlight": 76,
+        "Water Leakage": 78
+      },
+      "class_keyword_breakdown": {
+        "Pothole": {
+          "total": 78,
+          "with_keyword": 78,
+          "without_keyword": 0,
+          "pct_with_keyword": 100.0
+        },
+        "Road Damage": {
+          "total": 78,
+          "with_keyword": 27,
+          "without_keyword": 51,
+          "pct_with_keyword": 34.62
+        },
+        "Garbage": {
+          "total": 84,
+          "with_keyword": 84,
+          "without_keyword": 0,
+          "pct_with_keyword": 100.0
+        },
+        "Water Leakage": {
+          "total": 78,
+          "with_keyword": 12,
+          "without_keyword": 66,
+          "pct_with_keyword": 15.38
+        },
+        "Streetlight": {
+          "total": 76,
+          "with_keyword": 4,
+          "without_keyword": 72,
+          "pct_with_keyword": 5.26
+        },
+        "Other": {
+          "total": 79,
+          "with_keyword": 0,
+          "without_keyword": 79,
+          "pct_with_keyword": 0.0
+        }
+      },
+      "mean_text_length": 81.2,
+      "mean_token_count": 12.2
+    },
+    "validation": {
+      "total_samples": 119,
+      "source_type_distribution": {
+        "Structured category label": 40,
+        "Citizen-like description": 35,
+        "Other": 13,
+        "Archive/catalog description": 28,
+        "Image caption": 3
+      },
+      "keyword_containing_count": 59,
+      "keyword_free_count": 60,
+      "pct_with_keyword": 49.58,
+      "metadata_label_leakage_count": 52,
+      "pct_metadata_leakage": 43.7,
+      "class_distribution": {
+        "Pothole": 20,
+        "Garbage": 21,
+        "Other": 20,
+        "Road Damage": 20,
+        "Streetlight": 19,
+        "Water Leakage": 19
+      },
+      "class_keyword_breakdown": {
+        "Pothole": {
+          "total": 20,
+          "with_keyword": 20,
+          "without_keyword": 0,
+          "pct_with_keyword": 100.0
+        },
+        "Road Damage": {
+          "total": 20,
+          "with_keyword": 8,
+          "without_keyword": 12,
+          "pct_with_keyword": 40.0
+        },
+        "Garbage": {
+          "total": 21,
+          "with_keyword": 21,
+          "without_keyword": 0,
+          "pct_with_keyword": 100.0
+        },
+        "Water Leakage": {
+          "total": 19,
+          "with_keyword": 4,
+          "without_keyword": 15,
+          "pct_with_keyword": 21.05
+        },
+        "Streetlight": {
+          "total": 19,
+          "with_keyword": 6,
+          "without_keyword": 13,
+          "pct_with_keyword": 31.58
+        },
+        "Other": {
+          "total": 20,
+          "with_keyword": 0,
+          "without_keyword": 20,
+          "pct_with_keyword": 0.0
+        }
+      },
+      "mean_text_length": 77.1,
+      "mean_token_count": 11.6
+    },
+    "benchmark": {
+      "total_samples": 300,
+      "source_type_distribution": {
+        "Structured category label": 100,
+        "Citizen-like description": 117,
+        "Other": 42,
+        "Image caption": 32,
+        "Archive/catalog description": 9
+      },
+      "keyword_containing_count": 151,
+      "keyword_free_count": 149,
+      "pct_with_keyword": 50.33,
+      "metadata_label_leakage_count": 108,
+      "pct_metadata_leakage": 36.0,
+      "class_distribution": {
+        "Garbage": 50,
+        "Other": 50,
+        "Pothole": 50,
+        "Road Damage": 50,
+        "Streetlight": 50,
+        "Water Leakage": 50
+      },
+      "class_keyword_breakdown": {
+        "Pothole": {
+          "total": 50,
+          "with_keyword": 50,
+          "without_keyword": 0,
+          "pct_with_keyword": 100.0
+        },
+        "Road Damage": {
+          "total": 50,
+          "with_keyword": 16,
+          "without_keyword": 34,
+          "pct_with_keyword": 32.0
+        },
+        "Garbage": {
+          "total": 50,
+          "with_keyword": 50,
+          "without_keyword": 0,
+          "pct_with_keyword": 100.0
+        },
+        "Water Leakage": {
+          "total": 50,
+          "with_keyword": 11,
+          "without_keyword": 39,
+          "pct_with_keyword": 22.0
+        },
+        "Streetlight": {
+          "total": 50,
+          "with_keyword": 24,
+          "without_keyword": 26,
+          "pct_with_keyword": 48.0
+        },
+        "Other": {
+          "total": 50,
+          "with_keyword": 0,
+          "without_keyword": 50,
+          "pct_with_keyword": 0.0
+        }
+      },
+      "mean_text_length": 108.5,
+      "mean_token_count": 16.9
+    }
+  }
+}

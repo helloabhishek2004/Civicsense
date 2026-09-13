@@ -38,9 +38,12 @@ describe('Shared UI Components', () => {
   });
 
   it('renders PriorityBadge with code and label', () => {
-    render(<PriorityBadge priority="HIGH" />);
+    const { rerender } = render(<PriorityBadge priority="HIGH" />);
     expect(screen.getByText('P2')).toBeInTheDocument();
     expect(screen.getByText('High')).toBeInTheDocument();
+
+    rerender(<PriorityBadge priority={null} />);
+    expect(screen.getByText('UNRANKED')).toBeInTheDocument();
   });
 
   it('renders StatCard with title and value', () => {

@@ -33,6 +33,7 @@ import {
   GitCompare,
   RefreshCw,
   Smartphone,
+  Layers,
 } from 'lucide-react';
 import { reportRepository } from '@/services/repository/reportRepository';
 import { queryKeys } from '@/services/queryKeys';
@@ -1212,6 +1213,35 @@ export const ReportDetailPage: React.FC = () => {
 
         {/* RIGHT COLUMN (1 Col): Operational Actions, SLA & Department, Verification Decisions, Internal Notes, Audit Trail */}
         <motion.div variants={itemVariants} className="space-y-6">
+          {/* Associated Aggregated Issue Card */}
+          {report.issueId && (
+            <div className="p-5 rounded-civic bg-blue-50/60 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900/60 shadow-civic-card space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-700 dark:text-blue-300 uppercase tracking-wider">
+                  <Layers className="w-3.5 h-3.5" />
+                  Associated Issue
+                </span>
+                <span className="text-[11px] font-mono text-blue-600 dark:text-blue-400 bg-blue-100/80 dark:bg-blue-900/60 px-2 py-0.5 rounded border border-blue-200 dark:border-blue-800">
+                  iss-{report.issueId.substring(0, 8)}
+                </span>
+              </div>
+
+              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
+                This citizen report is aggregated under a confirmed civic defect cluster.
+              </p>
+
+              <CivicButton
+                variant="primary"
+                size="sm"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                rightIcon={<ExternalLink className="w-3.5 h-3.5" />}
+                onClick={() => navigate(`/issues/${report.issueId}`)}
+              >
+                View Aggregated Issue
+              </CivicButton>
+            </div>
+          )}
+
           {/* 1. Operational Actions Card (State-aware for ALL 11 states) */}
           <div className="p-5 rounded-civic bg-civic-surface border border-civic-border shadow-civic-card dark:bg-civic-dark-surface dark:border-civic-dark-border">
             <h2 className="text-sm font-semibold text-civic-text-primary dark:text-civic-dark-text-primary mb-1">

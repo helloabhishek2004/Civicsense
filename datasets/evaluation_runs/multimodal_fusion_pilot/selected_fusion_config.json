@@ -1,0 +1,10 @@
+{
+  "name": "vision_assisted_calibrated",
+  "text_weight": 0.6,
+  "vision_weight": 0.4,
+  "disagreement_penalty": 0.15,
+  "temperature": 0.5,
+  "confidence_adaptive": false,
+  "min_confidence_threshold": 0.6,
+  "review_agreement_threshold": 0.5
+}

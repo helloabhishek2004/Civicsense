@@ -1,0 +1,128 @@
+{
+  "schema_version": "1.0.0",
+  "selection_objective": "Select primary and backup visual classification backbone for CivicSense municipal triage",
+  "evaluated_at": "2026-09-13T09:18:00Z",
+  "criteria_weights": {
+    "visual_classification_suitability": 0.25,
+    "cpu_inference_feasibility": 0.20,
+    "model_size_and_memory": 0.15,
+    "quantization_and_deployment_support": 0.15,
+    "training_and_finetuning_simplicity": 0.10,
+    "license_and_redistribution": 0.10,
+    "runtime_and_dependency_compatibility": 0.05
+  },
+  "candidate_scores": [
+    {
+      "candidate_id": "mobilenet_v3_small",
+      "model_name": "MobileNetV3-Small",
+      "scores": {
+        "visual_classification_suitability": 84,
+        "cpu_inference_feasibility": 98,
+        "model_size_and_memory": 98,
+        "quantization_and_deployment_support": 96,
+        "training_and_finetuning_simplicity": 95,
+        "license_and_redistribution": 100,
+        "runtime_and_dependency_compatibility": 95
+      },
+      "weighted_total": 93.65,
+      "recommendation_status": "RECOMMENDED_PRIMARY",
+      "key_rationale": "Unrivaled CPU-first Pareto efficiency (<10ms latency, 2.5M parameters, 9.7MB float32 / 2.6MB int8). Mature quantization path and ubiquitous Apache 2.0 weights make it ideal for lean municipal infrastructure."
+    },
+    {
+      "candidate_id": "efficientnet_lite0",
+      "model_name": "EfficientNet-Lite0",
+      "scores": {
+        "visual_classification_suitability": 88,
+        "cpu_inference_feasibility": 92,
+        "model_size_and_memory": 90,
+        "quantization_and_deployment_support": 98,
+        "training_and_finetuning_simplicity": 85,
+        "license_and_redistribution": 100,
+        "runtime_and_dependency_compatibility": 85
+      },
+      "weighted_total": 90.65,
+      "recommendation_status": "RECOMMENDED_BACKUP",
+      "key_rationale": "High visual representation capacity (75.1% ImageNet top-1) with Squeeze-and-Excitation removed and ReLU6 introduced specifically for lossless INT8 quantization. Best candidate if MobileNetV3-Small struggles with subtle pavement fissure discrimination."
+    },
+    {
+      "candidate_id": "mobilenet_v4_conv_small",
+      "model_name": "MobileNetV4-Conv-Small",
+      "scores": {
+        "visual_classification_suitability": 90,
+        "cpu_inference_feasibility": 94,
+        "model_size_and_memory": 92,
+        "quantization_and_deployment_support": 88,
+        "training_and_finetuning_simplicity": 80,
+        "license_and_redistribution": 100,
+        "runtime_and_dependency_compatibility": 80
+      },
+      "weighted_total": 89.90,
+      "recommendation_status": "HIGH_POTENTIAL_CONTENDER",
+      "key_rationale": "Modern 2024 architecture with Universal Inverted Bottleneck (UIB). Excellent latency-accuracy curve, but penalized slightly for nascent tooling maturity outside timm."
+    },
+    {
+      "candidate_id": "efficientnet_b0",
+      "model_name": "EfficientNet-B0",
+      "scores": {
+        "visual_classification_suitability": 90,
+        "cpu_inference_feasibility": 80,
+        "model_size_and_memory": 85,
+        "quantization_and_deployment_support": 78,
+        "training_and_finetuning_simplicity": 90,
+        "license_and_redistribution": 100,
+        "runtime_and_dependency_compatibility": 85
+      },
+      "weighted_total": 84.85,
+      "recommendation_status": "VIABLE_SECONDARY",
+      "key_rationale": "Robust baseline with high accuracy, but Swish activations and S&E branches introduce CPU memory-bandwidth pressure and quantization complexity compared to EfficientNet-Lite0."
+    },
+    {
+      "candidate_id": "resnet_18",
+      "model_name": "ResNet-18",
+      "scores": {
+        "visual_classification_suitability": 78,
+        "cpu_inference_feasibility": 78,
+        "model_size_and_memory": 65,
+        "quantization_and_deployment_support": 92,
+        "training_and_finetuning_simplicity": 98,
+        "license_and_redistribution": 100,
+        "runtime_and_dependency_compatibility": 90
+      },
+      "weighted_total": 80.65,
+      "recommendation_status": "REJECTED_INEFFICIENT",
+      "key_rationale": "11.7M parameters and 45MB size is 4.5x larger than MobileNetV3-Small for equivalent or lower classification accuracy on civic imagery."
+    },
+    {
+      "candidate_id": "convnext_tiny",
+      "model_name": "ConvNeXt-Tiny",
+      "scores": {
+        "visual_classification_suitability": 94,
+        "cpu_inference_feasibility": 55,
+        "model_size_and_memory": 45,
+        "quantization_and_deployment_support": 72,
+        "training_and_finetuning_simplicity": 85,
+        "license_and_redistribution": 100,
+        "runtime_and_dependency_compatibility": 85
+      },
+      "weighted_total": 73.55,
+      "recommendation_status": "REJECTED_OVERWEIGHT",
+      "key_rationale": "High visual capacity (82.1% top-1), but 28.6M parameters (111MB) and 70ms+ CPU latency violates lean infrastructure requirements."
+    },
+    {
+      "candidate_id": "dinov2_small",
+      "model_name": "DINOv2-Small (ViT-S/14)",
+      "scores": {
+        "visual_classification_suitability": 96,
+        "cpu_inference_feasibility": 45,
+        "model_size_and_memory": 52,
+        "quantization_and_deployment_support": 65,
+        "training_and_finetuning_simplicity": 70,
+        "license_and_redistribution": 100,
+        "runtime_and_dependency_compatibility": 80
+      },
+      "weighted_total": 71.05,
+      "recommendation_status": "REJECTED_FOR_REALTIME_CPU",
+      "key_rationale": "Self-supervised feature quality is state-of-the-art, but Vision Transformer quadratic self-attention requires 95ms+ on CPU and 180MB RAM overhead, making it unsuitable for synchronous API triage."
+    }
+  ]
+}

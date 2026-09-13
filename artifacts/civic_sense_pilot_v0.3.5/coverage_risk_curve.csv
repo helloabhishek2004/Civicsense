@@ -1,0 +1,10 @@
+confidence_threshold,require_agreement,exclude_other,review_agreement_threshold,safety_policy_enabled,total_samples,auto_accepted_count,human_review_count,coverage,selective_accuracy,selective_error_rate,false_auto_accept_count,high_confidence_errors,category_agreement_rate,mean_confidence,mean_concordance,intercepted_by_policy
+0.5,True,True,0.5,True,300,81,219,0.27,1.0,0.0,0,22,1.0,0.9744,0.962,247
+0.55,True,True,0.5,True,300,81,219,0.27,1.0,0.0,0,15,1.0,0.9744,0.962,247
+0.6,True,True,0.5,True,300,81,219,0.27,1.0,0.0,0,15,1.0,0.9744,0.962,247
+0.65,True,True,0.5,True,300,81,219,0.27,1.0,0.0,0,15,1.0,0.9744,0.962,247
+0.7,True,True,0.5,True,300,81,219,0.27,1.0,0.0,0,15,1.0,0.9744,0.962,247
+0.75,True,True,0.5,True,300,81,219,0.27,1.0,0.0,0,10,1.0,0.9744,0.962,247
+0.8,True,True,0.5,True,300,81,219,0.27,1.0,0.0,0,9,1.0,0.9744,0.962,247
+0.85,True,True,0.5,True,300,81,219,0.27,1.0,0.0,0,7,1.0,0.9744,0.962,247
+0.9,True,True,0.5,True,300,77,223,0.2567,1.0,0.0,0,3,1.0,0.9789,0.9711,247

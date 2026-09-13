@@ -1,0 +1,54 @@
+{
+  "benchmark_file": "datasets\\benchmark_v1\\benchmark_dataset.jsonl",
+  "total_samples": 300,
+  "target_per_category": 50,
+  "is_balanced_at_target": true,
+  "category_distribution": {
+    "Garbage": 50,
+    "Other": 50,
+    "Pothole": 50,
+    "Road Damage": 50,
+    "Streetlight": 50,
+    "Water Leakage": 50
+  },
+  "category_shortages": {
+    "Pothole": 0,
+    "Road Damage": 0,
+    "Garbage": 0,
+    "Water Leakage": 0,
+    "Streetlight": 0,
+    "Other": 0
+  },
+  "source_distribution": {
+    "boston311": 157,
+    "wikimedia_road_damage": 45,
+    "wikimedia_streetlight": 48,
+    "wikimedia_water": 50
+  },
+  "license_distribution": {
+    "ODC-PDDL": 157,
+    "CC BY-SA 4.0": 44,
+    "Public domain": 21,
+    "CC BY 3.0": 5,
+    "CC BY-SA 3.0": 38,
+    "CC0": 7,
+    "CC BY-SA 2.0": 17,
+    "CC BY 4.0": 2,
+    "CC BY 2.0": 9
+  },
+  "verification_level_distribution": {
+    "source_verified": 300
+  },
+  "visual_relevance_distribution": {
+    "direct_issue_visible": 300
+  },
+  "data_completeness": {
+    "missing_text_description_count": 0,
+    "missing_image_path_count": 0,
+    "missing_attribution_count": 0
+  },
+  "quality_flags": {
+    "blurry_images_count": 1,
+    "low_resolution_images_count": 0
+  }
+}

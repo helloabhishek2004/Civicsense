@@ -51,6 +51,21 @@ class InvalidStateTransitionError(CivicSenseException):
         )
 
 
+class MatchAlreadyReviewedError(CivicSenseException):
+    """Raised when a match has already been finalized (approved, rejected, or superseded)."""
+
+    def __init__(self, match_id: Any, current_status: str) -> None:
+        super().__init__(
+            message=(
+                f"Match '{match_id}' has already been reviewed "
+                f"(current status: {current_status}). "
+                "Review actions cannot be repeated on a finalized match."
+            ),
+            code="MATCH_ALREADY_REVIEWED",
+            status_code=status.HTTP_409_CONFLICT,
+        )
+
+
 class DomainValidationError(CivicSenseException):
     """Raised when business validation fails."""
 
@@ -58,6 +73,99 @@ class DomainValidationError(CivicSenseException):
         super().__init__(
             message=message,
             code="VALIDATION_ERROR",
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            details=details,
+        )
+
+
+class InvalidImagePayloadError(CivicSenseException):
+    """Raised when image payload is empty, malformed, or unparseable."""
+
+    def __init__(self, message: str, details: list[dict[str, Any]] | None = None) -> None:
+        super().__init__(
+            message=message,
+            code="INVALID_IMAGE_PAYLOAD",
+            status_code=status.HTTP_400_BAD_REQUEST,
+            details=details,
+        )
+
+
+class CorruptImageError(CivicSenseException):
+    """Raised when image bytes cannot be decoded or are corrupted/truncated."""
+
+    def __init__(self, message: str, details: list[dict[str, Any]] | None = None) -> None:
+        super().__init__(
+            message=message,
+            code="CORRUPT_IMAGE",
+            status_code=status.HTTP_400_BAD_REQUEST,
+            details=details,
+        )
+
+
+class UnsupportedImageTypeError(CivicSenseException):
+    """Raised when an unsupported image format/MIME type is provided."""
+
+    def __init__(self, mime_type: str, details: list[dict[str, Any]] | None = None) -> None:
+        super().__init__(
+            message=f"Unsupported image type '{mime_type}'. Allowed types: JPEG, PNG, WEBP.",
+            code="UNSUPPORTED_IMAGE_TYPE",
+            status_code=status.HTTP_400_BAD_REQUEST,
+            details=details,
+        )
+
+
+class OversizedImageError(CivicSenseException):
+    """Raised when image file byte size exceeds configured limits."""
+
+    def __init__(self, size_bytes: int, max_bytes: int) -> None:
+        super().__init__(
+            message=(
+                f"Image size ({size_bytes / (1024 * 1024):.2f} MB) exceeds maximum allowed limit "
+                f"({max_bytes / (1024 * 1024):.2f} MB)."
+            ),
+            code="IMAGE_TOO_LARGE",
+            status_code=status.HTTP_400_BAD_REQUEST,
+            details=[{"size_bytes": size_bytes, "max_bytes": max_bytes}],
+        )
+
+
+class ImageDimensionsInvalidError(CivicSenseException):
+    """Raised when image width or height falls below minimum or exceeds maximum bounds."""
+
+    def __init__(self, width: int, height: int, min_dim: int, max_dim: int) -> None:
+        super().__init__(
+            message=(
+                f"Image dimensions ({width}x{height}) violate acceptable bounds "
+                f"(min {min_dim}x{min_dim}px, max {max_dim}x{max_dim}px)."
+            ),
+            code="IMAGE_DIMENSIONS_INVALID",
+            status_code=status.HTTP_400_BAD_REQUEST,
+            details=[{"width": width, "height": height, "min_dim": min_dim, "max_dim": max_dim}],
+        )
+
+
+class ImageDecompressionBombError(CivicSenseException):
+    """Raised when image pixel count exceeds decompression bomb threshold."""
+
+    def __init__(self, total_pixels: int, max_pixels: int) -> None:
+        super().__init__(
+            message=(
+                f"Image total pixel count ({total_pixels:,}) exceeds maximum safe threshold "
+                f"({max_pixels:,} pixels). Possible decompression bomb."
+            ),
+            code="IMAGE_DECOMPRESSION_BOMB",
+            status_code=status.HTTP_400_BAD_REQUEST,
+            details=[{"total_pixels": total_pixels, "max_pixels": max_pixels}],
+        )
+
+
+class TextValidationError(CivicSenseException):
+    """Raised when citizen description violates safety, length, or sanitization rules."""
+
+    def __init__(self, message: str, details: list[dict[str, Any]] | None = None) -> None:
+        super().__init__(
+            message=message,
+            code="TEXT_VALIDATION_ERROR",
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             details=details,
         )

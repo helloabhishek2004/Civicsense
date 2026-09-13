@@ -1,32 +1,24 @@
 # CivicSense — From Citizen Reports to Civic Intelligence
 
-**CivicSense** is an AI-assisted civic decision-support and intelligence platform that bridges citizen defect reporting with municipal operational response. It combines privacy-preserving mobile preprocessing, server-side multimodal reasoning, separate severity and priority assessment, human-in-the-loop verification, and historical data mining.
+**CivicSense** is an AI-assisted civic decision-support and intelligence platform that bridges citizen defect reporting with municipal operational response. It combines text semantic similarity, geospatial proximity analysis, human-in-the-loop match review, dynamic priority ranking, and departmental workflow orchestration.
 
 ---
 
-## 1. Current Development Stage: Phase 0 (Bootstrap Foundation)
+## 1. Current Status
 
-> [!IMPORTANT]
-> This repository is currently in **Phase 0: Initial Production Codebase Bootstrap**.
-> We have built a clean, scalable, typed production foundation. Heavy ML dependencies, custom deep learning models, vector databases, and external cloud services are **deliberately NOT installed or implemented yet** to prevent premature complexity.
-
-| Status | Component | Notes |
+| Component | Status | Tests |
 | :--- | :--- | :--- |
-| **IMPLEMENTED** | Backend Ingestion API | FastAPI versioned routes, request validation, structured error handling |
-| **IMPLEMENTED** | Report Lifecycle Engine | 11-state transition machine (`SUBMITTED` $\dots$ `CLOSED`) |
-| **IMPLEMENTED** | Database & Migrations | PostgreSQL 16 + SQLAlchemy 2.0 + Alembic (`0001_initial`) |
-| **IMPLEMENTED** | Clean Domain Models | `Report`, `Issue`, `Evidence`, `ModelVersion`, `AIAnalysis`, `Verification`, `Resolution` |
-| **IMPLEMENTED** | AI Service Contracts | Explicit interfaces raising `NotImplementedError` (Zero fake AI) |
-| **IMPLEMENTED** | Mobile Scaffolding | React Native + Expo + TypeScript strict mode + typed API client |
-| **IMPLEMENTED** | Shared Contract | Canonical JSON Schema (`shared/schemas/report_submission.json`) |
-| **IMPLEMENTED** | Developer Tooling | PowerShell (`scripts/dev.ps1`), Bash (`scripts/dev.sh`), Makefile, Ruff, mypy, pytest |
-| **PLANNED** | Vision Inference | Server-side & edge lightweight visual classification (Sprint 3) |
-| **PLANNED** | Text Analytics | Context & safety hazard extraction from citizen text (Sprint 4) |
-| **PLANNED** | Multimodal Fusion | Feature fusion & agreement/conflict detection (Sprint 5) |
-| **PLANNED** | Duplicate Grouping | Geospatial proximity + vector similarity grouping (Sprint 5) |
-| **PLANNED** | Human Verification UI | Reviewer interface for ambiguous/critical cases (Sprint 6) |
-| **PLANNED** | Civic Data Mining | Spatial clustering, recurring defect patterns, temporal trends (Sprint 7) |
-| **PLANNED** | Authority Dashboard | Web management dashboard with GIS mapping (Sprint 7) |
+| **Backend API** | IMPLEMENTED | 470 passing |
+| **Similarity & Dedup Engine** | IMPLEMENTED | 67 unit + 21 API tests |
+| **Priority Ranking Engine** | IMPLEMENTED | 53 tests |
+| **Issue Management API** | IMPLEMENTED | 5 endpoint tests |
+| **Match Review Workflow** | IMPLEMENTED | 38 tests |
+| **Department Operations** | IMPLEMENTED | Tested |
+| **Web Dashboard** | IMPLEMENTED | 85 passing |
+| **Android Mobile App** | IMPLEMENTED | 76 passing |
+| **React Native Expo** | SCAFFOLD | — |
+| **Image Classification** | PILOT ONLY | Not integrated |
+| **Production Auth** | NOT IMPLEMENTED | Prototype X-Reviewer-ID only |
 
 ---
 
@@ -47,39 +39,46 @@
 
 ```text
 Civicsense/
-├── .env.example              # Documented environment variables template
-├── docker-compose.yml        # Local PostgreSQL 16 infrastructure
+├── .env.example              # Environment variables template
+├── docker-compose.yml        # PostgreSQL 16 infrastructure
 ├── Makefile                  # Cross-platform developer commands
-├── README.md                 # Project documentation and guide
+├── README.md                 # This file
 │
-├── docs/                     # Architecture overviews, API contracts, ADRs, and research
-│   ├── architecture/         # System diagrams and status mappings
-│   ├── api/                  # REST API reference
-│   ├── decisions/            # Architectural Decision Records (e.g. ADR-001)
-│   └── research/             # Academic research questions and evaluation plans
-│
-├── shared/
-│   └── schemas/              # Versioned client-server JSON Schema contracts
+├── docs/                     # Architecture, API, deployment, demo docs
+│   ├── ARCHITECTURE.md       # System architecture, component status, and Mermaid diagram
+│   ├── API.md                # REST API reference with 29 endpoints
+│   ├── DEPLOYMENT.md         # Setup and deployment guide
+│   ├── DEMO_RUNBOOK.md       # Demo scenario and navigation guide
+│   ├── AI_EVALUATION.md      # AI methodology and evaluation
+│   ├── PROJECT_OVERVIEW.md   # Project summary and workflow
+│   ├── PROBLEM_STATEMENT.md  # Problem definition and motivation
+│   ├── SYSTEM_OBJECTIVES.md  # System design objectives
+│   ├── METHODOLOGY.md        # Technical methodology
+│   ├── RESULTS_AND_LIMITATIONS.md # Test results and limitations
+│   ├── PRESENTATION_OUTLINE.md    # 12-slide presentation structure
+│   ├── PRESENTATION_DEMO_SCRIPT.md # 5-8 min live demo script
+│   ├── PORTFOLIO_DESCRIPTION.md   # Portfolio-ready summary
+│   ├── architecture/         # System diagrams
+│   ├── api/                  # API reference (legacy)
+│   └── decisions/            # Architectural Decision Records
 │
 ├── backend/                  # FastAPI Application
-│   ├── app/                  # Application core, api, models, repos, services, db
-│   ├── alembic/              # Database migrations
-│   ├── tests/                # Automated pytest suite (smoke, unit, integration)
-│   └── pyproject.toml        # Dependencies, Ruff, mypy, pytest configs
+│   ├── app/                  # Application core, api, models, services
+│   ├── alembic/              # Database migrations (0001-0010)
+│   ├── tests/                # 470 passing pytest tests
+│   └── pyproject.toml        # Dependencies and tool config
 │
-├── mobile/                   # React Native Expo Mobile App
-│   ├── src/                  # Core api/config, features/reports, shared components
-│   ├── App.tsx               # Application root
+├── dashboard/                # React + Vite Admin Portal
+│   ├── src/                  # Components, features, services
 │   └── package.json          # Dependencies and scripts
 │
-├── ml/                       # Future ML experimentation workspace
-│   ├── datasets/             # Public dataset manifests (RDD2022, TACO)
-│   ├── preprocessing/        # Image and text preprocessing
-│   ├── training/             # Model training pipelines
-│   └── evaluation/           # Benchmarks and evaluation harnesses
-│
-├── dashboard/                # Future authority dashboard placeholder
-└── scripts/                  # Cross-platform development scripts (dev.ps1, dev.sh)
+├── android/                  # Native Android (Kotlin + Compose)
+├── mobile/                   # React Native Expo scaffold
+├── models/                   # MiniLM model artifacts
+├── scripts/                  # Dev scripts, seed, evaluation tools
+│   ├── seed_pilot_dataset.py # Pilot data seeding
+│   └── smoke_test_postgres.py# PostgreSQL smoke test
+└── datasets/                 # Evaluation benchmarks and pilot data
 ```
 
 ---
@@ -98,7 +97,7 @@ Civicsense/
 ### Prerequisites
 - Python 3.12+
 - Node.js 18+ and npm
-- Docker Desktop (optional, for running local PostgreSQL)
+- Docker Desktop (for PostgreSQL 16)
 
 ### A. Setup Environment
 
@@ -107,90 +106,125 @@ Civicsense/
 cp .env.example .env
 ```
 
-### B. Install Dependencies
+### B. Start PostgreSQL
 
-Using PowerShell:
 ```powershell
-.\scripts\dev.ps1 install
+docker compose up -d
 ```
 
-Or manually:
+### C. Install Dependencies
+
 ```powershell
 # Backend
 cd backend
 python -m pip install -e ".[dev]"
-cd ..
 
-# Mobile
-cd mobile
+# Dashboard
+cd ../dashboard
 npm install
-cd ..
 ```
+
+### D. Apply Migrations
+
+```powershell
+cd backend
+python -m alembic upgrade head
+```
+
+### E. Seed Pilot Data (Optional)
+
+```powershell
+python scripts/seed_pilot_dataset.py --seed-db
+```
+
+### F. Start Services
+
+```powershell
+# Terminal 1: Backend
+cd backend
+python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+
+# Terminal 2: Dashboard
+cd dashboard
+npm run dev
+```
+
+### G. Open Dashboard
+
+Navigate to `http://localhost:5173`
+
+- Login with any badge number (prototype auth)
+- Go to AI Operations → Candidate Duplicate Reviews tab
+- See 6 pending candidate matches from the pilot dataset
 
 ---
 
 ## 6. Running Tests & Quality Checks
 
-The backend test suite uses an in-memory SQLite configuration with zero external dependencies, running cleanly in milliseconds:
-
 ```powershell
-# Run backend tests
-.\scripts\dev.ps1 test
+# Backend tests (470 passing, in-memory SQLite)
+cd backend
+python -m pytest tests -q
 
-# Run linter and formatting checks
-.\scripts\dev.ps1 lint
+# Backend linting
+python -m ruff check app --select=E,W,F,I --ignore=E501
 
-# Run strict type checking (mypy + tsc)
-.\scripts\dev.ps1 typecheck
+# Frontend tests (85 passing)
+cd ../dashboard
+npm test -- --run
+
+# Frontend type check
+npm run typecheck
+
+# Frontend build
+npm run build
 ```
 
 ---
 
-## 7. Running the Backend API
+## 7. API Documentation
 
-```powershell
-.\scripts\dev.ps1 dev
-```
-- API Root: `http://localhost:8000`
-- Liveness Probe: `http://localhost:8000/health`
-- Versioned Health: `http://localhost:8000/api/v1/health`
-- OpenAPI Swagger Docs: `http://localhost:8000/docs`
-- ReDoc Docs: `http://localhost:8000/redoc`
+- **Interactive Swagger:** `http://localhost:8000/docs`
+- **ReDoc:** `http://localhost:8000/redoc`
+- **API Reference:** See `docs/API.md`
 
----
-
-## 8. Running the Mobile Application
-
-```powershell
-cd mobile
-npm start
-```
-- Press `w` to launch the web client in your browser.
-- Or scan the QR code with Expo Go on your physical Android or iOS device.
+**Key endpoints:**
+- `GET /health` — System health check
+- `POST /api/v1/reports` — Submit citizen report
+- `GET /api/v1/reports` — List reports (filterable by issue_id)
+- `GET /api/v1/issues` — List issues sorted by priority
+- `GET /api/v1/matches/pending` — Pending candidate matches
+- `POST /api/v1/matches/{id}/approve` — Approve match (requires X-Reviewer-ID)
+- `POST /api/v1/matches/{id}/reject` — Reject match (requires X-Reviewer-ID)
 
 ---
 
-## 9. Database Management (PostgreSQL)
+## 8. Demo
 
-When running local PostgreSQL via Docker:
-
-```powershell
-# Start PostgreSQL container
-.\scripts\dev.ps1 db-up
-
-# Apply Alembic migrations
-.\scripts\dev.ps1 db-migrate
-
-# Stop PostgreSQL container
-.\scripts\dev.ps1 db-down
-```
+See `docs/DEMO_RUNBOOK.md` for:
+- Step-by-step demo scenarios
+- Navigation instructions
+- Expected outcomes
+- Reset and troubleshooting
 
 ---
 
-## 10. Development Philosophy
+## 9. Documentation
 
-1. **Simple > Impressive**: Prefer reliable, well-tested technologies over premature complexity.
-2. **Replaceable Modules**: Vision, text, similarity, fusion, and decision engines communicate via explicit abstract interfaces.
-3. **No Dead Code**: Every file serves a defined purpose; no empty fake classes.
-4. **Research-Friendly**: Clear separation between transactional ingestion and analytical evaluation.
-5. **No Fake AI**: Services raise `NotImplementedError` until real evaluated models are added.
+| Document | Purpose |
+|---|---|
+| `docs/ARCHITECTURE.md` | System architecture, component status, and Mermaid diagram |
+| `docs/API.md` | REST API reference with 29 endpoints |
+| `docs/DEPLOYMENT.md` | Setup and deployment guide |
+| `docs/DEMO_RUNBOOK.md` | Demo scenarios and navigation |
+| `docs/AI_EVALUATION.md` | AI methodology and evaluation metrics |
+| `docs/PROJECT_OVERVIEW.md` | Project summary, technologies, workflow |
+| `docs/PROBLEM_STATEMENT.md` | Problem definition and motivation |
+| `docs/SYSTEM_OBJECTIVES.md` | System design objectives and requirements |
+| `docs/METHODOLOGY.md` | Technical methodology and implementation status |
+| `docs/RESULTS_AND_LIMITATIONS.md` | Test results, evaluation, and known limitations |
+| `docs/PRESENTATION_OUTLINE.md` | 12-slide presentation structure |
+| `docs/PRESENTATION_DEMO_SCRIPT.md` | 5-8 minute live demo script |
+| `docs/PORTFOLIO_DESCRIPTION.md` | Portfolio-ready project summary |
+| `memory.md` | Implementation memory and current state |
+| `AGENTS.md` | Agent operating guidelines |

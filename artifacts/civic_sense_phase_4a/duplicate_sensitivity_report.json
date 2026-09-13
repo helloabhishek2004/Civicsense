@@ -1,0 +1,1674 @@
+{
+  "benchmark_file": "datasets\\benchmark_v1\\benchmark_dataset.jsonl",
+  "benchmark_sha256": "e988474dd46cee4c3b17010fb32af1a50ff750ea32579d8e8ab7ef8b0fd2e60b",
+  "sample_counts": {
+    "full_benchmark": 300,
+    "caption_collisions_count": 7,
+    "caption_clean_subset_count": 293,
+    "all_cross_split_collisions_count": 155,
+    "strictly_clean_subset_count": 145
+  },
+  "affected_samples": [
+    {
+      "benchmark_index": 0,
+      "benchmark_sample_id": "pilot_bost311_101006508563",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 1,
+      "benchmark_sample_id": "pilot_bost311_101006604499",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 2,
+      "benchmark_sample_id": "pilot_bost311_101006629355",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 3,
+      "benchmark_sample_id": "pilot_bost311_101006629511",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 4,
+      "benchmark_sample_id": "pilot_bost311_101006629609",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 5,
+      "benchmark_sample_id": "pilot_bost311_101006630007",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 6,
+      "benchmark_sample_id": "pilot_bost311_101006630560",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 7,
+      "benchmark_sample_id": "pilot_bost311_101006631021",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 8,
+      "benchmark_sample_id": "pilot_bost311_101006631165",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 9,
+      "benchmark_sample_id": "pilot_bost311_101006632678",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 10,
+      "benchmark_sample_id": "pilot_bost311_101006632687",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 11,
+      "benchmark_sample_id": "pilot_bost311_101006632792",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 12,
+      "benchmark_sample_id": "pilot_bost311_101006633206",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 13,
+      "benchmark_sample_id": "pilot_bost311_101006634000",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 14,
+      "benchmark_sample_id": "pilot_bost311_101006634551",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 15,
+      "benchmark_sample_id": "pilot_bost311_101006634575",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 16,
+      "benchmark_sample_id": "pilot_bost311_101006635297",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 17,
+      "benchmark_sample_id": "pilot_bost311_101006635466",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 18,
+      "benchmark_sample_id": "pilot_bost311_101006635658",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 19,
+      "benchmark_sample_id": "pilot_bost311_101006637134",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 20,
+      "benchmark_sample_id": "pilot_bost311_101006637373",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 21,
+      "benchmark_sample_id": "pilot_bost311_101006637550",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 22,
+      "benchmark_sample_id": "pilot_bost311_101006637571",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 23,
+      "benchmark_sample_id": "pilot_bost311_101006638262",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 24,
+      "benchmark_sample_id": "pilot_bost311_101006639499",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 25,
+      "benchmark_sample_id": "pilot_bost311_101006639877",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 26,
+      "benchmark_sample_id": "pilot_bost311_101006640288",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 27,
+      "benchmark_sample_id": "pilot_bost311_101006640812",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 28,
+      "benchmark_sample_id": "pilot_bost311_101006641306",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 29,
+      "benchmark_sample_id": "pilot_bost311_101006641518",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 30,
+      "benchmark_sample_id": "pilot_bost311_101006641935",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 31,
+      "benchmark_sample_id": "pilot_bost311_101006642162",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 32,
+      "benchmark_sample_id": "pilot_bost311_101006643655",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 33,
+      "benchmark_sample_id": "pilot_bost311_101006644831",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 34,
+      "benchmark_sample_id": "pilot_bost311_101006645845",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 35,
+      "benchmark_sample_id": "pilot_bost311_101006646261",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 36,
+      "benchmark_sample_id": "pilot_bost311_101006647351",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 37,
+      "benchmark_sample_id": "pilot_bost311_101006648071",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 38,
+      "benchmark_sample_id": "pilot_bost311_101006648251",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 39,
+      "benchmark_sample_id": "pilot_bost311_101006650008",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 40,
+      "benchmark_sample_id": "pilot_bost311_101006650230",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 41,
+      "benchmark_sample_id": "pilot_bost311_101006650297",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 42,
+      "benchmark_sample_id": "pilot_bost311_101006650391",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 43,
+      "benchmark_sample_id": "pilot_bost311_101006651575",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 44,
+      "benchmark_sample_id": "pilot_bost311_101006651657",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 45,
+      "benchmark_sample_id": "pilot_bost311_101006654279",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 46,
+      "benchmark_sample_id": "pilot_bost311_101006654525",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 47,
+      "benchmark_sample_id": "pilot_bost311_101006654912",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 48,
+      "benchmark_sample_id": "pilot_bost311_101006655893",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 49,
+      "benchmark_sample_id": "pilot_bost311_101006656797",
+      "canonical_category": "Garbage",
+      "text_snippet": "Illegal Dumping",
+      "collides_with_train": true,
+      "train_collision_count": 27,
+      "collides_with_val": true,
+      "val_collision_count": 10
+    },
+    {
+      "benchmark_index": 50,
+      "benchmark_sample_id": "pilot_bost311_101006629215",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 51,
+      "benchmark_sample_id": "pilot_bost311_101006629244",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 52,
+      "benchmark_sample_id": "pilot_bost311_101006630313",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 53,
+      "benchmark_sample_id": "pilot_bost311_101006630318",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 54,
+      "benchmark_sample_id": "pilot_bost311_101006630732",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 55,
+      "benchmark_sample_id": "pilot_bost311_101006630810",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 56,
+      "benchmark_sample_id": "pilot_bost311_101006631075",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 57,
+      "benchmark_sample_id": "pilot_bost311_101006632025",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 58,
+      "benchmark_sample_id": "pilot_bost311_101006632983",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 59,
+      "benchmark_sample_id": "pilot_bost311_101006634261",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 60,
+      "benchmark_sample_id": "pilot_bost311_101006634597",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 61,
+      "benchmark_sample_id": "pilot_bost311_101006634863",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 62,
+      "benchmark_sample_id": "pilot_bost311_101006635410",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 63,
+      "benchmark_sample_id": "pilot_bost311_101006635475",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 64,
+      "benchmark_sample_id": "pilot_bost311_101006635581",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 65,
+      "benchmark_sample_id": "pilot_bost311_101006636016",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 66,
+      "benchmark_sample_id": "pilot_bost311_101006636175",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 67,
+      "benchmark_sample_id": "pilot_bost311_101006636603",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 68,
+      "benchmark_sample_id": "pilot_bost311_101006636718",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 69,
+      "benchmark_sample_id": "pilot_bost311_101006638493",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 70,
+      "benchmark_sample_id": "pilot_bost311_101006638972",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 71,
+      "benchmark_sample_id": "pilot_bost311_101006639008",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 72,
+      "benchmark_sample_id": "pilot_bost311_101006639268",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 73,
+      "benchmark_sample_id": "pilot_bost311_101006639789",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 74,
+      "benchmark_sample_id": "pilot_bost311_101006639986",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 75,
+      "benchmark_sample_id": "pilot_bost311_101006640239",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 76,
+      "benchmark_sample_id": "pilot_bost311_101006640358",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 77,
+      "benchmark_sample_id": "pilot_bost311_101006640366",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 78,
+      "benchmark_sample_id": "pilot_bost311_101006640422",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 79,
+      "benchmark_sample_id": "pilot_bost311_101006641039",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 80,
+      "benchmark_sample_id": "pilot_bost311_101006641347",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 81,
+      "benchmark_sample_id": "pilot_bost311_101006643820",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 82,
+      "benchmark_sample_id": "pilot_bost311_101006643968",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 83,
+      "benchmark_sample_id": "pilot_bost311_101006645331",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 84,
+      "benchmark_sample_id": "pilot_bost311_101006645737",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 85,
+      "benchmark_sample_id": "pilot_bost311_101006645996",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 86,
+      "benchmark_sample_id": "pilot_bost311_101006646597",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 87,
+      "benchmark_sample_id": "pilot_bost311_101006648393",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 88,
+      "benchmark_sample_id": "pilot_bost311_101006649548",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 89,
+      "benchmark_sample_id": "pilot_bost311_101006649686",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 90,
+      "benchmark_sample_id": "pilot_bost311_101006650200",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 91,
+      "benchmark_sample_id": "pilot_bost311_101006652204",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 92,
+      "benchmark_sample_id": "pilot_bost311_101006652470",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 93,
+      "benchmark_sample_id": "pilot_bost311_101006653632",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 94,
+      "benchmark_sample_id": "pilot_bost311_101006654869",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 95,
+      "benchmark_sample_id": "pilot_bost311_101006655263",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 96,
+      "benchmark_sample_id": "pilot_bost311_101006656374",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 97,
+      "benchmark_sample_id": "pilot_bost311_101006656437",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 98,
+      "benchmark_sample_id": "pilot_bost311_101006657204",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 99,
+      "benchmark_sample_id": "pilot_bost311_101006678496",
+      "canonical_category": "Other",
+      "text_snippet": "Poor Conditions of Property",
+      "collides_with_train": true,
+      "train_collision_count": 32,
+      "collides_with_val": true,
+      "val_collision_count": 9
+    },
+    {
+      "benchmark_index": 100,
+      "benchmark_sample_id": "pilot_bost311_101006435365",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 101,
+      "benchmark_sample_id": "pilot_bost311_101006629147",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 102,
+      "benchmark_sample_id": "pilot_bost311_101006629508",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 103,
+      "benchmark_sample_id": "pilot_bost311_101006630110",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 104,
+      "benchmark_sample_id": "pilot_bost311_101006630905",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 105,
+      "benchmark_sample_id": "pilot_bost311_101006630995",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 106,
+      "benchmark_sample_id": "pilot_bost311_101006631566",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 107,
+      "benchmark_sample_id": "pilot_bost311_101006632116",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 108,
+      "benchmark_sample_id": "pilot_bost311_101006632331",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 109,
+      "benchmark_sample_id": "pilot_bost311_101006632558",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 110,
+      "benchmark_sample_id": "pilot_bost311_101006632580",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 111,
+      "benchmark_sample_id": "pilot_bost311_101006634172",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 112,
+      "benchmark_sample_id": "pilot_bost311_101006634757",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 113,
+      "benchmark_sample_id": "pilot_bost311_101006634816",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 114,
+      "benchmark_sample_id": "pilot_bost311_101006635103",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 115,
+      "benchmark_sample_id": "pilot_bost311_101006636025",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 116,
+      "benchmark_sample_id": "pilot_bost311_101006636174",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 117,
+      "benchmark_sample_id": "pilot_bost311_101006636896",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 118,
+      "benchmark_sample_id": "pilot_bost311_101006636970",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 119,
+      "benchmark_sample_id": "pilot_bost311_101006637002",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 120,
+      "benchmark_sample_id": "pilot_bost311_101006637032",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 121,
+      "benchmark_sample_id": "pilot_bost311_101006639339",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 122,
+      "benchmark_sample_id": "pilot_bost311_101006639889",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 123,
+      "benchmark_sample_id": "pilot_bost311_101006641215",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 124,
+      "benchmark_sample_id": "pilot_bost311_101006641843",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 125,
+      "benchmark_sample_id": "pilot_bost311_101006642736",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 126,
+      "benchmark_sample_id": "pilot_bost311_101006643135",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 129,
+      "benchmark_sample_id": "pilot_bost311_101006645116",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 130,
+      "benchmark_sample_id": "pilot_bost311_101006645666",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 131,
+      "benchmark_sample_id": "pilot_bost311_101006646268",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 132,
+      "benchmark_sample_id": "pilot_bost311_101006647026",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 133,
+      "benchmark_sample_id": "pilot_bost311_101006647268",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 134,
+      "benchmark_sample_id": "pilot_bost311_101006647686",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 135,
+      "benchmark_sample_id": "pilot_bost311_101006648752",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 136,
+      "benchmark_sample_id": "pilot_bost311_101006649036",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 137,
+      "benchmark_sample_id": "pilot_bost311_101006649062",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 138,
+      "benchmark_sample_id": "pilot_bost311_101006649157",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 139,
+      "benchmark_sample_id": "pilot_bost311_101006649698",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 140,
+      "benchmark_sample_id": "pilot_bost311_101006649821",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 141,
+      "benchmark_sample_id": "pilot_bost311_101006651540",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 142,
+      "benchmark_sample_id": "pilot_bost311_101006651706",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 143,
+      "benchmark_sample_id": "pilot_bost311_101006652556",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 144,
+      "benchmark_sample_id": "pilot_bost311_101006653801",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 145,
+      "benchmark_sample_id": "pilot_bost311_101006654412",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 146,
+      "benchmark_sample_id": "pilot_bost311_101006656359",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 147,
+      "benchmark_sample_id": "pilot_bost311_101006657170",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 148,
+      "benchmark_sample_id": "pilot_bost311_101006657904",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 149,
+      "benchmark_sample_id": "pilot_bost311_101006679289",
+      "canonical_category": "Pothole",
+      "text_snippet": "Request for Pothole Repair",
+      "collides_with_train": true,
+      "train_collision_count": 78,
+      "collides_with_val": true,
+      "val_collision_count": 20
+    },
+    {
+      "benchmark_index": 157,
+      "benchmark_sample_id": "pilot_wmroad_152999334",
+      "canonical_category": "Road Damage",
+      "text_snippet": "Road Damage infrastructure defect photographed in public right-of-way",
+      "collides_with_train": true,
+      "train_collision_count": 1,
+      "collides_with_val": false,
+      "val_collision_count": 0
+    },
+    {
+      "benchmark_index": 158,
+      "benchmark_sample_id": "pilot_wmroad_153145300",
+      "canonical_category": "Road Damage",
+      "text_snippet": "Road Damage infrastructure defect photographed in public right-of-way",
+      "collides_with_train": true,
+      "train_collision_count": 1,
+      "collides_with_val": false,
+      "val_collision_count": 0
+    },
+    {
+      "benchmark_index": 159,
+      "benchmark_sample_id": "pilot_wmroad_153181091",
+      "canonical_category": "Road Damage",
+      "text_snippet": "Road Damage infrastructure defect photographed in public right-of-way",
+      "collides_with_train": true,
+      "train_collision_count": 1,
+      "collides_with_val": false,
+      "val_collision_count": 0
+    },
+    {
+      "benchmark_index": 160,
+      "benchmark_sample_id": "pilot_wmroad_153185838",
+      "canonical_category": "Road Damage",
+      "text_snippet": "Road Damage infrastructure defect photographed in public right-of-way",
+      "collides_with_train": true,
+      "train_collision_count": 1,
+      "collides_with_val": false,
+      "val_collision_count": 0
+    },
+    {
+      "benchmark_index": 297,
+      "benchmark_sample_id": "pilot_wmwater_86093431",
+      "canonical_category": "Water Leakage",
+      "text_snippet": "MTA New York City Transit crews worked quickly to restore service on the A, C and D lines on Manhatt",
+      "collides_with_train": true,
+      "train_collision_count": 1,
+      "collides_with_val": false,
+      "val_collision_count": 0
+    },
+    {
+      "benchmark_index": 298,
+      "benchmark_sample_id": "pilot_wmwater_86093432",
+      "canonical_category": "Water Leakage",
+      "text_snippet": "MTA New York City Transit crews worked quickly to restore service on the A, C and D lines on Manhatt",
+      "collides_with_train": true,
+      "train_collision_count": 1,
+      "collides_with_val": false,
+      "val_collision_count": 0
+    },
+    {
+      "benchmark_index": 299,
+      "benchmark_sample_id": "pilot_wmwater_86093433",
+      "canonical_category": "Water Leakage",
+      "text_snippet": "MTA New York City Transit crews worked quickly to restore service on the A, C and D lines on Manhatt",
+      "collides_with_train": true,
+      "train_collision_count": 1,
+      "collides_with_val": false,
+      "val_collision_count": 0
+    }
+  ],
+  "comparison_table": {
+    "deterministic_baseline": {
+      "full_n300": {
+        "accuracy": 79.0,
+        "macro_f1": 0.7934
+      },
+      "caption_clean_n293": {
+        "accuracy": 78.5,
+        "macro_f1": 0.7828,
+        "delta_accuracy_pp": -0.5,
+        "delta_macro_f1": -0.0106
+      },
+      "strict_clean_n145": {
+        "accuracy": 56.55,
+        "macro_f1": 0.4434,
+        "delta_accuracy_pp": -22.45,
+        "delta_macro_f1": -0.35
+      }
+    },
+    "tfidf_baseline": {
+      "full_n300": {
+        "accuracy": 86.67,
+        "macro_f1": 0.8643
+      },
+      "caption_clean_n293": {
+        "accuracy": 86.35,
+        "macro_f1": 0.857,
+        "delta_accuracy_pp": -0.32,
+        "delta_macro_f1": -0.0073
+      },
+      "strict_clean_n145": {
+        "accuracy": 72.41,
+        "macro_f1": 0.37,
+        "delta_accuracy_pp": -14.25,
+        "delta_macro_f1": -0.4943
+      }
+    },
+    "minilm_zero_shot": {
+      "full_n300": {
+        "accuracy": 85.67,
+        "macro_f1": 0.8454
+      },
+      "caption_clean_n293": {
+        "accuracy": 85.32,
+        "macro_f1": 0.8362,
+        "delta_accuracy_pp": -0.34,
+        "delta_macro_f1": -0.0092
+      },
+      "strict_clean_n145": {
+        "accuracy": 70.34,
+        "macro_f1": 0.419,
+        "delta_accuracy_pp": -15.32,
+        "delta_macro_f1": -0.4265
+      }
+    },
+    "minilm_trained_head": {
+      "full_n300": {
+        "accuracy": 87.33,
+        "macro_f1": 0.8703
+      },
+      "caption_clean_n293": {
+        "accuracy": 87.03,
+        "macro_f1": 0.8613,
+        "delta_accuracy_pp": -0.3,
+        "delta_macro_f1": -0.009
+      },
+      "strict_clean_n145": {
+        "accuracy": 73.79,
+        "macro_f1": 0.528,
+        "delta_accuracy_pp": -13.54,
+        "delta_macro_f1": -0.3423
+      }
+    },
+    "official_ensemble_alpha_0_1": {
+      "full_n300": {
+        "accuracy": 88.0,
+        "macro_f1": 0.8777
+      },
+      "caption_clean_n293": {
+        "accuracy": 87.71,
+        "macro_f1": 0.8694,
+        "delta_accuracy_pp": -0.29,
+        "delta_macro_f1": -0.0083
+      },
+      "strict_clean_n145": {
+        "accuracy": 75.17,
+        "macro_f1": 0.5361,
+        "delta_accuracy_pp": -12.83,
+        "delta_macro_f1": -0.3416
+      }
+    },
+    "exploratory_ensemble_alpha_0_5": {
+      "full_n300": {
+        "accuracy": 88.33,
+        "macro_f1": 0.8824
+      },
+      "caption_clean_n293": {
+        "accuracy": 88.05,
+        "macro_f1": 0.8752,
+        "delta_accuracy_pp": -0.28,
+        "delta_macro_f1": -0.0072
+      },
+      "strict_clean_n145": {
+        "accuracy": 75.86,
+        "macro_f1": 0.5435,
+        "delta_accuracy_pp": -12.47,
+        "delta_macro_f1": -0.3389
+      }
+    }
+  },
+  "conclusion": "Excluding the cross-split duplicate samples (either the 7 caption collisions or all 155 overlapping samples including generic 311 titles) preserves relative model rankings. MiniLM retains a large, statistically significant lift over the deterministic baseline (+8.33 pp on full n=300, +8.53 pp on caption-clean n=293, and +17.24 pp on strictly clean n=145)."
+}

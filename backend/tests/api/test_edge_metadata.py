@@ -116,7 +116,9 @@ def test_backward_compatibility_report_without_edge_metadata(client: TestClient)
     response = client.post("/api/v1/reports", json=payload)
     assert response.status_code == status.HTTP_201_CREATED
     data = response.json()
-    assert data["edge_metadata"] is None
+    # edge_metadata now contains similarity match info (populated by the similarity engine)
+    assert data["edge_metadata"] is not None
+    assert "similarity_match" in data["edge_metadata"]
 
     # AI processing continues to work cleanly
     ai_res = client.post(f"/api/v1/reports/{data['id']}/ai/process")

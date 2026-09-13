@@ -1,0 +1,38 @@
+{
+  "phase": "Phase 4A Text Intelligence Training",
+  "dataset_hashes": {
+    "train_jsonl_sha256": "fe022bea4b0551348692bb9da7a92e269533639682b4a015b1b19eeaea7ec45e",
+    "val_jsonl_sha256": "84ac968c3af744a2381f0c83a08882756a1227cc85e85f3f527d56d42594c6da"
+  },
+  "sample_counts": {
+    "train": 473,
+    "validation": 119
+  },
+  "models_trained": [
+    {
+      "model_name": "tfidf_logistic_regression",
+      "saved_path": "models\\tfidf_baseline\\tfidf_classifier.pkl",
+      "hyperparameters": {
+        "ngram_range": [
+          1,
+          2
+        ],
+        "max_features": 2000,
+        "c_reg": 2.0,
+        "accuracy": 0.8823529411764706,
+        "macro_f1": 0.8807303807303808
+      }
+    },
+    {
+      "model_name": "minilm_l6_v2_head",
+      "saved_path": "models\\all_minilm_l6_v2\\minilm_classifier_head.pkl",
+      "hyperparameters": {
+        "normalization": "l2_normalized",
+        "c_reg": 5.0,
+        "class_weight": null,
+        "accuracy": 0.8907563025210085,
+        "macro_f1": 0.8858472400513479
+      }
+    }
+  ]
+}

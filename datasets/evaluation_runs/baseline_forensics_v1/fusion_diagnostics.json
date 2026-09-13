@@ -1,0 +1,37 @@
+{
+  "manifest_integrity_hash": "e988474dd46cee4c3b17010fb32af1a50ff750ea32579d8e8ab7ef8b0fd2e60b",
+  "evaluation_timestamp": "2026-09-13T03:27:33.445660+00:00",
+  "summary": {
+    "total_samples": 300,
+    "text_vision_concordance": {
+      "agreement_count": 107,
+      "agreement_percentage": 35.67,
+      "disagreement_count": 193,
+      "disagreement_percentage": 64.33
+    },
+    "vision_influence_on_category": {
+      "category_altered_count": 0,
+      "category_altered_percentage": 0.0,
+      "explanation": "Vision alters final category in 0.00% of cases. Decision engine policy dictates: 'if t_cat and t_cat != Other: final_category = t_cat'. Since vision always predicts 'Other', it never overrides text."
+    },
+    "vision_influence_on_confidence": {
+      "neutral_vision_count": 300,
+      "neutral_vision_percentage": 100.0,
+      "confidence_suppression_analysis": "Weighted formula: overall_confidence = (text_conf * 0.45) + (vision_conf * 0.35) + (agreement * 0.20). When text detects a category (confidence 0.85), vision output ('Other', 0.50) and partial agreement (0.65) drag overall confidence down to: (0.85*0.45) + (0.50*0.35) + (0.65*0.20) = 0.3825 + 0.175 + 0.13 = 0.6875 (~0.69). Because 0.69 < operational threshold (0.70), 299/300 reports are flagged for review."
+    },
+    "threshold_metrics": {
+      "review_threshold": 0.7,
+      "below_threshold_count": 299,
+      "below_threshold_percentage": 99.67,
+      "above_threshold_count": 1,
+      "above_threshold_percentage": 0.33,
+      "correct_high_confidence_predictions": 1,
+      "incorrect_high_confidence_predictions": 0
+    },
+    "review_reasons_breakdown": {
+      "LOW_CONFIDENCE": 183,
+      "LOW_CONFIDENCE_AND_DISAGREEMENT": 116
+    },
+    "mathematical_forensic_conclusion": "The confidence score is NOT a statistical posterior probability; it is a heuristic operational score. Because the formula assigns a 35% weight to vision (which is blind and pegged at 0.50), it mathematically treats the absence of visual confirmation as negative evidence, causing 99.67% of submissions to fail the 0.70 confidence threshold."
+  }
+}

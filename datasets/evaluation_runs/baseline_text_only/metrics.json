@@ -1,0 +1,176 @@
+{
+  "classification": {
+    "total_samples": 300,
+    "accuracy": 0.79,
+    "macro_precision": 0.881,
+    "macro_recall": 0.79,
+    "macro_f1": 0.7934,
+    "balanced_accuracy": 0.79,
+    "abstention_rate": 1.0,
+    "selective_accuracy": 0.0,
+    "per_class": {
+      "Pothole": {
+        "precision": 0.9434,
+        "recall": 1.0,
+        "f1": 0.9709,
+        "support": 50
+      },
+      "Road Damage": {
+        "precision": 0.875,
+        "recall": 0.42,
+        "f1": 0.5676,
+        "support": 50
+      },
+      "Garbage": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 50
+      },
+      "Water Leakage": {
+        "precision": 1.0,
+        "recall": 0.74,
+        "f1": 0.8506,
+        "support": 50
+      },
+      "Streetlight": {
+        "precision": 1.0,
+        "recall": 0.58,
+        "f1": 0.7342,
+        "support": 50
+      },
+      "Other": {
+        "precision": 0.4673,
+        "recall": 1.0,
+        "f1": 0.637,
+        "support": 50
+      }
+    },
+    "confusion_matrix": {
+      "classes": [
+        "Pothole",
+        "Road Damage",
+        "Garbage",
+        "Water Leakage",
+        "Streetlight",
+        "Other"
+      ],
+      "matrix": [
+        [
+          50,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          21,
+          0,
+          0,
+          0,
+          29
+        ],
+        [
+          0,
+          0,
+          50,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          3,
+          0,
+          37,
+          0,
+          10
+        ],
+        [
+          3,
+          0,
+          0,
+          0,
+          29,
+          18
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          50
+        ]
+      ]
+    }
+  },
+  "confidence": {
+    "mean_confidence": 0.445,
+    "confidence_by_tier": {
+      "LOW": 193,
+      "UNCERTAIN": 107
+    },
+    "accuracy_by_tier": {
+      "LOW": 0.9689,
+      "UNCERTAIN": 0.4673
+    },
+    "confidence_buckets": [
+      {
+        "bucket": "[0.0, 0.50)",
+        "sample_count": 107,
+        "correct_count": 50,
+        "accuracy": 0.4673
+      },
+      {
+        "bucket": "[0.50, 0.60)",
+        "sample_count": 192,
+        "correct_count": 186,
+        "accuracy": 0.9688
+      },
+      {
+        "bucket": "[0.60, 0.70)",
+        "sample_count": 1,
+        "correct_count": 1,
+        "accuracy": 1.0
+      },
+      {
+        "bucket": "[0.70, 0.80)",
+        "sample_count": 0,
+        "correct_count": 0,
+        "accuracy": 0.0
+      },
+      {
+        "bucket": "[0.80, 0.90)",
+        "sample_count": 0,
+        "correct_count": 0,
+        "accuracy": 0.0
+      },
+      {
+        "bucket": "[0.90, 1.00]",
+        "sample_count": 0,
+        "correct_count": 0,
+        "accuracy": 0.0
+      }
+    ],
+    "high_confidence_error_count": 0,
+    "low_confidence_count": 299,
+    "manual_review_count": 300,
+    "manual_review_rate": 1.0
+  },
+  "severity": {
+    "status": "unavailable",
+    "reason": "Ground-truth severity labels are not annotated in benchmark_v1 records. Predicted severity distribution is reported without ground-truth comparison.",
+    "predicted_distribution": {
+      "LOW": 184,
+      "MEDIUM": 114,
+      "CRITICAL": 1,
+      "HIGH": 1
+    }
+  },
+  "failures_by_type": {
+    "PIPELINE_ERROR": 63
+  }
+}

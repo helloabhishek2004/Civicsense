@@ -1,0 +1,1723 @@
+{
+  "text_only": {
+    "total_samples": 119,
+    "correct_samples": 84,
+    "accuracy": 0.7059,
+    "macro_f1": 0.7086,
+    "macro_precision": 0.8135,
+    "macro_recall": 0.6996,
+    "brier_score": 0.4227,
+    "ece": 0.1529,
+    "confidence_stats": {
+      "mean_confidence_overall": 0.6228,
+      "mean_confidence_correct": 0.6781,
+      "mean_confidence_incorrect": 0.49
+    },
+    "per_class": {
+      "Pothole": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "support": 20,
+        "tp": 20,
+        "fp": 0,
+        "fn": 0
+      },
+      "Road Damage": {
+        "precision": 0.7273,
+        "recall": 0.4,
+        "f1_score": 0.5161,
+        "support": 20,
+        "tp": 8,
+        "fp": 3,
+        "fn": 12
+      },
+      "Garbage": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "support": 21,
+        "tp": 21,
+        "fp": 0,
+        "fn": 0
+      },
+      "Water Leakage": {
+        "precision": 0.9167,
+        "recall": 0.5789,
+        "f1_score": 0.7097,
+        "support": 19,
+        "tp": 11,
+        "fp": 1,
+        "fn": 8
+      },
+      "Streetlight": {
+        "precision": 0.875,
+        "recall": 0.3684,
+        "f1_score": 0.5185,
+        "support": 19,
+        "tp": 7,
+        "fp": 1,
+        "fn": 12
+      },
+      "Other": {
+        "precision": 0.3617,
+        "recall": 0.85,
+        "f1_score": 0.5075,
+        "support": 20,
+        "tp": 17,
+        "fp": 30,
+        "fn": 3
+      }
+    },
+    "confusion_matrix": {
+      "classes": [
+        "Pothole",
+        "Road Damage",
+        "Garbage",
+        "Water Leakage",
+        "Streetlight",
+        "Other"
+      ],
+      "matrix": [
+        [
+          20,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          8,
+          0,
+          0,
+          0,
+          12
+        ],
+        [
+          0,
+          0,
+          21,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          11,
+          1,
+          7
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          7,
+          11
+        ],
+        [
+          0,
+          2,
+          0,
+          1,
+          0,
+          17
+        ]
+      ]
+    },
+    "calibration_bins": [
+      {
+        "bin_index": 0,
+        "range": [
+          0.0,
+          0.1
+        ],
+        "count": 0,
+        "accuracy": null,
+        "confidence": null,
+        "gap": 0.0
+      },
+      {
+        "bin_index": 1,
+        "range": [
+          0.1,
+          0.2
+        ],
+        "count": 0,
+        "accuracy": null,
+        "confidence": null,
+        "gap": 0.0
+      },
+      {
+        "bin_index": 2,
+        "range": [
+          0.2,
+          0.3
+        ],
+        "count": 0,
+        "accuracy": null,
+        "confidence": null,
+        "gap": 0.0
+      },
+      {
+        "bin_index": 3,
+        "range": [
+          0.3,
+          0.4
+        ],
+        "count": 0,
+        "accuracy": null,
+        "confidence": null,
+        "gap": 0.0
+      },
+      {
+        "bin_index": 4,
+        "range": [
+          0.4,
+          0.5
+        ],
+        "count": 47,
+        "accuracy": 0.3617,
+        "confidence": 0.45,
+        "gap": 0.0883
+      },
+      {
+        "bin_index": 5,
+        "range": [
+          0.5,
+          0.6
+        ],
+        "count": 0,
+        "accuracy": null,
+        "confidence": null,
+        "gap": 0.0
+      },
+      {
+        "bin_index": 6,
+        "range": [
+          0.6,
+          0.7
+        ],
+        "count": 0,
+        "accuracy": null,
+        "confidence": null,
+        "gap": 0.0
+      },
+      {
+        "bin_index": 7,
+        "range": [
+          0.7,
+          0.8
+        ],
+        "count": 67,
+        "accuracy": 0.9254,
+        "confidence": 0.73,
+        "gap": 0.1954
+      },
+      {
+        "bin_index": 8,
+        "range": [
+          0.8,
+          0.9
+        ],
+        "count": 5,
+        "accuracy": 1.0,
+        "confidence": 0.81,
+        "gap": 0.19
+      },
+      {
+        "bin_index": 9,
+        "range": [
+          0.9,
+          1.0
+        ],
+        "count": 0,
+        "accuracy": null,
+        "confidence": null,
+        "gap": 0.0
+      }
+    ]
+  },
+  "vision_only": {
+    "total_samples": 119,
+    "correct_samples": 79,
+    "accuracy": 0.6639,
+    "macro_f1": 0.6517,
+    "macro_precision": 0.6792,
+    "macro_recall": 0.6618,
+    "brier_score": 0.4834,
+    "ece": 0.1249,
+    "confidence_stats": {
+      "mean_confidence_overall": 0.7665,
+      "mean_confidence_correct": 0.8049,
+      "mean_confidence_incorrect": 0.6908
+    },
+    "per_class": {
+      "Pothole": {
+        "precision": 0.8182,
+        "recall": 0.9,
+        "f1_score": 0.8572,
+        "support": 20,
+        "tp": 18,
+        "fp": 4,
+        "fn": 2
+      },
+      "Road Damage": {
+        "precision": 0.6818,
+        "recall": 0.75,
+        "f1_score": 0.7143,
+        "support": 20,
+        "tp": 15,
+        "fp": 7,
+        "fn": 5
+      },
+      "Garbage": {
+        "precision": 0.6875,
+        "recall": 0.5238,
+        "f1_score": 0.5946,
+        "support": 21,
+        "tp": 11,
+        "fp": 5,
+        "fn": 10
+      },
+      "Water Leakage": {
+        "precision": 0.7778,
+        "recall": 0.3684,
+        "f1_score": 0.5,
+        "support": 19,
+        "tp": 7,
+        "fp": 2,
+        "fn": 12
+      },
+      "Streetlight": {
+        "precision": 0.5238,
+        "recall": 0.5789,
+        "f1_score": 0.55,
+        "support": 19,
+        "tp": 11,
+        "fp": 10,
+        "fn": 8
+      },
+      "Other": {
+        "precision": 0.5862,
+        "recall": 0.85,
+        "f1_score": 0.6939,
+        "support": 20,
+        "tp": 17,
+        "fp": 12,
+        "fn": 3
+      }
+    },
+    "confusion_matrix": {
+      "classes": [
+        "Pothole",
+        "Road Damage",
+        "Garbage",
+        "Water Leakage",
+        "Streetlight",
+        "Other"
+      ],
+      "matrix": [
+        [
+          18,
+          0,
+          1,
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          15,
+          0,
+          0,
+          4,
+          1
+        ],
+        [
+          3,
+          0,
+          11,
+          0,
+          0,
+          7
+        ],
+        [
+          0,
+          3,
+          1,
+          7,
+          6,
+          2
+        ],
+        [
+          0,
+          4,
+          1,
+          2,
+          11,
+          1
+        ],
+        [
+          1,
+          0,
+          2,
+          0,
+          0,
+          17
+        ]
+      ]
+    },
+    "calibration_bins": [
+      {
+        "bin_index": 0,
+        "range": [
+          0.0,
+          0.1
+        ],
+        "count": 0,
+        "accuracy": null,
+        "confidence": null,
+        "gap": 0.0
+      },
+      {
+        "bin_index": 1,
+        "range": [
+          0.1,
+          0.2
+        ],
+        "count": 0,
+        "accuracy": null,
+        "confidence": null,
+        "gap": 0.0
+      },
+      {
+        "bin_index": 2,
+        "range": [
+          0.2,
+          0.3
+        ],
+        "count": 0,
+        "accuracy": null,
+        "confidence": null,
+        "gap": 0.0
+      },
+      {
+        "bin_index": 3,
+        "range": [
+          0.3,
+          0.4
+        ],
+        "count": 1,
+        "accuracy": 1.0,
+        "confidence": 0.356,
+        "gap": 0.644
+      },
+      {
+        "bin_index": 4,
+        "range": [
+          0.4,
+          0.5
+        ],
+        "count": 13,
+        "accuracy": 0.4615,
+        "confidence": 0.4639,
+        "gap": 0.0024
+      },
+      {
+        "bin_index": 5,
+        "range": [
+          0.5,
+          0.6
+        ],
+        "count": 16,
+        "accuracy": 0.5,
+        "confidence": 0.5452,
+        "gap": 0.0452
+      },
+      {
+        "bin_index": 6,
+        "range": [
+          0.6,
+          0.7
+        ],
+        "count": 19,
+        "accuracy": 0.6842,
+        "confidence": 0.6484,
+        "gap": 0.0358
+      },
+      {
+        "bin_index": 7,
+        "range": [
+          0.7,
+          0.8
+        ],
+        "count": 13,
+        "accuracy": 0.4615,
+        "confidence": 0.7572,
+        "gap": 0.2956
+      },
+      {
+        "bin_index": 8,
+        "range": [
+          0.8,
+          0.9
+        ],
+        "count": 10,
+        "accuracy": 0.5,
+        "confidence": 0.8431,
+        "gap": 0.3431
+      },
+      {
+        "bin_index": 9,
+        "range": [
+          0.9,
+          1.0
+        ],
+        "count": 47,
+        "accuracy": 0.8511,
+        "confidence": 0.9684,
+        "gap": 0.1173
+      }
+    ]
+  },
+  "text_dominant": {
+    "total_samples": 119,
+    "correct_samples": 91,
+    "accuracy": 0.7647,
+    "macro_f1": 0.7655,
+    "macro_precision": 0.8052,
+    "macro_recall": 0.7596,
+    "brier_score": 0.3496,
+    "ece": 0.2794,
+    "confidence_stats": {
+      "mean_confidence_overall": 0.5013,
+      "mean_confidence_correct": 0.5834,
+      "mean_confidence_incorrect": 0.2344
+    },
+    "per_class": {
+      "Pothole": {
+        "precision": 0.9524,
+        "recall": 1.0,
+        "f1_score": 0.9756,
+        "support": 20,
+        "tp": 20,
+        "fp": 1,
+        "fn": 0
+      },
+      "Road Damage": {
+        "precision": 0.7059,
+        "recall": 0.6,
+        "f1_score": 0.6487,
+        "support": 20,
+        "tp": 12,
+        "fp": 5,
+        "fn": 8
+      },
+      "Garbage": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "support": 21,
+        "tp": 21,
+        "fp": 0,
+        "fn": 0
+      },
+      "Water Leakage": {
+        "precision": 0.9167,
+        "recall": 0.5789,
+        "f1_score": 0.7097,
+        "support": 19,
+        "tp": 11,
+        "fp": 1,
+        "fn": 8
+      },
+      "Streetlight": {
+        "precision": 0.7857,
+        "recall": 0.5789,
+        "f1_score": 0.6666,
+        "support": 19,
+        "tp": 11,
+        "fp": 3,
+        "fn": 8
+      },
+      "Other": {
+        "precision": 0.4706,
+        "recall": 0.8,
+        "f1_score": 0.5926,
+        "support": 20,
+        "tp": 16,
+        "fp": 18,
+        "fn": 4
+      }
+    },
+    "confusion_matrix": {
+      "classes": [
+        "Pothole",
+        "Road Damage",
+        "Garbage",
+        "Water Leakage",
+        "Streetlight",
+        "Other"
+      ],
+      "matrix": [
+        [
+          20,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          12,
+          0,
+          0,
+          1,
+          7
+        ],
+        [
+          0,
+          0,
+          21,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          11,
+          2,
+          5
+        ],
+        [
+          0,
+          2,
+          0,
+          0,
+          11,
+          6
+        ],
+        [
+          1,
+          2,
+          0,
+          1,
+          0,
+          16
+        ]
+      ]
+    },
+    "calibration_bins": [
+      {
+        "bin_index": 0,
+        "range": [
+          0.0,
+          0.1
+        ],
+        "count": 0,
+        "accuracy": null,
+        "confidence": null,
+        "gap": 0.0
+      },
+      {
+        "bin_index": 1,
+        "range": [
+          0.1,
+          0.2
+        ],
+        "count": 23,
+        "accuracy": 0.1304,
+        "confidence": 0.1718,
+        "gap": 0.0414
+      },
+      {
+        "bin_index": 2,
+        "range": [
+          0.2,
+          0.3
+        ],
+        "count": 9,
+        "accuracy": 0.7778,
+        "confidence": 0.2232,
+        "gap": 0.5546
+      },
+      {
+        "bin_index": 3,
+        "range": [
+          0.3,
+          0.4
+        ],
+        "count": 12,
+        "accuracy": 0.6667,
+        "confidence": 0.3684,
+        "gap": 0.2982
+      },
+      {
+        "bin_index": 4,
+        "range": [
+          0.4,
+          0.5
+        ],
+        "count": 15,
+        "accuracy": 1.0,
+        "confidence": 0.4426,
+        "gap": 0.5574
+      },
+      {
+        "bin_index": 5,
+        "range": [
+          0.5,
+          0.6
+        ],
+        "count": 7,
+        "accuracy": 1.0,
+        "confidence": 0.5494,
+        "gap": 0.4506
+      },
+      {
+        "bin_index": 6,
+        "range": [
+          0.6,
+          0.7
+        ],
+        "count": 19,
+        "accuracy": 0.8947,
+        "confidence": 0.6435,
+        "gap": 0.2512
+      },
+      {
+        "bin_index": 7,
+        "range": [
+          0.7,
+          0.8
+        ],
+        "count": 17,
+        "accuracy": 1.0,
+        "confidence": 0.7534,
+        "gap": 0.2466
+      },
+      {
+        "bin_index": 8,
+        "range": [
+          0.8,
+          0.9
+        ],
+        "count": 17,
+        "accuracy": 1.0,
+        "confidence": 0.809,
+        "gap": 0.191
+      },
+      {
+        "bin_index": 9,
+        "range": [
+          0.9,
+          1.0
+        ],
+        "count": 0,
+        "accuracy": null,
+        "confidence": null,
+        "gap": 0.0
+      }
+    ],
+    "review_rate": 0.6218,
+    "agreement_rate": 0.5042,
+    "selective_accuracy": 0.9778,
+    "auto_accepted_count": 45
+  },
+  "vision_assisted": {
+    "total_samples": 119,
+    "correct_samples": 97,
+    "accuracy": 0.8151,
+    "macro_f1": 0.8104,
+    "macro_precision": 0.8203,
+    "macro_recall": 0.811,
+    "brier_score": 0.3426,
+    "ece": 0.3122,
+    "confidence_stats": {
+      "mean_confidence_overall": 0.503,
+      "mean_confidence_correct": 0.5597,
+      "mean_confidence_incorrect": 0.2527
+    },
+    "per_class": {
+      "Pothole": {
+        "precision": 0.9524,
+        "recall": 1.0,
+        "f1_score": 0.9756,
+        "support": 20,
+        "tp": 20,
+        "fp": 1,
+        "fn": 0
+      },
+      "Road Damage": {
+        "precision": 0.7273,
+        "recall": 0.8,
+        "f1_score": 0.7619,
+        "support": 20,
+        "tp": 16,
+        "fp": 6,
+        "fn": 4
+      },
+      "Garbage": {
+        "precision": 0.9545,
+        "recall": 1.0,
+        "f1_score": 0.9767,
+        "support": 21,
+        "tp": 21,
+        "fp": 1,
+        "fn": 0
+      },
+      "Water Leakage": {
+        "precision": 0.9231,
+        "recall": 0.6316,
+        "f1_score": 0.75,
+        "support": 19,
+        "tp": 12,
+        "fp": 1,
+        "fn": 7
+      },
+      "Streetlight": {
+        "precision": 0.65,
+        "recall": 0.6842,
+        "f1_score": 0.6667,
+        "support": 19,
+        "tp": 13,
+        "fp": 7,
+        "fn": 6
+      },
+      "Other": {
+        "precision": 0.7143,
+        "recall": 0.75,
+        "f1_score": 0.7317,
+        "support": 20,
+        "tp": 15,
+        "fp": 6,
+        "fn": 5
+      }
+    },
+    "confusion_matrix": {
+      "classes": [
+        "Pothole",
+        "Road Damage",
+        "Garbage",
+        "Water Leakage",
+        "Streetlight",
+        "Other"
+      ],
+      "matrix": [
+        [
+          20,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          16,
+          0,
+          0,
+          2,
+          2
+        ],
+        [
+          0,
+          0,
+          21,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          12,
+          5,
+          1
+        ],
+        [
+          0,
+          3,
+          0,
+          0,
+          13,
+          3
+        ],
+        [
+          1,
+          2,
+          1,
+          1,
+          0,
+          15
+        ]
+      ]
+    },
+    "calibration_bins": [
+      {
+        "bin_index": 0,
+        "range": [
+          0.0,
+          0.1
+        ],
+        "count": 0,
+        "accuracy": null,
+        "confidence": null,
+        "gap": 0.0
+      },
+      {
+        "bin_index": 1,
+        "range": [
+          0.1,
+          0.2
+        ],
+        "count": 16,
+        "accuracy": 0.4375,
+        "confidence": 0.1551,
+        "gap": 0.2824
+      },
+      {
+        "bin_index": 2,
+        "range": [
+          0.2,
+          0.3
+        ],
+        "count": 19,
+        "accuracy": 0.5263,
+        "confidence": 0.2693,
+        "gap": 0.2571
+      },
+      {
+        "bin_index": 3,
+        "range": [
+          0.3,
+          0.4
+        ],
+        "count": 19,
+        "accuracy": 0.8947,
+        "confidence": 0.3419,
+        "gap": 0.5529
+      },
+      {
+        "bin_index": 4,
+        "range": [
+          0.4,
+          0.5
+        ],
+        "count": 7,
+        "accuracy": 1.0,
+        "confidence": 0.4652,
+        "gap": 0.5348
+      },
+      {
+        "bin_index": 5,
+        "range": [
+          0.5,
+          0.6
+        ],
+        "count": 2,
+        "accuracy": 1.0,
+        "confidence": 0.5341,
+        "gap": 0.4659
+      },
+      {
+        "bin_index": 6,
+        "range": [
+          0.6,
+          0.7
+        ],
+        "count": 22,
+        "accuracy": 0.9091,
+        "confidence": 0.6509,
+        "gap": 0.2582
+      },
+      {
+        "bin_index": 7,
+        "range": [
+          0.7,
+          0.8
+        ],
+        "count": 12,
+        "accuracy": 1.0,
+        "confidence": 0.738,
+        "gap": 0.262
+      },
+      {
+        "bin_index": 8,
+        "range": [
+          0.8,
+          0.9
+        ],
+        "count": 22,
+        "accuracy": 1.0,
+        "confidence": 0.8299,
+        "gap": 0.1701
+      },
+      {
+        "bin_index": 9,
+        "range": [
+          0.9,
+          1.0
+        ],
+        "count": 0,
+        "accuracy": null,
+        "confidence": null,
+        "gap": 0.0
+      }
+    ],
+    "review_rate": 0.6218,
+    "agreement_rate": 0.5042,
+    "selective_accuracy": 0.9778,
+    "auto_accepted_count": 45
+  },
+  "balanced": {
+    "total_samples": 119,
+    "correct_samples": 95,
+    "accuracy": 0.7983,
+    "macro_f1": 0.7932,
+    "macro_precision": 0.799,
+    "macro_recall": 0.7947,
+    "brier_score": 0.3444,
+    "ece": 0.2777,
+    "confidence_stats": {
+      "mean_confidence_overall": 0.5206,
+      "mean_confidence_correct": 0.5745,
+      "mean_confidence_incorrect": 0.3073
+    },
+    "per_class": {
+      "Pothole": {
+        "precision": 0.9091,
+        "recall": 1.0,
+        "f1_score": 0.9524,
+        "support": 20,
+        "tp": 20,
+        "fp": 2,
+        "fn": 0
+      },
+      "Road Damage": {
+        "precision": 0.75,
+        "recall": 0.75,
+        "f1_score": 0.75,
+        "support": 20,
+        "tp": 15,
+        "fp": 5,
+        "fn": 5
+      },
+      "Garbage": {
+        "precision": 0.9048,
+        "recall": 0.9048,
+        "f1_score": 0.9048,
+        "support": 21,
+        "tp": 19,
+        "fp": 2,
+        "fn": 2
+      },
+      "Water Leakage": {
+        "precision": 0.8571,
+        "recall": 0.6316,
+        "f1_score": 0.7273,
+        "support": 19,
+        "tp": 12,
+        "fp": 2,
+        "fn": 7
+      },
+      "Streetlight": {
+        "precision": 0.6,
+        "recall": 0.6316,
+        "f1_score": 0.6154,
+        "support": 19,
+        "tp": 12,
+        "fp": 8,
+        "fn": 7
+      },
+      "Other": {
+        "precision": 0.7727,
+        "recall": 0.85,
+        "f1_score": 0.8095,
+        "support": 20,
+        "tp": 17,
+        "fp": 5,
+        "fn": 3
+      }
+    },
+    "confusion_matrix": {
+      "classes": [
+        "Pothole",
+        "Road Damage",
+        "Garbage",
+        "Water Leakage",
+        "Streetlight",
+        "Other"
+      ],
+      "matrix": [
+        [
+          20,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          15,
+          0,
+          0,
+          4,
+          1
+        ],
+        [
+          1,
+          0,
+          19,
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          1,
+          0,
+          12,
+          4,
+          2
+        ],
+        [
+          0,
+          3,
+          1,
+          2,
+          12,
+          1
+        ],
+        [
+          1,
+          1,
+          1,
+          0,
+          0,
+          17
+        ]
+      ]
+    },
+    "calibration_bins": [
+      {
+        "bin_index": 0,
+        "range": [
+          0.0,
+          0.1
+        ],
+        "count": 0,
+        "accuracy": null,
+        "confidence": null,
+        "gap": 0.0
+      },
+      {
+        "bin_index": 1,
+        "range": [
+          0.1,
+          0.2
+        ],
+        "count": 8,
+        "accuracy": 0.375,
+        "confidence": 0.1585,
+        "gap": 0.2165
+      },
+      {
+        "bin_index": 2,
+        "range": [
+          0.2,
+          0.3
+        ],
+        "count": 17,
+        "accuracy": 0.6471,
+        "confidence": 0.2456,
+        "gap": 0.4014
+      },
+      {
+        "bin_index": 3,
+        "range": [
+          0.3,
+          0.4
+        ],
+        "count": 31,
+        "accuracy": 0.6452,
+        "confidence": 0.3477,
+        "gap": 0.2974
+      },
+      {
+        "bin_index": 4,
+        "range": [
+          0.4,
+          0.5
+        ],
+        "count": 4,
+        "accuracy": 1.0,
+        "confidence": 0.4522,
+        "gap": 0.5478
+      },
+      {
+        "bin_index": 5,
+        "range": [
+          0.5,
+          0.6
+        ],
+        "count": 6,
+        "accuracy": 1.0,
+        "confidence": 0.5628,
+        "gap": 0.4372
+      },
+      {
+        "bin_index": 6,
+        "range": [
+          0.6,
+          0.7
+        ],
+        "count": 14,
+        "accuracy": 0.9286,
+        "confidence": 0.6593,
+        "gap": 0.2693
+      },
+      {
+        "bin_index": 7,
+        "range": [
+          0.7,
+          0.8
+        ],
+        "count": 16,
+        "accuracy": 0.9375,
+        "confidence": 0.7307,
+        "gap": 0.2068
+      },
+      {
+        "bin_index": 8,
+        "range": [
+          0.8,
+          0.9
+        ],
+        "count": 23,
+        "accuracy": 1.0,
+        "confidence": 0.8532,
+        "gap": 0.1468
+      },
+      {
+        "bin_index": 9,
+        "range": [
+          0.9,
+          1.0
+        ],
+        "count": 0,
+        "accuracy": null,
+        "confidence": null,
+        "gap": 0.0
+      }
+    ],
+    "review_rate": 0.6471,
+    "agreement_rate": 0.5042,
+    "selective_accuracy": 0.9762,
+    "auto_accepted_count": 42
+  },
+  "confidence_adaptive": {
+    "total_samples": 119,
+    "correct_samples": 95,
+    "accuracy": 0.7983,
+    "macro_f1": 0.7932,
+    "macro_precision": 0.799,
+    "macro_recall": 0.7947,
+    "brier_score": 0.3287,
+    "ece": 0.2351,
+    "confidence_stats": {
+      "mean_confidence_overall": 0.5632,
+      "mean_confidence_correct": 0.6133,
+      "mean_confidence_incorrect": 0.365
+    },
+    "per_class": {
+      "Pothole": {
+        "precision": 0.9091,
+        "recall": 1.0,
+        "f1_score": 0.9524,
+        "support": 20,
+        "tp": 20,
+        "fp": 2,
+        "fn": 0
+      },
+      "Road Damage": {
+        "precision": 0.75,
+        "recall": 0.75,
+        "f1_score": 0.75,
+        "support": 20,
+        "tp": 15,
+        "fp": 5,
+        "fn": 5
+      },
+      "Garbage": {
+        "precision": 0.9048,
+        "recall": 0.9048,
+        "f1_score": 0.9048,
+        "support": 21,
+        "tp": 19,
+        "fp": 2,
+        "fn": 2
+      },
+      "Water Leakage": {
+        "precision": 0.8571,
+        "recall": 0.6316,
+        "f1_score": 0.7273,
+        "support": 19,
+        "tp": 12,
+        "fp": 2,
+        "fn": 7
+      },
+      "Streetlight": {
+        "precision": 0.6,
+        "recall": 0.6316,
+        "f1_score": 0.6154,
+        "support": 19,
+        "tp": 12,
+        "fp": 8,
+        "fn": 7
+      },
+      "Other": {
+        "precision": 0.7727,
+        "recall": 0.85,
+        "f1_score": 0.8095,
+        "support": 20,
+        "tp": 17,
+        "fp": 5,
+        "fn": 3
+      }
+    },
+    "confusion_matrix": {
+      "classes": [
+        "Pothole",
+        "Road Damage",
+        "Garbage",
+        "Water Leakage",
+        "Streetlight",
+        "Other"
+      ],
+      "matrix": [
+        [
+          20,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          15,
+          0,
+          0,
+          4,
+          1
+        ],
+        [
+          1,
+          0,
+          19,
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          1,
+          0,
+          12,
+          4,
+          2
+        ],
+        [
+          0,
+          3,
+          1,
+          2,
+          12,
+          1
+        ],
+        [
+          1,
+          1,
+          1,
+          0,
+          0,
+          17
+        ]
+      ]
+    },
+    "calibration_bins": [
+      {
+        "bin_index": 0,
+        "range": [
+          0.0,
+          0.1
+        ],
+        "count": 0,
+        "accuracy": null,
+        "confidence": null,
+        "gap": 0.0
+      },
+      {
+        "bin_index": 1,
+        "range": [
+          0.1,
+          0.2
+        ],
+        "count": 5,
+        "accuracy": 0.4,
+        "confidence": 0.1473,
+        "gap": 0.2527
+      },
+      {
+        "bin_index": 2,
+        "range": [
+          0.2,
+          0.3
+        ],
+        "count": 14,
+        "accuracy": 0.5714,
+        "confidence": 0.2554,
+        "gap": 0.3161
+      },
+      {
+        "bin_index": 3,
+        "range": [
+          0.3,
+          0.4
+        ],
+        "count": 17,
+        "accuracy": 0.7059,
+        "confidence": 0.3445,
+        "gap": 0.3614
+      },
+      {
+        "bin_index": 4,
+        "range": [
+          0.4,
+          0.5
+        ],
+        "count": 17,
+        "accuracy": 0.6471,
+        "confidence": 0.4339,
+        "gap": 0.2131
+      },
+      {
+        "bin_index": 5,
+        "range": [
+          0.5,
+          0.6
+        ],
+        "count": 10,
+        "accuracy": 0.8,
+        "confidence": 0.5433,
+        "gap": 0.2568
+      },
+      {
+        "bin_index": 6,
+        "range": [
+          0.6,
+          0.7
+        ],
+        "count": 14,
+        "accuracy": 0.9286,
+        "confidence": 0.6576,
+        "gap": 0.271
+      },
+      {
+        "bin_index": 7,
+        "range": [
+          0.7,
+          0.8
+        ],
+        "count": 12,
+        "accuracy": 1.0,
+        "confidence": 0.7559,
+        "gap": 0.2441
+      },
+      {
+        "bin_index": 8,
+        "range": [
+          0.8,
+          0.9
+        ],
+        "count": 30,
+        "accuracy": 0.9667,
+        "confidence": 0.8591,
+        "gap": 0.1076
+      },
+      {
+        "bin_index": 9,
+        "range": [
+          0.9,
+          1.0
+        ],
+        "count": 0,
+        "accuracy": null,
+        "confidence": null,
+        "gap": 0.0
+      }
+    ],
+    "review_rate": 0.6218,
+    "agreement_rate": 0.5042,
+    "selective_accuracy": 0.9778,
+    "auto_accepted_count": 45
+  },
+  "vision_assisted_calibrated": {
+    "total_samples": 119,
+    "correct_samples": 97,
+    "accuracy": 0.8151,
+    "macro_f1": 0.8104,
+    "macro_precision": 0.8203,
+    "macro_recall": 0.811,
+    "brier_score": 0.2723,
+    "ece": 0.1193,
+    "confidence_stats": {
+      "mean_confidence_overall": 0.7017,
+      "mean_confidence_correct": 0.7687,
+      "mean_confidence_incorrect": 0.4062
+    },
+    "per_class": {
+      "Pothole": {
+        "precision": 0.9524,
+        "recall": 1.0,
+        "f1_score": 0.9756,
+        "support": 20,
+        "tp": 20,
+        "fp": 1,
+        "fn": 0
+      },
+      "Road Damage": {
+        "precision": 0.7273,
+        "recall": 0.8,
+        "f1_score": 0.7619,
+        "support": 20,
+        "tp": 16,
+        "fp": 6,
+        "fn": 4
+      },
+      "Garbage": {
+        "precision": 0.9545,
+        "recall": 1.0,
+        "f1_score": 0.9767,
+        "support": 21,
+        "tp": 21,
+        "fp": 1,
+        "fn": 0
+      },
+      "Water Leakage": {
+        "precision": 0.9231,
+        "recall": 0.6316,
+        "f1_score": 0.75,
+        "support": 19,
+        "tp": 12,
+        "fp": 1,
+        "fn": 7
+      },
+      "Streetlight": {
+        "precision": 0.65,
+        "recall": 0.6842,
+        "f1_score": 0.6667,
+        "support": 19,
+        "tp": 13,
+        "fp": 7,
+        "fn": 6
+      },
+      "Other": {
+        "precision": 0.7143,
+        "recall": 0.75,
+        "f1_score": 0.7317,
+        "support": 20,
+        "tp": 15,
+        "fp": 6,
+        "fn": 5
+      }
+    },
+    "confusion_matrix": {
+      "classes": [
+        "Pothole",
+        "Road Damage",
+        "Garbage",
+        "Water Leakage",
+        "Streetlight",
+        "Other"
+      ],
+      "matrix": [
+        [
+          20,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          16,
+          0,
+          0,
+          2,
+          2
+        ],
+        [
+          0,
+          0,
+          21,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          12,
+          5,
+          1
+        ],
+        [
+          0,
+          3,
+          0,
+          0,
+          13,
+          3
+        ],
+        [
+          1,
+          2,
+          1,
+          1,
+          0,
+          15
+        ]
+      ]
+    },
+    "calibration_bins": [
+      {
+        "bin_index": 0,
+        "range": [
+          0.0,
+          0.1
+        ],
+        "count": 0,
+        "accuracy": null,
+        "confidence": null,
+        "gap": 0.0
+      },
+      {
+        "bin_index": 1,
+        "range": [
+          0.1,
+          0.2
+        ],
+        "count": 0,
+        "accuracy": null,
+        "confidence": null,
+        "gap": 0.0
+      },
+      {
+        "bin_index": 2,
+        "range": [
+          0.2,
+          0.3
+        ],
+        "count": 12,
+        "accuracy": 0.25,
+        "confidence": 0.2537,
+        "gap": 0.0037
+      },
+      {
+        "bin_index": 3,
+        "range": [
+          0.3,
+          0.4
+        ],
+        "count": 11,
+        "accuracy": 0.7273,
+        "confidence": 0.3586,
+        "gap": 0.3687
+      },
+      {
+        "bin_index": 4,
+        "range": [
+          0.4,
+          0.5
+        ],
+        "count": 11,
+        "accuracy": 0.5455,
+        "confidence": 0.4518,
+        "gap": 0.0937
+      },
+      {
+        "bin_index": 5,
+        "range": [
+          0.5,
+          0.6
+        ],
+        "count": 17,
+        "accuracy": 0.8235,
+        "confidence": 0.5386,
+        "gap": 0.2849
+      },
+      {
+        "bin_index": 6,
+        "range": [
+          0.6,
+          0.7
+        ],
+        "count": 5,
+        "accuracy": 1.0,
+        "confidence": 0.6456,
+        "gap": 0.3544
+      },
+      {
+        "bin_index": 7,
+        "range": [
+          0.7,
+          0.8
+        ],
+        "count": 5,
+        "accuracy": 1.0,
+        "confidence": 0.7407,
+        "gap": 0.2593
+      },
+      {
+        "bin_index": 8,
+        "range": [
+          0.8,
+          0.9
+        ],
+        "count": 7,
+        "accuracy": 1.0,
+        "confidence": 0.878,
+        "gap": 0.122
+      },
+      {
+        "bin_index": 9,
+        "range": [
+          0.9,
+          1.0
+        ],
+        "count": 51,
+        "accuracy": 0.9608,
+        "confidence": 0.9668,
+        "gap": 0.006
+      }
+    ],
+    "review_rate": 0.6218,
+    "agreement_rate": 0.5042,
+    "selective_accuracy": 0.9778,
+    "auto_accepted_count": 45
+  }
+}

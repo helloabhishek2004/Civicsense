@@ -2,12 +2,8 @@ import uuid
 
 from fastapi.testclient import TestClient
 
-from app.main import app
 
-client = TestClient(app)
-
-
-def test_create_report_with_all_citizen_fields() -> None:
+def test_create_report_with_all_citizen_fields(client: TestClient) -> None:
     client_id = str(uuid.uuid4())
     payload = {
         "client_report_id": client_id,
@@ -43,7 +39,7 @@ def test_create_report_with_all_citizen_fields() -> None:
     assert detail["citizen_postal_code"] == "695001"
 
 
-def test_create_report_without_optional_email_and_postal_code() -> None:
+def test_create_report_without_optional_email_and_postal_code(client: TestClient) -> None:
     client_id = str(uuid.uuid4())
     payload = {
         "client_report_id": client_id,
@@ -65,7 +61,7 @@ def test_create_report_without_optional_email_and_postal_code() -> None:
     assert data["citizen_postal_code"] is None
 
 
-def test_idempotent_replay_preserves_citizen_fields() -> None:
+def test_idempotent_replay_preserves_citizen_fields(client: TestClient) -> None:
     client_id = str(uuid.uuid4())
     payload = {
         "client_report_id": client_id,
@@ -95,7 +91,7 @@ def test_idempotent_replay_preserves_citizen_fields() -> None:
     assert data2["citizen_postal_code"] == "695002"
 
 
-def test_public_report_list_masks_private_contact_details() -> None:
+def test_public_report_list_masks_private_contact_details(client: TestClient) -> None:
     client_id = str(uuid.uuid4())
     payload = {
         "client_report_id": client_id,
@@ -126,7 +122,7 @@ def test_public_report_list_masks_private_contact_details() -> None:
     assert target["citizen_postal_code"] is None
 
 
-def test_public_stats_omits_citizen_details() -> None:
+def test_public_stats_omits_citizen_details(client: TestClient) -> None:
     res = client.get("/api/v1/reports/stats")
     assert res.status_code == 200
     stats = res.json()
@@ -137,7 +133,7 @@ def test_public_stats_omits_citizen_details() -> None:
     assert "citizen_postal_code" not in stats
 
 
-def test_create_report_with_explicit_category() -> None:
+def test_create_report_with_explicit_category(client: TestClient) -> None:
     client_id = str(uuid.uuid4())
     payload = {
         "client_report_id": client_id,
@@ -168,7 +164,7 @@ def test_create_report_with_explicit_category() -> None:
     assert item["category"] == "Road Damage"
 
 
-def test_create_report_with_edge_category_hint_fallback() -> None:
+def test_create_report_with_edge_category_hint_fallback(client: TestClient) -> None:
     client_id = str(uuid.uuid4())
     payload = {
         "client_report_id": client_id,
@@ -194,4 +190,3 @@ def test_create_report_with_edge_category_hint_fallback() -> None:
     data = res.json()
     # Should fall back to category_hint from edge_metadata
     assert data["category"] == "Garbage"
-

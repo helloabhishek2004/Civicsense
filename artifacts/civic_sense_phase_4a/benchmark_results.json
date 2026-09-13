@@ -1,0 +1,1740 @@
+{
+  "benchmark_file": "datasets\\benchmark_v1\\benchmark_dataset.jsonl",
+  "benchmark_sha256": "e988474dd46cee4c3b17010fb32af1a50ff750ea32579d8e8ab7ef8b0fd2e60b",
+  "sample_count": 300,
+  "systems": {
+    "deterministic_text_baseline": {
+      "accuracy": 0.79,
+      "correct_count": 237,
+      "total_count": 300,
+      "macro_f1": 0.7934,
+      "macro_precision": 0.8809,
+      "macro_recall": 0.79,
+      "per_class": {
+        "Pothole": {
+          "precision": 0.9434,
+          "recall": 1.0,
+          "f1": 0.9709,
+          "support": 50
+        },
+        "Road Damage": {
+          "precision": 0.875,
+          "recall": 0.42,
+          "f1": 0.5676,
+          "support": 50
+        },
+        "Garbage": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 50
+        },
+        "Water Leakage": {
+          "precision": 1.0,
+          "recall": 0.74,
+          "f1": 0.8506,
+          "support": 50
+        },
+        "Streetlight": {
+          "precision": 1.0,
+          "recall": 0.58,
+          "f1": 0.7342,
+          "support": 50
+        },
+        "Other": {
+          "precision": 0.4673,
+          "recall": 1.0,
+          "f1": 0.6369,
+          "support": 50
+        }
+      },
+      "confusion_matrix": [
+        [
+          50,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          21,
+          0,
+          0,
+          0,
+          29
+        ],
+        [
+          0,
+          0,
+          50,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          3,
+          0,
+          37,
+          0,
+          10
+        ],
+        [
+          3,
+          0,
+          0,
+          0,
+          29,
+          18
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          50
+        ]
+      ],
+      "brier_score": 0.34,
+      "nll": 0.8022,
+      "ece": 0.1561,
+      "ece_bins": [
+        {
+          "bin_index": 0,
+          "range": [
+            0.0,
+            0.1
+          ],
+          "count": 0,
+          "accuracy": null,
+          "confidence": null,
+          "gap": 0.0
+        },
+        {
+          "bin_index": 1,
+          "range": [
+            0.1,
+            0.2
+          ],
+          "count": 0,
+          "accuracy": null,
+          "confidence": null,
+          "gap": 0.0
+        },
+        {
+          "bin_index": 2,
+          "range": [
+            0.2,
+            0.3
+          ],
+          "count": 0,
+          "accuracy": null,
+          "confidence": null,
+          "gap": 0.0
+        },
+        {
+          "bin_index": 3,
+          "range": [
+            0.3,
+            0.4
+          ],
+          "count": 0,
+          "accuracy": null,
+          "confidence": null,
+          "gap": 0.0
+        },
+        {
+          "bin_index": 4,
+          "range": [
+            0.4,
+            0.5
+          ],
+          "count": 107,
+          "accuracy": 0.4673,
+          "confidence": 0.45,
+          "gap": 0.0173
+        },
+        {
+          "bin_index": 5,
+          "range": [
+            0.5,
+            0.6
+          ],
+          "count": 0,
+          "accuracy": null,
+          "confidence": null,
+          "gap": 0.0
+        },
+        {
+          "bin_index": 6,
+          "range": [
+            0.6,
+            0.7
+          ],
+          "count": 0,
+          "accuracy": null,
+          "confidence": null,
+          "gap": 0.0
+        },
+        {
+          "bin_index": 7,
+          "range": [
+            0.7,
+            0.8
+          ],
+          "count": 180,
+          "accuracy": 0.9667,
+          "confidence": 0.73,
+          "gap": 0.2367
+        },
+        {
+          "bin_index": 8,
+          "range": [
+            0.8,
+            0.9
+          ],
+          "count": 13,
+          "accuracy": 1.0,
+          "confidence": 0.8162,
+          "gap": 0.1838
+        },
+        {
+          "bin_index": 9,
+          "range": [
+            0.9,
+            1.0
+          ],
+          "count": 0,
+          "accuracy": null,
+          "confidence": null,
+          "gap": 0.0
+        }
+      ],
+      "mean_correct_confidence": 0.6757,
+      "mean_incorrect_confidence": 0.4767,
+      "confidence_discrimination_gap": 0.199,
+      "high_confidence_error_count": 6,
+      "high_confidence_errors": [
+        {
+          "sample_id": "pilot_wmlight_174242134",
+          "true": "Streetlight",
+          "pred": "Pothole",
+          "conf": 0.73,
+          "text": "A decapitated lamppost in August 2025 in <a href=\"https://en.wikipedia.org/wiki/Central_Park\" class=\"extiw\" title=\"en:Central Park\">Central Park</a>, New York City, on a path just east of the park's West Drive, north of the the West 100th Street entrance (the Boys Gate)."
+        },
+        {
+          "sample_id": "pilot_wmlight_174242135",
+          "true": "Streetlight",
+          "pred": "Pothole",
+          "conf": 0.73,
+          "text": "A decapitated lamppost in August 2025 in <a href=\"https://en.wikipedia.org/wiki/Central_Park\" class=\"extiw\" title=\"en:Central Park\">Central Park</a>, New York City, on a path just east of the park's West Drive, north of the the West 100th Street entrance (the Boys Gate)."
+        },
+        {
+          "sample_id": "pilot_wmlight_174242136",
+          "true": "Streetlight",
+          "pred": "Pothole",
+          "conf": 0.73,
+          "text": "A decapitated lamppost in August 2025 in <a href=\"https://en.wikipedia.org/wiki/Central_Park\" class=\"extiw\" title=\"en:Central Park\">Central Park</a>, New York City, on a path just east of the park's West Drive, north of the the West 100th Street entrance (the Boys Gate)."
+        },
+        {
+          "sample_id": "pilot_wmwater_3412625",
+          "true": "Water Leakage",
+          "pred": "Road Damage",
+          "conf": 0.73,
+          "text": "cracked valve due to internal formation of ice"
+        },
+        {
+          "sample_id": "pilot_wmwater_40446827",
+          "true": "Water Leakage",
+          "pred": "Road Damage",
+          "conf": 0.73,
+          "text": "Scaling and pipe crack on the flame side of a 12 CrMo 19 5 steel pipe"
+        },
+        {
+          "sample_id": "pilot_wmwater_40446846",
+          "true": "Water Leakage",
+          "pred": "Road Damage",
+          "conf": 0.73,
+          "text": "Scaling and pipe crack on the flame side of a 12 CrMo 19 5 steel pipe"
+        }
+      ]
+    },
+    "tfidf_baseline": {
+      "accuracy": 0.8667,
+      "correct_count": 260,
+      "total_count": 300,
+      "macro_f1": 0.8643,
+      "macro_precision": 0.8805,
+      "macro_recall": 0.8667,
+      "per_class": {
+        "Pothole": {
+          "precision": 0.9057,
+          "recall": 0.96,
+          "f1": 0.932,
+          "support": 50
+        },
+        "Road Damage": {
+          "precision": 0.9355,
+          "recall": 0.58,
+          "f1": 0.716,
+          "support": 50
+        },
+        "Garbage": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 50
+        },
+        "Water Leakage": {
+          "precision": 0.8,
+          "recall": 0.8,
+          "f1": 0.8,
+          "support": 50
+        },
+        "Streetlight": {
+          "precision": 0.6615,
+          "recall": 0.86,
+          "f1": 0.7478,
+          "support": 50
+        },
+        "Other": {
+          "precision": 0.9804,
+          "recall": 1.0,
+          "f1": 0.9901,
+          "support": 50
+        }
+      },
+      "confusion_matrix": [
+        [
+          48,
+          0,
+          0,
+          0,
+          2,
+          0
+        ],
+        [
+          5,
+          29,
+          0,
+          5,
+          11,
+          0
+        ],
+        [
+          0,
+          0,
+          50,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          40,
+          9,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          5,
+          43,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          50
+        ]
+      ],
+      "brier_score": 0.2316,
+      "nll": 0.4709,
+      "ece": 0.1744,
+      "ece_bins": [
+        {
+          "bin_index": 0,
+          "range": [
+            0.0,
+            0.1
+          ],
+          "count": 0,
+          "accuracy": null,
+          "confidence": null,
+          "gap": 0.0
+        },
+        {
+          "bin_index": 1,
+          "range": [
+            0.1,
+            0.2
+          ],
+          "count": 0,
+          "accuracy": null,
+          "confidence": null,
+          "gap": 0.0
+        },
+        {
+          "bin_index": 2,
+          "range": [
+            0.2,
+            0.3
+          ],
+          "count": 7,
+          "accuracy": 0.0,
+          "confidence": 0.2277,
+          "gap": 0.2277
+        },
+        {
+          "bin_index": 3,
+          "range": [
+            0.3,
+            0.4
+          ],
+          "count": 46,
+          "accuracy": 0.4565,
+          "confidence": 0.3564,
+          "gap": 0.1002
+        },
+        {
+          "bin_index": 4,
+          "range": [
+            0.4,
+            0.5
+          ],
+          "count": 51,
+          "accuracy": 0.8431,
+          "confidence": 0.451,
+          "gap": 0.3921
+        },
+        {
+          "bin_index": 5,
+          "range": [
+            0.5,
+            0.6
+          ],
+          "count": 20,
+          "accuracy": 1.0,
+          "confidence": 0.5437,
+          "gap": 0.4563
+        },
+        {
+          "bin_index": 6,
+          "range": [
+            0.6,
+            0.7
+          ],
+          "count": 12,
+          "accuracy": 1.0,
+          "confidence": 0.6716,
+          "gap": 0.3284
+        },
+        {
+          "bin_index": 7,
+          "range": [
+            0.7,
+            0.8
+          ],
+          "count": 9,
+          "accuracy": 1.0,
+          "confidence": 0.7348,
+          "gap": 0.2652
+        },
+        {
+          "bin_index": 8,
+          "range": [
+            0.8,
+            0.9
+          ],
+          "count": 7,
+          "accuracy": 1.0,
+          "confidence": 0.8169,
+          "gap": 0.1831
+        },
+        {
+          "bin_index": 9,
+          "range": [
+            0.9,
+            1.0
+          ],
+          "count": 148,
+          "accuracy": 1.0,
+          "confidence": 0.9366,
+          "gap": 0.0634
+        }
+      ],
+      "mean_correct_confidence": 0.7571,
+      "mean_incorrect_confidence": 0.3505,
+      "confidence_discrimination_gap": 0.4067,
+      "high_confidence_error_count": 0,
+      "high_confidence_errors": []
+    },
+    "minilm_zero_shot": {
+      "accuracy": 0.8567,
+      "correct_count": 257,
+      "total_count": 300,
+      "macro_f1": 0.8454,
+      "macro_precision": 0.8628,
+      "macro_recall": 0.8567,
+      "per_class": {
+        "Pothole": {
+          "precision": 0.8065,
+          "recall": 1.0,
+          "f1": 0.8929,
+          "support": 50
+        },
+        "Road Damage": {
+          "precision": 0.8065,
+          "recall": 0.5,
+          "f1": 0.6173,
+          "support": 50
+        },
+        "Garbage": {
+          "precision": 0.8772,
+          "recall": 1.0,
+          "f1": 0.9346,
+          "support": 50
+        },
+        "Water Leakage": {
+          "precision": 1.0,
+          "recall": 0.7,
+          "f1": 0.8235,
+          "support": 50
+        },
+        "Streetlight": {
+          "precision": 0.8246,
+          "recall": 0.94,
+          "f1": 0.8785,
+          "support": 50
+        },
+        "Other": {
+          "precision": 0.8621,
+          "recall": 1.0,
+          "f1": 0.9259,
+          "support": 50
+        }
+      },
+      "confusion_matrix": [
+        [
+          50,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          11,
+          25,
+          5,
+          0,
+          4,
+          5
+        ],
+        [
+          0,
+          0,
+          50,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          5,
+          2,
+          35,
+          6,
+          2
+        ],
+        [
+          1,
+          1,
+          0,
+          0,
+          47,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          50
+        ]
+      ],
+      "brier_score": 0.3908,
+      "nll": 0.8296,
+      "ece": 0.3383,
+      "ece_bins": [
+        {
+          "bin_index": 0,
+          "range": [
+            0.0,
+            0.1
+          ],
+          "count": 0,
+          "accuracy": null,
+          "confidence": null,
+          "gap": 0.0
+        },
+        {
+          "bin_index": 1,
+          "range": [
+            0.1,
+            0.2
+          ],
+          "count": 0,
+          "accuracy": null,
+          "confidence": null,
+          "gap": 0.0
+        },
+        {
+          "bin_index": 2,
+          "range": [
+            0.2,
+            0.3
+          ],
+          "count": 30,
+          "accuracy": 0.3,
+          "confidence": 0.2516,
+          "gap": 0.0484
+        },
+        {
+          "bin_index": 3,
+          "range": [
+            0.3,
+            0.4
+          ],
+          "count": 90,
+          "accuracy": 0.8333,
+          "confidence": 0.323,
+          "gap": 0.5103
+        },
+        {
+          "bin_index": 4,
+          "range": [
+            0.4,
+            0.5
+          ],
+          "count": 20,
+          "accuracy": 0.65,
+          "confidence": 0.4388,
+          "gap": 0.2112
+        },
+        {
+          "bin_index": 5,
+          "range": [
+            0.5,
+            0.6
+          ],
+          "count": 66,
+          "accuracy": 1.0,
+          "confidence": 0.5208,
+          "gap": 0.4792
+        },
+        {
+          "bin_index": 6,
+          "range": [
+            0.6,
+            0.7
+          ],
+          "count": 7,
+          "accuracy": 1.0,
+          "confidence": 0.631,
+          "gap": 0.369
+        },
+        {
+          "bin_index": 7,
+          "range": [
+            0.7,
+            0.8
+          ],
+          "count": 19,
+          "accuracy": 1.0,
+          "confidence": 0.7257,
+          "gap": 0.2743
+        },
+        {
+          "bin_index": 8,
+          "range": [
+            0.8,
+            0.9
+          ],
+          "count": 66,
+          "accuracy": 1.0,
+          "confidence": 0.8438,
+          "gap": 0.1562
+        },
+        {
+          "bin_index": 9,
+          "range": [
+            0.9,
+            1.0
+          ],
+          "count": 2,
+          "accuracy": 1.0,
+          "confidence": 0.9178,
+          "gap": 0.0822
+        }
+      ],
+      "mean_correct_confidence": 0.5529,
+      "mean_incorrect_confidence": 0.3114,
+      "confidence_discrimination_gap": 0.2415,
+      "high_confidence_error_count": 0,
+      "high_confidence_errors": []
+    },
+    "minilm_trained_head": {
+      "accuracy": 0.8733,
+      "correct_count": 262,
+      "total_count": 300,
+      "macro_f1": 0.8703,
+      "macro_precision": 0.9082,
+      "macro_recall": 0.8733,
+      "per_class": {
+        "Pothole": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 50
+        },
+        "Road Damage": {
+          "precision": 0.9231,
+          "recall": 0.48,
+          "f1": 0.6316,
+          "support": 50
+        },
+        "Garbage": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 50
+        },
+        "Water Leakage": {
+          "precision": 0.9286,
+          "recall": 0.78,
+          "f1": 0.8478,
+          "support": 50
+        },
+        "Streetlight": {
+          "precision": 0.5976,
+          "recall": 0.98,
+          "f1": 0.7424,
+          "support": 50
+        },
+        "Other": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 50
+        }
+      },
+      "confusion_matrix": [
+        [
+          50,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          24,
+          0,
+          3,
+          23,
+          0
+        ],
+        [
+          0,
+          0,
+          50,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          39,
+          10,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          49,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          50
+        ]
+      ],
+      "brier_score": 0.1925,
+      "nll": 0.4372,
+      "ece": 0.0578,
+      "ece_bins": [
+        {
+          "bin_index": 0,
+          "range": [
+            0.0,
+            0.1
+          ],
+          "count": 0,
+          "accuracy": null,
+          "confidence": null,
+          "gap": 0.0
+        },
+        {
+          "bin_index": 1,
+          "range": [
+            0.1,
+            0.2
+          ],
+          "count": 0,
+          "accuracy": null,
+          "confidence": null,
+          "gap": 0.0
+        },
+        {
+          "bin_index": 2,
+          "range": [
+            0.2,
+            0.3
+          ],
+          "count": 0,
+          "accuracy": null,
+          "confidence": null,
+          "gap": 0.0
+        },
+        {
+          "bin_index": 3,
+          "range": [
+            0.3,
+            0.4
+          ],
+          "count": 4,
+          "accuracy": 0.5,
+          "confidence": 0.3553,
+          "gap": 0.1447
+        },
+        {
+          "bin_index": 4,
+          "range": [
+            0.4,
+            0.5
+          ],
+          "count": 10,
+          "accuracy": 0.3,
+          "confidence": 0.4668,
+          "gap": 0.1668
+        },
+        {
+          "bin_index": 5,
+          "range": [
+            0.5,
+            0.6
+          ],
+          "count": 17,
+          "accuracy": 0.4118,
+          "confidence": 0.5548,
+          "gap": 0.1431
+        },
+        {
+          "bin_index": 6,
+          "range": [
+            0.6,
+            0.7
+          ],
+          "count": 28,
+          "accuracy": 0.6429,
+          "confidence": 0.6509,
+          "gap": 0.0081
+        },
+        {
+          "bin_index": 7,
+          "range": [
+            0.7,
+            0.8
+          ],
+          "count": 31,
+          "accuracy": 0.9355,
+          "confidence": 0.7494,
+          "gap": 0.186
+        },
+        {
+          "bin_index": 8,
+          "range": [
+            0.8,
+            0.9
+          ],
+          "count": 54,
+          "accuracy": 0.8889,
+          "confidence": 0.8423,
+          "gap": 0.0466
+        },
+        {
+          "bin_index": 9,
+          "range": [
+            0.9,
+            1.0
+          ],
+          "count": 156,
+          "accuracy": 0.9936,
+          "confidence": 0.967,
+          "gap": 0.0266
+        }
+      ],
+      "mean_correct_confidence": 0.8777,
+      "mean_incorrect_confidence": 0.6144,
+      "confidence_discrimination_gap": 0.2633,
+      "high_confidence_error_count": 9,
+      "high_confidence_errors": [
+        {
+          "sample_id": "pilot_wmroad_181432613",
+          "true": "Road Damage",
+          "pred": "Streetlight",
+          "conf": 0.7331,
+          "text": "Solnechny proyezd, 2<br>\nLocation: Russia, Krasnojarsk, Norilsk, Solnechny proyezd, 2<br>\nCoordinates: 69\u00b021'3\"N\u00a088\u00b011'4\"E\nWikimapia description:<br>\n<br>\nCaption:<br>\n\nA weathered red brick apartment block stands under an overcast sky, its facade showing age with faded paint and exposed concrete..."
+        },
+        {
+          "sample_id": "pilot_wmroad_182055766",
+          "true": "Road Damage",
+          "pred": "Streetlight",
+          "conf": 0.8514,
+          "text": "Vieta, kur k\u0101dreiz atrad\u0101s ze\u0137u fabrika \"Aurora\" (R\u012bga)<br>\nLocation: Latvia, Riga<br>\nCoordinates: 56.9322307, 24.0771255\n<br>Wikimapia Description:<br>2008/5 r\u016bpn\u012bca ir piln\u012bb\u0101 nojaukta un t\u0101s viet\u0101 top modernu dz\u012bvojamo m\u0101ju komplekss.\n\n<br>Caption: An abandoned, long brick factory building li..."
+        },
+        {
+          "sample_id": "pilot_wmroad_182055779",
+          "true": "Road Damage",
+          "pred": "Streetlight",
+          "conf": 0.8436,
+          "text": "Cieceres Street, 4 (Riga)<br>\nLocation: Latvia, Riga<br>\nCoordinates: 56.9325191, 24.075905\n\n<br>Caption: A weathered, rusted metal gate with a chain-link fence above stands in an overgrown, abandoned area. The gate features decorative sun-and-wave motifs with the word \u201cEUROPA\u201d embossed, though h..."
+        },
+        {
+          "sample_id": "pilot_wmroad_182056166",
+          "true": "Road Damage",
+          "pred": "Streetlight",
+          "conf": 0.8385,
+          "text": "Former VEF factory refectory (Riga)<br>\nLocation: Latvia, Riga<br>\nCoordinates: 56.9662766, 24.1670062\n<br>Wikimapia Description:<br>Comrade Gorbachev said in 1986 it's cool. (By Soviet standards, that is.)\n\n<br>Caption: An abandoned, multi-story industrial building with a weathered facade and nu..."
+        },
+        {
+          "sample_id": "pilot_wmroad_182056315",
+          "true": "Road Damage",
+          "pred": "Streetlight",
+          "conf": 0.8003,
+          "text": "Vidzemes market (Riga)<br>\nLocation: Latvia, Riga, Riga, Br\u012bv\u012bbas Street, 90A<br>\nCoordinates: 56.9593269, 24.1310617\n<br>Wikimapia Description:<br>Vidzemes market has been here since 1897, when it was moved from the site of the new church of St \u0122ertr\u016bde.\n\n<br>Caption: An empty street in Telpaugi..."
+        },
+        {
+          "sample_id": "pilot_wmroad_186567795",
+          "true": "Road Damage",
+          "pred": "Streetlight",
+          "conf": 0.9304,
+          "text": "Kafejn\u012bca \"Pie \u010car\u013ci\" (R\u012bga)<br>\nLocation: Latvia, Riga, R\u012bga, Il\u016bkstes iela, 17<br>\nCoordinates: 56.9345346, 24.1945555\n<br>Wikimapia Description:<br>Kafejn\u012bca \"Pie \u010car\u013ci\" is a kafejn\u012bca located at Il\u016bkstes iela in R\u012bga. Kafejn\u012bca \"Pie \u010car\u013ci\" - R\u012bga on the map.\n\n<br>Caption: A two-story white bu..."
+        },
+        {
+          "sample_id": "pilot_wmwater_11101656",
+          "true": "Water Leakage",
+          "pred": "Streetlight",
+          "conf": 0.8313,
+          "text": "<a href=\"https://en.wikipedia.org/wiki/Southern_Vectis\" class=\"extiw\" title=\"en:Southern Vectis\">Southern Vectis</a> 479 <i>Egypt Point</i> (HF06 FUA), a <a href=\"https://en.wikipedia.org/wiki/Mercedes-Benz_Citaro\" class=\"extiw\" title=\"en:Mercedes-Benz Citaro\">Mercedes-Benz Citaro</a> in York Ave..."
+        },
+        {
+          "sample_id": "pilot_wmwater_59297682",
+          "true": "Water Leakage",
+          "pred": "Streetlight",
+          "conf": 0.8217,
+          "text": "A bystander volunteered to show me a picture he snapped on his cellphone from earlier, before the water was turned off.  I asked if he would email it to me.  He did, and this is HIS picture.  I do not have his name, though.  \nThanks!  If you see this, tell me your name, and I will credit you!\n\nWa..."
+        },
+        {
+          "sample_id": "pilot_wmwater_73650378",
+          "true": "Water Leakage",
+          "pred": "Streetlight",
+          "conf": 0.7418,
+          "text": "Island, dag 6.\n\nHverager\u00f0i. En lokal kraftwerk!"
+        }
+      ]
+    },
+    "champion_ensemble_alpha_0_0": {
+      "accuracy": 0.8733,
+      "correct_count": 262,
+      "total_count": 300,
+      "macro_f1": 0.8703,
+      "macro_precision": 0.9082,
+      "macro_recall": 0.8733,
+      "per_class": {
+        "Pothole": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 50
+        },
+        "Road Damage": {
+          "precision": 0.9231,
+          "recall": 0.48,
+          "f1": 0.6316,
+          "support": 50
+        },
+        "Garbage": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 50
+        },
+        "Water Leakage": {
+          "precision": 0.9286,
+          "recall": 0.78,
+          "f1": 0.8478,
+          "support": 50
+        },
+        "Streetlight": {
+          "precision": 0.5976,
+          "recall": 0.98,
+          "f1": 0.7424,
+          "support": 50
+        },
+        "Other": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 50
+        }
+      },
+      "confusion_matrix": [
+        [
+          50,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          24,
+          0,
+          3,
+          23,
+          0
+        ],
+        [
+          0,
+          0,
+          50,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          39,
+          10,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          49,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          50
+        ]
+      ],
+      "brier_score": 0.1925,
+      "nll": 0.4372,
+      "ece": 0.0578,
+      "ece_bins": [
+        {
+          "bin_index": 0,
+          "range": [
+            0.0,
+            0.1
+          ],
+          "count": 0,
+          "accuracy": null,
+          "confidence": null,
+          "gap": 0.0
+        },
+        {
+          "bin_index": 1,
+          "range": [
+            0.1,
+            0.2
+          ],
+          "count": 0,
+          "accuracy": null,
+          "confidence": null,
+          "gap": 0.0
+        },
+        {
+          "bin_index": 2,
+          "range": [
+            0.2,
+            0.3
+          ],
+          "count": 0,
+          "accuracy": null,
+          "confidence": null,
+          "gap": 0.0
+        },
+        {
+          "bin_index": 3,
+          "range": [
+            0.3,
+            0.4
+          ],
+          "count": 4,
+          "accuracy": 0.5,
+          "confidence": 0.3553,
+          "gap": 0.1447
+        },
+        {
+          "bin_index": 4,
+          "range": [
+            0.4,
+            0.5
+          ],
+          "count": 10,
+          "accuracy": 0.3,
+          "confidence": 0.4668,
+          "gap": 0.1668
+        },
+        {
+          "bin_index": 5,
+          "range": [
+            0.5,
+            0.6
+          ],
+          "count": 17,
+          "accuracy": 0.4118,
+          "confidence": 0.5548,
+          "gap": 0.1431
+        },
+        {
+          "bin_index": 6,
+          "range": [
+            0.6,
+            0.7
+          ],
+          "count": 28,
+          "accuracy": 0.6429,
+          "confidence": 0.6509,
+          "gap": 0.0081
+        },
+        {
+          "bin_index": 7,
+          "range": [
+            0.7,
+            0.8
+          ],
+          "count": 31,
+          "accuracy": 0.9355,
+          "confidence": 0.7494,
+          "gap": 0.186
+        },
+        {
+          "bin_index": 8,
+          "range": [
+            0.8,
+            0.9
+          ],
+          "count": 54,
+          "accuracy": 0.8889,
+          "confidence": 0.8423,
+          "gap": 0.0466
+        },
+        {
+          "bin_index": 9,
+          "range": [
+            0.9,
+            1.0
+          ],
+          "count": 156,
+          "accuracy": 0.9936,
+          "confidence": 0.967,
+          "gap": 0.0266
+        }
+      ],
+      "mean_correct_confidence": 0.8777,
+      "mean_incorrect_confidence": 0.6144,
+      "confidence_discrimination_gap": 0.2633,
+      "high_confidence_error_count": 9,
+      "high_confidence_errors": [
+        {
+          "sample_id": "pilot_wmroad_181432613",
+          "true": "Road Damage",
+          "pred": "Streetlight",
+          "conf": 0.7331,
+          "text": "Solnechny proyezd, 2<br>\nLocation: Russia, Krasnojarsk, Norilsk, Solnechny proyezd, 2<br>\nCoordinates: 69\u00b021'3\"N\u00a088\u00b011'4\"E\nWikimapia description:<br>\n<br>\nCaption:<br>\n\nA weathered red brick apartment block stands under an overcast sky, its facade showing age with faded paint and exposed concrete..."
+        },
+        {
+          "sample_id": "pilot_wmroad_182055766",
+          "true": "Road Damage",
+          "pred": "Streetlight",
+          "conf": 0.8514,
+          "text": "Vieta, kur k\u0101dreiz atrad\u0101s ze\u0137u fabrika \"Aurora\" (R\u012bga)<br>\nLocation: Latvia, Riga<br>\nCoordinates: 56.9322307, 24.0771255\n<br>Wikimapia Description:<br>2008/5 r\u016bpn\u012bca ir piln\u012bb\u0101 nojaukta un t\u0101s viet\u0101 top modernu dz\u012bvojamo m\u0101ju komplekss.\n\n<br>Caption: An abandoned, long brick factory building li..."
+        },
+        {
+          "sample_id": "pilot_wmroad_182055779",
+          "true": "Road Damage",
+          "pred": "Streetlight",
+          "conf": 0.8436,
+          "text": "Cieceres Street, 4 (Riga)<br>\nLocation: Latvia, Riga<br>\nCoordinates: 56.9325191, 24.075905\n\n<br>Caption: A weathered, rusted metal gate with a chain-link fence above stands in an overgrown, abandoned area. The gate features decorative sun-and-wave motifs with the word \u201cEUROPA\u201d embossed, though h..."
+        },
+        {
+          "sample_id": "pilot_wmroad_182056166",
+          "true": "Road Damage",
+          "pred": "Streetlight",
+          "conf": 0.8385,
+          "text": "Former VEF factory refectory (Riga)<br>\nLocation: Latvia, Riga<br>\nCoordinates: 56.9662766, 24.1670062\n<br>Wikimapia Description:<br>Comrade Gorbachev said in 1986 it's cool. (By Soviet standards, that is.)\n\n<br>Caption: An abandoned, multi-story industrial building with a weathered facade and nu..."
+        },
+        {
+          "sample_id": "pilot_wmroad_182056315",
+          "true": "Road Damage",
+          "pred": "Streetlight",
+          "conf": 0.8003,
+          "text": "Vidzemes market (Riga)<br>\nLocation: Latvia, Riga, Riga, Br\u012bv\u012bbas Street, 90A<br>\nCoordinates: 56.9593269, 24.1310617\n<br>Wikimapia Description:<br>Vidzemes market has been here since 1897, when it was moved from the site of the new church of St \u0122ertr\u016bde.\n\n<br>Caption: An empty street in Telpaugi..."
+        },
+        {
+          "sample_id": "pilot_wmroad_186567795",
+          "true": "Road Damage",
+          "pred": "Streetlight",
+          "conf": 0.9304,
+          "text": "Kafejn\u012bca \"Pie \u010car\u013ci\" (R\u012bga)<br>\nLocation: Latvia, Riga, R\u012bga, Il\u016bkstes iela, 17<br>\nCoordinates: 56.9345346, 24.1945555\n<br>Wikimapia Description:<br>Kafejn\u012bca \"Pie \u010car\u013ci\" is a kafejn\u012bca located at Il\u016bkstes iela in R\u012bga. Kafejn\u012bca \"Pie \u010car\u013ci\" - R\u012bga on the map.\n\n<br>Caption: A two-story white bu..."
+        },
+        {
+          "sample_id": "pilot_wmwater_11101656",
+          "true": "Water Leakage",
+          "pred": "Streetlight",
+          "conf": 0.8313,
+          "text": "<a href=\"https://en.wikipedia.org/wiki/Southern_Vectis\" class=\"extiw\" title=\"en:Southern Vectis\">Southern Vectis</a> 479 <i>Egypt Point</i> (HF06 FUA), a <a href=\"https://en.wikipedia.org/wiki/Mercedes-Benz_Citaro\" class=\"extiw\" title=\"en:Mercedes-Benz Citaro\">Mercedes-Benz Citaro</a> in York Ave..."
+        },
+        {
+          "sample_id": "pilot_wmwater_59297682",
+          "true": "Water Leakage",
+          "pred": "Streetlight",
+          "conf": 0.8217,
+          "text": "A bystander volunteered to show me a picture he snapped on his cellphone from earlier, before the water was turned off.  I asked if he would email it to me.  He did, and this is HIS picture.  I do not have his name, though.  \nThanks!  If you see this, tell me your name, and I will credit you!\n\nWa..."
+        },
+        {
+          "sample_id": "pilot_wmwater_73650378",
+          "true": "Water Leakage",
+          "pred": "Streetlight",
+          "conf": 0.7418,
+          "text": "Island, dag 6.\n\nHverager\u00f0i. En lokal kraftwerk!"
+        }
+      ]
+    },
+    "ensemble_alpha_0_1": {
+      "accuracy": 0.88,
+      "correct_count": 264,
+      "total_count": 300,
+      "macro_f1": 0.8777,
+      "macro_precision": 0.9161,
+      "macro_recall": 0.88,
+      "per_class": {
+        "Pothole": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 50
+        },
+        "Road Damage": {
+          "precision": 0.9615,
+          "recall": 0.5,
+          "f1": 0.6579,
+          "support": 50
+        },
+        "Garbage": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 50
+        },
+        "Water Leakage": {
+          "precision": 0.9302,
+          "recall": 0.8,
+          "f1": 0.8602,
+          "support": 50
+        },
+        "Streetlight": {
+          "precision": 0.6049,
+          "recall": 0.98,
+          "f1": 0.7481,
+          "support": 50
+        },
+        "Other": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 50
+        }
+      },
+      "confusion_matrix": [
+        [
+          50,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          25,
+          0,
+          3,
+          22,
+          0
+        ],
+        [
+          0,
+          0,
+          50,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          40,
+          10,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          49,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          50
+        ]
+      ],
+      "brier_score": 0.1871,
+      "nll": 0.4437,
+      "ece": 0.0996,
+      "ece_bins": [
+        {
+          "bin_index": 0,
+          "range": [
+            0.0,
+            0.1
+          ],
+          "count": 0,
+          "accuracy": null,
+          "confidence": null,
+          "gap": 0.0
+        },
+        {
+          "bin_index": 1,
+          "range": [
+            0.1,
+            0.2
+          ],
+          "count": 0,
+          "accuracy": null,
+          "confidence": null,
+          "gap": 0.0
+        },
+        {
+          "bin_index": 2,
+          "range": [
+            0.2,
+            0.3
+          ],
+          "count": 1,
+          "accuracy": 1.0,
+          "confidence": 0.2964,
+          "gap": 0.7036
+        },
+        {
+          "bin_index": 3,
+          "range": [
+            0.3,
+            0.4
+          ],
+          "count": 2,
+          "accuracy": 0.5,
+          "confidence": 0.3666,
+          "gap": 0.1334
+        },
+        {
+          "bin_index": 4,
+          "range": [
+            0.4,
+            0.5
+          ],
+          "count": 12,
+          "accuracy": 0.25,
+          "confidence": 0.4408,
+          "gap": 0.1908
+        },
+        {
+          "bin_index": 5,
+          "range": [
+            0.5,
+            0.6
+          ],
+          "count": 25,
+          "accuracy": 0.44,
+          "confidence": 0.5512,
+          "gap": 0.1112
+        },
+        {
+          "bin_index": 6,
+          "range": [
+            0.6,
+            0.7
+          ],
+          "count": 30,
+          "accuracy": 0.8333,
+          "confidence": 0.6617,
+          "gap": 0.1716
+        },
+        {
+          "bin_index": 7,
+          "range": [
+            0.7,
+            0.8
+          ],
+          "count": 38,
+          "accuracy": 0.8421,
+          "confidence": 0.7582,
+          "gap": 0.0839
+        },
+        {
+          "bin_index": 8,
+          "range": [
+            0.8,
+            0.9
+          ],
+          "count": 39,
+          "accuracy": 0.9744,
+          "confidence": 0.8314,
+          "gap": 0.1429
+        },
+        {
+          "bin_index": 9,
+          "range": [
+            0.9,
+            1.0
+          ],
+          "count": 153,
+          "accuracy": 1.0,
+          "confidence": 0.935,
+          "gap": 0.065
+        }
+      ],
+      "mean_correct_confidence": 0.8467,
+      "mean_incorrect_confidence": 0.5754,
+      "confidence_discrimination_gap": 0.2713,
+      "high_confidence_error_count": 7,
+      "high_confidence_errors": [
+        {
+          "sample_id": "pilot_wmroad_182055766",
+          "true": "Road Damage",
+          "pred": "Streetlight",
+          "conf": 0.7773,
+          "text": "Vieta, kur k\u0101dreiz atrad\u0101s ze\u0137u fabrika \"Aurora\" (R\u012bga)<br>\nLocation: Latvia, Riga<br>\nCoordinates: 56.9322307, 24.0771255\n<br>Wikimapia Description:<br>2008/5 r\u016bpn\u012bca ir piln\u012bb\u0101 nojaukta un t\u0101s viet\u0101 top modernu dz\u012bvojamo m\u0101ju komplekss.\n\n<br>Caption: An abandoned, long brick factory building li..."
+        },
+        {
+          "sample_id": "pilot_wmroad_182055779",
+          "true": "Road Damage",
+          "pred": "Streetlight",
+          "conf": 0.7702,
+          "text": "Cieceres Street, 4 (Riga)<br>\nLocation: Latvia, Riga<br>\nCoordinates: 56.9325191, 24.075905\n\n<br>Caption: A weathered, rusted metal gate with a chain-link fence above stands in an overgrown, abandoned area. The gate features decorative sun-and-wave motifs with the word \u201cEUROPA\u201d embossed, though h..."
+        },
+        {
+          "sample_id": "pilot_wmroad_182056166",
+          "true": "Road Damage",
+          "pred": "Streetlight",
+          "conf": 0.7657,
+          "text": "Former VEF factory refectory (Riga)<br>\nLocation: Latvia, Riga<br>\nCoordinates: 56.9662766, 24.1670062\n<br>Wikimapia Description:<br>Comrade Gorbachev said in 1986 it's cool. (By Soviet standards, that is.)\n\n<br>Caption: An abandoned, multi-story industrial building with a weathered facade and nu..."
+        },
+        {
+          "sample_id": "pilot_wmroad_182056315",
+          "true": "Road Damage",
+          "pred": "Streetlight",
+          "conf": 0.7313,
+          "text": "Vidzemes market (Riga)<br>\nLocation: Latvia, Riga, Riga, Br\u012bv\u012bbas Street, 90A<br>\nCoordinates: 56.9593269, 24.1310617\n<br>Wikimapia Description:<br>Vidzemes market has been here since 1897, when it was moved from the site of the new church of St \u0122ertr\u016bde.\n\n<br>Caption: An empty street in Telpaugi..."
+        },
+        {
+          "sample_id": "pilot_wmroad_186567795",
+          "true": "Road Damage",
+          "pred": "Streetlight",
+          "conf": 0.8484,
+          "text": "Kafejn\u012bca \"Pie \u010car\u013ci\" (R\u012bga)<br>\nLocation: Latvia, Riga, R\u012bga, Il\u016bkstes iela, 17<br>\nCoordinates: 56.9345346, 24.1945555\n<br>Wikimapia Description:<br>Kafejn\u012bca \"Pie \u010car\u013ci\" is a kafejn\u012bca located at Il\u016bkstes iela in R\u012bga. Kafejn\u012bca \"Pie \u010car\u013ci\" - R\u012bga on the map.\n\n<br>Caption: A two-story white bu..."
+        },
+        {
+          "sample_id": "pilot_wmwater_11101656",
+          "true": "Water Leakage",
+          "pred": "Streetlight",
+          "conf": 0.7592,
+          "text": "<a href=\"https://en.wikipedia.org/wiki/Southern_Vectis\" class=\"extiw\" title=\"en:Southern Vectis\">Southern Vectis</a> 479 <i>Egypt Point</i> (HF06 FUA), a <a href=\"https://en.wikipedia.org/wiki/Mercedes-Benz_Citaro\" class=\"extiw\" title=\"en:Mercedes-Benz Citaro\">Mercedes-Benz Citaro</a> in York Ave..."
+        },
+        {
+          "sample_id": "pilot_wmwater_59297682",
+          "true": "Water Leakage",
+          "pred": "Streetlight",
+          "conf": 0.7449,
+          "text": "A bystander volunteered to show me a picture he snapped on his cellphone from earlier, before the water was turned off.  I asked if he would email it to me.  He did, and this is HIS picture.  I do not have his name, though.  \nThanks!  If you see this, tell me your name, and I will credit you!\n\nWa..."
+        }
+      ]
+    },
+    "ensemble_alpha_0_5": {
+      "accuracy": 0.8833,
+      "correct_count": 265,
+      "total_count": 300,
+      "macro_f1": 0.8824,
+      "macro_precision": 0.9075,
+      "macro_recall": 0.8833,
+      "per_class": {
+        "Pothole": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 50
+        },
+        "Road Damage": {
+          "precision": 0.9062,
+          "recall": 0.58,
+          "f1": 0.7073,
+          "support": 50
+        },
+        "Garbage": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 50
+        },
+        "Water Leakage": {
+          "precision": 0.9268,
+          "recall": 0.76,
+          "f1": 0.8352,
+          "support": 50
+        },
+        "Streetlight": {
+          "precision": 0.6316,
+          "recall": 0.96,
+          "f1": 0.7619,
+          "support": 50
+        },
+        "Other": {
+          "precision": 0.9804,
+          "recall": 1.0,
+          "f1": 0.9901,
+          "support": 50
+        }
+      },
+      "confusion_matrix": [
+        [
+          50,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          29,
+          0,
+          3,
+          18,
+          0
+        ],
+        [
+          0,
+          0,
+          50,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          2,
+          0,
+          38,
+          10,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          48,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          50
+        ]
+      ],
+      "brier_score": 0.2104,
+      "nll": 0.5352,
+      "ece": 0.2144,
+      "ece_bins": [
+        {
+          "bin_index": 0,
+          "range": [
+            0.0,
+            0.1
+          ],
+          "count": 0,
+          "accuracy": null,
+          "confidence": null,
+          "gap": 0.0
+        },
+        {
+          "bin_index": 1,
+          "range": [
+            0.1,
+            0.2
+          ],
+          "count": 0,
+          "accuracy": null,
+          "confidence": null,
+          "gap": 0.0
+        },
+        {
+          "bin_index": 2,
+          "range": [
+            0.2,
+            0.3
+          ],
+          "count": 7,
+          "accuracy": 0.1429,
+          "confidence": 0.2885,
+          "gap": 0.1457
+        },
+        {
+          "bin_index": 3,
+          "range": [
+            0.3,
+            0.4
+          ],
+          "count": 23,
+          "accuracy": 0.2174,
+          "confidence": 0.3581,
+          "gap": 0.1407
+        },
+        {
+          "bin_index": 4,
+          "range": [
+            0.4,
+            0.5
+          ],
+          "count": 36,
+          "accuracy": 0.7222,
+          "confidence": 0.4541,
+          "gap": 0.2681
+        },
+        {
+          "bin_index": 5,
+          "range": [
+            0.5,
+            0.6
+          ],
+          "count": 5,
+          "accuracy": 0.8,
+          "confidence": 0.5467,
+          "gap": 0.2533
+        },
+        {
+          "bin_index": 6,
+          "range": [
+            0.6,
+            0.7
+          ],
+          "count": 13,
+          "accuracy": 1.0,
+          "confidence": 0.6573,
+          "gap": 0.3427
+        },
+        {
+          "bin_index": 7,
+          "range": [
+            0.7,
+            0.8
+          ],
+          "count": 105,
+          "accuracy": 1.0,
+          "confidence": 0.7344,
+          "gap": 0.2656
+        },
+        {
+          "bin_index": 8,
+          "range": [
+            0.8,
+            0.9
+          ],
+          "count": 111,
+          "accuracy": 1.0,
+          "confidence": 0.8485,
+          "gap": 0.1515
+        },
+        {
+          "bin_index": 9,
+          "range": [
+            0.9,
+            1.0
+          ],
+          "count": 0,
+          "accuracy": null,
+          "confidence": null,
+          "gap": 0.0
+        }
+      ],
+      "mean_correct_confidence": 0.7399,
+      "mean_incorrect_confidence": 0.3744,
+      "confidence_discrimination_gap": 0.3656,
+      "high_confidence_error_count": 0,
+      "high_confidence_errors": []
+    }
+  }
+}

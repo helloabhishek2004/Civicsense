@@ -26,4 +26,5 @@ export type PermissionAction =
   | 'close_report'
   | 'manage_users'
   | 'export_data'
-  | 'view_citizen_phone';
+  | 'view_citizen_phone'
+  | 'review_matches';

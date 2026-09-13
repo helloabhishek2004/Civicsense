@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate, Link } from 'react-router-dom';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   Cpu,
   RefreshCw,
@@ -10,12 +10,22 @@ import {
   Layers,
   ExternalLink,
   Info,
+  GitMerge,
+  ShieldAlert,
 } from 'lucide-react';
 import { reportRepository } from '@/services/repository/reportRepository';
+import { issueRepository } from '@/services/repository/issueRepository';
 import { queryKeys } from '@/services/queryKeys';
 import { AIJob, AIProcessingStage, MetricItem } from '@/types/ai';
+import { CandidateMatchItem } from '@/types/issues';
 import { CivicButton } from '@/core/components/CivicButton';
 import { LoadingSkeleton } from '@/core/components/LoadingSkeleton';
+import { DataTable, Column } from '@/core/components/DataTable';
+import { Modal } from '@/core/components/Modal';
+import { ErrorBanner } from '@/core/components/ErrorBanner';
+import { useAuth } from '@/core/auth/AuthContext';
+import { can } from '@/core/auth/permissions';
+import { formatDateTime } from '@/core/utils/dateUtils';
 import { motion, type Variants } from 'motion/react';
 
 const containerVariants: Variants = {
@@ -103,10 +113,22 @@ export const AIOperationsPage: React.FC = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
+  const activeTab = searchParams.get('tab') === 'matches' ? 'matches' : 'pipeline';
+  const { user } = useAuth();
+  const canReviewMatches = can(user, 'review_matches');
+  const reviewerId = user?.badgeNumber || user?.id;
+
   const selectedJobIdFromUrl = searchParams.get('jobId');
   const [selectedJobId, setSelectedJobId] = useState<string | null>(selectedJobIdFromUrl);
   const [stageFilter, setStageFilter] = useState<string>('ALL');
   const [autoRefresh, setAutoRefresh] = useState(true);
+
+  // Match review state
+  const [selectedMatch, setSelectedMatch] = useState<CandidateMatchItem | null>(null);
+  const [matchAction, setMatchAction] = useState<'APPROVE' | 'REJECT' | null>(null);
+  const [reviewNotes, setReviewNotes] = useState('');
+  const [altIssueId, setAltIssueId] = useState('');
+  const [actionError, setActionError] = useState<string | null>(null);
 
   useEffect(() => {
     if (selectedJobIdFromUrl) {
@@ -154,14 +176,86 @@ export const AIOperationsPage: React.FC = () => {
     refetchInterval: autoRefresh && selectedJob?.status === 'PROCESSING' ? 2000 : false,
   });
 
+  // Query Pending Matches
+  const {
+    data: matchesData,
+    isLoading: isMatchesLoading,
+    error: matchesError,
+    refetch: refetchMatches,
+  } = useQuery({
+    queryKey: queryKeys.matches.pending(),
+    queryFn: () => issueRepository.getPendingMatches(),
+    refetchInterval: autoRefresh ? 6000 : false,
+  });
+
+  // Approve Match Mutation
+  const approveMutation = useMutation({
+    mutationFn: async ({ matchId, notes }: { matchId: string; notes?: string }) => {
+      const revId = user?.badgeNumber || user?.id;
+      if (!revId) {
+        throw new Error('A valid municipal reviewer ID (badge number or user ID) is required to approve matches.');
+      }
+      return issueRepository.approveMatch(matchId, revId, notes);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.matches.all });
+      queryClient.invalidateQueries({ queryKey: queryKeys.reports.all });
+      queryClient.invalidateQueries({ queryKey: queryKeys.issues.all });
+      setSelectedMatch(null);
+      setMatchAction(null);
+      setReviewNotes('');
+      setActionError(null);
+    },
+    onError: (err) => {
+      setActionError(err instanceof Error ? err.message : 'Failed to approve candidate match.');
+    },
+  });
+
+  // Reject Match Mutation
+  const rejectMutation = useMutation({
+    mutationFn: async ({
+      matchId,
+      notes,
+      linkToIssueId,
+    }: {
+      matchId: string;
+      notes?: string;
+      linkToIssueId?: string;
+    }) => {
+      const revId = user?.badgeNumber || user?.id;
+      if (!revId) {
+        throw new Error('A valid municipal reviewer ID (badge number or user ID) is required to reject matches.');
+      }
+      return issueRepository.rejectMatch(matchId, revId, notes, linkToIssueId);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.matches.all });
+      queryClient.invalidateQueries({ queryKey: queryKeys.reports.all });
+      queryClient.invalidateQueries({ queryKey: queryKeys.issues.all });
+      setSelectedMatch(null);
+      setMatchAction(null);
+      setReviewNotes('');
+      setAltIssueId('');
+      setActionError(null);
+    },
+    onError: (err) => {
+      setActionError(err instanceof Error ? err.message : 'Failed to reject candidate match.');
+    },
+  });
+
   const handleSelectJob = (job: AIJob) => {
     setSelectedJobId(job.id);
-    setSearchParams({ jobId: job.id });
+    setSearchParams((prev) => {
+      prev.set('jobId', job.id);
+      return prev;
+    });
   };
 
   const handleManualRefresh = () => {
     queryClient.invalidateQueries({ queryKey: queryKeys.ai.all });
+    queryClient.invalidateQueries({ queryKey: queryKeys.matches.all });
     refetchJobs();
+    refetchMatches();
   };
 
   // Calculate stage counts from active jobs
@@ -169,6 +263,170 @@ export const AIOperationsPage: React.FC = () => {
   (jobsData?.items || []).forEach((j) => {
     stageCounts[j.current_stage] = (stageCounts[j.current_stage] || 0) + 1;
   });
+
+  // Match Review Columns
+  const matchColumns: Column<CandidateMatchItem>[] = [
+    {
+      id: 'reportId',
+      header: 'Report',
+      cell: (item) => (
+        <div className="flex flex-col">
+          <Link
+            to={`/reports/${item.reportId}`}
+            className="font-mono text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+          >
+            <span>rep-{item.reportId.substring(0, 8)}</span>
+            <ExternalLink className="w-3 h-3 opacity-60" />
+          </Link>
+          <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">
+            {formatDateTime(item.createdAt)}
+          </span>
+        </div>
+      ),
+    },
+    {
+      id: 'issueId',
+      header: 'Target Defect Cluster',
+      cell: (item) => (
+        <div className="flex flex-col">
+          {item.issueId ? (
+            <Link
+              to={`/issues/${item.issueId}`}
+              className="font-mono text-xs font-semibold text-purple-600 dark:text-purple-400 hover:underline flex items-center gap-1"
+            >
+              <span>iss-{item.issueId.substring(0, 8)}</span>
+              <ExternalLink className="w-3 h-3 opacity-60" />
+            </Link>
+          ) : (
+            <span className="text-xs text-slate-400 italic font-mono">Unassigned Issue</span>
+          )}
+          <span className="text-[10px] text-slate-500 dark:text-slate-400">
+            Existing defect cluster
+          </span>
+        </div>
+      ),
+    },
+    {
+      id: 'similarityScore',
+      header: 'Match Confidence',
+      cell: (item) => {
+        const pct = (item.similarityScore * 100).toFixed(1);
+        return (
+          <div className="flex flex-col gap-1">
+            <span
+              className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-mono font-bold ${
+                item.similarityScore >= 0.6
+                  ? 'bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 border border-amber-300 dark:border-amber-800'
+                  : 'bg-blue-100 text-blue-800 dark:bg-blue-950/60 dark:text-blue-300 border border-blue-300 dark:border-blue-800'
+              }`}
+            >
+              {pct}% Confidence
+            </span>
+            <span className="text-[10px] text-slate-400 font-mono">Range: [45% - 70%)</span>
+          </div>
+        );
+      },
+    },
+    {
+      id: 'breakdown',
+      header: 'Signals Breakdown',
+      cell: (item) => (
+        <div className="text-xs space-y-0.5">
+          <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-300">
+            <span className="text-[11px] font-medium text-slate-400">Text:</span>
+            <span className="font-mono font-medium">{(item.textSimilarity * 100).toFixed(1)}%</span>
+          </div>
+          <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-300">
+            <span className="text-[11px] font-medium text-slate-400">Distance:</span>
+            <span className="font-mono font-medium">{item.distanceMeters.toFixed(1)} m</span>
+          </div>
+          <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-300">
+            <span className="text-[11px] font-medium text-slate-400">Category:</span>
+            <span className="font-medium">
+              {item.categoryMatch === 1.0 ? 'Exact' : item.categoryMatch === 0.5 ? 'Bridge' : 'Mismatch'}
+            </span>
+          </div>
+        </div>
+      ),
+    },
+    {
+      id: 'reasoning',
+      header: 'Engine Rationale',
+      cell: (item) => (
+        <div className="max-w-xs text-xs text-slate-600 dark:text-slate-400 space-y-0.5">
+          {item.reasoning && item.reasoning.length > 0 ? (
+            item.reasoning.map((r, i) => (
+              <div key={i} className="flex items-start gap-1">
+                <span className="text-purple-500 leading-none mt-1">•</span>
+                <span className="text-[11px]">{r}</span>
+              </div>
+            ))
+          ) : (
+            <span className="text-[11px] text-slate-400 italic">
+              Text & spatial proximity match
+            </span>
+          )}
+          {item.embeddingModelVersion && (
+            <div className="text-[10px] font-mono text-slate-400 pt-1">
+              Model: {item.embeddingModelVersion}
+            </div>
+          )}
+        </div>
+      ),
+    },
+    {
+      id: 'actions',
+      header: 'Review Actions',
+      cell: (item) => (
+        <div className="flex items-center gap-2 justify-end">
+          <CivicButton
+            variant="primary"
+            size="sm"
+            disabled={!canReviewMatches || !reviewerId}
+            onClick={() => {
+              setSelectedMatch(item);
+              setMatchAction('APPROVE');
+              setReviewNotes('');
+              setActionError(null);
+            }}
+            className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs px-2.5 py-1"
+            title={
+              !canReviewMatches
+                ? 'Only Triage Officers and Super Admins can review matches'
+                : !reviewerId
+                ? 'Reviewer identity missing'
+                : 'Confirm report linkage to this issue'
+            }
+          >
+            Approve
+          </CivicButton>
+
+          <CivicButton
+            variant="outline"
+            size="sm"
+            disabled={!canReviewMatches || !reviewerId}
+            onClick={() => {
+              setSelectedMatch(item);
+              setMatchAction('REJECT');
+              setReviewNotes('');
+              setAltIssueId('');
+              setActionError(null);
+            }}
+            className="text-red-600 hover:bg-red-50 dark:hover:bg-red-950/20 text-xs px-2.5 py-1 border-red-200 dark:border-red-900"
+            title={
+              !canReviewMatches
+                ? 'Only Triage Officers and Super Admins can review matches'
+                : !reviewerId
+                ? 'Reviewer identity missing'
+                : 'Reject this candidate match'
+            }
+          >
+            Reject
+          </CivicButton>
+        </div>
+      ),
+    },
+  ];
 
   return (
     <motion.div
@@ -242,8 +500,129 @@ export const AIOperationsPage: React.FC = () => {
         </div>
       </motion.div>
 
-      {/* 2. Honest System Architecture Banner */}
-      <motion.div variants={itemVariants} className="p-4 rounded-civic bg-purple-50/70 border border-purple-200 dark:bg-purple-950/30 dark:border-purple-900/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+      {/* 2. Navigation Tabs */}
+      <motion.div variants={itemVariants} className="flex border-b border-civic-border dark:border-civic-dark-border gap-6">
+        <button
+          type="button"
+          onClick={() => {
+            setSearchParams((prev) => {
+              prev.delete('tab');
+              return prev;
+            });
+          }}
+          className={`pb-3 text-sm font-semibold flex items-center gap-2 border-b-2 transition-colors ${
+            activeTab !== 'matches'
+              ? 'border-purple-600 text-purple-600 dark:text-purple-400'
+              : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+          }`}
+        >
+          <Cpu className="w-4 h-4" />
+          Pipeline Stages & Execution
+        </button>
+
+        <button
+          type="button"
+          onClick={() => {
+            setSearchParams((prev) => {
+              prev.set('tab', 'matches');
+              return prev;
+            });
+          }}
+          className={`pb-3 text-sm font-semibold flex items-center gap-2 border-b-2 transition-colors ${
+            activeTab === 'matches'
+              ? 'border-purple-600 text-purple-600 dark:text-purple-400'
+              : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+          }`}
+        >
+          <GitMerge className="w-4 h-4" />
+          Candidate Duplicate Reviews
+          {(matchesData?.total ?? 0) > 0 && (
+            <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300">
+              {matchesData?.total}
+            </span>
+          )}
+        </button>
+      </motion.div>
+
+      {activeTab === 'matches' ? (
+        <motion.div variants={itemVariants} className="space-y-6">
+          {/* Reviewer Identity Notice */}
+          {!reviewerId && (
+            <div className="p-4 rounded-xl border border-red-300 bg-red-50 dark:bg-red-950/40 dark:border-red-900/60 text-xs text-red-800 dark:text-red-300 flex items-start gap-3">
+              <ShieldAlert className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
+              <div>
+                <span className="font-semibold block text-sm">Reviewer Identity Required</span>
+                <span>
+                  You must be authenticated with a valid badge number or officer ID to review candidate duplicate matches.
+                  Review actions fail closed without an authenticated officer identity.
+                </span>
+              </div>
+            </div>
+          )}
+
+          {!canReviewMatches && reviewerId && (
+            <div className="p-4 rounded-xl border border-amber-300 bg-amber-50 dark:bg-amber-950/40 dark:border-amber-900/60 text-xs text-amber-800 dark:text-amber-300 flex items-start gap-3">
+              <ShieldAlert className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+              <div>
+                <span className="font-semibold block text-sm">Read-Only Permission</span>
+                <span>
+                  Your role does not have authorization to approve or reject duplicate linkages.
+                  Only Triage Officers and Super Administrators may execute duplicate decisions.
+                </span>
+              </div>
+            </div>
+          )}
+
+          {/* Context Banner */}
+          <div className="p-4 rounded-xl border border-purple-200 dark:border-purple-900/60 bg-purple-50/50 dark:bg-purple-950/20 text-xs text-purple-900 dark:text-purple-300 flex items-start gap-3">
+            <Info className="w-4 h-4 text-purple-600 dark:text-purple-400 shrink-0 mt-0.5" />
+            <div>
+              <span className="font-semibold">Candidate Duplicate Triage: </span>
+              Candidate matches are identified when incoming reports match an existing defect cluster with confidence in the
+              operational candidate window <strong className="font-mono">[45%, 70%)</strong>. Approving a match links the report to the issue.
+              Rejecting creates an independent issue or links to an alternate issue.
+            </div>
+          </div>
+
+          {/* Matches Data Table */}
+          <div className="p-5 rounded-civic bg-civic-surface border border-civic-border shadow-civic-card dark:bg-civic-dark-surface dark:border-civic-dark-border space-y-4">
+            <div className="flex items-center justify-between border-b border-civic-border dark:border-civic-dark-border pb-3">
+              <h2 className="text-sm font-semibold text-civic-text-primary dark:text-civic-dark-text-primary uppercase tracking-wider flex items-center gap-2">
+                <GitMerge className="w-4 h-4 text-purple-600" />
+                Pending Duplicate Matches ({matchesData?.total || 0})
+              </h2>
+              <CivicButton
+                variant="ghost"
+                size="sm"
+                onClick={() => refetchMatches()}
+                className="text-xs"
+              >
+                Refresh Queue
+              </CivicButton>
+            </div>
+
+            {matchesError && (
+              <ErrorBanner
+                title="Failed to fetch candidate matches"
+                message={matchesError instanceof Error ? matchesError.message : 'Unknown error'}
+                onRetry={() => refetchMatches()}
+              />
+            )}
+
+            <DataTable<CandidateMatchItem>
+              data={matchesData?.items || []}
+              columns={matchColumns}
+              keyExtractor={(item) => item.id}
+              isLoading={isMatchesLoading}
+              emptyTitle="No Pending Matches"
+              emptyDescription="There are currently no candidate duplicate matches requiring municipal officer review."
+            />
+          </div>
+        </motion.div>
+      ) : (
+        <div className="space-y-6">
+          {/* 2. Honest System Architecture Banner */}
+          <motion.div variants={itemVariants} className="p-4 rounded-civic bg-purple-50/70 border border-purple-200 dark:bg-purple-950/30 dark:border-purple-900/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
         <div className="flex items-start gap-3">
           <Info className="w-4 h-4 text-purple-700 dark:text-purple-300 shrink-0 mt-0.5" />
           <div className="space-y-0.5">
@@ -697,6 +1076,226 @@ export const AIOperationsPage: React.FC = () => {
           </div>
         </div>
       </motion.div>
+    </div>
+  )}
+
+      {/* Approve Candidate Match Modal */}
+      <Modal
+        isOpen={matchAction === 'APPROVE' && !!selectedMatch}
+        onClose={() => {
+          if (!approveMutation.isPending) {
+            setMatchAction(null);
+            setSelectedMatch(null);
+            setActionError(null);
+          }
+        }}
+        title="Approve Candidate Duplicate Match"
+        description="Confirm that this incoming citizen report represents an instance of the existing defect cluster."
+        footer={
+          <div className="flex items-center justify-end gap-3 w-full">
+            <CivicButton
+              variant="outline"
+              size="sm"
+              disabled={approveMutation.isPending}
+              onClick={() => {
+                setMatchAction(null);
+                setSelectedMatch(null);
+                setActionError(null);
+              }}
+            >
+              Cancel
+            </CivicButton>
+            <CivicButton
+              variant="primary"
+              size="sm"
+              isLoading={approveMutation.isPending}
+              disabled={!reviewerId}
+              onClick={() => {
+                if (selectedMatch) {
+                  approveMutation.mutate({
+                    matchId: selectedMatch.id,
+                    notes: reviewNotes.trim() || undefined,
+                  });
+                }
+              }}
+              className="bg-emerald-600 hover:bg-emerald-700 text-white"
+            >
+              Confirm Linkage
+            </CivicButton>
+          </div>
+        }
+      >
+        {selectedMatch && (
+          <div className="space-y-4 text-xs">
+            {actionError && (
+              <ErrorBanner title="Approval Failed" message={actionError} />
+            )}
+
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 space-y-2">
+              <div className="flex justify-between">
+                <span className="text-slate-500 font-medium">Incoming Report:</span>
+                <span className="font-mono font-semibold text-blue-600 dark:text-blue-400">
+                  rep-{selectedMatch.reportId.slice(0, 8)}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-500 font-medium">Target Defect Cluster:</span>
+                <span className="font-mono font-semibold text-purple-600 dark:text-purple-400">
+                  iss-{selectedMatch.issueId.slice(0, 8)}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-500 font-medium">Model Similarity:</span>
+                <span className="font-mono font-bold text-amber-600 dark:text-amber-400">
+                  {(selectedMatch.similarityScore * 100).toFixed(1)}%
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-500 font-medium">Spatial Proximity:</span>
+                <span className="font-mono">{selectedMatch.distanceMeters.toFixed(1)} m</span>
+              </div>
+            </div>
+
+            <div className="space-y-1.5">
+              <label htmlFor="approve-review-notes" className="font-semibold text-slate-700 dark:text-slate-300 block">
+                Reviewer Notes (Optional)
+              </label>
+              <textarea
+                id="approve-review-notes"
+                value={reviewNotes}
+                onChange={(e) => setReviewNotes(e.target.value)}
+                placeholder="Reason for confirming this duplicate match..."
+                rows={3}
+                className="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              />
+            </div>
+
+            <div className="p-2.5 rounded bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/50 text-[11px] text-emerald-800 dark:text-emerald-300">
+              <strong>Reviewer Authentication:</strong> Signed as Officer{' '}
+              <span className="font-mono font-bold">{reviewerId || 'UNAUTHENTICATED'}</span>
+            </div>
+          </div>
+        )}
+      </Modal>
+
+      {/* Reject Candidate Match Modal */}
+      <Modal
+        isOpen={matchAction === 'REJECT' && !!selectedMatch}
+        onClose={() => {
+          if (!rejectMutation.isPending) {
+            setMatchAction(null);
+            setSelectedMatch(null);
+            setActionError(null);
+          }
+        }}
+        title="Reject Candidate Duplicate Match"
+        description="Reject linking this report to the candidate defect cluster. The report will remain an independent defect entity unless an alternate issue is provided."
+        footer={
+          <div className="flex items-center justify-end gap-3 w-full">
+            <CivicButton
+              variant="outline"
+              size="sm"
+              disabled={rejectMutation.isPending}
+              onClick={() => {
+                setMatchAction(null);
+                setSelectedMatch(null);
+                setActionError(null);
+              }}
+            >
+              Cancel
+            </CivicButton>
+            <CivicButton
+              variant="primary"
+              size="sm"
+              isLoading={rejectMutation.isPending}
+              disabled={!reviewerId}
+              onClick={() => {
+                if (selectedMatch) {
+                  const cleanedAltId = altIssueId.trim();
+                  const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+                  if (cleanedAltId && !UUID_REGEX.test(cleanedAltId)) {
+                    setActionError('Alternate issue ID must be a valid 36-character UUID string (e.g. 123e4567-e89b-12d3-a456-426614174000).');
+                    return;
+                  }
+                  rejectMutation.mutate({
+                    matchId: selectedMatch.id,
+                    notes: reviewNotes.trim() || undefined,
+                    linkToIssueId: cleanedAltId || undefined,
+                  });
+                }
+              }}
+              className="bg-red-600 hover:bg-red-700 text-white"
+            >
+              Confirm Rejection
+            </CivicButton>
+          </div>
+        }
+      >
+        {selectedMatch && (
+          <div className="space-y-4 text-xs">
+            {actionError && (
+              <ErrorBanner title="Rejection Failed" message={actionError} />
+            )}
+
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 space-y-2">
+              <div className="flex justify-between">
+                <span className="text-slate-500 font-medium">Incoming Report:</span>
+                <span className="font-mono font-semibold text-blue-600 dark:text-blue-400">
+                  rep-{selectedMatch.reportId.slice(0, 8)}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-500 font-medium">Candidate Issue:</span>
+                <span className="font-mono font-semibold text-purple-600 dark:text-purple-400">
+                  iss-{selectedMatch.issueId.slice(0, 8)}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-500 font-medium">Suggested Confidence:</span>
+                <span className="font-mono font-bold text-amber-600 dark:text-amber-400">
+                  {(selectedMatch.similarityScore * 100).toFixed(1)}%
+                </span>
+              </div>
+            </div>
+
+            <div className="space-y-1.5">
+              <label htmlFor="reject-alt-issue-id" className="font-semibold text-slate-700 dark:text-slate-300 block">
+                Link to Alternate Issue UUID (Optional)
+              </label>
+              <input
+                id="reject-alt-issue-id"
+                type="text"
+                value={altIssueId}
+                onChange={(e) => setAltIssueId(e.target.value)}
+                placeholder="Leave blank to treat report as separate issue..."
+                className="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 font-mono focus:outline-none focus:ring-2 focus:ring-purple-500"
+              />
+              <p className="text-[10px] text-slate-500">
+                If provided, the report will be redirected and linked to this alternate issue UUID instead of creating a standalone issue.
+              </p>
+            </div>
+
+            <div className="space-y-1.5">
+              <label htmlFor="reject-review-notes" className="font-semibold text-slate-700 dark:text-slate-300 block">
+                Rejection Reason / Notes (Optional)
+              </label>
+              <textarea
+                id="reject-review-notes"
+                value={reviewNotes}
+                onChange={(e) => setReviewNotes(e.target.value)}
+                placeholder="Explain why this report does not match the candidate cluster..."
+                rows={3}
+                className="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              />
+            </div>
+
+            <div className="p-2.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[11px] text-slate-700 dark:text-slate-300">
+              <strong>Reviewer Authentication:</strong> Signed as Officer{' '}
+              <span className="font-mono font-bold">{reviewerId || 'UNAUTHENTICATED'}</span>
+            </div>
+          </div>
+        )}
+      </Modal>
     </motion.div>
   );
 };

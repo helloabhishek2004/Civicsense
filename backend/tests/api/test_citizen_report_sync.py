@@ -2,12 +2,8 @@ import uuid
 
 from fastapi.testclient import TestClient
 
-from app.main import app
 
-client = TestClient(app)
-
-
-def test_citizen_report_sync_filtering() -> None:
+def test_citizen_report_sync_filtering(client: TestClient) -> None:
     """Test citizen_id filtering on GET /api/v1/reports."""
     citizen_a = f"czn_{uuid.uuid4()}"
     citizen_b = f"czn_{uuid.uuid4()}"

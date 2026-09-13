@@ -1,0 +1,19 @@
+{
+  "n11_both_correct": 231,
+  "n10_text_correct_fusion_wrong": 6,
+  "n01_text_wrong_fusion_correct": 8,
+  "n00_both_wrong": 55,
+  "discordant_total": 14,
+  "text_accuracy": 0.79,
+  "fusion_accuracy": 0.7967,
+  "accuracy_difference_pp": 0.6667,
+  "mcnemar_method": "exact_binomial",
+  "statistic": 6.0,
+  "p_value": 0.790527,
+  "ci_95_difference_pp": [
+    -1.7767,
+    3.11
+  ],
+  "is_statistically_significant": false,
+  "interpretation": "Empirical difference of +0.67 pp is not statistically significant on paired benchmark (p=0.7905 >= 0.05, 95% CI [-1.78, +3.11] pp). Discordant pairs: Text-correct/Fusion-wrong=6, Text-wrong/Fusion-correct=8."
+}

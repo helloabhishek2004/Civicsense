@@ -1,0 +1,85 @@
+{
+  "report_version": "1.0.0",
+  "audit_timestamp": "2026-09-13T16:45:26.446509+00:00",
+  "total_manifest_candidates": 995,
+  "total_quarantined": 403,
+  "current_clean_pool": {
+    "Pothole": 98,
+    "Road Damage": 98,
+    "Garbage": 105,
+    "Water Leakage": 97,
+    "Streetlight": 95,
+    "Other": 99
+  },
+  "current_clean_total": 592,
+  "train_clean_total": 473,
+  "validation_clean_total": 119,
+  "split_ratio": "79.9% / 20.1%",
+  "milestones": {
+    "target_100_per_category": {
+      "target_per_category": 100,
+      "total_target_samples": 600,
+      "current_clean_samples": 592,
+      "total_samples_needed": 8,
+      "completion_percentage": 98.67,
+      "per_category_deficit": {
+        "Pothole": 2,
+        "Road Damage": 2,
+        "Garbage": 0,
+        "Water Leakage": 3,
+        "Streetlight": 5,
+        "Other": 1
+      }
+    },
+    "target_150_per_category": {
+      "target_per_category": 150,
+      "total_target_samples": 900,
+      "current_clean_samples": 592,
+      "total_samples_needed": 308,
+      "completion_percentage": 65.78,
+      "per_category_deficit": {
+        "Pothole": 52,
+        "Road Damage": 52,
+        "Garbage": 45,
+        "Water Leakage": 53,
+        "Streetlight": 55,
+        "Other": 51
+      }
+    },
+    "target_200_per_category": {
+      "target_per_category": 200,
+      "total_target_samples": 1200,
+      "current_clean_samples": 592,
+      "total_samples_needed": 608,
+      "completion_percentage": 49.33,
+      "per_category_deficit": {
+        "Pothole": 102,
+        "Road Damage": 102,
+        "Garbage": 95,
+        "Water Leakage": 103,
+        "Streetlight": 105,
+        "Other": 101
+      }
+    }
+  },
+  "priority_ranking": [
+    "Streetlight",
+    "Water Leakage",
+    "Pothole",
+    "Road Damage",
+    "Other",
+    "Garbage"
+  ],
+  "acquisition_tiers": {
+    "tier_1_urgent": [],
+    "tier_2_high": [],
+    "tier_3_moderate": [
+      "Streetlight",
+      "Water Leakage",
+      "Pothole",
+      "Road Damage",
+      "Other",
+      "Garbage"
+    ]
+  }
+}

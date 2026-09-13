@@ -16,6 +16,7 @@ if TYPE_CHECKING:
     from app.models.department import Department
     from app.models.evidence import Evidence
     from app.models.issue import Issue
+    from app.models.report_issue_match import ReportIssueMatch
     from app.models.verification import Verification
 
 
@@ -60,6 +61,9 @@ class Report(Base):
     )
     edge_metadata: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
 
+    text_embedding: Mapped[list[Any] | None] = mapped_column(JSON, nullable=True)
+    embedding_model_version: Mapped[str | None] = mapped_column(String(64), nullable=True)
+
     created_at: Mapped[datetime.datetime] = mapped_column(
         DateTime(timezone=True),
         default=lambda: datetime.datetime.now(datetime.UTC),
@@ -94,6 +98,9 @@ class Report(Base):
     )
     ai_jobs: Mapped[list["AIJob"]] = relationship(
         "AIJob", back_populates="report", cascade="all, delete-orphan"
+    )
+    similarity_matches: Mapped[list["ReportIssueMatch"]] = relationship(
+        "ReportIssueMatch", back_populates="report", cascade="all, delete-orphan"
     )
 
     @property

@@ -1,0 +1,3402 @@
+{
+  "audit_timestamp": "2026-09-13T07:33:34.936429+00:00",
+  "benchmark_sample_count": 300,
+  "benchmark_manifest_hash_verified": true,
+  "total_candidates_checked": 995,
+  "total_passed": 690,
+  "total_rejected": 305,
+  "rejection_breakdown": {
+    "FAILED_EXACT_SHA256": 301,
+    "FAILED_SOURCE_ID": 0,
+    "FAILED_SOURCE_URL": 0,
+    "FAILED_DHASH_NEAR_DUPLICATE": 4
+  },
+  "borderline_samples_count": 31,
+  "rejected_samples": [
+    {
+      "sample_id": "train_pilot_bost311_101006649157",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006649157",
+      "min_dhash_distance": null,
+      "details": "SHA-256 5b4523b0b21de7411944f1bbf044c17ee36bf1fd13408ba952a749dc3a78a4ca matches benchmark sample pilot_bost311_101006649157",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006634172",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006634172",
+      "min_dhash_distance": null,
+      "details": "SHA-256 ef6a754e57d563d463e4764825bb6f8b0167fb5fc5737946b5a74e583d9a871a matches benchmark sample pilot_bost311_101006634172",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006643135",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006643135",
+      "min_dhash_distance": null,
+      "details": "SHA-256 289d4d269ca0cdddf9e779a86880ff3692ac009766dc723c51f8d3e34ed35941 matches benchmark sample pilot_bost311_101006643135",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006630995",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006630995",
+      "min_dhash_distance": null,
+      "details": "SHA-256 69cfd30bcf081a9547c15f77e3e9210252608a97792eca85b2144d7ec7b5d4ef matches benchmark sample pilot_bost311_101006630995",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006632116",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006632116",
+      "min_dhash_distance": null,
+      "details": "SHA-256 ac2c274f5171c61526214aae1e7a83a9c061a44b4d95c82bf6f764dd75e8abc3 matches benchmark sample pilot_bost311_101006632116",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006637002",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006637002",
+      "min_dhash_distance": null,
+      "details": "SHA-256 17b03344a8d5ed14130122c9126517b39d322a665541cf882d1f5e61bc2b111a matches benchmark sample pilot_bost311_101006637002",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006634816",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006634816",
+      "min_dhash_distance": null,
+      "details": "SHA-256 4414a1d10541c8aa0d1acfc8d55a21aa80404859193075f9cb3ec3559925a61b matches benchmark sample pilot_bost311_101006634816",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006645116",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006645116",
+      "min_dhash_distance": null,
+      "details": "SHA-256 85d1425cb9e74554dc47d7bb1a5058e0e22b1a3fa7c8e21c498443534331a911 matches benchmark sample pilot_bost311_101006645116",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006637032",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006637032",
+      "min_dhash_distance": null,
+      "details": "SHA-256 22725165a483b49385795d64eb08187232e7624c9ac7d7a1d19fd62902cbe618 matches benchmark sample pilot_bost311_101006637032",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006643265",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006643265",
+      "min_dhash_distance": null,
+      "details": "SHA-256 7f0b40e9cae9c3df78d4d5ae55c43eef443b02ebdcbe3455c35a9522cfc001ad matches benchmark sample pilot_bost311_101006643265",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006647268",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006647268",
+      "min_dhash_distance": null,
+      "details": "SHA-256 e2f1013f2a27b39b590c15f094074f016fa0c83e05e917d21b3f553625267371 matches benchmark sample pilot_bost311_101006647268",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006647026",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006647026",
+      "min_dhash_distance": null,
+      "details": "SHA-256 553362aad734a5a9c81ada917cc7c04732030e01a7ed2f0f9684fa230cab56fe matches benchmark sample pilot_bost311_101006647026",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006649036",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006649036",
+      "min_dhash_distance": null,
+      "details": "SHA-256 fe4d896b7e59d29723d32ff2755aa79069f3156412a9c7fd2575ca532a6affab matches benchmark sample pilot_bost311_101006649036",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006630905",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006630905",
+      "min_dhash_distance": null,
+      "details": "SHA-256 58c5d7a0dc6f8f1f4627313cf181ced5da368209624fb2abf4458001b6b18229 matches benchmark sample pilot_bost311_101006630905",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006651540",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006651540",
+      "min_dhash_distance": null,
+      "details": "SHA-256 174e92931d37c8bce350673810039b21367bd3f4e52e18967986adc52a078922 matches benchmark sample pilot_bost311_101006651540",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006632558",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006632558",
+      "min_dhash_distance": null,
+      "details": "SHA-256 d881d7413ac309e73dac37bdcb93f09a16162e84526b795c59a689b89d3264b8 matches benchmark sample pilot_bost311_101006632558",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006647686",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006647686",
+      "min_dhash_distance": null,
+      "details": "SHA-256 55cf8d5b95bc7d960a5cdafafe19c3c412985262ddbea78ded9ff616ba2189dd matches benchmark sample pilot_bost311_101006647686",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006653801",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006653801",
+      "min_dhash_distance": null,
+      "details": "SHA-256 6314da16a55579b8a5ff373fd68a56b920889a955c5bdafb64ef632101577b4a matches benchmark sample pilot_bost311_101006653801",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006631566",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006631566",
+      "min_dhash_distance": null,
+      "details": "SHA-256 8334f5c2435d8526ce4c61e3118a37a25dd821ea7f1963edc85d2312ced72e14 matches benchmark sample pilot_bost311_101006631566",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006646268",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006646268",
+      "min_dhash_distance": null,
+      "details": "SHA-256 3cc0b13db69b8627fa463f290d2b205f9f3620ae842c39e76643e347c1a34e92 matches benchmark sample pilot_bost311_101006646268",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006641215",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006641215",
+      "min_dhash_distance": null,
+      "details": "SHA-256 3c200348c79a20d82eff65bb3464fc3ab4860cedf5866dfc453f6efd24b4fcf8 matches benchmark sample pilot_bost311_101006641215",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006632331",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006632331",
+      "min_dhash_distance": null,
+      "details": "SHA-256 49c202fc7b8bba23d51c90dfccb6a62817c8b7a1885fa19833ff1724afabbb24 matches benchmark sample pilot_bost311_101006632331",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006634757",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006634757",
+      "min_dhash_distance": null,
+      "details": "SHA-256 e5439b34244d3953552686a974c37a5144088363cdb6e1549a591b384f83b79a matches benchmark sample pilot_bost311_101006634757",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006649698",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006649698",
+      "min_dhash_distance": null,
+      "details": "SHA-256 ec51c6a6e8154320fb2861e29e806cc39acb3d2a721315b4308ada76b9e9bf88 matches benchmark sample pilot_bost311_101006649698",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006643246",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006643246",
+      "min_dhash_distance": null,
+      "details": "SHA-256 51b68635771e698cc7d4ca5f9e5aeb7b52bbad2ebe2edd52a29dcc9e1b5667a5 matches benchmark sample pilot_bost311_101006643246",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006632580",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006632580",
+      "min_dhash_distance": null,
+      "details": "SHA-256 8dc015e156d25408d5edaaf7c76581da899615e5fd8439db65b498dbfbb3f26f matches benchmark sample pilot_bost311_101006632580",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006657170",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006657170",
+      "min_dhash_distance": null,
+      "details": "SHA-256 301355a03bcdb36c22c3fc74f0e90e62d8396acbe93e8f58cdca63c84e0203bf matches benchmark sample pilot_bost311_101006657170",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006652556",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006652556",
+      "min_dhash_distance": null,
+      "details": "SHA-256 5f5115640af93915ddace825e10aabdffd5d2ad184adb4ea5573ebb6bef75eba matches benchmark sample pilot_bost311_101006652556",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006629508",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006629508",
+      "min_dhash_distance": null,
+      "details": "SHA-256 f2b1267618e32a02d537517cab18e0859eee4b90f349483c485663f2acd36cdf matches benchmark sample pilot_bost311_101006629508",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006648752",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006648752",
+      "min_dhash_distance": null,
+      "details": "SHA-256 0c21c00092fa125fb49ebd4ef6a8da88ff002b69e3ebb3177e04f3455e906247 matches benchmark sample pilot_bost311_101006648752",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006636025",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006636025",
+      "min_dhash_distance": null,
+      "details": "SHA-256 0cdd583d6187bbcf9d176f21aa8a41035797c8356d6956974eb1190f3f157b6b matches benchmark sample pilot_bost311_101006636025",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006636174",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006636174",
+      "min_dhash_distance": null,
+      "details": "SHA-256 e930fc4a7b1d5cc47106a1196d1476c27436b683124c38cce4421cc0b8fa18ad matches benchmark sample pilot_bost311_101006636174",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006649821",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006649821",
+      "min_dhash_distance": null,
+      "details": "SHA-256 026f1c5512bd25d9629fe0f04e7e7b3da8fbd453fe0daa99a5cfaee64374350c matches benchmark sample pilot_bost311_101006649821",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006639889",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006639889",
+      "min_dhash_distance": null,
+      "details": "SHA-256 c87c8256e35e02d4ffbbf1803f8036cff3be3816ea0995bbfc612822884483a6 matches benchmark sample pilot_bost311_101006639889",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006651706",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006651706",
+      "min_dhash_distance": null,
+      "details": "SHA-256 4765df478aff8aea560e8c9d13049ee448a09ba094f02eb8f614b1f3749d2113 matches benchmark sample pilot_bost311_101006651706",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006636970",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006636970",
+      "min_dhash_distance": null,
+      "details": "SHA-256 18025ed7651b80b0b20635b25c7ccddff070cb3a173662a66d1aaf88215bc495 matches benchmark sample pilot_bost311_101006636970",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006630110",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006630110",
+      "min_dhash_distance": null,
+      "details": "SHA-256 d1f2372b6f4588e39e75059d0ac9fc3713d57adca24a8c6992fe6accb25904da matches benchmark sample pilot_bost311_101006630110",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006636896",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006636896",
+      "min_dhash_distance": null,
+      "details": "SHA-256 c3ec5c9c2403ea395c01f9b66d9ef710246943761cef3d77ed5d9cb753070e26 matches benchmark sample pilot_bost311_101006636896",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006629147",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006629147",
+      "min_dhash_distance": null,
+      "details": "SHA-256 689771e188418156a531797d9fbe6d6035a508aa1487aa63331e4781991893c7 matches benchmark sample pilot_bost311_101006629147",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006645666",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006645666",
+      "min_dhash_distance": null,
+      "details": "SHA-256 68c4969d22ac1392f39b63e07cb9f8b86b3f0f1b560ffb79185224b26d44f358 matches benchmark sample pilot_bost311_101006645666",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006639339",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006639339",
+      "min_dhash_distance": null,
+      "details": "SHA-256 99c19082e220ef7e727a525cdaeb38e6a0be1303b10705d15cd6ff3f743df368 matches benchmark sample pilot_bost311_101006639339",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006641843",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006641843",
+      "min_dhash_distance": null,
+      "details": "SHA-256 65d4169f2f5b9f0c69ef91b88bdec92fe51e30f88b7de71362097b52130f0f7b matches benchmark sample pilot_bost311_101006641843",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006435365",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006435365",
+      "min_dhash_distance": null,
+      "details": "SHA-256 6ff34dd9a3b902b890ac923b50b6fe9d88e54397f95bb43e5095793f1137171e matches benchmark sample pilot_bost311_101006435365",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006657904",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006657904",
+      "min_dhash_distance": null,
+      "details": "SHA-256 61223d7c3788d6dcb3eb14a3c9b07760b78e774ed1386a7d7bb70e19c2fa8b28 matches benchmark sample pilot_bost311_101006657904",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006679289",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006679289",
+      "min_dhash_distance": null,
+      "details": "SHA-256 61fc37d116fb3123d083372c549e3cba3c7ab840a87e8097f6f6c94f5a264894 matches benchmark sample pilot_bost311_101006679289",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006656359",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006656359",
+      "min_dhash_distance": null,
+      "details": "SHA-256 772780b0265fa386b553c54ce521f4693f4451a855066ca6581de33e15b8583e matches benchmark sample pilot_bost311_101006656359",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006649062",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006649062",
+      "min_dhash_distance": null,
+      "details": "SHA-256 1f01b3b60ca9814f471080a698a48c4cee0ccfb4062729e52a8e703b6b6196f5 matches benchmark sample pilot_bost311_101006649062",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006649193",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006649062",
+      "min_dhash_distance": null,
+      "details": "SHA-256 1f01b3b60ca9814f471080a698a48c4cee0ccfb4062729e52a8e703b6b6196f5 matches benchmark sample pilot_bost311_101006649062",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006642736",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006642736",
+      "min_dhash_distance": null,
+      "details": "SHA-256 9f365153fd44b9a741df3718798725c939ad3308110534716dcd9867874ffbe9 matches benchmark sample pilot_bost311_101006642736",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006635103",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006635103",
+      "min_dhash_distance": null,
+      "details": "SHA-256 37ab8b0c788994043301a1bd60e9a606fa7f37975558be4926cbc8d2b3c59340 matches benchmark sample pilot_bost311_101006635103",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006654412",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006654412",
+      "min_dhash_distance": null,
+      "details": "SHA-256 e6aa770452c0984803f1d208803a57811161c325fca7eec84852979b7bf1e2cf matches benchmark sample pilot_bost311_101006654412",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006557981",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006557981",
+      "min_dhash_distance": null,
+      "details": "SHA-256 193ecd32189393a29145974629e5253e807895fc0c9d5fe2eb5ca70a40577a93 matches benchmark sample pilot_bost311_101006557981",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006566001",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006566001",
+      "min_dhash_distance": null,
+      "details": "SHA-256 520bc5073b8be9992ff9e1211018a4f594668c7b683d2061a046d9aebd3508b6 matches benchmark sample pilot_bost311_101006566001",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006683087",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006683087",
+      "min_dhash_distance": null,
+      "details": "SHA-256 38a2c2df8b2f34201cebd039b536778d257489a53595a6dde93db25215429c8a matches benchmark sample pilot_bost311_101006683087",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006614678",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006614678",
+      "min_dhash_distance": null,
+      "details": "SHA-256 3bf80a7dc085a24ba3a49258a56d8b346975b4130609f4810278dd2e418efe54 matches benchmark sample pilot_bost311_101006614678",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006566004",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006566004",
+      "min_dhash_distance": null,
+      "details": "SHA-256 3e0e8e8ca86921d56385cc307e3384d7e276bbe0470871f158da2e305f9ce4ba matches benchmark sample pilot_bost311_101006566004",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006640812",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006640812",
+      "min_dhash_distance": null,
+      "details": "SHA-256 5ea180c61c9cb7838be1e63945d6977fff25cc17725410a55510449c56df6c35 matches benchmark sample pilot_bost311_101006640812",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006644831",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006644831",
+      "min_dhash_distance": null,
+      "details": "SHA-256 b8bfa38abd8d669e8d75a3559e8f672bd58353eccc47b7dff2002798eade8c81 matches benchmark sample pilot_bost311_101006644831",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006629609",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006629609",
+      "min_dhash_distance": null,
+      "details": "SHA-256 a1e91b0bdd18474bdb0054222c7af80d616d5be2b64e18f7ee7dbf27309f68df matches benchmark sample pilot_bost311_101006629609",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006654279",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006654279",
+      "min_dhash_distance": null,
+      "details": "SHA-256 2429ab250323abb748975f9c27370bea30a5158c3d97f722839d3cbe598b2327 matches benchmark sample pilot_bost311_101006654279",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006634551",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006634551",
+      "min_dhash_distance": null,
+      "details": "SHA-256 2eabffb43c95ae59e3c19ae5ad59a1b112e72d644073f4a8b5524e64688afea7 matches benchmark sample pilot_bost311_101006634551",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006648251",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006648251",
+      "min_dhash_distance": null,
+      "details": "SHA-256 1706a7f9e3265f8eb152832a37ff0c06b0576f270268a659678ad52db10b3482 matches benchmark sample pilot_bost311_101006648251",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006641518",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006641518",
+      "min_dhash_distance": null,
+      "details": "SHA-256 6eec2af7e41bb8cf8e78be327c4a6cd3e4c6a099cd6a3b33e031e67b548b0a38 matches benchmark sample pilot_bost311_101006641518",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006630560",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006630560",
+      "min_dhash_distance": null,
+      "details": "SHA-256 66fcf8b984a69dbe8ca9610c285d133c6d9d573542c4640de0d89868cf233824 matches benchmark sample pilot_bost311_101006630560",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006643655",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006643655",
+      "min_dhash_distance": null,
+      "details": "SHA-256 ee40ac7f88a6579d64cc298464c177e3a9b316183fd4fa88c38e36860848005f matches benchmark sample pilot_bost311_101006643655",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006650297",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006650297",
+      "min_dhash_distance": null,
+      "details": "SHA-256 62629008c98364c8828dda7d76ca44253c0b656f6328278915e35d33f102140b matches benchmark sample pilot_bost311_101006650297",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006639499",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006639499",
+      "min_dhash_distance": null,
+      "details": "SHA-256 2cb13c9e79ad71bed20cb5ea4b31478df219cd2d0dd55991db88485bc1c2083a matches benchmark sample pilot_bost311_101006639499",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006641306",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006641306",
+      "min_dhash_distance": null,
+      "details": "SHA-256 bd6d96e5d80be7907ae2288cfbfc03aee0e3abb931ea9c8ef71e4777f897324e matches benchmark sample pilot_bost311_101006641306",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006641935",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006641935",
+      "min_dhash_distance": null,
+      "details": "SHA-256 b56a94abefe263ba2d109c77225b5881bea3913d55107156ad8b022999e53d03 matches benchmark sample pilot_bost311_101006641935",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006632792",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006632792",
+      "min_dhash_distance": null,
+      "details": "SHA-256 8da4c40a0bbaddb0f7f7bfcaa46e11a58cfeadcaf642576f87dda1016ad8d3ca matches benchmark sample pilot_bost311_101006632792",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006635297",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006635297",
+      "min_dhash_distance": null,
+      "details": "SHA-256 49b64c59c7339da62ab8a505ffd21e7d3838d6c8d45db407efb9b95ef505687d matches benchmark sample pilot_bost311_101006635297",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006629355",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006629355",
+      "min_dhash_distance": null,
+      "details": "SHA-256 b847062483552d159133719dacf995d69806bda41fc9d839ddd98dd46dda6ba1 matches benchmark sample pilot_bost311_101006629355",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006639877",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006639877",
+      "min_dhash_distance": null,
+      "details": "SHA-256 faf8a8e7fa22a6e111439f8d636127f2b31fa0224e92ab10d847c9faa384878d matches benchmark sample pilot_bost311_101006639877",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006631021",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006631021",
+      "min_dhash_distance": null,
+      "details": "SHA-256 6246ec60987fde08d9bb2c22aaecbd4a29bc3d1527e4227a860768e0930742ab matches benchmark sample pilot_bost311_101006631021",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006647351",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006647351",
+      "min_dhash_distance": null,
+      "details": "SHA-256 ee29da5fd97f9b074f52c505cc30520bee3dbb434d6f09f282596e0f83cf1677 matches benchmark sample pilot_bost311_101006647351",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006508563",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006508563",
+      "min_dhash_distance": null,
+      "details": "SHA-256 d722836ea6a63b64b8b62b5a0db87a67a2737e72225004f8e0151c374e0a1f17 matches benchmark sample pilot_bost311_101006508563",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006637373",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006637373",
+      "min_dhash_distance": null,
+      "details": "SHA-256 029c58bea5200e7e86cd2619e7ef489b279f9365a5f12f051d67e9aba7c3e684 matches benchmark sample pilot_bost311_101006637373",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006604499",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006604499",
+      "min_dhash_distance": null,
+      "details": "SHA-256 3373a3a10ae32efad0b2301884573c7e87cdec38e2f1c4eb8f56f0971b27c9ee matches benchmark sample pilot_bost311_101006604499",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006646261",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006646261",
+      "min_dhash_distance": null,
+      "details": "SHA-256 93c7fd56b9aa14274ffe79140ad78d7ddd707c47452da783b304e509ea7a008c matches benchmark sample pilot_bost311_101006646261",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006648071",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006648071",
+      "min_dhash_distance": null,
+      "details": "SHA-256 6b1baad56651b9c4971651d4a6d834780584a2cdc9bac6d94b32fdfd3351e3c3 matches benchmark sample pilot_bost311_101006648071",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006642162",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006642162",
+      "min_dhash_distance": null,
+      "details": "SHA-256 fd431a85a6e3465313d1d51b47dd3fe5d6053335a6c5ce463cbc9742766aa78e matches benchmark sample pilot_bost311_101006642162",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006634000",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006634000",
+      "min_dhash_distance": null,
+      "details": "SHA-256 e0f5a10000b3870f5b33f7ddf64abf085888ccb6cd5e811a567884b9614fed1b matches benchmark sample pilot_bost311_101006634000",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006634575",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006634575",
+      "min_dhash_distance": null,
+      "details": "SHA-256 3c7ad48d5460d56acc495ba91b4030d762f5ca1f456f8d82a5a076118289f71f matches benchmark sample pilot_bost311_101006634575",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006637571",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006637571",
+      "min_dhash_distance": null,
+      "details": "SHA-256 e04e6cdd4e5b20c44d2ec90b069f9c984c7ef5d440e5094a6975d146421b1f9a matches benchmark sample pilot_bost311_101006637571",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006638262",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006638262",
+      "min_dhash_distance": null,
+      "details": "SHA-256 e857f8ebb9e28936617e585bc63518292cb92fefedb915ad4a8af3aa59def9ad matches benchmark sample pilot_bost311_101006638262",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006637550",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006637550",
+      "min_dhash_distance": null,
+      "details": "SHA-256 713f15eae45fa89a9e07c001ba0d383a15538d25b378040baa92cc87218c1a4c matches benchmark sample pilot_bost311_101006637550",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006656797",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006656797",
+      "min_dhash_distance": null,
+      "details": "SHA-256 a259001cb4f9a1b328ba8fbc5e8ce76d59ab1c9245c50ed25ab57304d8ad8a30 matches benchmark sample pilot_bost311_101006656797",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006632687",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006632687",
+      "min_dhash_distance": null,
+      "details": "SHA-256 b872a93e8cf98f5eea24468470a0f48b9921b676dec010328c7e167f1f8f64e8 matches benchmark sample pilot_bost311_101006632687",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006632678",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006632678",
+      "min_dhash_distance": null,
+      "details": "SHA-256 8d6703e1ee983e424d30df23d7cff80083612fc4770f7852af628822fc6f7d3e matches benchmark sample pilot_bost311_101006632678",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006629511",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006629511",
+      "min_dhash_distance": null,
+      "details": "SHA-256 44a7a2d4b5ee73270b9613adc83b1cf878bcfcd584e7cc202d720dc198c6d576 matches benchmark sample pilot_bost311_101006629511",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006635466",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006635466",
+      "min_dhash_distance": null,
+      "details": "SHA-256 33c844bde09f359e7b4d0012e0e566dd6a9217f793c139fa51540a40d1d0f7dd matches benchmark sample pilot_bost311_101006635466",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006645845",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006645845",
+      "min_dhash_distance": null,
+      "details": "SHA-256 8fbb9cb392221170351fa373d7740cb1feb8a4d1fa462a5c3107879d7813814a matches benchmark sample pilot_bost311_101006645845",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006655893",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006655893",
+      "min_dhash_distance": null,
+      "details": "SHA-256 5b7e3cedd9fa2f88c85e7e249fb192baa00d560e504f5a9c0f58c9871759a557 matches benchmark sample pilot_bost311_101006655893",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006650391",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006650391",
+      "min_dhash_distance": null,
+      "details": "SHA-256 a16c8e48a07585ff2cc9d6e954597d2ad7ddd4cfbaa015f5f74f605cad4b9696 matches benchmark sample pilot_bost311_101006650391",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006650230",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006650230",
+      "min_dhash_distance": null,
+      "details": "SHA-256 99562e88ed7e12fd14f87943f6048700a60fd8b4407e8d5788417d739dda5866 matches benchmark sample pilot_bost311_101006650230",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006630007",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006630007",
+      "min_dhash_distance": null,
+      "details": "SHA-256 9d7c3bfd9947aed7e16ca26a365b39c90e4c25eb1a5d8408c7630e1663f97428 matches benchmark sample pilot_bost311_101006630007",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006637134",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006637134",
+      "min_dhash_distance": null,
+      "details": "SHA-256 45d2ff7c95d0f0627751af9f399f7fc1a5e16c07ef8d5edac987266f3e881d04 matches benchmark sample pilot_bost311_101006637134",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006651575",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006651575",
+      "min_dhash_distance": null,
+      "details": "SHA-256 c04f232024d70fc1de2b828a57baec0807a5f6ba18f836db1346684efbb07dcf matches benchmark sample pilot_bost311_101006651575",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006635658",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006635658",
+      "min_dhash_distance": null,
+      "details": "SHA-256 9030a65bb314b1c4e1287bfe2bf36d9cf1a5aba81d5e0f803928be70238543b2 matches benchmark sample pilot_bost311_101006635658",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006631165",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006631165",
+      "min_dhash_distance": null,
+      "details": "SHA-256 7e93b43195d965843b4351333fb2864e2634f7766a467045f6320a1cb3c40208 matches benchmark sample pilot_bost311_101006631165",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006650008",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006650008",
+      "min_dhash_distance": null,
+      "details": "SHA-256 49f0e11bb07b07de2ba321bef225a4181911c690ba94c0ec4c56e6577b97768b matches benchmark sample pilot_bost311_101006650008",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006651657",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006651657",
+      "min_dhash_distance": null,
+      "details": "SHA-256 b7bce170a0abf0ae6bf52f7bad1e0b9a5e6accf60c7b5ae0b27256284aa370f3 matches benchmark sample pilot_bost311_101006651657",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006633206",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006633206",
+      "min_dhash_distance": null,
+      "details": "SHA-256 7c125e0f283f138b7839d8055c8f1a7638790e2cccaa06f22f0fac5b481c298f matches benchmark sample pilot_bost311_101006633206",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006654525",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006654525",
+      "min_dhash_distance": null,
+      "details": "SHA-256 788b6ab44b7314d76c48c01f3978d07237967eaacb04a3d72e85cafe302eccb1 matches benchmark sample pilot_bost311_101006654525",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006640288",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006640288",
+      "min_dhash_distance": null,
+      "details": "SHA-256 844e43d1c76f55bccdb8a901cfb732bd592967e410f6649bba160defa75841f3 matches benchmark sample pilot_bost311_101006640288",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006654912",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006654912",
+      "min_dhash_distance": null,
+      "details": "SHA-256 053b20971eb5bdd128ebbfb06705d83a4d9131cc588b508f2d81c156bf502570 matches benchmark sample pilot_bost311_101006654912",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006523873",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006523873",
+      "min_dhash_distance": null,
+      "details": "SHA-256 8819c5efe109973b50dd1b2d2da888d472403663421750800469bf4952551ccf matches benchmark sample pilot_bost311_101006523873",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006466867",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006466867",
+      "min_dhash_distance": null,
+      "details": "SHA-256 b294630ceceb3a8f68bb0dddbd39756c6df5011e2bdf9e177e85e6837b153d70 matches benchmark sample pilot_bost311_101006466867",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006639986",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006639986",
+      "min_dhash_distance": null,
+      "details": "SHA-256 664fdb55b0dddcf5d643b7d7485d4b71b00e4382815aba97321126fa7face9b1 matches benchmark sample pilot_bost311_101006639986",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006634261",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006634261",
+      "min_dhash_distance": null,
+      "details": "SHA-256 c84d559f69822bb3c0d37e915583b918cae785a800552330300bdc54c5c20ee1 matches benchmark sample pilot_bost311_101006634261",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006636175",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006636175",
+      "min_dhash_distance": null,
+      "details": "SHA-256 98979a9e0767baf9f114b83e1fad7b2f499ab7545eafdd3dba30a1dbca8cf73f matches benchmark sample pilot_bost311_101006636175",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006648393",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006648393",
+      "min_dhash_distance": null,
+      "details": "SHA-256 b97bf9ee54deb6127b614523097d5eff8a5dc1c77cb9be38f47c5b22d22d5416 matches benchmark sample pilot_bost311_101006648393",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006639789",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006639789",
+      "min_dhash_distance": null,
+      "details": "SHA-256 0bdd17dd6c9c93f81a1ded40a235d84639d22615f8e9d00c2e32fb9172c32731 matches benchmark sample pilot_bost311_101006639789",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006635581",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006635581",
+      "min_dhash_distance": null,
+      "details": "SHA-256 2f190132b517e16156e6d5e7d56097a5a5da90e538c4fdb76a3b70781bcefe9e matches benchmark sample pilot_bost311_101006635581",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006641347",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006641347",
+      "min_dhash_distance": null,
+      "details": "SHA-256 fd9cc99bd88f01922d2e092c94550750cc961c9d45314b6e8af652a8badbad48 matches benchmark sample pilot_bost311_101006641347",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006645737",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006645737",
+      "min_dhash_distance": null,
+      "details": "SHA-256 b238beeabb3d48be7b0c714cf1caaade22cf4b2487c0ba58c8c4d57143a8db33 matches benchmark sample pilot_bost311_101006645737",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006645331",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006645331",
+      "min_dhash_distance": null,
+      "details": "SHA-256 14517a7620314fb6335a310a8a62790e25cbe469cb7bc8cd8d072249555a1159 matches benchmark sample pilot_bost311_101006645331",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006630313",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006630313",
+      "min_dhash_distance": null,
+      "details": "SHA-256 e722db43783e7f37d5a54116949897c01537d5dba86418d3baa6ac72970e8584 matches benchmark sample pilot_bost311_101006630313",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006638493",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006638493",
+      "min_dhash_distance": null,
+      "details": "SHA-256 b537f932fd25b3646fe4157b2835f46fbfc15b0be8f466b346719c2225cee4d2 matches benchmark sample pilot_bost311_101006638493",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006650200",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006650200",
+      "min_dhash_distance": null,
+      "details": "SHA-256 4243e9a187b58f7ae4f9e43f32856c7a3fc2d427284fd813554346184f258578 matches benchmark sample pilot_bost311_101006650200",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006655263",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006655263",
+      "min_dhash_distance": null,
+      "details": "SHA-256 3283b0cdc0a1e3d3c25e35d4b8b3c391f940bdc512673a442620e3e2b992c15a matches benchmark sample pilot_bost311_101006655263",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006635475",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006635475",
+      "min_dhash_distance": null,
+      "details": "SHA-256 d84f8c4bb93bf9d6e5b543be01ff08491af048c543512f16f426ceb08b9c6b4c matches benchmark sample pilot_bost311_101006635475",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006643820",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006643820",
+      "min_dhash_distance": null,
+      "details": "SHA-256 40a0d9a90aa27c05c54efb03f88aa5da47e4f330b9a7ef996634ee3ea4d8e2bf matches benchmark sample pilot_bost311_101006643820",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006656437",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006656437",
+      "min_dhash_distance": null,
+      "details": "SHA-256 30cdc05a38d8eec93d7ef689121b7bf8a253857757cee887a0f6c6a51b20a2ac matches benchmark sample pilot_bost311_101006656437",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006640422",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006640422",
+      "min_dhash_distance": null,
+      "details": "SHA-256 d6afcdf7ddb3ab05206fa6f7c267eef1b7b8258914fca783dc6bf770b9192ffd matches benchmark sample pilot_bost311_101006640422",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006636718",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006636718",
+      "min_dhash_distance": null,
+      "details": "SHA-256 ffcf9bd98fc43576e6b07ed3dee80512f171adbad80c0f539012564d4428ae91 matches benchmark sample pilot_bost311_101006636718",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006632025",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006632025",
+      "min_dhash_distance": null,
+      "details": "SHA-256 c24b8201521c215337acb0e0af31639ffc033936b53d47a9e74afd4e0b3035b2 matches benchmark sample pilot_bost311_101006632025",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006630732",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006630732",
+      "min_dhash_distance": null,
+      "details": "SHA-256 e2ef869228537d1fe3cc2072154e586e957d0fa09b0aeabc957a934b65ae3337 matches benchmark sample pilot_bost311_101006630732",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006652470",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006652470",
+      "min_dhash_distance": null,
+      "details": "SHA-256 c082643feb0ad25ec03f1d3c27b5750704ed8a39bc6b83eaec7c1131126596ef matches benchmark sample pilot_bost311_101006652470",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006634863",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006634863",
+      "min_dhash_distance": null,
+      "details": "SHA-256 4f7c6e0500cd61e84b3632f035666f12fb5ba73f8d1fe167348f16e6b2cffc0c matches benchmark sample pilot_bost311_101006634863",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006639008",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006639008",
+      "min_dhash_distance": null,
+      "details": "SHA-256 ebbb5a5f447177c105ada6cf3b145152562af1eba5b06a2cdeceb012a6edb606 matches benchmark sample pilot_bost311_101006639008",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006678496",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006678496",
+      "min_dhash_distance": null,
+      "details": "SHA-256 e19b379ebf4a19f295cb8fb5af544f4f0d326b6af03a5e8f5fd76a474f97edf3 matches benchmark sample pilot_bost311_101006678496",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006646597",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006646597",
+      "min_dhash_distance": null,
+      "details": "SHA-256 75b2b81530042593dca503fcc27b3a9ec29d014e80c65f285cde80375f39716d matches benchmark sample pilot_bost311_101006646597",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006641039",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006641039",
+      "min_dhash_distance": null,
+      "details": "SHA-256 636a9eaa5e092f38aa08a14d5b13bdb4e2714f4343903f2c2a84985bf4f84430 matches benchmark sample pilot_bost311_101006641039",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006630318",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006630318",
+      "min_dhash_distance": null,
+      "details": "SHA-256 6507afe8db4080c91afeed5eafa445bd2c730a8a5b8c5d42c7a74d347af0534b matches benchmark sample pilot_bost311_101006630318",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006629244",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006629244",
+      "min_dhash_distance": null,
+      "details": "SHA-256 fae072c4acc4796fd37bdf2d02137b10f194033094f13dd233667109d5ca8fac matches benchmark sample pilot_bost311_101006629244",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006652204",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006652204",
+      "min_dhash_distance": null,
+      "details": "SHA-256 ca1b6d599ad2814dc1229676931c037ddae94b7ba0536376d3ecadd041427dff matches benchmark sample pilot_bost311_101006652204",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006632983",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006632983",
+      "min_dhash_distance": null,
+      "details": "SHA-256 5ce2a4a1da28051a389a45d5b1665c4ff1aec075890bf18be1ff21494f90660a matches benchmark sample pilot_bost311_101006632983",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006649548",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006649548",
+      "min_dhash_distance": null,
+      "details": "SHA-256 d9e79d0110d93dfdfae6218ceb40990113cf7c0ceec8513fa8c8aadcbb1e1b1a matches benchmark sample pilot_bost311_101006649548",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006629215",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006629215",
+      "min_dhash_distance": null,
+      "details": "SHA-256 e606d45beaa12918468370d0d3e6502be3c4edb34eab7ae9a44920b1dfd1de19 matches benchmark sample pilot_bost311_101006629215",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006653632",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006653632",
+      "min_dhash_distance": null,
+      "details": "SHA-256 2e60500e88f5404e31e512da85cfd99566f22c6ccd170a3d2b76d2af7640bc1e matches benchmark sample pilot_bost311_101006653632",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006645996",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006645996",
+      "min_dhash_distance": null,
+      "details": "SHA-256 d90fe1ba849a73d5aa28fd6bfb6151bd9e72b74bda6eda7db6dfcddf852416ac matches benchmark sample pilot_bost311_101006645996",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006635410",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006635410",
+      "min_dhash_distance": null,
+      "details": "SHA-256 4da7fbfb95462e7221651bdfe4eb29bf848969e32008dd115fcbce702f98b145 matches benchmark sample pilot_bost311_101006635410",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006640239",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006640239",
+      "min_dhash_distance": null,
+      "details": "SHA-256 0c0f4c1ef13f636d1e1898ae5d9a111e7396dc96a5f0d09514a393139b3d1b8c matches benchmark sample pilot_bost311_101006640239",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006657204",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006657204",
+      "min_dhash_distance": null,
+      "details": "SHA-256 b9df17e4ef618dab2e4c85d1197930b25cba2f126ab6b1ea2e14ddc565ca6fed matches benchmark sample pilot_bost311_101006657204",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006631075",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006631075",
+      "min_dhash_distance": null,
+      "details": "SHA-256 f92246186df6999784d26738168c252e9cc9054a93fb6eabec766a905b78ed65 matches benchmark sample pilot_bost311_101006631075",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006640366",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006640366",
+      "min_dhash_distance": null,
+      "details": "SHA-256 97bc2e76986b3abf43dd79d5449be6b684a5b0b4b0407496a342b9a825e560f2 matches benchmark sample pilot_bost311_101006640366",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006643968",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006643968",
+      "min_dhash_distance": null,
+      "details": "SHA-256 f7d54caf240c77d0ede580da29922ba3ca6c0f11d209288badc046ae897a07d8 matches benchmark sample pilot_bost311_101006643968",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006630810",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006630810",
+      "min_dhash_distance": null,
+      "details": "SHA-256 48f9f3ac7756ba807a0baec64d5e72392ca13fb5283744f2f495db20722c75b5 matches benchmark sample pilot_bost311_101006630810",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006649686",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006649686",
+      "min_dhash_distance": null,
+      "details": "SHA-256 e49c01dba21642beac5fb219fde2f249a4adc125db2a442a7ff76277c5e81cd3 matches benchmark sample pilot_bost311_101006649686",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006640358",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006640358",
+      "min_dhash_distance": null,
+      "details": "SHA-256 a977bd35ba3a44c04db44f932d00f7637ac46c341ee89aa0150586ddc82f1b1c matches benchmark sample pilot_bost311_101006640358",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006636016",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006636016",
+      "min_dhash_distance": null,
+      "details": "SHA-256 68037128733e4eb0b2d4cc3a5eacc31e642ac626a34e1684c8da56f6a976fccb matches benchmark sample pilot_bost311_101006636016",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006639268",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006639268",
+      "min_dhash_distance": null,
+      "details": "SHA-256 190bcf578ea16482f7eec0008677cab5f7906db2f7ace11a38c112afe47e4e83 matches benchmark sample pilot_bost311_101006639268",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006656374",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006656374",
+      "min_dhash_distance": null,
+      "details": "SHA-256 2014356f8e23729f1997cad49020264ae1c46538184bf3c48ee68e196f823ff0 matches benchmark sample pilot_bost311_101006656374",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006636603",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006636603",
+      "min_dhash_distance": null,
+      "details": "SHA-256 58f01c1108ec63c87f5c106823f7f8ce7cc7c45166ca2f417b12824468719aad matches benchmark sample pilot_bost311_101006636603",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006634597",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006634597",
+      "min_dhash_distance": null,
+      "details": "SHA-256 699543ea8ba94fc002065730b9ef253f0d18c4d87ecff514449c6bd8a3f6821f matches benchmark sample pilot_bost311_101006634597",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006638972",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006638972",
+      "min_dhash_distance": null,
+      "details": "SHA-256 c7634523afedc34119bd7d0bfd95f39d9fc0b0c6fd7bf73c4c5b2b172513a62b matches benchmark sample pilot_bost311_101006638972",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006654869",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_bost311_101006654869",
+      "min_dhash_distance": null,
+      "details": "SHA-256 e6409524c37c210ffa36336e88123c617caee5f04d8fa9c389f472afbea73940 matches benchmark sample pilot_bost311_101006654869",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_92242638",
+      "status": "FAILED_DHASH_NEAR_DUPLICATE",
+      "passed": false,
+      "rejection_reason": "Perceptual near-duplicate: dHash Hamming distance 3 <= 6 to benchmark sample pilot_wmroad_193696778",
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 3,
+      "details": "Candidate dHash 0001010000000000 has Hamming distance 3 to benchmark sample pilot_wmroad_193696778",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_153145300",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_153145300",
+      "min_dhash_distance": null,
+      "details": "SHA-256 fef81ce02a7de8830a81108235b69f70fd148026789b7f8f9e6249853e802a61 matches benchmark sample pilot_wmroad_153145300",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_91941220",
+      "status": "FAILED_DHASH_NEAR_DUPLICATE",
+      "passed": false,
+      "rejection_reason": "Perceptual near-duplicate: dHash Hamming distance 1 <= 6 to benchmark sample pilot_wmroad_193696778",
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 1,
+      "details": "Candidate dHash 0000000000000000 has Hamming distance 1 to benchmark sample pilot_wmroad_193696778",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_91981361",
+      "status": "FAILED_DHASH_NEAR_DUPLICATE",
+      "passed": false,
+      "rejection_reason": "Perceptual near-duplicate: dHash Hamming distance 3 <= 6 to benchmark sample pilot_wmroad_193696778",
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 3,
+      "details": "Candidate dHash 0000010100000000 has Hamming distance 3 to benchmark sample pilot_wmroad_193696778",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_153185838",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_153185838",
+      "min_dhash_distance": null,
+      "details": "SHA-256 f4d0d416116ec914b7e250f43e24817a5edda31c4ab9adc68d9f7bd3500c5966 matches benchmark sample pilot_wmroad_153185838",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_156854517",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_156854517",
+      "min_dhash_distance": null,
+      "details": "SHA-256 482246ffa3684e4605493d2762dda5f6a445e766a193c51a1d0652254677a668 matches benchmark sample pilot_wmroad_156854517",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_194864858",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_194864858",
+      "min_dhash_distance": null,
+      "details": "SHA-256 69caa5e39a508a4cd6c9bf63b4ff3b2ea71f5a5ced51a8b1655988fe2f97d04b matches benchmark sample pilot_wmroad_194864858",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_196374963",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_196374963",
+      "min_dhash_distance": null,
+      "details": "SHA-256 16073a2cd77c1a22d8a30a8b60d9167954dfab1016dd6e071f57567f34c1cf32 matches benchmark sample pilot_wmroad_196374963",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_196374957",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_196374957",
+      "min_dhash_distance": null,
+      "details": "SHA-256 1ac9d006a1cb8bb6bdca174c039f38ed07b630515338859f7bb5091c5aba8141 matches benchmark sample pilot_wmroad_196374957",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_196374964",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_196374964",
+      "min_dhash_distance": null,
+      "details": "SHA-256 3f6e92969da2cd53b4144f145c9ad9efc344dd68a799b2654a108de1b850a1fb matches benchmark sample pilot_wmroad_196374964",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_181744036",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_181744036",
+      "min_dhash_distance": null,
+      "details": "SHA-256 96af485bf7416f8b6f7f162678ad20de6cdd5e8553ff029b6153ce69147556a8 matches benchmark sample pilot_wmroad_181744036",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_181942887",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_181942887",
+      "min_dhash_distance": null,
+      "details": "SHA-256 cc29008bbbf5b376606dc5cb2795c33a57009f59f48cdaf39c31a5215472a7a5 matches benchmark sample pilot_wmroad_181942887",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_182783850",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_182783850",
+      "min_dhash_distance": null,
+      "details": "SHA-256 fb9ece1c998db463aaeda31e816645922f1028633d5ac0152031ad3df126c417 matches benchmark sample pilot_wmroad_182783850",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_133470903",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_133470903",
+      "min_dhash_distance": null,
+      "details": "SHA-256 c2b527aa5cebd1fd1a31951b3ba863cc0f36dbf804d01730b46de4d5e27923f6 matches benchmark sample pilot_wmroad_133470903",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_182056315",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_182056315",
+      "min_dhash_distance": null,
+      "details": "SHA-256 b130e985cee2270fbf7794275488495f8d4f9a275582c5d1e6caebe07be72b7f matches benchmark sample pilot_wmroad_182056315",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_186567795",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_186567795",
+      "min_dhash_distance": null,
+      "details": "SHA-256 df06479956fa5d192dd40e246a6af57d40c96d7a7d16271681168aa4d4869583 matches benchmark sample pilot_wmroad_186567795",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_182055779",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_182055779",
+      "min_dhash_distance": null,
+      "details": "SHA-256 afc92c6563c1d721a8991a75be9b389d7ba0a09be3cbd0eb091b2187321b638a matches benchmark sample pilot_wmroad_182055779",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_182056166",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_182056166",
+      "min_dhash_distance": null,
+      "details": "SHA-256 f1584440339d911dd3c0903f17ae3868362549a4fb47d2d53ca7bd0d276c892f matches benchmark sample pilot_wmroad_182056166",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_182056092",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_182056092",
+      "min_dhash_distance": null,
+      "details": "SHA-256 2c553e1c4ccd2957f29312feda7cb73158d11f3465b4009e746337605f06427b matches benchmark sample pilot_wmroad_182056092",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_182055766",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_182055766",
+      "min_dhash_distance": null,
+      "details": "SHA-256 cdc7ad70acddbe7fa4e8edbf4cb8ab45ed99a7c38863a4692f175e42f8894fe4 matches benchmark sample pilot_wmroad_182055766",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_132804743",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_132804743",
+      "min_dhash_distance": null,
+      "details": "SHA-256 cb83a79a8a9d62cf10017bcf9e357f880066c904196ea9a72846a767cd254ae8 matches benchmark sample pilot_wmroad_132804743",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_93941235",
+      "status": "FAILED_DHASH_NEAR_DUPLICATE",
+      "passed": false,
+      "rejection_reason": "Perceptual near-duplicate: dHash Hamming distance 5 <= 6 to benchmark sample pilot_wmroad_193696778",
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 5,
+      "details": "Candidate dHash 80040c0000000000 has Hamming distance 5 to benchmark sample pilot_wmroad_193696778",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_181492124",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_181492124",
+      "min_dhash_distance": null,
+      "details": "SHA-256 3b2d55497b3f9938bf057e1df96a145a09b5e9d91d285f1dd8b2dfbdb91aed9b matches benchmark sample pilot_wmroad_181492124",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_181543668",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_181543668",
+      "min_dhash_distance": null,
+      "details": "SHA-256 f58234aafb84ca874f6ea25d022d3d5f284215de1701eeb3ceb4692dab465cc2 matches benchmark sample pilot_wmroad_181543668",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_181463244",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_181463244",
+      "min_dhash_distance": null,
+      "details": "SHA-256 0f6dc0009abe336673e892b34518ae3d6560e5f9f6dad7c48538e3ae85f56bed matches benchmark sample pilot_wmroad_181463244",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_181432613",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_181432613",
+      "min_dhash_distance": null,
+      "details": "SHA-256 dde7bbcdf0550287490493c191b0a3bac982e0023dcb3e9330beb5c1e6857018 matches benchmark sample pilot_wmroad_181432613",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_181432614",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_181432614",
+      "min_dhash_distance": null,
+      "details": "SHA-256 21f382c13e988ee9f93f24155aaf1f66b92b60a957b7bcaa4a923c56b4c7f5ac matches benchmark sample pilot_wmroad_181432614",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_181433541",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_181433541",
+      "min_dhash_distance": null,
+      "details": "SHA-256 64d6365e93d81818055a6a620d544394b08dc01a0482c42f96569ee6826a124e matches benchmark sample pilot_wmroad_181433541",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_182429848",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_182429848",
+      "min_dhash_distance": null,
+      "details": "SHA-256 cf33261f753f956cced1b744fd19669964fcab242cfdaeffe53ca4cc460421aa matches benchmark sample pilot_wmroad_182429848",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_181433714",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_181433714",
+      "min_dhash_distance": null,
+      "details": "SHA-256 03c156b94a6b0862ee0b1f67bd74ec118000015cf8449201caa5a83e52491c7b matches benchmark sample pilot_wmroad_181433714",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_182687811",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_182687811",
+      "min_dhash_distance": null,
+      "details": "SHA-256 34a79d16d82b9fbc1d815724526ada12c420ada0d366923eafc23f0dc893bf4d matches benchmark sample pilot_wmroad_182687811",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_181540714",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_181540714",
+      "min_dhash_distance": null,
+      "details": "SHA-256 8a7f657f55ea2f5b78b0430a7a0839bb5ddab309fa3f7f2a0815d7cd2cd5dede matches benchmark sample pilot_wmroad_181540714",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_181867647",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_181867647",
+      "min_dhash_distance": null,
+      "details": "SHA-256 a99a9721cb34dee077ba5654e526c78c6fe9a917e2aff024c073cedc0203f57e matches benchmark sample pilot_wmroad_181867647",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_153181091",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_153181091",
+      "min_dhash_distance": null,
+      "details": "SHA-256 ff603a9d45aa64785f932fccc68eb89e050468bfb9c7ab3f0dfaf9e0507915bd matches benchmark sample pilot_wmroad_153181091",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_181611821",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_181611821",
+      "min_dhash_distance": null,
+      "details": "SHA-256 f329a6d8a3202f3df1ff0d3008d915e0835d29d9f2c2bd780323366cf4b07eb5 matches benchmark sample pilot_wmroad_181611821",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_181611887",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_181611887",
+      "min_dhash_distance": null,
+      "details": "SHA-256 5c5e868f750f428ba1f25df7f1a1a0c7bd11998f3d6aa7c7f3a07f328316e5b5 matches benchmark sample pilot_wmroad_181611887",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_182003057",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_182003057",
+      "min_dhash_distance": null,
+      "details": "SHA-256 d5cb0f86249752ee393a7acae76ebd16123328d6789a7e3d90ba4504b71799c4 matches benchmark sample pilot_wmroad_182003057",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_182002543",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_182002543",
+      "min_dhash_distance": null,
+      "details": "SHA-256 f2981aa026d39aaefeb59cf519e1914e05ff229bf8eca6ae80422a5305ccf8cc matches benchmark sample pilot_wmroad_182002543",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_182059871",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_182059871",
+      "min_dhash_distance": null,
+      "details": "SHA-256 10ea16834750a19643861aaea11b5031e4c8c1662ede4458156e00e43cbee6cb matches benchmark sample pilot_wmroad_182059871",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_182058896",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_182058896",
+      "min_dhash_distance": null,
+      "details": "SHA-256 c931990de0dfbc74dcdfe0ae5c7edd11ef07f0eedf826b231688425222b80994 matches benchmark sample pilot_wmroad_182058896",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_181579429",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_181579429",
+      "min_dhash_distance": null,
+      "details": "SHA-256 396e5d3a73228078e9ab7cf711e2da4c62a818e5e4f8076bd2cd130046c29384 matches benchmark sample pilot_wmroad_181579429",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_24920706",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_24920706",
+      "min_dhash_distance": null,
+      "details": "SHA-256 4a346511a0dd1ed96901b202f652951b5d6b58c85dc5a9a3ca87a256be78822e matches benchmark sample pilot_wmroad_24920706",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_158737643",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_158737643",
+      "min_dhash_distance": null,
+      "details": "SHA-256 1d23a65af34fae928964852fbad5f4dd2570c217f9e3e6ca016803c31d1ffcdc matches benchmark sample pilot_wmroad_158737643",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_193690231",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_193690231",
+      "min_dhash_distance": null,
+      "details": "SHA-256 f8a62680ac65e195fde43c7f75187a630f762abc8371ac4120a828eba3c9130b matches benchmark sample pilot_wmroad_193690231",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_193694220",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_193694220",
+      "min_dhash_distance": null,
+      "details": "SHA-256 2f6172188e8eddbdf2e38da460182bf02ddde807edb792ccf6c4c10c93d2a1ff matches benchmark sample pilot_wmroad_193694220",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_193696778",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": null,
+      "details": "SHA-256 aa5d71b827b329fb53bfc6b2bb40afc3c74777f4cc5808bc415deaee6c5f0cb8 matches benchmark sample pilot_wmroad_193696778",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_193721876",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_193721876",
+      "min_dhash_distance": null,
+      "details": "SHA-256 3243252596af775b47c6c48fdf137d0ea7aa230dfaca22d61de3fe0bf99a0905 matches benchmark sample pilot_wmroad_193721876",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_195084680",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_195084680",
+      "min_dhash_distance": null,
+      "details": "SHA-256 6a53a398380bb43cccc0d56d7d646e4bcf5d0e14d353a4d77ef2d48b130258c9 matches benchmark sample pilot_wmroad_195084680",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmroad_152999334",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmroad_152999334",
+      "min_dhash_distance": null,
+      "details": "SHA-256 34fb0f2022034c02391ba55a2652e45c4e4fe43f2e7717dca42a919b6404f9e8 matches benchmark sample pilot_wmroad_152999334",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_188999095",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_188999095",
+      "min_dhash_distance": null,
+      "details": "SHA-256 f1eef9b72935012609982b07d4343736411bbe38ebdf7a70b69a0fa56f38055f matches benchmark sample pilot_wmlight_188999095",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_112463879",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_112463879",
+      "min_dhash_distance": null,
+      "details": "SHA-256 55f2d011824b2170e5f5f048e608db899ce7cf5cae54534f99952682f6e6ccae matches benchmark sample pilot_wmlight_112463879",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_112463878",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_112463878",
+      "min_dhash_distance": null,
+      "details": "SHA-256 b785a3d7f6edc9ac45751c24b2872a66e8bd18a4c811e80847579150fd569651 matches benchmark sample pilot_wmlight_112463878",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_112463881",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_112463881",
+      "min_dhash_distance": null,
+      "details": "SHA-256 aab29ff5272b789f128419b6da29a81f4aa114a005143105d6369052473b39df matches benchmark sample pilot_wmlight_112463881",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_112463882",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_112463882",
+      "min_dhash_distance": null,
+      "details": "SHA-256 d1ff0e10eff47cf1f7647cf407bdb7b63585f10061cd6780291001372ab4da91 matches benchmark sample pilot_wmlight_112463882",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_112463883",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_112463883",
+      "min_dhash_distance": null,
+      "details": "SHA-256 45591474e7d794ee88a3e4a4b9e184a16358d0fbe6d5b0777b62619cd4c87582 matches benchmark sample pilot_wmlight_112463883",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_112463884",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_112463884",
+      "min_dhash_distance": null,
+      "details": "SHA-256 663ec4085d259f2f974fcc80c349c06ece173b75149b1ba0466b4cd6f15fc2ff matches benchmark sample pilot_wmlight_112463884",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_151751878",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_151751878",
+      "min_dhash_distance": null,
+      "details": "SHA-256 67bb71cc06f02115fd6e44eb486bba47bdad300dd6d4705a795b07ee816f0da9 matches benchmark sample pilot_wmlight_151751878",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_101434775",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_101434775",
+      "min_dhash_distance": null,
+      "details": "SHA-256 4c450df90e54cd2c240217fb533c5a9883f269352282b4d8a22dca5589813877 matches benchmark sample pilot_wmlight_101434775",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_101434778",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_101434778",
+      "min_dhash_distance": null,
+      "details": "SHA-256 e9f6e850bc8d009ffaa6a92b76f19675ef4cd9517acc486e0bb8d73f64d09466 matches benchmark sample pilot_wmlight_101434778",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_101434789",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_101434789",
+      "min_dhash_distance": null,
+      "details": "SHA-256 fce2a4beb6b71fc37f12c5eacc639e075103ccd12c3f527fc1d254e3e5e22359 matches benchmark sample pilot_wmlight_101434789",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_101434785",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_101434785",
+      "min_dhash_distance": null,
+      "details": "SHA-256 e788f6e967ecb0d4c11e323e9a7d7d4188f6e6949c457992cd29965a699fa2a5 matches benchmark sample pilot_wmlight_101434785",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_101434796",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_101434796",
+      "min_dhash_distance": null,
+      "details": "SHA-256 2a0109b46d154860743f510b3627a9c7e05b6d1d63a14b4a21921c410631e5f1 matches benchmark sample pilot_wmlight_101434796",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_101434804",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_101434804",
+      "min_dhash_distance": null,
+      "details": "SHA-256 e38d901a50fdaee960767c61d6df07e9771aea7bf29f30a627ebecdf862525ff matches benchmark sample pilot_wmlight_101434804",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_113586939",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_113586939",
+      "min_dhash_distance": null,
+      "details": "SHA-256 9e79701cec7179aefbd138ef09f2048ce300d607e95c8d92ab344dc1bbebe96f matches benchmark sample pilot_wmlight_113586939",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_116135102",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_116135102",
+      "min_dhash_distance": null,
+      "details": "SHA-256 dc669712c84ebd4eb514946f9a76122c432218436456de8f5e9c6446d582ebd0 matches benchmark sample pilot_wmlight_116135102",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_116135118",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_116135118",
+      "min_dhash_distance": null,
+      "details": "SHA-256 c350378446144233e824a68dda77ca6f82308dbde2295e5b3a293bf1e65891df matches benchmark sample pilot_wmlight_116135118",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_123265880",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_123265880",
+      "min_dhash_distance": null,
+      "details": "SHA-256 eb4d84cd7c5a7e8446fd0a1bc516a79c9f1bd617d5e632850d016b62b90d7025 matches benchmark sample pilot_wmlight_123265880",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_123265881",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_123265881",
+      "min_dhash_distance": null,
+      "details": "SHA-256 da7364dae9b04275a67da92d55cd8f88e7dca71f61059cf66a3943db854b34b6 matches benchmark sample pilot_wmlight_123265881",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_123265879",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_123265879",
+      "min_dhash_distance": null,
+      "details": "SHA-256 ab13642421f28efb8eb40f66920e71fc18c3bfaad738d37a1bf3c737fa8c1d9d matches benchmark sample pilot_wmlight_123265879",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_123265883",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_123265883",
+      "min_dhash_distance": null,
+      "details": "SHA-256 99383eb07492b3e24d0658728c10ebb6ba576eba7ff334cd6a46efba6fef9ebd matches benchmark sample pilot_wmlight_123265883",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_17692492",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_17692492",
+      "min_dhash_distance": null,
+      "details": "SHA-256 bb1755494446417a030b0bebd4e65f115557e208380abaf20635243020157bdb matches benchmark sample pilot_wmlight_17692492",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_195529521",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_195529521",
+      "min_dhash_distance": null,
+      "details": "SHA-256 88de1d328d04864bf0ad9c77409792b562a27c1f9aebd223220f93a1a6129d6f matches benchmark sample pilot_wmlight_195529521",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_139290765",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_139290765",
+      "min_dhash_distance": null,
+      "details": "SHA-256 5b06ee43d9b8082fa31ccd65bc038e51c2c0c97b7b48c238a17c1e82c73f638f matches benchmark sample pilot_wmlight_139290765",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_161376595",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_161376595",
+      "min_dhash_distance": null,
+      "details": "SHA-256 eb5671cbd735760f751a3b198c76568b6baf7cb0bc327d19ecfa1fa2befebc03 matches benchmark sample pilot_wmlight_161376595",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_154112985",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_154112985",
+      "min_dhash_distance": null,
+      "details": "SHA-256 8a9c2d9b804bc5f60703329f767e4f37e492d4a5c1f3761553542eb3f3712244 matches benchmark sample pilot_wmlight_154112985",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_174551785",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_174551785",
+      "min_dhash_distance": null,
+      "details": "SHA-256 ed27d0a8f512333a26c167212a2dfe423f8865469f84ed2bd2cfe40a44edce73 matches benchmark sample pilot_wmlight_174551785",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_118327313",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_118327313",
+      "min_dhash_distance": null,
+      "details": "SHA-256 feb561854cb99bb9e6a44095ceb1d6dbeebb4ba48f55f71ee0d83e04da075fe6 matches benchmark sample pilot_wmlight_118327313",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_13644347",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_13644347",
+      "min_dhash_distance": null,
+      "details": "SHA-256 aae830232f2e33162227edbc73a7958c17e4223074cce6321e0a56f04c008fed matches benchmark sample pilot_wmlight_13644347",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_171229758",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_171229758",
+      "min_dhash_distance": null,
+      "details": "SHA-256 6c9e82d7361ac5bf37f4ad7eff58ba462f61c2e560889c618d4fb46d8d0857fb matches benchmark sample pilot_wmlight_171229758",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_174242135",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_174242135",
+      "min_dhash_distance": null,
+      "details": "SHA-256 d6206d2e7ad44149989ff7606d0f5bcffc9764470146c5fcdc84351ed8fcea0b matches benchmark sample pilot_wmlight_174242135",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_174242134",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_174242134",
+      "min_dhash_distance": null,
+      "details": "SHA-256 4a1626a8b04af2212526a5676aafb90adab3640467950abdb13ecc07716f9663 matches benchmark sample pilot_wmlight_174242134",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_174242136",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_174242136",
+      "min_dhash_distance": null,
+      "details": "SHA-256 3ffcdba295fff5c38ac28d88846ddb0215fa4a91a2e7cf0fd510d8a511546ea8 matches benchmark sample pilot_wmlight_174242136",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_164778346",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_164778346",
+      "min_dhash_distance": null,
+      "details": "SHA-256 6b23726f192c494b88b2f210ce682941307d98ddc0f7a63e670c366b44b20456 matches benchmark sample pilot_wmlight_164778346",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_163535747",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_163535747",
+      "min_dhash_distance": null,
+      "details": "SHA-256 21367724ccb9f2b483af549f4ba2596f1ee6edcc7451ca0db9db41cc87e2de6e matches benchmark sample pilot_wmlight_163535747",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_24826623",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_24826623",
+      "min_dhash_distance": null,
+      "details": "SHA-256 b577f88ae677512149f01c10e6af234fa55b713f51f78a185eaba7bef362b0b5 matches benchmark sample pilot_wmlight_24826623",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_32966424",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_32966424",
+      "min_dhash_distance": null,
+      "details": "SHA-256 b61f20b9c028c977ebd93df6f0ae1b416dc83b82b47818c9c016218fc994b104 matches benchmark sample pilot_wmlight_32966424",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_32966442",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_32966442",
+      "min_dhash_distance": null,
+      "details": "SHA-256 178fbb0192a1ce9c0f94e4b80cd0a14a1a75694dc8a919bcc270370063c34365 matches benchmark sample pilot_wmlight_32966442",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_32966493",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_32966493",
+      "min_dhash_distance": null,
+      "details": "SHA-256 66f8fadb45d6ddcbd8490797e9cefa7d4d77a93af08462efde7538cdbf0ab1b4 matches benchmark sample pilot_wmlight_32966493",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_31376323",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_31376323",
+      "min_dhash_distance": null,
+      "details": "SHA-256 85cc9da23bcaaa21ff69c8647d75e65a69889efdaa9dcb6c9d714b757128a2ae matches benchmark sample pilot_wmlight_31376323",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_31376367",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_31376367",
+      "min_dhash_distance": null,
+      "details": "SHA-256 29dc79c218bd85f01c5cad665678dcb0bcfedeedb32d99a93eb76c2015f91ba6 matches benchmark sample pilot_wmlight_31376367",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_31376390",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_31376390",
+      "min_dhash_distance": null,
+      "details": "SHA-256 cbb25ffb9cea591edddbcc5e6ea4c30363f2e6cdd992df69ecbd1794362fedc7 matches benchmark sample pilot_wmlight_31376390",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_31376415",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_31376415",
+      "min_dhash_distance": null,
+      "details": "SHA-256 6a8e65041d12a11c23b17be5c2f08e39475db595a81e0cd90f5f62a10bc7f71f matches benchmark sample pilot_wmlight_31376415",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_31376481",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_31376481",
+      "min_dhash_distance": null,
+      "details": "SHA-256 1ea189f0c0becc58e3eddc53aa9e4de8925b5641a496a90cc548f6ccdc1a9e2b matches benchmark sample pilot_wmlight_31376481",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_31376445",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_31376445",
+      "min_dhash_distance": null,
+      "details": "SHA-256 1bd2eb4ce63e501d80dc910563e8be6674030625a70ccc855a0b9c4b4a60e616 matches benchmark sample pilot_wmlight_31376445",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_31633230",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_31633230",
+      "min_dhash_distance": null,
+      "details": "SHA-256 4496df0f6b0bafa6bba403439b6340fe0f15a345d13d0519300f412d54c6e37b matches benchmark sample pilot_wmlight_31633230",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_31633291",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_31633291",
+      "min_dhash_distance": null,
+      "details": "SHA-256 fa728765ec30eca36d85fc1c74ce34884aad14a8384606d6f450a4704243ec09 matches benchmark sample pilot_wmlight_31633291",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmlight_37414302",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmlight_37414302",
+      "min_dhash_distance": null,
+      "details": "SHA-256 3a45ab32f09e2efef7df6dacec94f0dbafcdec175090a317a6abbba724b217c3 matches benchmark sample pilot_wmlight_37414302",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_128064741",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_128064741",
+      "min_dhash_distance": null,
+      "details": "SHA-256 bad7116ba2c9c82685740b99b7dc84959bbff9ddf30004162802e7e32831e24d matches benchmark sample pilot_wmwater_128064741",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_50718963",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_50718963",
+      "min_dhash_distance": null,
+      "details": "SHA-256 193b78d3718433c824ef3fa85c503c9d55eabcf78a203930973141b0b873af6d matches benchmark sample pilot_wmwater_50718963",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_50718965",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_50718965",
+      "min_dhash_distance": null,
+      "details": "SHA-256 b02a36a9c57cdfb3c7b63a7d4bea2e6e8dff2e47396bdb042da5b475d1721eec matches benchmark sample pilot_wmwater_50718965",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_50718964",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_50718964",
+      "min_dhash_distance": null,
+      "details": "SHA-256 1a870c5f3dca0adf703efd02f33ea807deb86c5fc2fbe79ebb70c4de9af28646 matches benchmark sample pilot_wmwater_50718964",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_36199503",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_36199503",
+      "min_dhash_distance": null,
+      "details": "SHA-256 299a7a18590f48d6bb69dbc9117561692c8fcf1efa2765b129fe92d2ebab9847 matches benchmark sample pilot_wmwater_36199503",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_14580646",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_14580646",
+      "min_dhash_distance": null,
+      "details": "SHA-256 65b1152944eee39bb2de01881d6da6c27d4b91f31d3c2fcd83670ff6bbb9e47f matches benchmark sample pilot_wmwater_14580646",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_3412625",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_3412625",
+      "min_dhash_distance": null,
+      "details": "SHA-256 ce90c76a4815168482d4832979770663d2964a988970bf78d18ac90499983170 matches benchmark sample pilot_wmwater_3412625",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_150690150",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_150690150",
+      "min_dhash_distance": null,
+      "details": "SHA-256 b103f0e3ace45441865fc60adc48d4a7ee6ade09c02aca0ec896768a61aee17d matches benchmark sample pilot_wmwater_150690150",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_13853442",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_13853442",
+      "min_dhash_distance": null,
+      "details": "SHA-256 77a8540b3d76e194581cb081c38c3656563da6e159a08417c18cf820387899c8 matches benchmark sample pilot_wmwater_13853442",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_13655616",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_13655616",
+      "min_dhash_distance": null,
+      "details": "SHA-256 2cd342df4819d79067da3b7a3166e3e9b169fb58f5ecc0441f4402d3b994c808 matches benchmark sample pilot_wmwater_13655616",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_83166616",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_83166616",
+      "min_dhash_distance": null,
+      "details": "SHA-256 de145b453b0392312f4da42f1f09bc19b5d4114b0bca4fe906d2f97fc66fdf68 matches benchmark sample pilot_wmwater_83166616",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_174147453",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_174147453",
+      "min_dhash_distance": null,
+      "details": "SHA-256 00ee8a2b30975fb1c7dca7849d6cd7d463a3d7b84e0d908f7d78bf9b108318f0 matches benchmark sample pilot_wmwater_174147453",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_158312781",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_158312781",
+      "min_dhash_distance": null,
+      "details": "SHA-256 37092bf93379255d1df31519d19ee32eb14496ef52dd6e2c33a0178a0e864f06 matches benchmark sample pilot_wmwater_158312781",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_159749883",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_159749883",
+      "min_dhash_distance": null,
+      "details": "SHA-256 190412f92b6361d17c1bd4a4231201963d2a0ea3abba7420281595aeccd3a1f1 matches benchmark sample pilot_wmwater_159749883",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_159129218",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_159129218",
+      "min_dhash_distance": null,
+      "details": "SHA-256 d53e54202641032c690601a551d357704dfab805bee4dc495c129bcf0b264c07 matches benchmark sample pilot_wmwater_159129218",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_11101560",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_11101560",
+      "min_dhash_distance": null,
+      "details": "SHA-256 32c9b9ed5f7d63a927397fe8e553f3dc550f956be6efcd76f97616dd53cd5087 matches benchmark sample pilot_wmwater_11101560",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_111155729",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_111155729",
+      "min_dhash_distance": null,
+      "details": "SHA-256 57f290a0d2bd88fd2d0d2ea3a6b7f7e2d5e4e568f5067ba7d4b18a682897cc49 matches benchmark sample pilot_wmwater_111155729",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_73650378",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_73650378",
+      "min_dhash_distance": null,
+      "details": "SHA-256 8b9fefc88b38887f73dc140a379cc3f4f051760716cde3780bbbe27066eb1961 matches benchmark sample pilot_wmwater_73650378",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_39341369",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_39341369",
+      "min_dhash_distance": null,
+      "details": "SHA-256 f698b04221a7d9ebe16a354d1c73f0a03734aae536faf7f3cae8ee62f0dd9cb3 matches benchmark sample pilot_wmwater_39341369",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_39341344",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_39341344",
+      "min_dhash_distance": null,
+      "details": "SHA-256 e920136d7bd79813d8484f904a75a941673b690e7b56325a906619890410d99c matches benchmark sample pilot_wmwater_39341344",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_54455278",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_54455278",
+      "min_dhash_distance": null,
+      "details": "SHA-256 e5dfe09a112c119970bf58daba76f1a041fa57fc6a9157e6082e83c23024cb82 matches benchmark sample pilot_wmwater_54455278",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_160634916",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_160634916",
+      "min_dhash_distance": null,
+      "details": "SHA-256 4460176e9b51a34190692f3aac2752234060a32b74c825ef57944d9fd1f736a0 matches benchmark sample pilot_wmwater_160634916",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_160634972",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_160634972",
+      "min_dhash_distance": null,
+      "details": "SHA-256 e9512fccf072b176f2cb79bf8d896907baa089c1c5e411849c7d5d6453f9df62 matches benchmark sample pilot_wmwater_160634972",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_171886361",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_171886361",
+      "min_dhash_distance": null,
+      "details": "SHA-256 ed8084a7b9a1e6475d9d21385ee7cf88c14f49053f471453ea05ceba16c1eab1 matches benchmark sample pilot_wmwater_171886361",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_15563432",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_15563432",
+      "min_dhash_distance": null,
+      "details": "SHA-256 b472803d5f4c900d6d19866e237c4bfca424351e2dc4c5499dbf98ccdbc8b32c matches benchmark sample pilot_wmwater_15563432",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_15563469",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_15563469",
+      "min_dhash_distance": null,
+      "details": "SHA-256 7f284a8033f87a59377f0c035da89b4e3802dd398e8bdce84d2e987808e3c3dd matches benchmark sample pilot_wmwater_15563469",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_15563499",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_15563499",
+      "min_dhash_distance": null,
+      "details": "SHA-256 bf7084c098d7f0728c38cf6b4fef02094f3aff4155db78e602c43096fc8902d4 matches benchmark sample pilot_wmwater_15563499",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_3019556",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_3019556",
+      "min_dhash_distance": null,
+      "details": "SHA-256 ba66d2ed822308c5dd290d0dc0735ba9473a207f289fae8552f44c059dfc4718 matches benchmark sample pilot_wmwater_3019556",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_3019571",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_3019571",
+      "min_dhash_distance": null,
+      "details": "SHA-256 1712e49efa79102d6d1b8d0b7297095f5461df9a5fc144d4c60971d235c7937b matches benchmark sample pilot_wmwater_3019571",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_40446827",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_40446827",
+      "min_dhash_distance": null,
+      "details": "SHA-256 81c860edce1258776f270d8bedd2367ffb6e866e9ea509ffabdc3535718be0f6 matches benchmark sample pilot_wmwater_40446827",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_40446846",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_40446846",
+      "min_dhash_distance": null,
+      "details": "SHA-256 8b30ed7a77778dd7f95b20ec50b907ea535a1c08d1eef34b3552de9cbaa049ca matches benchmark sample pilot_wmwater_40446846",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_27336861",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_27336861",
+      "min_dhash_distance": null,
+      "details": "SHA-256 6436994d819a7508762c6a0264bb1987e186fdb8697f352852b77fb1a2280dfb matches benchmark sample pilot_wmwater_27336861",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_11101656",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_11101656",
+      "min_dhash_distance": null,
+      "details": "SHA-256 e8c65ede86e22ac7b400a51f2d531ec972f7b034e00e7ac65bf92c7cd6e0c97d matches benchmark sample pilot_wmwater_11101656",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_8227569",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_8227569",
+      "min_dhash_distance": null,
+      "details": "SHA-256 138d331e42619e4e0537644d3866582360009d91c693a26ce101be07d5230052 matches benchmark sample pilot_wmwater_8227569",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_8361254",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_8361254",
+      "min_dhash_distance": null,
+      "details": "SHA-256 bd2511709c7a82b80a3959112b81d0ab07ad454d89471a7770c4c4b3a38dea7f matches benchmark sample pilot_wmwater_8361254",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_15164602",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_15164602",
+      "min_dhash_distance": null,
+      "details": "SHA-256 b19c843acd1639c1ecd64a04938a3cd8a87ed2350f0c828bc508f98e9c31b5a9 matches benchmark sample pilot_wmwater_15164602",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_163178930",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_163178930",
+      "min_dhash_distance": null,
+      "details": "SHA-256 001c6416526b61c0379076450abe6f63be3ba095cb08462d41a27d781be2da26 matches benchmark sample pilot_wmwater_163178930",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_53377782",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_53377782",
+      "min_dhash_distance": null,
+      "details": "SHA-256 b072993c5faa83755a7d06afd86870afd21019b13c9e0fe8eaf9c5999c73c826 matches benchmark sample pilot_wmwater_53377782",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_53377791",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_53377791",
+      "min_dhash_distance": null,
+      "details": "SHA-256 c7c500758913c44cc6eb43fa95b2df5d339c95d3db41052f7c33a6d0bc93c72d matches benchmark sample pilot_wmwater_53377791",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_182431018",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_182431018",
+      "min_dhash_distance": null,
+      "details": "SHA-256 a4ddb77206c4f323ee39d90c9a1b9fcf448f341718a33e5566ad5500e5612dea matches benchmark sample pilot_wmwater_182431018",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_30346714",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_30346714",
+      "min_dhash_distance": null,
+      "details": "SHA-256 808dbac230cc96fbfb3eb9dc6d574d5127a05eaafe21127ed82f764ed7f68a1e matches benchmark sample pilot_wmwater_30346714",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_59297682",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_59297682",
+      "min_dhash_distance": null,
+      "details": "SHA-256 e973c8c61b68f1eee7ffe180103a2e5a7e46fdef4317b7b8cd4071264c4491fa matches benchmark sample pilot_wmwater_59297682",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_46496310",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_46496310",
+      "min_dhash_distance": null,
+      "details": "SHA-256 e1276e1dfc9cd690e0faf2c79b1da13a21e13bc3633abc37b0a3119d159d3559 matches benchmark sample pilot_wmwater_46496310",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_11175292",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_11175292",
+      "min_dhash_distance": null,
+      "details": "SHA-256 cadce3548014efd18615d6a3bfa7766bd62d5563db699b169074775dc9adacdb matches benchmark sample pilot_wmwater_11175292",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_163498669",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_163498669",
+      "min_dhash_distance": null,
+      "details": "SHA-256 e1d1f1c09998283886e3dbe2ddcefa50e1e1b5a99e52934ead4b62ecdf84fe47 matches benchmark sample pilot_wmwater_163498669",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_30380941",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_30380941",
+      "min_dhash_distance": null,
+      "details": "SHA-256 d7bbf65eda7e32e215556748370bc4a38977740c81bca646232a121d760f8169 matches benchmark sample pilot_wmwater_30380941",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_30380942",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_30380942",
+      "min_dhash_distance": null,
+      "details": "SHA-256 f021db39f08bfebdbae27b61739d521c246b8081b6d9276b4d2ef3a9354b8fc7 matches benchmark sample pilot_wmwater_30380942",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_86093433",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_86093433",
+      "min_dhash_distance": null,
+      "details": "SHA-256 321f5e35f12ecb41f1c0a9149499aaaa553ab7a4f5f8c6f485f7c00f7bcaa060 matches benchmark sample pilot_wmwater_86093433",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_86093431",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_86093431",
+      "min_dhash_distance": null,
+      "details": "SHA-256 a14586d931f38b22ca82fbdb9cc82041157e43571337790685f6c9ed7c46d61a matches benchmark sample pilot_wmwater_86093431",
+      "is_borderline": false
+    },
+    {
+      "sample_id": "train_pilot_wmwater_86093432",
+      "status": "FAILED_EXACT_SHA256",
+      "passed": false,
+      "rejection_reason": "Exact cryptographic SHA-256 collision with benchmark sample",
+      "matched_benchmark_sample_id": "pilot_wmwater_86093432",
+      "min_dhash_distance": null,
+      "details": "SHA-256 dba72560ed79906668aef242e9c6d298ed4acc08ab607985e137d58cbf1cc9e2 matches benchmark sample pilot_wmwater_86093432",
+      "is_borderline": false
+    }
+  ],
+  "borderline_samples": [
+    {
+      "sample_id": "train_pilot_wmroad_92473226",
+      "status": "PASSED",
+      "passed": true,
+      "rejection_reason": null,
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 8,
+      "details": "Passed all leakage checks. Nearest benchmark distance: 8 bits",
+      "is_borderline": true
+    },
+    {
+      "sample_id": "train_pilot_wmroad_98094502",
+      "status": "PASSED",
+      "passed": true,
+      "rejection_reason": null,
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 7,
+      "details": "Passed all leakage checks. Nearest benchmark distance: 7 bits",
+      "is_borderline": true
+    },
+    {
+      "sample_id": "train_wmroad_b2_97514524",
+      "status": "PASSED",
+      "passed": true,
+      "rejection_reason": null,
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 9,
+      "details": "Passed all leakage checks. Nearest benchmark distance: 9 bits",
+      "is_borderline": true
+    },
+    {
+      "sample_id": "train_wmroad_b3_153155869",
+      "status": "PASSED",
+      "passed": true,
+      "rejection_reason": null,
+      "matched_benchmark_sample_id": "pilot_wmroad_153185838",
+      "min_dhash_distance": 8,
+      "details": "Passed all leakage checks. Nearest benchmark distance: 8 bits",
+      "is_borderline": true
+    },
+    {
+      "sample_id": "train_wmroad_b3_91569708",
+      "status": "PASSED",
+      "passed": true,
+      "rejection_reason": null,
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 7,
+      "details": "Passed all leakage checks. Nearest benchmark distance: 7 bits",
+      "is_borderline": true
+    },
+    {
+      "sample_id": "train_wmlight_b2_95220217",
+      "status": "PASSED",
+      "passed": true,
+      "rejection_reason": null,
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 8,
+      "details": "Passed all leakage checks. Nearest benchmark distance: 8 bits",
+      "is_borderline": true
+    },
+    {
+      "sample_id": "train_wmlight_b2_10822124",
+      "status": "PASSED",
+      "passed": true,
+      "rejection_reason": null,
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 9,
+      "details": "Passed all leakage checks. Nearest benchmark distance: 9 bits",
+      "is_borderline": true
+    },
+    {
+      "sample_id": "train_wmlight_b2_93383831",
+      "status": "PASSED",
+      "passed": true,
+      "rejection_reason": null,
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 7,
+      "details": "Passed all leakage checks. Nearest benchmark distance: 7 bits",
+      "is_borderline": true
+    },
+    {
+      "sample_id": "train_wmlight_b2_93437943",
+      "status": "PASSED",
+      "passed": true,
+      "rejection_reason": null,
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 7,
+      "details": "Passed all leakage checks. Nearest benchmark distance: 7 bits",
+      "is_borderline": true
+    },
+    {
+      "sample_id": "train_wmlight_b2_91814589",
+      "status": "PASSED",
+      "passed": true,
+      "rejection_reason": null,
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 8,
+      "details": "Passed all leakage checks. Nearest benchmark distance: 8 bits",
+      "is_borderline": true
+    },
+    {
+      "sample_id": "train_wmlight_b3_196253189",
+      "status": "PASSED",
+      "passed": true,
+      "rejection_reason": null,
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 9,
+      "details": "Passed all leakage checks. Nearest benchmark distance: 9 bits",
+      "is_borderline": true
+    },
+    {
+      "sample_id": "train_wmlight_b3_98116298",
+      "status": "PASSED",
+      "passed": true,
+      "rejection_reason": null,
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 9,
+      "details": "Passed all leakage checks. Nearest benchmark distance: 9 bits",
+      "is_borderline": true
+    },
+    {
+      "sample_id": "train_wmlight_b3_97508945",
+      "status": "PASSED",
+      "passed": true,
+      "rejection_reason": null,
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 10,
+      "details": "Passed all leakage checks. Nearest benchmark distance: 10 bits",
+      "is_borderline": true
+    },
+    {
+      "sample_id": "train_wmlight_b3_96202068",
+      "status": "PASSED",
+      "passed": true,
+      "rejection_reason": null,
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 8,
+      "details": "Passed all leakage checks. Nearest benchmark distance: 8 bits",
+      "is_borderline": true
+    },
+    {
+      "sample_id": "train_wmlight_b3_91688779",
+      "status": "PASSED",
+      "passed": true,
+      "rejection_reason": null,
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 8,
+      "details": "Passed all leakage checks. Nearest benchmark distance: 8 bits",
+      "is_borderline": true
+    },
+    {
+      "sample_id": "train_wmlight_b3_95814734",
+      "status": "PASSED",
+      "passed": true,
+      "rejection_reason": null,
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 7,
+      "details": "Passed all leakage checks. Nearest benchmark distance: 7 bits",
+      "is_borderline": true
+    },
+    {
+      "sample_id": "train_wmlight_b3_97747849",
+      "status": "PASSED",
+      "passed": true,
+      "rejection_reason": null,
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 8,
+      "details": "Passed all leakage checks. Nearest benchmark distance: 8 bits",
+      "is_borderline": true
+    },
+    {
+      "sample_id": "train_wmlight_b3_91748576",
+      "status": "PASSED",
+      "passed": true,
+      "rejection_reason": null,
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 7,
+      "details": "Passed all leakage checks. Nearest benchmark distance: 7 bits",
+      "is_borderline": true
+    },
+    {
+      "sample_id": "train_wmwater_b2_91584425",
+      "status": "PASSED",
+      "passed": true,
+      "rejection_reason": null,
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 9,
+      "details": "Passed all leakage checks. Nearest benchmark distance: 9 bits",
+      "is_borderline": true
+    },
+    {
+      "sample_id": "train_wmwater_b2_153157759",
+      "status": "PASSED",
+      "passed": true,
+      "rejection_reason": null,
+      "matched_benchmark_sample_id": "pilot_wmroad_153181091",
+      "min_dhash_distance": 10,
+      "details": "Passed all leakage checks. Nearest benchmark distance: 10 bits",
+      "is_borderline": true
+    },
+    {
+      "sample_id": "train_wmwater_b2_91672103",
+      "status": "PASSED",
+      "passed": true,
+      "rejection_reason": null,
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 9,
+      "details": "Passed all leakage checks. Nearest benchmark distance: 9 bits",
+      "is_borderline": true
+    },
+    {
+      "sample_id": "train_wmwater_b3_194785914",
+      "status": "PASSED",
+      "passed": true,
+      "rejection_reason": null,
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 9,
+      "details": "Passed all leakage checks. Nearest benchmark distance: 9 bits",
+      "is_borderline": true
+    },
+    {
+      "sample_id": "train_wmwater_b3_96974703",
+      "status": "PASSED",
+      "passed": true,
+      "rejection_reason": null,
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 8,
+      "details": "Passed all leakage checks. Nearest benchmark distance: 8 bits",
+      "is_borderline": true
+    },
+    {
+      "sample_id": "train_wmwater_b3_97514690",
+      "status": "PASSED",
+      "passed": true,
+      "rejection_reason": null,
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 7,
+      "details": "Passed all leakage checks. Nearest benchmark distance: 7 bits",
+      "is_borderline": true
+    },
+    {
+      "sample_id": "train_wmwater_b3_96107721",
+      "status": "PASSED",
+      "passed": true,
+      "rejection_reason": null,
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 7,
+      "details": "Passed all leakage checks. Nearest benchmark distance: 7 bits",
+      "is_borderline": true
+    },
+    {
+      "sample_id": "train_wmwater_b3_96109627",
+      "status": "PASSED",
+      "passed": true,
+      "rejection_reason": null,
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 10,
+      "details": "Passed all leakage checks. Nearest benchmark distance: 10 bits",
+      "is_borderline": true
+    },
+    {
+      "sample_id": "train_wmwater_b3_195045061",
+      "status": "PASSED",
+      "passed": true,
+      "rejection_reason": null,
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 9,
+      "details": "Passed all leakage checks. Nearest benchmark distance: 9 bits",
+      "is_borderline": true
+    },
+    {
+      "sample_id": "train_wmwater_b3_96115457",
+      "status": "PASSED",
+      "passed": true,
+      "rejection_reason": null,
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 7,
+      "details": "Passed all leakage checks. Nearest benchmark distance: 7 bits",
+      "is_borderline": true
+    },
+    {
+      "sample_id": "train_wmwater_b3_197819489",
+      "status": "PASSED",
+      "passed": true,
+      "rejection_reason": null,
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 9,
+      "details": "Passed all leakage checks. Nearest benchmark distance: 9 bits",
+      "is_borderline": true
+    },
+    {
+      "sample_id": "train_wmwater_b3_99615054",
+      "status": "PASSED",
+      "passed": true,
+      "rejection_reason": null,
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 10,
+      "details": "Passed all leakage checks. Nearest benchmark distance: 10 bits",
+      "is_borderline": true
+    },
+    {
+      "sample_id": "train_wmwater_b3_91464324",
+      "status": "PASSED",
+      "passed": true,
+      "rejection_reason": null,
+      "matched_benchmark_sample_id": "pilot_wmroad_193696778",
+      "min_dhash_distance": 9,
+      "details": "Passed all leakage checks. Nearest benchmark distance: 9 bits",
+      "is_borderline": true
+    }
+  ],
+  "dhash_distance_histogram": {
+    "1": 1,
+    "3": 2,
+    "5": 1,
+    "7": 9,
+    "8": 8,
+    "9": 10,
+    "10": 4,
+    "11": 16,
+    "12": 15,
+    "13": 21,
+    "14": 27,
+    "15": 37,
+    "16": 40,
+    "17": 75,
+    "18": 89,
+    "19": 102,
+    "20": 107,
+    "21": 74,
+    "22": 40,
+    "23": 12,
+    "24": 4
+  }
+}

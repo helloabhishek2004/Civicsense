@@ -1,0 +1,443 @@
+{
+  "A_original": {
+    "label": "Original Text",
+    "classes": [
+      "Pothole",
+      "Road Damage",
+      "Garbage",
+      "Water Leakage",
+      "Streetlight",
+      "Other"
+    ],
+    "matrix": [
+      [
+        50,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        21,
+        0,
+        0,
+        0,
+        29
+      ],
+      [
+        0,
+        0,
+        50,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        3,
+        0,
+        37,
+        0,
+        10
+      ],
+      [
+        3,
+        0,
+        0,
+        0,
+        29,
+        18
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        50
+      ]
+    ],
+    "total_samples": 300,
+    "matrix_sum": 300
+  },
+  "B_lowercased": {
+    "label": "Lowercased Text",
+    "classes": [
+      "Pothole",
+      "Road Damage",
+      "Garbage",
+      "Water Leakage",
+      "Streetlight",
+      "Other"
+    ],
+    "matrix": [
+      [
+        50,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        21,
+        0,
+        0,
+        0,
+        29
+      ],
+      [
+        0,
+        0,
+        50,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        3,
+        0,
+        37,
+        0,
+        10
+      ],
+      [
+        3,
+        0,
+        0,
+        0,
+        29,
+        18
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        50
+      ]
+    ],
+    "total_samples": 300,
+    "matrix_sum": 300
+  },
+  "C_whitespace_normalized": {
+    "label": "Whitespace-Normalized Text",
+    "classes": [
+      "Pothole",
+      "Road Damage",
+      "Garbage",
+      "Water Leakage",
+      "Streetlight",
+      "Other"
+    ],
+    "matrix": [
+      [
+        50,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        21,
+        0,
+        0,
+        0,
+        29
+      ],
+      [
+        0,
+        0,
+        50,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        3,
+        0,
+        37,
+        0,
+        10
+      ],
+      [
+        3,
+        0,
+        0,
+        0,
+        29,
+        18
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        50
+      ]
+    ],
+    "total_samples": 300,
+    "matrix_sum": 300
+  },
+  "D_empty": {
+    "label": "Empty Text (Text-Absent)",
+    "classes": [
+      "Pothole",
+      "Road Damage",
+      "Garbage",
+      "Water Leakage",
+      "Streetlight",
+      "Other"
+    ],
+    "matrix": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        50
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        50
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        50
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        50
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        50
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        50
+      ]
+    ],
+    "total_samples": 300,
+    "matrix_sum": 300
+  },
+  "E_generic_neutral": {
+    "label": "Generic Neutral Text ('Civic issue reported at a public location.')",
+    "classes": [
+      "Pothole",
+      "Road Damage",
+      "Garbage",
+      "Water Leakage",
+      "Streetlight",
+      "Other"
+    ],
+    "matrix": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        50
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        50
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        50
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        50
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        50
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        50
+      ]
+    ],
+    "total_samples": 300,
+    "matrix_sum": 300
+  },
+  "F_keyword_masked": {
+    "label": "Keyword-Masked Text ([MASKED])",
+    "classes": [
+      "Pothole",
+      "Road Damage",
+      "Garbage",
+      "Water Leakage",
+      "Streetlight",
+      "Other"
+    ],
+    "matrix": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        50
+      ],
+      [
+        0,
+        16,
+        0,
+        0,
+        0,
+        34
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        50
+      ],
+      [
+        0,
+        2,
+        0,
+        10,
+        0,
+        38
+      ],
+      [
+        3,
+        0,
+        0,
+        0,
+        3,
+        44
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        50
+      ]
+    ],
+    "total_samples": 300,
+    "matrix_sum": 300
+  },
+  "G_truncated_30": {
+    "label": "Truncated Text (First 30 characters)",
+    "classes": [
+      "Pothole",
+      "Road Damage",
+      "Garbage",
+      "Water Leakage",
+      "Streetlight",
+      "Other"
+    ],
+    "matrix": [
+      [
+        50,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        12,
+        0,
+        0,
+        0,
+        38
+      ],
+      [
+        0,
+        0,
+        50,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        3,
+        0,
+        29,
+        0,
+        18
+      ],
+      [
+        3,
+        0,
+        0,
+        0,
+        23,
+        24
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        50
+      ]
+    ],
+    "total_samples": 300,
+    "matrix_sum": 300
+  }
+}

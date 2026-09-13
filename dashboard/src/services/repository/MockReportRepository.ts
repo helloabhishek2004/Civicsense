@@ -132,6 +132,11 @@ export class MockReportRepository implements IReportRepository {
       filtered = filtered.filter((r) => r.department === params.department);
     }
 
+    // Filter by linked issue
+    if (params.issueId) {
+      filtered = filtered.filter((r) => r.issueId === params.issueId);
+    }
+
     // Search query
     if (params.search && params.search.trim()) {
       const q = params.search.trim().toLowerCase();

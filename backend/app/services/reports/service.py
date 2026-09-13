@@ -23,6 +23,10 @@ from app.repositories.report_repo import report_repository
 from app.schemas.report import ReportCreate
 from app.schemas.verification import VerificationCreate
 from app.services.reports.lifecycle import ReportLifecycleManager
+from app.services.similarity.service import (
+    process_similarity_match,
+    store_match_metadata,
+)
 
 logger = get_logger(__name__)
 
@@ -49,6 +53,28 @@ class ReportService:
                 report.tracking_id,
                 report.status.value,
             )
+
+            # Run similarity matching to link report to an existing Issue
+            try:
+                match = process_similarity_match(db, report)
+                # Persist similarity metadata in report edge_metadata
+                existing_meta = dict(report.edge_metadata) if report.edge_metadata else {}
+                existing_meta.update(store_match_metadata(report, match))
+                report.edge_metadata = existing_meta
+                db.flush()
+                logger.info(
+                    "Similarity match completed: report=%s action=%s score=%.4f issue=%s",
+                    report.tracking_id,
+                    match.action,
+                    match.score,
+                    match.issue_id,
+                )
+            except Exception as exc:
+                logger.warning(
+                    "Similarity matching failed for report %s: %s",
+                    report.tracking_id,
+                    str(exc),
+                )
         else:
             logger.info(
                 "Idempotent replay matched existing report: id=%s tracking_id=%s status=%s",
@@ -87,6 +113,7 @@ class ReportService:
         category: str | None = None,
         priority: PriorityLevel | None = None,
         reassignment_required: bool | None = None,
+        issue_id: uuid.UUID | None = None,
     ) -> tuple[list[Report], int]:
         """Fetch paginated list of reports, optionally filtered by criteria."""
         return self.repo.list_reports(
@@ -100,6 +127,7 @@ class ReportService:
             category=category,
             priority=priority,
             reassignment_required=reassignment_required,
+            issue_id=issue_id,
         )
 
     def transition_status(
@@ -305,9 +333,7 @@ class ReportService:
                 ReportStatus.CLOSED,
             )
         )
-        critical_issues = sum(
-            1 for r in reports if r.priority == PriorityLevel.CRITICAL
-        )
+        critical_issues = sum(1 for r in reports if r.priority == PriorityLevel.CRITICAL)
 
         return {
             "totalReports": total_reports,

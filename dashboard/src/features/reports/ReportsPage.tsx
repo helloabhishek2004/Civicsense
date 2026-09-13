@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { MapPin, Eye } from 'lucide-react';
+import { MapPin, Eye, ExternalLink, Layers, X } from 'lucide-react';
 import { reportRepository } from '@/services/repository/reportRepository';
 import { queryKeys } from '@/services/queryKeys';
 import { ReportFilterParams, ReportItem } from '@/types/models';
@@ -41,18 +41,31 @@ const itemVariants: Variants = {
 
 export const ReportsPage: React.FC = () => {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const urlIssueId = searchParams.get('issue_id') || searchParams.get('issueId') || undefined;
 
   const [filters, setFilters] = useState<ReportFilterParams>({
     phase: 'ALL',
     category: 'ALL',
     severity: 'ALL',
     priority: 'ALL',
+    issueId: urlIssueId,
     search: '',
     page: 1,
     pageSize: 10,
     sortBy: 'createdAt',
     sortOrder: 'desc',
   });
+
+  // Keep filters.issueId synchronized when URL changes
+  useEffect(() => {
+    setFilters((prev) => {
+      if (prev.issueId !== urlIssueId) {
+        return { ...prev, issueId: urlIssueId, page: 1 };
+      }
+      return prev;
+    });
+  }, [urlIssueId]);
 
   const {
     data,
@@ -163,6 +176,27 @@ export const ReportsPage: React.FC = () => {
       cell: (item) => <StatusBadge status={item.status} size="sm" />,
     },
     {
+      id: 'issueId',
+      header: 'Issue',
+      cell: (item) =>
+        item.issueId ? (
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/issues/${item.issueId}`);
+            }}
+            className="inline-flex items-center gap-1 font-mono text-[11px] font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-100 dark:hover:bg-blue-900/60 px-2 py-0.5 rounded border border-blue-200 dark:border-blue-800 transition-colors"
+            title={`View Aggregated Issue: ${item.issueId}`}
+          >
+            <span>iss-{item.issueId.substring(0, 6)}</span>
+            <ExternalLink className="w-2.5 h-2.5 opacity-70" />
+          </button>
+        ) : (
+          <span className="text-slate-400 dark:text-slate-600 text-xs font-mono">—</span>
+        ),
+    },
+    {
       id: 'createdAt',
       header: 'Submitted',
       sortable: true,
@@ -240,6 +274,37 @@ export const ReportsPage: React.FC = () => {
           totalResults={data?.total}
         />
       </motion.div>
+
+      {/* Active Issue Filter Banner */}
+      {filters.issueId && (
+        <motion.div
+          variants={itemVariants}
+          className="flex items-center justify-between px-4 py-2.5 bg-blue-50/80 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/80 rounded-xl text-xs text-blue-900 dark:text-blue-200"
+        >
+          <div className="flex items-center gap-2">
+            <Layers className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
+            <span>
+              Active Filter: Showing reports linked to Aggregated Issue{' '}
+              <strong className="font-mono">{filters.issueId}</strong>
+            </span>
+          </div>
+          <button
+            type="button"
+            onClick={() => {
+              setSearchParams((prev) => {
+                prev.delete('issueId');
+                prev.delete('issue_id');
+                return prev;
+              });
+              setFilters((prev) => ({ ...prev, issueId: undefined, page: 1 }));
+            }}
+            className="inline-flex items-center gap-1 font-semibold text-blue-700 dark:text-blue-300 hover:text-blue-900 dark:hover:text-white px-2 py-1 rounded hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors"
+          >
+            <X className="w-3.5 h-3.5" />
+            Clear Issue Filter
+          </button>
+        </motion.div>
+      )}
 
       {/* Reports Data Table */}
       <motion.div variants={itemVariants}>

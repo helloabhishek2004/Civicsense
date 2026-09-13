@@ -18,6 +18,7 @@ import { DepartmentsPage } from '@/features/departments/DepartmentsPage';
 import { DepartmentDetailPage } from '@/features/departments/DepartmentDetailPage';
 import { UsersPage } from '@/features/users/UsersPage';
 import { SettingsPage } from '@/features/settings/SettingsPage';
+import { IssueDetailPage } from '@/features/issues/IssueDetailPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -51,6 +52,7 @@ export const App: React.FC = () => {
                 <Route path="/overview" element={<Navigate to="/" replace />} />
                 <Route path="/reports" element={<ReportsPage />} />
                 <Route path="/reports/:id" element={<ReportDetailPage />} />
+                <Route path="/issues/:id" element={<IssueDetailPage />} />
                 <Route path="/ai-operations" element={<AIOperationsPage />} />
                 <Route path="/map" element={<MapPage />} />
                 <Route path="/analytics" element={<AnalyticsPage />} />

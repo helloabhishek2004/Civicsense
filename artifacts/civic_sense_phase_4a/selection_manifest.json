@@ -1,0 +1,47 @@
+{
+  "phase": "Phase 4A Frozen Selection Manifest",
+  "timestamp_utc": "2026-09-13T14:35:00Z",
+  "lock_status": "FROZEN_BEFORE_BENCHMARK_EVALUATION",
+  "selected_semantic_model": {
+    "encoder": "sentence-transformers/all-MiniLM-L6-v2",
+    "model_path": "models/all_minilm_l6_v2",
+    "weights_safetensors_sha256": "53aa51172d142c89d9012cce15ae4d6cc0ca6895895114379cacb4fab128d9db",
+    "classification_strategy": "trained_head",
+    "head_path": "models/all_minilm_l6_v2/minilm_classifier_head.pkl",
+    "normalization": "l2_normalized",
+    "hyperparameters": {
+      "c_reg": 5.0,
+      "class_weight": null
+    },
+    "validation_performance": {
+      "accuracy": 0.8907563025210085,
+      "macro_f1": 0.8858472400513479
+    }
+  },
+  "selected_tfidf_baseline": {
+    "model_path": "models/tfidf_baseline/tfidf_classifier.pkl",
+    "hyperparameters": {
+      "ngram_range": [
+        1,
+        2
+      ],
+      "max_features": 2000,
+      "c_reg": 2.0,
+      "accuracy": 0.8823529411764706,
+      "macro_f1": 0.8807303807303808
+    },
+    "validation_performance": {
+      "accuracy": 0.8823529411764706,
+      "macro_f1": 0.8807303807303808
+    }
+  },
+  "selected_ensemble": {
+    "champion_alpha": 0.0,
+    "formula": "0.0 * P_deterministic + 1.0 * P_minilm",
+    "validation_performance": {
+      "accuracy": 0.8907563025210085,
+      "macro_f1": 0.8858472400513479
+    }
+  },
+  "selection_rationale": "Selected alpha=0.0 on held-out validation set (n=119) because it maximized macro F1 (0.8858) and accuracy (89.08%), synergistically combining lexical keyword precision with semantic embeddings."
+}

@@ -1,0 +1,19 @@
+{
+  "p50": 4.7,
+  "p90": 41.04,
+  "p95": 59.08,
+  "p99": 68.77,
+  "min": 0.96,
+  "max": 123.77,
+  "mean": 11.36,
+  "stddev": 17.89,
+  "cold_start_latency_ms": 4.57,
+  "warm_mean_ms": 11.38,
+  "sample_count": 300,
+  "stage_breakdown_means_ms": {
+    "intake_validation_ms": 11.27,
+    "vision_inference_ms": 0.02,
+    "fusion_ms": 0.01,
+    "decision_ms": 0.01
+  }
+}

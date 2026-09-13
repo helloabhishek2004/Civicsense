@@ -1,0 +1,1014 @@
+{
+  "evaluation_name": "exp_a_validation",
+  "high_confidence_errors": [
+    {
+      "sample_id": "train_pilot_bost311_101006680724",
+      "true_class": "Other",
+      "pred_class": "Pothole",
+      "confidence": 0.9654,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.9654,
+        "Road Damage": 0.0013,
+        "Garbage": 0.0122,
+        "Water Leakage": 0.005,
+        "Streetlight": 0.0041,
+        "Other": 0.012
+      }
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006653820",
+      "true_class": "Pothole",
+      "pred_class": "Other",
+      "confidence": 0.7299,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.1892,
+        "Road Damage": 0.0078,
+        "Garbage": 0.0682,
+        "Water Leakage": 0.0043,
+        "Streetlight": 0.0005,
+        "Other": 0.7299
+      }
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006656150",
+      "true_class": "Other",
+      "pred_class": "Garbage",
+      "confidence": 0.881,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0,
+        "Road Damage": 0.0,
+        "Garbage": 0.881,
+        "Water Leakage": 0.0,
+        "Streetlight": 0.0001,
+        "Other": 0.1189
+      }
+    },
+    {
+      "sample_id": "train_bost_b3pothole_101006606155",
+      "true_class": "Pothole",
+      "pred_class": "Garbage",
+      "confidence": 0.8711,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.105,
+        "Road Damage": 0.0,
+        "Garbage": 0.8711,
+        "Water Leakage": 0.0012,
+        "Streetlight": 0.0001,
+        "Other": 0.0226
+      }
+    },
+    {
+      "sample_id": "train_bost_b3dump_101006580789",
+      "true_class": "Garbage",
+      "pred_class": "Pothole",
+      "confidence": 0.7527,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.7527,
+        "Road Damage": 0.0026,
+        "Garbage": 0.0407,
+        "Water Leakage": 0.0413,
+        "Streetlight": 0.0012,
+        "Other": 0.1615
+      }
+    },
+    {
+      "sample_id": "train_bost_b3property_101006640994",
+      "true_class": "Other",
+      "pred_class": "Garbage",
+      "confidence": 0.7219,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0004,
+        "Road Damage": 0.0015,
+        "Garbage": 0.7219,
+        "Water Leakage": 0.0002,
+        "Streetlight": 0.0049,
+        "Other": 0.271
+      }
+    },
+    {
+      "sample_id": "train_wmroad_b2_92181785",
+      "true_class": "Road Damage",
+      "pred_class": "Streetlight",
+      "confidence": 0.9269,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0001,
+        "Road Damage": 0.0187,
+        "Garbage": 0.0,
+        "Water Leakage": 0.0539,
+        "Streetlight": 0.9269,
+        "Other": 0.0004
+      }
+    },
+    {
+      "sample_id": "train_wmroad_b2_156455800",
+      "true_class": "Road Damage",
+      "pred_class": "Other",
+      "confidence": 0.8121,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0088,
+        "Road Damage": 0.001,
+        "Garbage": 0.1718,
+        "Water Leakage": 0.0044,
+        "Streetlight": 0.0019,
+        "Other": 0.8121
+      }
+    },
+    {
+      "sample_id": "train_wmroad_b3_97750219",
+      "true_class": "Road Damage",
+      "pred_class": "Streetlight",
+      "confidence": 0.7229,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0002,
+        "Road Damage": 0.1996,
+        "Garbage": 0.0006,
+        "Water Leakage": 0.0464,
+        "Streetlight": 0.7229,
+        "Other": 0.0302
+      }
+    },
+    {
+      "sample_id": "train_wmroad_b3_97514469",
+      "true_class": "Road Damage",
+      "pred_class": "Streetlight",
+      "confidence": 0.7866,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0034,
+        "Road Damage": 0.1653,
+        "Garbage": 0.0006,
+        "Water Leakage": 0.043,
+        "Streetlight": 0.7866,
+        "Other": 0.0011
+      }
+    },
+    {
+      "sample_id": "train_pilot_wmlight_57331589",
+      "true_class": "Streetlight",
+      "pred_class": "Garbage",
+      "confidence": 0.7576,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0073,
+        "Road Damage": 0.0014,
+        "Garbage": 0.7576,
+        "Water Leakage": 0.1188,
+        "Streetlight": 0.0034,
+        "Other": 0.1114
+      }
+    },
+    {
+      "sample_id": "train_pilot_wmlight_45563766",
+      "true_class": "Streetlight",
+      "pred_class": "Other",
+      "confidence": 0.7864,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.071,
+        "Road Damage": 0.0028,
+        "Garbage": 0.1214,
+        "Water Leakage": 0.0076,
+        "Streetlight": 0.0107,
+        "Other": 0.7864
+      }
+    },
+    {
+      "sample_id": "train_wmlight_b2_93201139",
+      "true_class": "Streetlight",
+      "pred_class": "Road Damage",
+      "confidence": 0.9304,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0,
+        "Road Damage": 0.9304,
+        "Garbage": 0.0001,
+        "Water Leakage": 0.0595,
+        "Streetlight": 0.0096,
+        "Other": 0.0004
+      }
+    },
+    {
+      "sample_id": "train_pilot_wmwater_9180164",
+      "true_class": "Water Leakage",
+      "pred_class": "Streetlight",
+      "confidence": 0.7315,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.027,
+        "Road Damage": 0.0098,
+        "Garbage": 0.0687,
+        "Water Leakage": 0.1147,
+        "Streetlight": 0.7315,
+        "Other": 0.0483
+      }
+    },
+    {
+      "sample_id": "train_wmwater_b2_67025365",
+      "true_class": "Water Leakage",
+      "pred_class": "Other",
+      "confidence": 0.9222,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.006,
+        "Road Damage": 0.0439,
+        "Garbage": 0.0218,
+        "Water Leakage": 0.0051,
+        "Streetlight": 0.001,
+        "Other": 0.9222
+      }
+    },
+    {
+      "sample_id": "train_wmwater_b2_93304697",
+      "true_class": "Water Leakage",
+      "pred_class": "Streetlight",
+      "confidence": 0.7606,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0001,
+        "Road Damage": 0.048,
+        "Garbage": 0.0,
+        "Water Leakage": 0.1858,
+        "Streetlight": 0.7606,
+        "Other": 0.0055
+      }
+    },
+    {
+      "sample_id": "train_wmwater_b2_91687380",
+      "true_class": "Water Leakage",
+      "pred_class": "Road Damage",
+      "confidence": 0.7379,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0059,
+        "Road Damage": 0.7379,
+        "Garbage": 0.0011,
+        "Water Leakage": 0.1964,
+        "Streetlight": 0.0564,
+        "Other": 0.0022
+      }
+    },
+    {
+      "sample_id": "train_wmwater_b2_91687391",
+      "true_class": "Water Leakage",
+      "pred_class": "Road Damage",
+      "confidence": 0.8258,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0018,
+        "Road Damage": 0.8258,
+        "Garbage": 0.0003,
+        "Water Leakage": 0.1521,
+        "Streetlight": 0.0191,
+        "Other": 0.0009
+      }
+    },
+    {
+      "sample_id": "train_wmwater_b3_93398929",
+      "true_class": "Water Leakage",
+      "pred_class": "Road Damage",
+      "confidence": 0.8417,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0008,
+        "Road Damage": 0.8417,
+        "Garbage": 0.0002,
+        "Water Leakage": 0.1077,
+        "Streetlight": 0.0482,
+        "Other": 0.0014
+      }
+    },
+    {
+      "sample_id": "train_wmwater_b3_92865453",
+      "true_class": "Water Leakage",
+      "pred_class": "Streetlight",
+      "confidence": 0.7492,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0,
+        "Road Damage": 0.1535,
+        "Garbage": 0.0,
+        "Water Leakage": 0.0964,
+        "Streetlight": 0.7492,
+        "Other": 0.0008
+      }
+    }
+  ],
+  "low_confidence_correct": [
+    {
+      "sample_id": "train_bost_b2dump_101006551034",
+      "true_class": "Garbage",
+      "pred_class": "Garbage",
+      "confidence": 0.3594,
+      "is_correct": true,
+      "probabilities": {
+        "Pothole": 0.0198,
+        "Road Damage": 0.0139,
+        "Garbage": 0.3594,
+        "Water Leakage": 0.2941,
+        "Streetlight": 0.0032,
+        "Other": 0.3096
+      }
+    },
+    {
+      "sample_id": "train_pilot_taco_228",
+      "true_class": "Garbage",
+      "pred_class": "Garbage",
+      "confidence": 0.4429,
+      "is_correct": true,
+      "probabilities": {
+        "Pothole": 0.3436,
+        "Road Damage": 0.0113,
+        "Garbage": 0.4429,
+        "Water Leakage": 0.1672,
+        "Streetlight": 0.007,
+        "Other": 0.0279
+      }
+    },
+    {
+      "sample_id": "train_pilot_wmroad_97055984",
+      "true_class": "Road Damage",
+      "pred_class": "Road Damage",
+      "confidence": 0.4446,
+      "is_correct": true,
+      "probabilities": {
+        "Pothole": 0.0049,
+        "Road Damage": 0.4446,
+        "Garbage": 0.0199,
+        "Water Leakage": 0.1453,
+        "Streetlight": 0.3386,
+        "Other": 0.0467
+      }
+    },
+    {
+      "sample_id": "train_wmroad_b2_91764881",
+      "true_class": "Road Damage",
+      "pred_class": "Road Damage",
+      "confidence": 0.3435,
+      "is_correct": true,
+      "probabilities": {
+        "Pothole": 0.032,
+        "Road Damage": 0.3435,
+        "Garbage": 0.1334,
+        "Water Leakage": 0.1514,
+        "Streetlight": 0.3237,
+        "Other": 0.0159
+      }
+    },
+    {
+      "sample_id": "train_wmlight_b2_93030248",
+      "true_class": "Streetlight",
+      "pred_class": "Streetlight",
+      "confidence": 0.4842,
+      "is_correct": true,
+      "probabilities": {
+        "Pothole": 0.001,
+        "Road Damage": 0.1384,
+        "Garbage": 0.0038,
+        "Water Leakage": 0.3702,
+        "Streetlight": 0.4842,
+        "Other": 0.0024
+      }
+    },
+    {
+      "sample_id": "train_wmlight_b3_94782357",
+      "true_class": "Streetlight",
+      "pred_class": "Streetlight",
+      "confidence": 0.4932,
+      "is_correct": true,
+      "probabilities": {
+        "Pothole": 0.0006,
+        "Road Damage": 0.1998,
+        "Garbage": 0.0199,
+        "Water Leakage": 0.2415,
+        "Streetlight": 0.4932,
+        "Other": 0.045
+      }
+    },
+    {
+      "sample_id": "train_wmwater_b3_96107963",
+      "true_class": "Water Leakage",
+      "pred_class": "Water Leakage",
+      "confidence": 0.4795,
+      "is_correct": true,
+      "probabilities": {
+        "Pothole": 0.0116,
+        "Road Damage": 0.2109,
+        "Garbage": 0.033,
+        "Water Leakage": 0.4795,
+        "Streetlight": 0.2355,
+        "Other": 0.0295
+      }
+    }
+  ],
+  "all_incorrect_samples": [
+    {
+      "sample_id": "train_pilot_bost311_101006657222",
+      "true_class": "Garbage",
+      "pred_class": "Other",
+      "confidence": 0.6432,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0629,
+        "Road Damage": 0.0002,
+        "Garbage": 0.2838,
+        "Water Leakage": 0.0099,
+        "Streetlight": 0.0001,
+        "Other": 0.6432
+      }
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006680724",
+      "true_class": "Other",
+      "pred_class": "Pothole",
+      "confidence": 0.9654,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.9654,
+        "Road Damage": 0.0013,
+        "Garbage": 0.0122,
+        "Water Leakage": 0.005,
+        "Streetlight": 0.0041,
+        "Other": 0.012
+      }
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006679999",
+      "true_class": "Other",
+      "pred_class": "Garbage",
+      "confidence": 0.3619,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0702,
+        "Road Damage": 0.003,
+        "Garbage": 0.3619,
+        "Water Leakage": 0.1955,
+        "Streetlight": 0.0389,
+        "Other": 0.3304
+      }
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006653820",
+      "true_class": "Pothole",
+      "pred_class": "Other",
+      "confidence": 0.7299,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.1892,
+        "Road Damage": 0.0078,
+        "Garbage": 0.0682,
+        "Water Leakage": 0.0043,
+        "Streetlight": 0.0005,
+        "Other": 0.7299
+      }
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006656150",
+      "true_class": "Other",
+      "pred_class": "Garbage",
+      "confidence": 0.881,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0,
+        "Road Damage": 0.0,
+        "Garbage": 0.881,
+        "Water Leakage": 0.0,
+        "Streetlight": 0.0001,
+        "Other": 0.1189
+      }
+    },
+    {
+      "sample_id": "train_pilot_bost311_101006686874",
+      "true_class": "Other",
+      "pred_class": "Garbage",
+      "confidence": 0.5869,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0244,
+        "Road Damage": 0.004,
+        "Garbage": 0.5869,
+        "Water Leakage": 0.0038,
+        "Streetlight": 0.0056,
+        "Other": 0.3754
+      }
+    },
+    {
+      "sample_id": "train_bost_b2trash_101006681919",
+      "true_class": "Garbage",
+      "pred_class": "Pothole",
+      "confidence": 0.397,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.397,
+        "Road Damage": 0.0036,
+        "Garbage": 0.3696,
+        "Water Leakage": 0.0874,
+        "Streetlight": 0.0098,
+        "Other": 0.1326
+      }
+    },
+    {
+      "sample_id": "train_bost_b2trash_101006635182",
+      "true_class": "Garbage",
+      "pred_class": "Other",
+      "confidence": 0.612,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0576,
+        "Road Damage": 0.0036,
+        "Garbage": 0.3077,
+        "Water Leakage": 0.0013,
+        "Streetlight": 0.0179,
+        "Other": 0.612
+      }
+    },
+    {
+      "sample_id": "train_bost_b2dump_101006443857",
+      "true_class": "Garbage",
+      "pred_class": "Other",
+      "confidence": 0.4128,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.115,
+        "Road Damage": 0.012,
+        "Garbage": 0.3218,
+        "Water Leakage": 0.1148,
+        "Streetlight": 0.0235,
+        "Other": 0.4128
+      }
+    },
+    {
+      "sample_id": "train_bost_b3pothole_101006606155",
+      "true_class": "Pothole",
+      "pred_class": "Garbage",
+      "confidence": 0.8711,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.105,
+        "Road Damage": 0.0,
+        "Garbage": 0.8711,
+        "Water Leakage": 0.0012,
+        "Streetlight": 0.0001,
+        "Other": 0.0226
+      }
+    },
+    {
+      "sample_id": "train_bost_b3dump_101006580789",
+      "true_class": "Garbage",
+      "pred_class": "Pothole",
+      "confidence": 0.7527,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.7527,
+        "Road Damage": 0.0026,
+        "Garbage": 0.0407,
+        "Water Leakage": 0.0413,
+        "Streetlight": 0.0012,
+        "Other": 0.1615
+      }
+    },
+    {
+      "sample_id": "train_bost_b3property_101006644726",
+      "true_class": "Other",
+      "pred_class": "Garbage",
+      "confidence": 0.464,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0739,
+        "Road Damage": 0.0016,
+        "Garbage": 0.464,
+        "Water Leakage": 0.0135,
+        "Streetlight": 0.0128,
+        "Other": 0.4343
+      }
+    },
+    {
+      "sample_id": "train_bost_b3property_101006640994",
+      "true_class": "Other",
+      "pred_class": "Garbage",
+      "confidence": 0.7219,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0004,
+        "Road Damage": 0.0015,
+        "Garbage": 0.7219,
+        "Water Leakage": 0.0002,
+        "Streetlight": 0.0049,
+        "Other": 0.271
+      }
+    },
+    {
+      "sample_id": "train_pilot_wmroad_92065433",
+      "true_class": "Road Damage",
+      "pred_class": "Streetlight",
+      "confidence": 0.6224,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0003,
+        "Road Damage": 0.3118,
+        "Garbage": 0.0,
+        "Water Leakage": 0.065,
+        "Streetlight": 0.6224,
+        "Other": 0.0004
+      }
+    },
+    {
+      "sample_id": "train_wmroad_b2_92181785",
+      "true_class": "Road Damage",
+      "pred_class": "Streetlight",
+      "confidence": 0.9269,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0001,
+        "Road Damage": 0.0187,
+        "Garbage": 0.0,
+        "Water Leakage": 0.0539,
+        "Streetlight": 0.9269,
+        "Other": 0.0004
+      }
+    },
+    {
+      "sample_id": "train_wmroad_b2_156455800",
+      "true_class": "Road Damage",
+      "pred_class": "Other",
+      "confidence": 0.8121,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0088,
+        "Road Damage": 0.001,
+        "Garbage": 0.1718,
+        "Water Leakage": 0.0044,
+        "Streetlight": 0.0019,
+        "Other": 0.8121
+      }
+    },
+    {
+      "sample_id": "train_wmroad_b3_97750219",
+      "true_class": "Road Damage",
+      "pred_class": "Streetlight",
+      "confidence": 0.7229,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0002,
+        "Road Damage": 0.1996,
+        "Garbage": 0.0006,
+        "Water Leakage": 0.0464,
+        "Streetlight": 0.7229,
+        "Other": 0.0302
+      }
+    },
+    {
+      "sample_id": "train_wmroad_b3_153654702",
+      "true_class": "Road Damage",
+      "pred_class": "Streetlight",
+      "confidence": 0.4504,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0007,
+        "Road Damage": 0.2537,
+        "Garbage": 0.0001,
+        "Water Leakage": 0.2948,
+        "Streetlight": 0.4504,
+        "Other": 0.0003
+      }
+    },
+    {
+      "sample_id": "train_wmroad_b3_97514469",
+      "true_class": "Road Damage",
+      "pred_class": "Streetlight",
+      "confidence": 0.7866,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0034,
+        "Road Damage": 0.1653,
+        "Garbage": 0.0006,
+        "Water Leakage": 0.043,
+        "Streetlight": 0.7866,
+        "Other": 0.0011
+      }
+    },
+    {
+      "sample_id": "train_wmroad_b3_153145294",
+      "true_class": "Road Damage",
+      "pred_class": "Streetlight",
+      "confidence": 0.4966,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0009,
+        "Road Damage": 0.3323,
+        "Garbage": 0.0002,
+        "Water Leakage": 0.169,
+        "Streetlight": 0.4966,
+        "Other": 0.0009
+      }
+    },
+    {
+      "sample_id": "train_pilot_wmlight_57331589",
+      "true_class": "Streetlight",
+      "pred_class": "Garbage",
+      "confidence": 0.7576,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0073,
+        "Road Damage": 0.0014,
+        "Garbage": 0.7576,
+        "Water Leakage": 0.1188,
+        "Streetlight": 0.0034,
+        "Other": 0.1114
+      }
+    },
+    {
+      "sample_id": "train_pilot_wmlight_45563766",
+      "true_class": "Streetlight",
+      "pred_class": "Other",
+      "confidence": 0.7864,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.071,
+        "Road Damage": 0.0028,
+        "Garbage": 0.1214,
+        "Water Leakage": 0.0076,
+        "Streetlight": 0.0107,
+        "Other": 0.7864
+      }
+    },
+    {
+      "sample_id": "train_wmlight_b2_93201139",
+      "true_class": "Streetlight",
+      "pred_class": "Road Damage",
+      "confidence": 0.9304,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0,
+        "Road Damage": 0.9304,
+        "Garbage": 0.0001,
+        "Water Leakage": 0.0595,
+        "Streetlight": 0.0096,
+        "Other": 0.0004
+      }
+    },
+    {
+      "sample_id": "train_wmlight_b2_148300630",
+      "true_class": "Streetlight",
+      "pred_class": "Road Damage",
+      "confidence": 0.3577,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.2154,
+        "Road Damage": 0.3577,
+        "Garbage": 0.0054,
+        "Water Leakage": 0.0573,
+        "Streetlight": 0.2069,
+        "Other": 0.1573
+      }
+    },
+    {
+      "sample_id": "train_wmlight_b3_97505363",
+      "true_class": "Streetlight",
+      "pred_class": "Water Leakage",
+      "confidence": 0.356,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0309,
+        "Road Damage": 0.077,
+        "Garbage": 0.0337,
+        "Water Leakage": 0.356,
+        "Streetlight": 0.3207,
+        "Other": 0.1817
+      }
+    },
+    {
+      "sample_id": "train_pilot_wmwater_9180164",
+      "true_class": "Water Leakage",
+      "pred_class": "Streetlight",
+      "confidence": 0.7315,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.027,
+        "Road Damage": 0.0098,
+        "Garbage": 0.0687,
+        "Water Leakage": 0.1147,
+        "Streetlight": 0.7315,
+        "Other": 0.0483
+      }
+    },
+    {
+      "sample_id": "train_wmwater_b2_98087444",
+      "true_class": "Water Leakage",
+      "pred_class": "Streetlight",
+      "confidence": 0.6108,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0,
+        "Road Damage": 0.0477,
+        "Garbage": 0.0,
+        "Water Leakage": 0.3411,
+        "Streetlight": 0.6108,
+        "Other": 0.0004
+      }
+    },
+    {
+      "sample_id": "train_wmwater_b2_67025365",
+      "true_class": "Water Leakage",
+      "pred_class": "Other",
+      "confidence": 0.9222,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.006,
+        "Road Damage": 0.0439,
+        "Garbage": 0.0218,
+        "Water Leakage": 0.0051,
+        "Streetlight": 0.001,
+        "Other": 0.9222
+      }
+    },
+    {
+      "sample_id": "train_wmwater_b2_158942690",
+      "true_class": "Water Leakage",
+      "pred_class": "Garbage",
+      "confidence": 0.5563,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0156,
+        "Road Damage": 0.0221,
+        "Garbage": 0.5563,
+        "Water Leakage": 0.1821,
+        "Streetlight": 0.0066,
+        "Other": 0.2172
+      }
+    },
+    {
+      "sample_id": "train_wmwater_b2_93304697",
+      "true_class": "Water Leakage",
+      "pred_class": "Streetlight",
+      "confidence": 0.7606,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0001,
+        "Road Damage": 0.048,
+        "Garbage": 0.0,
+        "Water Leakage": 0.1858,
+        "Streetlight": 0.7606,
+        "Other": 0.0055
+      }
+    },
+    {
+      "sample_id": "train_wmwater_b2_113064232",
+      "true_class": "Water Leakage",
+      "pred_class": "Other",
+      "confidence": 0.6804,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0166,
+        "Road Damage": 0.0021,
+        "Garbage": 0.2952,
+        "Water Leakage": 0.0052,
+        "Streetlight": 0.0006,
+        "Other": 0.6804
+      }
+    },
+    {
+      "sample_id": "train_wmwater_b2_153157759",
+      "true_class": "Water Leakage",
+      "pred_class": "Streetlight",
+      "confidence": 0.5064,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0034,
+        "Road Damage": 0.3836,
+        "Garbage": 0.0005,
+        "Water Leakage": 0.1039,
+        "Streetlight": 0.5064,
+        "Other": 0.0022
+      }
+    },
+    {
+      "sample_id": "train_wmwater_b2_91687380",
+      "true_class": "Water Leakage",
+      "pred_class": "Road Damage",
+      "confidence": 0.7379,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0059,
+        "Road Damage": 0.7379,
+        "Garbage": 0.0011,
+        "Water Leakage": 0.1964,
+        "Streetlight": 0.0564,
+        "Other": 0.0022
+      }
+    },
+    {
+      "sample_id": "train_wmwater_b2_91687391",
+      "true_class": "Water Leakage",
+      "pred_class": "Road Damage",
+      "confidence": 0.8258,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0018,
+        "Road Damage": 0.8258,
+        "Garbage": 0.0003,
+        "Water Leakage": 0.1521,
+        "Streetlight": 0.0191,
+        "Other": 0.0009
+      }
+    },
+    {
+      "sample_id": "train_wmwater_b3_93398929",
+      "true_class": "Water Leakage",
+      "pred_class": "Road Damage",
+      "confidence": 0.8417,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0008,
+        "Road Damage": 0.8417,
+        "Garbage": 0.0002,
+        "Water Leakage": 0.1077,
+        "Streetlight": 0.0482,
+        "Other": 0.0014
+      }
+    },
+    {
+      "sample_id": "train_wmwater_b3_97771822",
+      "true_class": "Water Leakage",
+      "pred_class": "Streetlight",
+      "confidence": 0.3813,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0023,
+        "Road Damage": 0.2955,
+        "Garbage": 0.0006,
+        "Water Leakage": 0.3176,
+        "Streetlight": 0.3813,
+        "Other": 0.0027
+      }
+    },
+    {
+      "sample_id": "train_wmwater_b3_96107588",
+      "true_class": "Water Leakage",
+      "pred_class": "Streetlight",
+      "confidence": 0.6578,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.001,
+        "Road Damage": 0.07,
+        "Garbage": 0.0004,
+        "Water Leakage": 0.2652,
+        "Streetlight": 0.6578,
+        "Other": 0.0056
+      }
+    },
+    {
+      "sample_id": "train_wmwater_b3_95480093",
+      "true_class": "Water Leakage",
+      "pred_class": "Streetlight",
+      "confidence": 0.5534,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0001,
+        "Road Damage": 0.0229,
+        "Garbage": 0.0,
+        "Water Leakage": 0.4235,
+        "Streetlight": 0.5534,
+        "Other": 0.0001
+      }
+    },
+    {
+      "sample_id": "train_wmwater_b3_92865453",
+      "true_class": "Water Leakage",
+      "pred_class": "Streetlight",
+      "confidence": 0.7492,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0,
+        "Road Damage": 0.1535,
+        "Garbage": 0.0,
+        "Water Leakage": 0.0964,
+        "Streetlight": 0.7492,
+        "Other": 0.0008
+      }
+    },
+    {
+      "sample_id": "train_wmwater_b3_92382430",
+      "true_class": "Water Leakage",
+      "pred_class": "Garbage",
+      "confidence": 0.4635,
+      "is_correct": false,
+      "probabilities": {
+        "Pothole": 0.0145,
+        "Road Damage": 0.0156,
+        "Garbage": 0.4635,
+        "Water Leakage": 0.0692,
+        "Streetlight": 0.3608,
+        "Other": 0.0764
+      }
+    }
+  ]
+}

@@ -88,7 +88,11 @@ def sample_report_payload() -> dict[str, Any]:
                 "file_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
                 "mime_type": "image/jpeg",
                 "file_size_bytes": 204800,
-                "metadata_json": {"camera": "mobile_rear", "flash": False},
+                "metadata_json": {
+                    "camera": "mobile_rear",
+                    "flash": False,
+                    "prototype_category": "Pothole",
+                },
             }
         ],
     }

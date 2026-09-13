@@ -1,0 +1,322 @@
+{
+  "manifest_integrity_hash": "e988474dd46cee4c3b17010fb32af1a50ff750ea32579d8e8ab7ef8b0fd2e60b",
+  "evaluation_timestamp": "2026-09-13T03:27:33.437529+00:00",
+  "official_text_baseline_accuracy": 0.79,
+  "ablations": {
+    "A_original": {
+      "ablation_key": "A_original",
+      "label": "Original Text",
+      "total_samples": 300,
+      "correct_count": 237,
+      "error_count": 63,
+      "accuracy": 0.79,
+      "macro_precision": 0.881,
+      "macro_recall": 0.79,
+      "macro_f1": 0.7934,
+      "balanced_accuracy": 0.79,
+      "abstention_rate": 1.0,
+      "selective_accuracy": 0.0,
+      "difference_from_official_text_baseline": 0.0,
+      "per_class_recall": {
+        "Pothole": 1.0,
+        "Road Damage": 0.42,
+        "Garbage": 1.0,
+        "Water Leakage": 0.74,
+        "Streetlight": 0.58,
+        "Other": 1.0
+      },
+      "per_class_precision": {
+        "Pothole": 0.9434,
+        "Road Damage": 0.875,
+        "Garbage": 1.0,
+        "Water Leakage": 1.0,
+        "Streetlight": 1.0,
+        "Other": 0.4673
+      },
+      "per_class_f1": {
+        "Pothole": 0.9709,
+        "Road Damage": 0.5676,
+        "Garbage": 1.0,
+        "Water Leakage": 0.8506,
+        "Streetlight": 0.7342,
+        "Other": 0.637
+      },
+      "latency": {
+        "mean_ms": 0.06,
+        "p50_ms": 0.04,
+        "p95_ms": 0.11,
+        "total_ablation_time_ms": 18.61
+      }
+    },
+    "B_lowercased": {
+      "ablation_key": "B_lowercased",
+      "label": "Lowercased Text",
+      "total_samples": 300,
+      "correct_count": 237,
+      "error_count": 63,
+      "accuracy": 0.79,
+      "macro_precision": 0.881,
+      "macro_recall": 0.79,
+      "macro_f1": 0.7934,
+      "balanced_accuracy": 0.79,
+      "abstention_rate": 1.0,
+      "selective_accuracy": 0.0,
+      "difference_from_official_text_baseline": 0.0,
+      "per_class_recall": {
+        "Pothole": 1.0,
+        "Road Damage": 0.42,
+        "Garbage": 1.0,
+        "Water Leakage": 0.74,
+        "Streetlight": 0.58,
+        "Other": 1.0
+      },
+      "per_class_precision": {
+        "Pothole": 0.9434,
+        "Road Damage": 0.875,
+        "Garbage": 1.0,
+        "Water Leakage": 1.0,
+        "Streetlight": 1.0,
+        "Other": 0.4673
+      },
+      "per_class_f1": {
+        "Pothole": 0.9709,
+        "Road Damage": 0.5676,
+        "Garbage": 1.0,
+        "Water Leakage": 0.8506,
+        "Streetlight": 0.7342,
+        "Other": 0.637
+      },
+      "latency": {
+        "mean_ms": 0.05,
+        "p50_ms": 0.04,
+        "p95_ms": 0.11,
+        "total_ablation_time_ms": 17.18
+      }
+    },
+    "C_whitespace_normalized": {
+      "ablation_key": "C_whitespace_normalized",
+      "label": "Whitespace-Normalized Text",
+      "total_samples": 300,
+      "correct_count": 237,
+      "error_count": 63,
+      "accuracy": 0.79,
+      "macro_precision": 0.881,
+      "macro_recall": 0.79,
+      "macro_f1": 0.7934,
+      "balanced_accuracy": 0.79,
+      "abstention_rate": 1.0,
+      "selective_accuracy": 0.0,
+      "difference_from_official_text_baseline": 0.0,
+      "per_class_recall": {
+        "Pothole": 1.0,
+        "Road Damage": 0.42,
+        "Garbage": 1.0,
+        "Water Leakage": 0.74,
+        "Streetlight": 0.58,
+        "Other": 1.0
+      },
+      "per_class_precision": {
+        "Pothole": 0.9434,
+        "Road Damage": 0.875,
+        "Garbage": 1.0,
+        "Water Leakage": 1.0,
+        "Streetlight": 1.0,
+        "Other": 0.4673
+      },
+      "per_class_f1": {
+        "Pothole": 0.9709,
+        "Road Damage": 0.5676,
+        "Garbage": 1.0,
+        "Water Leakage": 0.8506,
+        "Streetlight": 0.7342,
+        "Other": 0.637
+      },
+      "latency": {
+        "mean_ms": 0.05,
+        "p50_ms": 0.04,
+        "p95_ms": 0.11,
+        "total_ablation_time_ms": 18.19
+      }
+    },
+    "D_empty": {
+      "ablation_key": "D_empty",
+      "label": "Empty Text (Text-Absent)",
+      "total_samples": 300,
+      "correct_count": 50,
+      "error_count": 250,
+      "accuracy": 0.1667,
+      "macro_precision": 0.0278,
+      "macro_recall": 0.1667,
+      "macro_f1": 0.0476,
+      "balanced_accuracy": 0.1667,
+      "abstention_rate": 1.0,
+      "selective_accuracy": 0.0,
+      "difference_from_official_text_baseline": -0.6233,
+      "per_class_recall": {
+        "Pothole": 0.0,
+        "Road Damage": 0.0,
+        "Garbage": 0.0,
+        "Water Leakage": 0.0,
+        "Streetlight": 0.0,
+        "Other": 1.0
+      },
+      "per_class_precision": {
+        "Pothole": 0.0,
+        "Road Damage": 0.0,
+        "Garbage": 0.0,
+        "Water Leakage": 0.0,
+        "Streetlight": 0.0,
+        "Other": 0.1667
+      },
+      "per_class_f1": {
+        "Pothole": 0.0,
+        "Road Damage": 0.0,
+        "Garbage": 0.0,
+        "Water Leakage": 0.0,
+        "Streetlight": 0.0,
+        "Other": 0.2858
+      },
+      "latency": {
+        "mean_ms": 0.01,
+        "p50_ms": 0.01,
+        "p95_ms": 0.02,
+        "total_ablation_time_ms": 4.71
+      }
+    },
+    "E_generic_neutral": {
+      "ablation_key": "E_generic_neutral",
+      "label": "Generic Neutral Text ('Civic issue reported at a public location.')",
+      "total_samples": 300,
+      "correct_count": 50,
+      "error_count": 250,
+      "accuracy": 0.1667,
+      "macro_precision": 0.0278,
+      "macro_recall": 0.1667,
+      "macro_f1": 0.0476,
+      "balanced_accuracy": 0.1667,
+      "abstention_rate": 1.0,
+      "selective_accuracy": 0.0,
+      "difference_from_official_text_baseline": -0.6233,
+      "per_class_recall": {
+        "Pothole": 0.0,
+        "Road Damage": 0.0,
+        "Garbage": 0.0,
+        "Water Leakage": 0.0,
+        "Streetlight": 0.0,
+        "Other": 1.0
+      },
+      "per_class_precision": {
+        "Pothole": 0.0,
+        "Road Damage": 0.0,
+        "Garbage": 0.0,
+        "Water Leakage": 0.0,
+        "Streetlight": 0.0,
+        "Other": 0.1667
+      },
+      "per_class_f1": {
+        "Pothole": 0.0,
+        "Road Damage": 0.0,
+        "Garbage": 0.0,
+        "Water Leakage": 0.0,
+        "Streetlight": 0.0,
+        "Other": 0.2858
+      },
+      "latency": {
+        "mean_ms": 0.04,
+        "p50_ms": 0.04,
+        "p95_ms": 0.04,
+        "total_ablation_time_ms": 11.58
+      }
+    },
+    "F_keyword_masked": {
+      "ablation_key": "F_keyword_masked",
+      "label": "Keyword-Masked Text ([MASKED])",
+      "total_samples": 300,
+      "correct_count": 79,
+      "error_count": 221,
+      "accuracy": 0.2633,
+      "macro_precision": 0.5128,
+      "macro_recall": 0.2633,
+      "macro_f1": 0.2056,
+      "balanced_accuracy": 0.2633,
+      "abstention_rate": 1.0,
+      "selective_accuracy": 0.0,
+      "difference_from_official_text_baseline": -0.5267,
+      "per_class_recall": {
+        "Pothole": 0.0,
+        "Road Damage": 0.32,
+        "Garbage": 0.0,
+        "Water Leakage": 0.2,
+        "Streetlight": 0.06,
+        "Other": 1.0
+      },
+      "per_class_precision": {
+        "Pothole": 0.0,
+        "Road Damage": 0.8889,
+        "Garbage": 0.0,
+        "Water Leakage": 1.0,
+        "Streetlight": 1.0,
+        "Other": 0.188
+      },
+      "per_class_f1": {
+        "Pothole": 0.0,
+        "Road Damage": 0.4706,
+        "Garbage": 0.0,
+        "Water Leakage": 0.3333,
+        "Streetlight": 0.1132,
+        "Other": 0.3165
+      },
+      "latency": {
+        "mean_ms": 0.05,
+        "p50_ms": 0.04,
+        "p95_ms": 0.11,
+        "total_ablation_time_ms": 21.73
+      }
+    },
+    "G_truncated_30": {
+      "ablation_key": "G_truncated_30",
+      "label": "Truncated Text (First 30 characters)",
+      "total_samples": 300,
+      "correct_count": 214,
+      "error_count": 86,
+      "accuracy": 0.7133,
+      "macro_precision": 0.8547,
+      "macro_recall": 0.7133,
+      "macro_f1": 0.71,
+      "balanced_accuracy": 0.7133,
+      "abstention_rate": 1.0,
+      "selective_accuracy": 0.0,
+      "difference_from_official_text_baseline": -0.0767,
+      "per_class_recall": {
+        "Pothole": 1.0,
+        "Road Damage": 0.24,
+        "Garbage": 1.0,
+        "Water Leakage": 0.58,
+        "Streetlight": 0.46,
+        "Other": 1.0
+      },
+      "per_class_precision": {
+        "Pothole": 0.9434,
+        "Road Damage": 0.8,
+        "Garbage": 1.0,
+        "Water Leakage": 1.0,
+        "Streetlight": 1.0,
+        "Other": 0.3846
+      },
+      "per_class_f1": {
+        "Pothole": 0.9709,
+        "Road Damage": 0.3692,
+        "Garbage": 1.0,
+        "Water Leakage": 0.7342,
+        "Streetlight": 0.6301,
+        "Other": 0.5555
+      },
+      "latency": {
+        "mean_ms": 0.03,
+        "p50_ms": 0.03,
+        "p95_ms": 0.04,
+        "total_ablation_time_ms": 11.0
+      }
+    }
+  }
+}

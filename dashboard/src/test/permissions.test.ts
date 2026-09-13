@@ -1,4 +1,4 @@
-﻿import { describe, it, expect } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { can } from '@/core/auth/permissions';
 import { OfficerUser } from '@/core/auth/authTypes';
 
@@ -47,6 +47,14 @@ describe('Officer RBAC Permissions', () => {
   it('prohibits Field Inspector and Department Manager from viewing unmasked phone', () => {
     expect(can(fieldInspector, 'view_citizen_phone')).toBe(false);
     expect(can(departmentManager, 'view_citizen_phone')).toBe(false);
+  });
+
+  it('allows Super Admin and Triage Officer to review duplicate candidate matches', () => {
+    expect(can(superAdmin, 'review_matches')).toBe(true);
+    expect(can(triageOfficer, 'review_matches')).toBe(true);
+    expect(can(fieldInspector, 'review_matches')).toBe(false);
+    expect(can(departmentManager, 'review_matches')).toBe(false);
+    expect(can(null, 'review_matches')).toBe(false);
   });
 
   it('handles null user safely', () => {

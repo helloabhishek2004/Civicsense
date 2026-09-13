@@ -1,0 +1,255 @@
+"""CivicSense Source Registry.
+
+Maintains verified metadata, licensing terms, annotation formats, and download policies
+for candidate civic issue datasets.
+"""
+
+from dataclasses import asdict, dataclass, field
+from typing import Any
+
+
+@dataclass(frozen=True)
+class SourceMetadata:
+    """Metadata descriptor for candidate benchmark datasets."""
+
+    source_dataset: str
+    official_name: str
+    official_url: str
+    source_type: str
+    license: str
+    license_url: str
+    attribution_requirement: str
+    image_availability: str
+    annotation_format: str
+    candidate_categories: list[str]
+    download_policy: str
+    redistribution_notes: str
+    verification_status: str
+    sample_count_estimated: int = 0
+    license_verified: bool = False
+    metadata_json: dict[str, Any] = field(default_factory=dict)
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+DATASET_REGISTRY: dict[str, SourceMetadata] = {
+    "rdd2022": SourceMetadata(
+        source_dataset="rdd2022",
+        official_name=(
+            "Road Damage Dataset 2022 "
+            "(Crowdsensing-based Road Damage Detection Challenge)"
+        ),
+        official_url="https://github.com/sekilab/RoadDamageDetector",
+        source_type="vision_road_damage",
+        license="CC-BY-NC-3.0 (Mendeley Data RDD2020) / CRDDC terms",
+        license_url="https://creativecommons.org/licenses/by-nc/3.0/",
+        attribution_requirement=(
+            "Arya et al., 'RDD2020: An annotated image dataset for automatic road damage detection "
+            "using deep learning', Data in Brief, 2021; Sekilab CRDDC 2022."
+        ),
+        image_availability="manual_prerequisite",
+        annotation_format="Pascal VOC XML",
+        candidate_categories=["Pothole", "Road Damage"],
+        download_policy="manual_prerequisite",
+        redistribution_notes=(
+            "Mendeley RDD2020 (DOI: 10.17632/5ty2wb6gvg.1) is explicitly licensed under "
+            "CC BY-NC 3.0 (NonCommercial). Academic prototype and research benchmarking "
+            "is permitted with attribution. Commercial redistribution is restricted. "
+            "Multi-gigabyte tarballs require manual prerequisite staging; automated script "
+            "scraping is prohibited to avoid bandwidth exhaustion."
+        ),
+        verification_status="cleared_academic_noncommercial",
+        sample_count_estimated=47420,
+        license_verified=True,
+        metadata_json={
+            "regional_subsets": ["Japan", "India", "Czech", "Norway", "United_States", "China"],
+            "target_subsets_for_civicsense": ["India", "Japan"],
+            "mendeley_doi": "10.17632/5ty2wb6gvg.1",
+        },
+    ),
+    "taco": SourceMetadata(
+        source_dataset="taco",
+        official_name="TACO: Trash Annotations in Context for Litter Detection",
+        official_url="https://github.com/pedropro/TACO",
+        source_type="vision_waste_litter",
+        license="CC-BY-SA-4.0 (Annotations) / Unverified Flickr (47.7% license: None)",
+        license_url="https://creativecommons.org/licenses/by-sa/4.0/",
+        attribution_requirement=(
+            "Pedro F. Proença and Pedro Simões, "
+            "'TACO: Trash Annotations in Context for Litter Detection', 2020."
+        ),
+        image_availability="api_download",
+        annotation_format="COCO JSON",
+        candidate_categories=["Garbage"],
+        download_policy="subset_download",
+        redistribution_notes=(
+            "Annotations are CC-BY-SA 4.0; underlying Flickr images carry individual "
+            "licenses. Forensic inspection of annotations.json reveals 715/1500 images (47.7%) "
+            "have license=None. Only images with verified Creative Commons or ODbL licenses "
+            "may be cleared for inclusion; unverified Flickr assets are excluded from benchmark."
+        ),
+        verification_status="partially_cleared_individual_review_required",
+        sample_count_estimated=1500,
+        license_verified=True,
+        metadata_json={
+            "annotation_file": "annotations.json",
+            "download_script": "download.py",
+            "unverified_license_image_count": 715,
+        },
+    ),
+    "boston311": SourceMetadata(
+        source_dataset="boston311",
+        official_name="City of Boston 311 Service Requests",
+        official_url="https://data.boston.gov/dataset/311-service-requests",
+        source_type="multimodal_311",
+        license="ODC-PDDL (Open Data Commons Public Domain Dedication and License)",
+        license_url="http://www.opendefinition.org/licenses/odc-pddl",
+        attribution_requirement="City of Boston, Analyze Boston Open Data / 311 Service Requests",
+        image_availability="live_cloudinary_urls",
+        annotation_format="CKAN Datastore / CSV with citizen and closed photo URLs",
+        candidate_categories=[
+            "Pothole",
+            "Road Damage",
+            "Garbage",
+            "Water Leakage",
+            "Streetlight",
+            "Other",
+        ],
+        download_policy="subset_download",
+        redistribution_notes=(
+            "Dedicated to the public domain under ODC-PDDL by the City of Boston Department "
+            "of Innovation and Technology (DoIT). Citizen and municipal work photos are hosted "
+            "on Cloudinary and cleared for benchmark inclusion with privacy safeguards."
+        ),
+        verification_status="cleared_for_benchmark",
+        sample_count_estimated=250000,
+        license_verified=True,
+        metadata_json={
+            "ckan_resource_id_2026": "1a0b420d-99f1-4887-9851-990b2a5a6e17",
+            "photo_columns": ["closed_photo", "submitted_photo"],
+            "category_column": "type",
+            "text_column": "case_title",
+        },
+    ),
+    "nyc311": SourceMetadata(
+        source_dataset="nyc311",
+        official_name="NYC 311 Service Requests from 2010 to Present",
+        official_url=(
+            "https://data.cityofnewyork.us/Social-Services/"
+            "311-Service-Requests-from-2010-to-Present/erm2-nwe9"
+        ),
+        source_type="tabular_text_311",
+        license="NYC Open Data Terms of Use (Public Domain equivalent)",
+        license_url="https://opendata.cityofnewyork.us/overview/#termsofuse",
+        attribution_requirement="City of New York Open Data / 311",
+        image_availability="not_available",
+        annotation_format="CSV / Socrata API (Text and metadata only)",
+        candidate_categories=["Pothole", "Garbage", "Streetlight", "Water Leakage", "Other"],
+        download_policy="metadata_only",
+        redistribution_notes=(
+            "NYC 311 publishes 48 tabular columns with zero citizen photo URLs or attachments. "
+            "Not cleared for visual benchmark inclusion due to absence of image media. "
+            "Suitable solely as a civic complaint taxonomy and text reference."
+        ),
+        verification_status="not_cleared_for_visual_benchmark",
+        sample_count_estimated=30000000,
+        license_verified=True,
+        metadata_json={
+            "visual_benchmark_candidate": False,
+            "text_benchmark_candidate": True,
+            "photo_columns_found": 0,
+        },
+    ),
+    "wikimedia_water": SourceMetadata(
+        source_dataset="wikimedia_water",
+        official_name=(
+            "Wikimedia Commons & Geograph Infrastructure (Water Leakage and Pipe Breaks)"
+        ),
+        official_url="https://commons.wikimedia.org",
+        source_type="vision_water_leakage",
+        license="CC-BY-SA-4.0 / CC-BY-SA-2.0 / CC-BY-2.0 / Public Domain",
+        license_url="https://creativecommons.org/licenses/",
+        attribution_requirement="Individual photographers / Geograph Project / Wikimedia Commons",
+        image_availability="api_download",
+        annotation_format="MediaWiki API / Imageinfo Extmetadata",
+        candidate_categories=["Water Leakage"],
+        download_policy="subset_download",
+        redistribution_notes=(
+            "Images are published under verified Creative Commons (CC-BY, CC-BY-SA) or "
+            "Public Domain terms with detailed photographic descriptions of pipe bursts, "
+            "water main breaks, and municipal water leaks. Cleared for benchmark inclusion."
+        ),
+        verification_status="cleared_for_benchmark",
+        sample_count_estimated=500,
+        license_verified=True,
+        metadata_json={
+            "api_endpoint": "https://commons.wikimedia.org/w/api.php",
+            "content_types": ["burst_water_main", "pipe_burst", "water_pipe_leak"],
+        },
+    ),
+    "wikimedia_streetlight": SourceMetadata(
+        source_dataset="wikimedia_streetlight",
+        official_name=(
+            "Wikimedia Commons & Geograph (Municipal Street Lighting and Lamp Posts)"
+        ),
+        official_url="https://commons.wikimedia.org",
+        source_type="vision_streetlight",
+        license="CC-BY-SA-4.0 / CC-BY-SA-2.0 / CC-BY-2.0 / Public Domain",
+        license_url="https://creativecommons.org/licenses/",
+        attribution_requirement="Individual photographers / Geograph Project / Wikimedia Commons",
+        image_availability="api_download",
+        annotation_format="MediaWiki API / Imageinfo Extmetadata",
+        candidate_categories=["Streetlight"],
+        download_policy="subset_download",
+        redistribution_notes=(
+            "Images are published under verified Creative Commons (CC-BY, CC-BY-SA) or "
+            "Public Domain terms depicting municipal street lamps, lamp posts, and public "
+            "lighting fixtures. Cleared for benchmark inclusion."
+        ),
+        verification_status="cleared_for_benchmark",
+        sample_count_estimated=500,
+        license_verified=True,
+        metadata_json={
+            "api_endpoint": "https://commons.wikimedia.org/w/api.php",
+            "content_types": ["street_lamp", "lamp_post", "damaged_streetlight"],
+        },
+    ),
+    "wikimedia_road_damage": SourceMetadata(
+        source_dataset="wikimedia_road_damage",
+        official_name=(
+            "Wikimedia Commons & Geograph (Roadway Surface Cracks and Asphalt Damage)"
+        ),
+        official_url="https://commons.wikimedia.org",
+        source_type="vision_road_damage",
+        license="CC-BY-SA-4.0 / CC-BY-SA-2.0 / CC-BY-2.0 / Public Domain",
+        license_url="https://creativecommons.org/licenses/",
+        attribution_requirement="Individual photographers / Geograph Project / Wikimedia Commons",
+        image_availability="api_download",
+        annotation_format="MediaWiki API / Imageinfo Extmetadata",
+        candidate_categories=["Road Damage"],
+        download_policy="subset_download",
+        redistribution_notes=(
+            "Images are published under verified Creative Commons (CC-BY, CC-BY-SA) or "
+            "Public Domain terms depicting structural asphalt cracks, alligator fatigue, "
+            "and roadway pavement fissures. Cleared for benchmark inclusion."
+        ),
+        verification_status="cleared_for_benchmark",
+        sample_count_estimated=500,
+        license_verified=True,
+        metadata_json={
+            "api_endpoint": "https://commons.wikimedia.org/w/api.php",
+            "content_types": ["cracked_asphalt", "alligator_cracking", "roadway_damage"],
+        },
+    ),
+}
+
+
+def get_source(source_id: str) -> SourceMetadata | None:
+    """Retrieve metadata descriptor for a known source dataset."""
+    return DATASET_REGISTRY.get(source_id.lower().strip())
+
+
+def list_sources() -> list[SourceMetadata]:
+    """List all registered dataset descriptors."""
+    return list(DATASET_REGISTRY.values())

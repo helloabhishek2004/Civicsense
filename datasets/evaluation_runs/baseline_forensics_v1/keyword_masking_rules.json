@@ -1,0 +1,67 @@
+{
+  "manifest_integrity_hash": "e988474dd46cee4c3b17010fb32af1a50ff750ea32579d8e8ab7ef8b0fd2e60b",
+  "mask_token": "[MASKED]",
+  "masking_terms_by_category": {
+    "Pothole": [
+      "\\bpotholes?\\b",
+      "\\bcraters?\\b",
+      "\\btarmac\\b",
+      "\\basphalt(\\s+hole)?\\b",
+      "\\bcavit(y|ies)\\b",
+      "\\bpits?\\b",
+      "\\bmanhole\\b"
+    ],
+    "Garbage": [
+      "\\bgarbages?\\b",
+      "\\btrash(es)?\\b",
+      "\\bwastes?\\b",
+      "\\bdumps?\\b",
+      "\\bdumping\\b",
+      "\\bdebris\\b",
+      "\\blitters?\\b",
+      "\\brubbish\\b",
+      "\\brefuse\\b",
+      "\\bbins?\\b"
+    ],
+    "Water Leakage": [
+      "\\bwaters?\\b",
+      "\\bleaks?\\b",
+      "\\bleaking\\b",
+      "\\bleakages?\\b",
+      "\\bpipes?\\b",
+      "\\bpipelines?\\b",
+      "\\bspills?\\b",
+      "\\bfloods?\\b",
+      "\\bflooding\\b",
+      "\\bsewages?\\b"
+    ],
+    "Streetlight": [
+      "\\bstreetlights?\\b",
+      "\\blights?\\b",
+      "\\blamps?\\b",
+      "\\blampposts?\\b",
+      "\\bpoles?\\b",
+      "\\bbulbs?\\b",
+      "\\billuminat(ed|ion)\\b"
+    ],
+    "Road Damage": [
+      "\\broads?\\b",
+      "\\bcracks?\\b",
+      "\\bpavements?\\b",
+      "\\bsinkholes?\\b",
+      "\\bcave-ins?\\b",
+      "\\bcollapse\\b",
+      "\\bbroken\\b",
+      "\\buneven\\b"
+    ],
+    "Drainage": [
+      "\\bdrains?\\b",
+      "\\bdrainage\\b",
+      "\\bgutters?\\b",
+      "\\bblockage\\b",
+      "\\bwaterlogging\\b",
+      "\\bstormwaters?\\b"
+    ]
+  },
+  "total_patterns": 48
+}

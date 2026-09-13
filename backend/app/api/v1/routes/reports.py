@@ -94,6 +94,10 @@ def list_reports(
         None,
         description="Filter reports requiring department reassignment",
     ),
+    issue_id: uuid.UUID | None = Query(
+        None,
+        description="Filter reports linked to an aggregated issue",
+    ),
     pagination: PaginationParams = Depends(get_pagination),
     db: Session = Depends(get_db),
 ) -> ReportListResponse:
@@ -109,6 +113,7 @@ def list_reports(
         category=category,
         priority=priority,
         reassignment_required=reassignment_required,
+        issue_id=issue_id,
     )
 
     sanitized_items = []

@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0.0",
+  "audited_at": "2026-09-13T09:18:00Z",
+  "local_environment": {
+    "os": "Windows (win32 AMD64)",
+    "python_version": "3.14.3",
+    "installed_packages": {
+      "torch": "2.10.0+cpu (VERIFIED_INSTALLED)",
+      "transformers": "5.3.0 (VERIFIED_INSTALLED)",
+      "pillow": "12.1.1 (VERIFIED_INSTALLED)",
+      "numpy": "2.4.2 (VERIFIED_INSTALLED)",
+      "scipy": "1.17.1 (VERIFIED_INSTALLED)",
+      "scikit-learn": "1.8.0 (VERIFIED_INSTALLED)",
+      "torchvision": "NOT_INSTALLED",
+      "onnx": "NOT_INSTALLED",
+      "onnxruntime": "NOT_INSTALLED",
+      "tflite_runtime": "NOT_INSTALLED",
+      "tensorflow": "NOT_INSTALLED",
+      "timm": "NOT_INSTALLED"
+    },
+    "hardware_acceleration": "NONE (CPU only)"
+  },
+  "verified_local_capabilities": {
+    "offline_pytorch_forward_pass": {
+      "verified": true,
+      "test_model": "MobileNetV2 (2.23M params)",
+      "measured_cpu_latency_ms": 39.7,
+      "output_shape": [1, 6],
+      "network_required": false
+    },
+    "dynamic_quantization_cpu": {
+      "verified": true,
+      "module": "torch.ao.quantization.quantize_dynamic",
+      "target_dtype": "torch.qint8",
+      "notes": "PyTorch 2.10 emits deprecation note for future torchao migration, but execution succeeds completely."
+    },
+    "onnx_export_local": {
+      "verified": false,
+      "blocker": "ModuleNotFoundError: No module named 'onnxscript'. PyTorch 2.10 torch.onnx.export requires onnx and onnxscript.",
+      "remediation": "Export ONNX artifacts during offline training pipeline, not inside API serving environment."
+    },
+    "transformers_efficientnet_quirk": {
+      "verified": true,
+      "finding": "Raw transformers EfficientNetConfig defaults to B7 top dimensions (2560) unless loaded via specific checkpoint config; causes forward pass mismatch if instantiated blindly."
+    }
+  },
+  "deployment_runtime_options": [
+    {
+      "runtime_name": "ONNX Runtime CPU",
+      "package": "onnxruntime",
+      "added_package_size_mb": 22.0,
+      "cpu_inference_suitability": "EXCELLENT",
+      "memory_footprint_mb": "< 30 MB",
+      "advantages": [
+        "Extremely lightweight (22MB vs 200MB+ for PyTorch CPU wheel)",
+        "Zero C++ compiler dependencies on deployment hosts",
+        "Optimized graph transformations and quantized INT8 kernel execution out-of-the-box"
+      ],
+      "disadvantages": [
+        "Requires ahead-of-time export from PyTorch during training phase"
+      ],
+      "recommended_phase": "Production Serving (Phase 3.4)"
+    },
+    {
+      "runtime_name": "PyTorch CPU",
+      "package": "torch",
+      "added_package_size_mb": 220.0,
+      "cpu_inference_suitability": "GOOD",
+      "memory_footprint_mb": "60-90 MB",
+      "advantages": [
+        "Already installed in development environment (2.10.0+cpu)",
+        "Direct model experimentation without intermediate serialization steps",
+        "Full support for PyTorch state_dict loading"
+      ],
+      "disadvantages": [
+        "Heavy binary footprint for containerized deployment"
+      ],
+      "recommended_phase": "Experimental Validation (Phase 3.3.2)"
+    },
+    {
+      "runtime_name": "TensorFlow Lite Runtime",
+      "package": "tflite_runtime",
+      "added_package_size_mb": 5.0,
+      "cpu_inference_suitability": "EXCELLENT_ON_EDGE",
+      "memory_footprint_mb": "< 15 MB",
+      "advantages": [
+        "Ultra-lightweight engine ideal for Android / mobile edge integration",
+        "Native target for EfficientNet-Lite0 and MobileNetV3"
+      ],
+      "disadvantages": [
+        "Less convenient for server-side Python experimentation compared to PyTorch/ONNX"
+      ],
+      "recommended_phase": "Edge Inference (Phase 4)"
+    }
+  ]
+}

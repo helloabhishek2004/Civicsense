@@ -1,0 +1,29 @@
+{
+  "cold_start_ms": 90.17,
+  "iterations": 200,
+  "tokenization_ms": {
+    "mean": 0.3914,
+    "p50": 0.3361,
+    "p95": 0.8034
+  },
+  "forward_pass_ms": {
+    "mean": 8.7099,
+    "p50": 7.0588,
+    "p95": 17.9369
+  },
+  "pooling_and_norm_ms": {
+    "mean": 0.2073,
+    "p50": 0.2091,
+    "p95": 0.2671
+  },
+  "head_projection_ms": {
+    "mean": 0.3664,
+    "p50": 0.3525,
+    "p95": 0.4509
+  },
+  "total_end_to_end_ms": {
+    "mean": 9.6902,
+    "p50": 7.9943,
+    "p95": 19.367
+  }
+}

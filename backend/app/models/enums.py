@@ -84,6 +84,23 @@ class AssignmentStatus(str, Enum):
     REJECTED = "REJECTED"
 
 
+class MatchStatus(str, Enum):
+    """Lifecycle state of a report-to-issue similarity match."""
+
+    PENDING = "PENDING"
+    APPROVED = "APPROVED"
+    REJECTED = "REJECTED"
+    SUPERSEDED = "SUPERSEDED"
+
+
+class MatchAction(str, Enum):
+    """Outcome of similarity scoring against nearby issues."""
+
+    AUTO_LINK = "AUTO_LINK"
+    CANDIDATE = "CANDIDATE"
+    NEW_ISSUE = "NEW_ISSUE"
+
+
 class DepartmentRejectionReason(str, Enum):
     """Standardized reasons when a department declines custody of a job."""
 

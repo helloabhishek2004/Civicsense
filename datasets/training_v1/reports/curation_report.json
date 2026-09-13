@@ -1,0 +1,71 @@
+{
+  "pipeline_version": "1.0.0",
+  "curation_timestamp": "2026-09-13T07:33:35.203061+00:00",
+  "input_raw_candidates": 995,
+  "total_manifest_samples": 995,
+  "clean_train_samples": 473,
+  "clean_validation_samples": 119,
+  "quarantined_samples": 403,
+  "leakage_rejections": 305,
+  "intra_duplicate_matches": 28,
+  "class_distribution": {
+    "Water Leakage": {
+      "train": 78,
+      "validation": 19,
+      "quarantine": 73,
+      "total": 170
+    },
+    "Pothole": {
+      "train": 78,
+      "validation": 20,
+      "quarantine": 62,
+      "total": 160
+    },
+    "Garbage": {
+      "train": 84,
+      "validation": 21,
+      "quarantine": 63,
+      "total": 168
+    },
+    "Other": {
+      "train": 79,
+      "validation": 20,
+      "quarantine": 61,
+      "total": 160
+    },
+    "Road Damage": {
+      "train": 78,
+      "validation": 20,
+      "quarantine": 72,
+      "total": 170
+    },
+    "Streetlight": {
+      "train": 76,
+      "validation": 19,
+      "quarantine": 72,
+      "total": 167
+    },
+    "Infrastructure": {
+      "train": 0,
+      "validation": 0,
+      "quarantine": 0,
+      "total": 0
+    },
+    "Drainage": {
+      "train": 0,
+      "validation": 0,
+      "quarantine": 0,
+      "total": 0
+    }
+  },
+  "source_distribution": {
+    "boston311": 477,
+    "taco": 3,
+    "wikimedia_other": 15,
+    "wikimedia_road_damage": 165,
+    "wikimedia_streetlight": 165,
+    "wikimedia_water": 170
+  },
+  "split_ratio_target": "80/19",
+  "benchmark_integrity_verified": true
+}

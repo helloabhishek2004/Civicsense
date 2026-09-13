@@ -1,0 +1,29 @@
+{
+  "deterministic_baseline": {
+    "brier_score": 0.34,
+    "nll": 0.8022,
+    "ece": 0.1561,
+    "mean_correct_conf": 0.6757,
+    "mean_incorrect_conf": 0.4767,
+    "confidence_gap": 0.199,
+    "high_conf_errors": 6
+  },
+  "tfidf_baseline": {
+    "brier_score": 0.2316,
+    "nll": 0.4709,
+    "ece": 0.1744,
+    "mean_correct_conf": 0.7571,
+    "mean_incorrect_conf": 0.3505,
+    "confidence_gap": 0.4067,
+    "high_conf_errors": 0
+  },
+  "minilm_trained_head": {
+    "brier_score": 0.1925,
+    "nll": 0.4372,
+    "ece": 0.0578,
+    "mean_correct_conf": 0.8777,
+    "mean_incorrect_conf": 0.6144,
+    "confidence_gap": 0.2633,
+    "high_conf_errors": 9
+  }
+}

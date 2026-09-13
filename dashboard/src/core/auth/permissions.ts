@@ -12,6 +12,7 @@ const ROLE_PERMISSIONS: Record<OfficerUser['role'], readonly PermissionAction[]>
     'manage_users',
     'export_data',
     'view_citizen_phone',
+    'review_matches',
   ],
   TRIAGE_OFFICER: [
     'verify_report',
@@ -20,6 +21,7 @@ const ROLE_PERMISSIONS: Record<OfficerUser['role'], readonly PermissionAction[]>
     'close_report',
     'export_data',
     'view_citizen_phone',
+    'review_matches',
   ],
   DEPARTMENT_MANAGER: [
     'prioritize_report',
