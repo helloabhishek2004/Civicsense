@@ -465,6 +465,116 @@
   .aggregate-layout{display:grid;grid-template-columns:1fr 105px 1.2fr;gap:19px;align-items:center;flex:1;margin-top:20px;}.report-pile{display:grid;grid-template-columns:1fr 1fr;gap:10px;}.report-pile .report-mini{padding:14px;}.report-pile .report-mini b{font-size:13px;}.aggregate-arrow{height:170px;position:relative;border-right:2px solid var(--civic-sage);}.aggregate-arrow:before,.aggregate-arrow:after{content:'';position:absolute;right:-2px;width:45px;border-top:2px solid var(--civic-sage);}.aggregate-arrow:before{top:32px}.aggregate-arrow:after{bottom:32px}.aggregate-arrow i{position:absolute;right:-10px;top:72px;width:18px;height:18px;border-radius:50%;background:var(--civic-sage);}.aggregate-issue{padding:25px;border-radius:23px;background:var(--deep-green);color:var(--bg-warm);}.aggregate-issue h2{font-size:25px;letter-spacing:-.03em;margin-top:10px;}.aggregate-issue .metadata{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px;}.aggregate-issue .metadata span{font-size:11px;padding:8px 10px;border-radius:10px;background:rgba(245,247,240,.11);}
   .priority-layout{display:grid;grid-template-columns:1.1fr 300px;gap:62px;align-items:center;flex:1;margin-top:20px;}.factors-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;position:relative;}.factors-grid:after{content:'Priority';position:absolute;left:50%;top:51%;transform:translate(-50%,-50%);width:120px;height:120px;border-radius:50%;display:grid;place-items:center;background:var(--civic-sage);color:var(--bg-warm);font-size:18px;font-weight:700;box-shadow:0 16px 38px rgba(42,51,40,.2);}.factor-card{min-height:162px;padding:14px 11px;border:1px solid var(--border);border-radius:16px;background:var(--white);text-align:center;}.factor-card:nth-child(odd){transform:translateY(36px);}.factor-card b{font-size:13px;letter-spacing:-.01em;}.factor-card span{display:block;font-size:10.5px;line-height:1.35;color:var(--text-muted);margin-top:7px;}.priority-result{padding:24px;border-radius:23px;background:var(--soft-sage);}.priority-result .tag{font-size:10px;font-weight:800;letter-spacing:.08em;color:var(--civic-sage);}.priority-result h2{font-size:36px;letter-spacing:-.04em;margin-top:9px;}.priority-result p{font-size:12.5px;line-height:1.6;color:var(--text-muted);margin-top:13px;}
   .trace-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;flex:1;margin-top:25px;align-items:center;}.trace-card{min-height:245px;padding:22px;border-radius:21px;border:1px solid var(--border);background:var(--white);}.trace-card .tag{font-size:10px;font-weight:800;letter-spacing:.08em;color:var(--civic-sage);}.trace-card h2{font-size:20px;letter-spacing:-.025em;margin-top:14px;}.review-state{display:flex;align-items:center;gap:8px;margin-top:24px;}.review-state span{padding:10px 12px;border-radius:10px;background:var(--soft-sage);font-size:11px;font-weight:800;color:var(--civic-sage);}.review-state i{font-style:normal;color:var(--text-muted);}.trace-flow{display:flex;flex-direction:column;gap:9px;margin-top:21px;}.trace-flow span{padding:9px 10px;border-radius:9px;background:var(--soft-sage);font-size:11px;font-weight:700;color:var(--civic-sage);}.trace-flow i{font-style:normal;text-align:center;color:var(--civic-sage);}.conflict-badge{margin-top:23px;padding:13px;border-radius:13px;background:var(--deep-green);color:var(--bg-warm);font-size:11px;line-height:1.5;font-weight:700;}.conflict-badge span{display:block;font-size:9px;color:rgba(245,247,240,.67);letter-spacing:.08em;}
+
+  /* ================= SLIDES 19-25 MULTIMODAL PROCESSING ================= */
+  .mm-input-row{display:flex;gap:18px;justify-content:center;margin-top:18px;}
+  .mm-input-card{width:182px;padding:18px;border-radius:18px;background:var(--white);border:1px solid var(--border);box-shadow:0 14px 28px rgba(42,51,40,.07);text-align:center;}
+  .mm-input-card .ico{width:38px;height:38px;border-radius:11px;background:var(--soft-sage);display:grid;place-items:center;font-size:17px;margin:0 auto 11px;}
+  .mm-input-card b{font-size:14.5px;letter-spacing:-.01em;display:block;}
+  .mm-input-card span{font-size:11px;color:var(--text-muted);margin-top:3px;display:block;}
+  .mm-center-node{margin:0 auto;width:210px;padding:20px;border-radius:20px;background:var(--civic-sage);color:var(--bg-warm);text-align:center;box-shadow:0 18px 40px rgba(42,51,40,.22);}
+  .mm-center-node b{font-size:17px;letter-spacing:-.02em;}
+  .mm-center-node span{font-size:11.5px;color:rgba(245,247,240,.72);margin-top:5px;display:block;}
+  .mm-outputs{display:flex;gap:12px;justify-content:center;margin-top:16px;}
+  .mm-stream-wrap{position:relative;height:50px;margin:10px 0;}
+  .mm-stream-wrap svg{display:block;margin:0 auto;overflow:visible;}
+  .mm-stream-wrap path{stroke:var(--border);stroke-width:2;fill:none;stroke-dasharray:400;stroke-dashoffset:400;transition:stroke-dashoffset 1s var(--ease);}
+  .mm-stream-wrap.shown path{stroke-dashoffset:0;}
+  .vpipe-wrap{display:grid;grid-template-columns:184px 1fr 240px;gap:22px;align-items:center;flex:1;margin-top:14px;}
+  .vpipe-left{display:flex;flex-direction:column;gap:9px;}
+  .vpipe-photo{height:84px;border-radius:13px;background:var(--civic-sage);display:grid;place-items:center;color:var(--bg-warm);font-size:24px;}
+  .vpipe-step{padding:8px 12px;border-radius:10px;background:var(--soft-sage);font-size:11px;font-weight:700;color:var(--civic-sage);}
+  .vpipe-mid{display:flex;flex-direction:column;align-items:center;gap:8px;}
+  .vpipe-model{padding:16px;border-radius:16px;background:var(--civic-sage);color:var(--bg-warm);text-align:center;box-shadow:0 14px 32px rgba(42,51,40,.2);width:100%;}
+  .vpipe-model b{font-size:14.5px;letter-spacing:-.02em;}
+  .vpipe-model span{font-size:10.5px;color:rgba(245,247,240,.72);margin-top:3px;display:block;}
+  .vpipe-cats{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;width:100%;}
+  .vpipe-cats .cat{padding:4px 7px;border-radius:7px;background:var(--soft-sage);font-size:9px;font-weight:700;color:var(--civic-sage);}
+  .vpipe-right{display:flex;flex-direction:column;gap:9px;}
+  .vpipe-out{padding:13px;border-radius:13px;border:1px solid var(--border);background:var(--white);}
+  .vpipe-out .micro{font-size:9px;font-weight:800;letter-spacing:.07em;color:var(--civic-sage);}
+  .vpipe-out b{display:block;font-size:13px;margin-top:4px;}
+  .vpipe-out span{font-size:10.5px;color:var(--text-muted);margin-top:3px;display:block;line-height:1.35;}
+  .vpipe-out.embed{background:var(--deep-green);color:var(--bg-warm);border-color:transparent;}
+  .vpipe-out.embed .micro{color:rgba(245,247,240,.65);}
+  .vpipe-out.embed span{color:rgba(245,247,240,.6);}
+  .vpipe-arrow{display:flex;align-items:center;justify-content:center;}
+  .vpipe-arrow svg{overflow:visible;}
+  .vpipe-arrow path{stroke:var(--civic-sage);stroke-width:2;fill:none;stroke-dasharray:60;stroke-dashoffset:60;transition:stroke-dashoffset .7s var(--ease);}
+  .vpipe-arrow.shown path{stroke-dashoffset:0;}
+  .tpipe-wrap{display:grid;grid-template-columns:184px 1fr 224px;gap:22px;align-items:center;flex:1;margin-top:14px;}
+  .tpipe-desc{padding:16px;border-radius:14px;background:var(--white);border:1px solid var(--border);font-size:12.5px;line-height:1.55;color:var(--text-muted);font-style:italic;}
+  .tpipe-mid{display:flex;flex-direction:column;gap:9px;align-items:center;}
+  .tpipe-branch{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;}
+  .tpipe-model{padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--white);box-shadow:0 7px 16px rgba(42,51,40,.05);}
+  .tpipe-model .micro{font-size:9px;font-weight:800;letter-spacing:.07em;color:var(--civic-sage);}
+  .tpipe-model b{display:block;font-size:12px;margin-top:4px;letter-spacing:-.01em;}
+  .tpipe-model span{font-size:9.5px;color:var(--text-muted);margin-top:3px;display:block;line-height:1.3;}
+  .tpipe-fuse{width:100%;padding:12px;border-radius:12px;background:var(--civic-sage);color:var(--bg-warm);text-align:center;}
+  .tpipe-fuse b{font-size:13px;}
+  .tpipe-fuse span{font-size:9.5px;color:rgba(245,247,240,.7);margin-top:3px;display:block;}
+  .tpipe-right{display:flex;flex-direction:column;gap:9px;}
+  .fusion-wrap{display:grid;grid-template-columns:202px 1fr 202px;gap:18px;align-items:center;flex:1;margin-top:12px;}
+  .fusion-input{padding:15px;border-radius:15px;border:1px solid var(--border);background:var(--white);box-shadow:0 9px 20px rgba(42,51,40,.05);}
+  .fusion-input .tag{font-size:9px;font-weight:800;letter-spacing:.08em;color:var(--civic-sage);}
+  .fusion-input b{display:block;font-size:13.5px;margin-top:6px;letter-spacing:-.01em;}
+  .fusion-input .frow{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px;}
+  .fusion-input .frow span{font-size:9px;font-weight:600;padding:3px 6px;border-radius:6px;background:var(--soft-sage);color:var(--civic-sage);}
+  .fusion-engine{display:flex;flex-direction:column;gap:8px;align-items:center;}
+  .fusion-core{width:100%;padding:15px;border-radius:16px;background:var(--civic-sage);color:var(--bg-warm);text-align:center;box-shadow:0 14px 32px rgba(42,51,40,.2);}
+  .fusion-core b{font-size:14.5px;letter-spacing:-.02em;}
+  .fusion-core .formula{margin-top:8px;padding:7px;border-radius:8px;background:rgba(245,247,240,.12);font-size:11px;font-family:monospace;color:rgba(245,247,240,.9);line-height:1.5;}
+  .fusion-step{width:100%;padding:9px 11px;border-radius:10px;border:1px solid var(--border);background:var(--white);}
+  .fusion-step .micro{font-size:9px;font-weight:800;letter-spacing:.07em;color:var(--civic-sage);}
+  .fusion-step span{display:block;font-size:10px;color:var(--text-muted);margin-top:2px;line-height:1.35;}
+  .fusion-out{padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--white);}
+  .fusion-out .micro{font-size:9px;font-weight:800;letter-spacing:.07em;color:var(--civic-sage);}
+  .fusion-out b{display:block;font-size:12.5px;margin-top:4px;}
+  .fusion-out span{font-size:9.5px;color:var(--text-muted);margin-top:2px;display:block;}
+  .fusion-out.warn{background:var(--soft-sage);border-color:transparent;}
+  .gates-wrap{display:grid;grid-template-columns:1fr 250px;gap:32px;align-items:start;flex:1;margin-top:12px;}
+  .gates-col{display:flex;flex-direction:column;gap:8px;}
+  .gate-card{padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:var(--white);display:flex;align-items:flex-start;gap:10px;}
+  .gate-icon{width:30px;height:30px;border-radius:9px;background:var(--soft-sage);display:grid;place-items:center;font-size:13px;flex:none;margin-top:1px;}
+  .gate-card b{font-size:12.5px;letter-spacing:-.01em;display:block;}
+  .gate-card span{font-size:10px;color:var(--text-muted);display:block;margin-top:2px;line-height:1.35;}
+  .gates-right{display:flex;flex-direction:column;gap:8px;}
+  .mode-card{padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--white);}
+  .mode-card .micro{font-size:9px;font-weight:800;letter-spacing:.07em;color:var(--civic-sage);}
+  .mode-card b{display:block;font-size:12.5px;margin-top:3px;}
+  .mode-card span{font-size:10px;color:var(--text-muted);margin-top:2px;display:block;}
+  .mode-card.active{background:var(--civic-sage);color:var(--bg-warm);border-color:transparent;}
+  .mode-card.active .micro{color:rgba(245,247,240,.7);}
+  .mode-card.active span{color:rgba(245,247,240,.65);}
+  .gates-result{padding:13px;border-radius:12px;background:var(--deep-green);color:var(--bg-warm);text-align:center;}
+  .gates-result b{font-size:13px;}
+  .gates-result span{font-size:9.5px;color:rgba(245,247,240,.6);margin-top:3px;display:block;}
+  .sim-wrap{display:grid;grid-template-columns:184px 1fr 196px;gap:18px;align-items:center;flex:1;margin-top:12px;}
+  .sim-report{padding:15px;border-radius:15px;border:1px solid var(--border);background:var(--white);box-shadow:0 10px 22px rgba(42,51,40,.06);}
+  .sim-report .tag{font-size:9px;font-weight:800;letter-spacing:.08em;color:var(--civic-sage);}
+  .sim-report b{display:block;font-size:12.5px;margin-top:5px;letter-spacing:-.01em;line-height:1.35;}
+  .sim-mid{display:flex;flex-direction:column;gap:8px;align-items:center;}
+  .sim-engine{width:100%;padding:13px;border-radius:14px;background:var(--civic-sage);color:var(--bg-warm);text-align:center;box-shadow:0 12px 28px rgba(42,51,40,.2);}
+  .sim-engine b{font-size:13.5px;letter-spacing:-.02em;}
+  .sim-engine span{font-size:9.5px;color:rgba(245,247,240,.7);margin-top:3px;display:block;}
+  .sim-bar{width:100%;height:22px;border-radius:6px;overflow:hidden;display:flex;}
+  .sim-bar-seg{display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:800;color:rgba(245,247,240,.9);transition:width .9s var(--ease);width:0;}
+  .sim-bar-seg.t.shown{width:35%;background:#556A54;}
+  .sim-bar-seg.v.shown{width:25%;background:#687263;}
+  .sim-bar-seg.g.shown{width:25%;background:#2A3328;}
+  .sim-bar-seg.c.shown{width:15%;background:#B08A4E;}
+  .sim-legend{display:grid;grid-template-columns:1fr 1fr;gap:3px;width:100%;}
+  .sim-legend span{font-size:9px;font-weight:600;color:var(--text-muted);display:flex;align-items:center;gap:4px;}
+  .sim-legend .dot-sm{width:6px;height:6px;border-radius:50%;flex:none;display:inline-block;}
+  .sim-outcomes{display:flex;flex-direction:column;gap:7px;}
+  .sim-outcome{padding:11px 12px;border-radius:11px;border:1px solid var(--border);background:var(--white);}
+  .sim-outcome .tag{font-size:8.5px;font-weight:800;letter-spacing:.08em;color:var(--civic-sage);}
+  .sim-outcome b{display:block;font-size:12.5px;margin-top:3px;}
+  .sim-outcome span{font-size:9.5px;color:var(--text-muted);margin-top:2px;display:block;}
+  .sim-outcome.so-auto{background:var(--soft-sage);border-color:transparent;}
+  .sim-outcome.so-new{background:var(--deep-green);color:var(--bg-warm);border-color:transparent;}
+  .sim-outcome.so-new .tag{color:rgba(245,247,240,.65);}
+  .sim-outcome.so-new span{color:rgba(245,247,240,.6);}
 </style>
 </head>
 <body>
@@ -921,19 +1031,176 @@
       </div>
     </section>
 
-    <!-- ============ SLIDE 19 — RELATIONSHIP PROCESSING ============ -->
-    <section class="slide" id="slide-19" data-steps="5">
-      <div class="section-mark reveal shown">INTELLIGENCE IN ACTION</div>
-      <h1 class="headline" style="margin-top:14px;">Reports are not always<br>separate issues.</h1>
-      <div class="match-layout">
-        <div class="report-mini reveal scale" data-step="1"><div class="tag">INCOMING REPORT</div><b>“Deep pothole near the junction.”</b><p>New context arrives for assessment.</p></div>
-        <div class="match-engine"><div class="engine-link reveal" data-step="2"></div><div class="engine-core reveal scale" data-step="2"><b>Similarity<br>processing</b><span>Compare with existing issue context.</span></div><span class="factor-chip a reveal" data-step="3">Text similarity</span><span class="factor-chip b reveal" data-step="3">Geographic distance</span><span class="factor-chip c reveal" data-step="3">Category compatibility</span><span class="factor-chip d reveal" data-step="3">Existing issue context</span></div>
-        <div class="outcome-stack"><div class="outcome-card auto reveal" data-step="4"><div class="tag">AUTO_LINK</div><b>Strong match</b><span>Associate where thresholds support it.</span></div><div class="outcome-card candidate reveal" data-step="5"><div class="tag">CANDIDATE</div><b>Possible match</b><span>Surface for human review.</span></div><div class="outcome-card new reveal" data-step="5" style="transition-delay:.1s"><div class="tag">NEW_ISSUE</div><b>No suitable match</b><span>Create a separate record.</span></div></div>
-      </div><div class="tech-foot reveal" data-step="3">Semantic embeddings · cosine similarity · geographic distance · category compatibility</div>
+    <!-- ============ SLIDE 19 — HOW CIVICSENSE UNDERSTANDS A REPORT ============ -->
+    <section class="slide" id="slide-19" data-steps="4">
+      <div class="eyebrow reveal shown">INTELLIGENCE SECTION</div>
+      <h1 class="headline" style="margin-top:12px;max-width:760px;">Every Report Carries More Than One Signal</h1>
+      <p class="muted" style="font-size:14px;margin-top:8px;max-width:680px;">CivicSense combines visual, textual, and geographic information to build a more useful understanding of a civic issue.</p>
+      <div class="mm-input-row">
+        <div class="mm-input-card reveal scale" data-step="1"><div class="ico">▣</div><b>Photo</b><span>Visual evidence</span></div>
+        <div class="mm-input-card reveal scale" data-step="1" style="transition-delay:.12s;"><div class="ico">✎</div><b>Description</b><span>Citizen-provided context</span></div>
+        <div class="mm-input-card reveal scale" data-step="1" style="transition-delay:.24s;"><div class="ico">◎</div><b>Location</b><span>Geographic context</span></div>
+      </div>
+      <div class="mm-stream-wrap reveal" data-step="2">
+        <svg width="520" height="48" viewBox="0 0 520 48"><path d="M86 6 Q170 44 260 44 Q350 44 434 6"/><path d="M260 6 L260 44"/></svg>
+      </div>
+      <div style="display:flex;justify-content:center;">
+        <div class="mm-center-node reveal scale" data-step="2"><b>CivicSense Analysis</b><span>Multimodal understanding</span></div>
+      </div>
+      <div class="mm-outputs">
+        <div class="chip reveal" data-step="3"><span class="k">Category</span><span class="v">Pothole</span></div>
+        <div class="chip reveal" data-step="3" style="transition-delay:.1s;"><span class="k">Confidence</span><span class="v">92%</span></div>
+        <div class="chip reveal" data-step="3" style="transition-delay:.2s;"><span class="k">Severity</span><span class="v">High</span></div>
+      </div>
+      <div class="tech-foot reveal" data-step="4">The system does not depend on one input alone. Each signal contributes to the combined understanding.</div>
     </section>
 
-    <!-- ============ SLIDE 20 — AUTOMATIC LINKING ============ -->
-    <section class="slide" id="slide-20" data-steps="4">
+    <!-- ============ SLIDE 20 — VISUAL UNDERSTANDING ============ -->
+    <section class="slide" id="slide-20" data-steps="5">
+      <div class="section-mark reveal shown">VISUAL PIPELINE</div>
+      <h1 class="headline" style="margin-top:12px;">From Image to Visual Evidence</h1>
+      <p class="muted" style="font-size:14px;margin-top:6px;max-width:640px;">The vision pipeline extracts both a predicted category and a reusable visual representation.</p>
+      <div class="vpipe-wrap">
+        <div class="vpipe-left">
+          <div class="vpipe-photo reveal" data-step="1">▣</div>
+          <div class="vpipe-step reveal" data-step="2">Resize &amp; Normalize</div>
+          <div class="vpipe-step reveal" data-step="2" style="transition-delay:.1s;">ImageNet preprocessing</div>
+        </div>
+        <div class="vpipe-mid">
+          <div class="vpipe-arrow reveal" data-step="2"><svg width="36" height="18" viewBox="0 0 36 18"><path d="M1 9H30M23 3L30 9L23 15"/></svg></div>
+          <div class="vpipe-model reveal scale" data-step="3"><b>RealVisionModel</b><span>MobileNetV3-Small</span></div>
+          <div class="vpipe-arrow reveal" data-step="3"><svg width="36" height="18" viewBox="0 0 36 18"><path d="M1 9H30M23 3L30 9L23 15"/></svg></div>
+          <div class="vpipe-cats reveal" data-step="4"><span class="cat">Pothole</span><span class="cat">Road Damage</span><span class="cat">Garbage</span><span class="cat">Water Leakage</span><span class="cat">Streetlight</span><span class="cat">Other</span></div>
+        </div>
+        <div class="vpipe-right">
+          <div class="vpipe-out reveal" data-step="4"><div class="micro">OUTPUT</div><b>6-class probability distribution</b><span>Top-1 predicted category + confidence score</span></div>
+          <div class="vpipe-out embed reveal" data-step="5"><div class="micro">EMBEDDING</div><b>576-dim visual vector</b><span>L2-normalized penultimate-layer activations. Stored for later visual similarity comparison.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 21 — TEXT UNDERSTANDING ============ -->
+    <section class="slide" id="slide-21" data-steps="4">
+      <div class="section-mark reveal shown">TEXT PIPELINE</div>
+      <h1 class="headline" style="margin-top:12px;">Text Adds Meaning and Context</h1>
+      <p class="muted" style="font-size:14px;margin-top:6px;max-width:640px;">The description is processed independently so the system can understand what the citizen is reporting.</p>
+      <div class="tpipe-wrap">
+        <div class="tpipe-desc reveal" data-step="1">"Large water leak near the crossing. The road is becoming slippery."</div>
+        <div class="tpipe-mid">
+          <div class="vpipe-arrow reveal" data-step="1"><svg width="36" height="18" viewBox="0 0 36 18"><path d="M1 9H30M23 3L30 9L23 15"/></svg></div>
+          <div class="tpipe-branch reveal" data-step="2">
+            <div class="tpipe-model"><div class="micro">MODEL A</div><b>TF-IDF + Linear SVM</b><span>Keyword-weighted classification</span></div>
+            <div class="tpipe-model"><div class="micro">MODEL B</div><b>MiniLM-L6-v2</b><span>Semantic encoder and similarity</span></div>
+          </div>
+          <div class="vpipe-arrow reveal" data-step="3"><svg width="20" height="28" viewBox="0 0 20 28"><path d="M10 1V22M3 15L10 23L17 15"/></svg></div>
+          <div class="tpipe-fuse reveal scale" data-step="3"><b>Text Probability Distribution</b><span>Averaged output from both models</span></div>
+        </div>
+        <div class="tpipe-right">
+          <div class="vpipe-out reveal" data-step="3"><div class="micro">OUTPUT</div><b>6-class text probabilities</b><span>Predicted category and confidence from textual analysis</span></div>
+          <div class="vpipe-out embed reveal" data-step="4"><div class="micro">EMBEDDING</div><b>MiniLM sentence vector</b><span>Semantic representation retained for text similarity search</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 22 — MULTIMODAL FUSION ============ -->
+    <section class="slide" id="slide-22" data-steps="5">
+      <div class="section-mark reveal shown">MULTIMODAL FUSION</div>
+      <h1 class="headline" style="margin-top:10px;">Two Modalities. One Combined Understanding.</h1>
+      <p class="muted" style="font-size:14px;margin-top:6px;max-width:680px;">Visual and textual predictions are combined before the system makes a final classification decision.</p>
+      <div class="fusion-wrap">
+        <div class="fusion-input reveal" data-step="1">
+          <div class="tag">VISION OUTPUT</div><b>Visual prediction</b>
+          <div class="frow"><span>Category</span><span>Probabilities</span><span>Confidence</span></div>
+        </div>
+        <div class="fusion-engine">
+          <div class="fusion-core reveal scale" data-step="2">
+            <b>MultimodalFusionEngine</b>
+            <div class="formula reveal" data-step="3">P_fused = 0.60 · P_text + 0.40 · P_vision</div>
+          </div>
+          <div class="fusion-step reveal" data-step="3"><div class="micro">CALIBRATION</div><span>Temperature scaling refines the combined probability distribution</span></div>
+          <div class="fusion-step reveal" data-step="4"><div class="micro">CONCORDANCE</div><span>Modalities agree → full confidence &nbsp;·&nbsp; Disagree → confidence penalty applied</span></div>
+        </div>
+        <div class="fusion-input reveal" data-step="1" style="transition-delay:.1s;">
+          <div class="tag">TEXT OUTPUT</div><b>Text prediction</b>
+          <div class="frow"><span>Category</span><span>Probabilities</span><span>Confidence</span></div>
+        </div>
+      </div>
+      <div class="mm-outputs" style="margin-top:12px;">
+        <div class="fusion-out reveal" data-step="5"><div class="micro">RESULT</div><b>Fused category</b><span>Top-1 from calibrated distribution</span></div>
+        <div class="fusion-out reveal" data-step="5" style="transition-delay:.1s;"><div class="micro">RESULT</div><b>Fused confidence</b><span>Combined modality score</span></div>
+        <div class="fusion-out warn reveal" data-step="5" style="transition-delay:.2s;"><div class="micro">SEVERITY</div><b>Higher urgency signal wins</b><span>max(text_severity, vision_severity)</span></div>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 23 — DECISION GATES ============ -->
+    <section class="slide" id="slide-23" data-steps="5">
+      <div class="section-mark reveal shown">DECISION ENGINE</div>
+      <h1 class="headline" style="margin-top:12px;">Confidence Does Not Mean<br>Blind Automation</h1>
+      <p class="muted" style="font-size:14px;margin-top:6px;max-width:680px;">Policy gates determine when the result can proceed automatically and when human review is required.</p>
+      <div class="gates-wrap">
+        <div class="gates-col">
+          <div class="gate-card reveal" data-step="1"><div class="gate-icon">🖼</div><div><b>Missing image</b><span>TEXT_ONLY fallback mode · confidence reduced, review required</span></div></div>
+          <div class="gate-card reveal" data-step="2"><div class="gate-icon">📉</div><div><b>Low confidence</b><span>Fused confidence below configured threshold (0.60) · review required</span></div></div>
+          <div class="gate-card reveal" data-step="3"><div class="gate-icon">⚡</div><div><b>Modality disagreement</b><span>Concordance below threshold (0.50) · penalty applied, review required</span></div></div>
+          <div class="gate-card reveal" data-step="4"><div class="gate-icon">❓</div><div><b>Unknown issue category</b><span>Category classified as Other · human review required</span></div></div>
+        </div>
+        <div class="gates-right">
+          <div class="mode-card active reveal scale" data-step="2"><div class="micro">PRIMARY MODE</div><b>MULTIMODAL</b><span>Both image and text present</span></div>
+          <div class="mode-card reveal" data-step="2" style="transition-delay:.08s;"><div class="micro">FALLBACK</div><b>TEXT_ONLY</b><span>No valid image · reduced confidence</span></div>
+          <div class="mode-card reveal" data-step="2" style="transition-delay:.16s;"><div class="micro">FALLBACK</div><b>VISION_ONLY</b><span>No text description · reduced confidence</span></div>
+          <div class="gates-result reveal scale" data-step="5"><b>PrototypeDecisionEngine</b><span>Human review remains part of the decision design</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 24 — SIMILARITY SCORING ============ -->
+    <section class="slide" id="slide-24" data-steps="5">
+      <div class="section-mark reveal shown">SIMILARITY ENGINE</div>
+      <h1 class="headline" style="margin-top:12px;">Before Creating a New Issue,<br>Check What Already Exists</h1>
+      <p class="muted" style="font-size:14px;margin-top:6px;max-width:680px;">CivicSense compares incoming reports with open issues using multiple complementary signals.</p>
+      <div class="sim-wrap">
+        <div class="sim-report reveal" data-step="1"><div class="tag">INCOMING REPORT</div><b>"Deep pothole near the bus junction causing vehicles to slow down."</b></div>
+        <div class="sim-mid">
+          <div class="vpipe-arrow reveal" data-step="1"><svg width="36" height="18" viewBox="0 0 36 18"><path d="M1 9H30M23 3L30 9L23 15"/></svg></div>
+          <div class="sim-engine reveal scale" data-step="2"><b>SimilarityService</b><span>4-component weighted matching</span></div>
+          <div class="sim-bar reveal" data-step="3">
+            <div class="sim-bar-seg t">35%</div>
+            <div class="sim-bar-seg v">25%</div>
+            <div class="sim-bar-seg g">25%</div>
+            <div class="sim-bar-seg c">15%</div>
+          </div>
+          <div class="sim-legend reveal" data-step="3">
+            <span><span class="dot-sm" style="background:#556A54;"></span>Text · 35%</span>
+            <span><span class="dot-sm" style="background:#687263;"></span>Visual · 25%</span>
+            <span><span class="dot-sm" style="background:#2A3328;"></span>Geographic · 25%</span>
+            <span><span class="dot-sm" style="background:#B08A4E;"></span>Category · 15%</span>
+          </div>
+          <div class="tpipe-fuse reveal" data-step="4" style="padding:8px 12px;"><b style="font-size:11px;">MiniLM cosine · MobileNetV3 cosine · Haversine · Category compatibility</b></div>
+        </div>
+        <div class="sim-outcomes">
+          <div class="sim-outcome so-auto reveal" data-step="5"><div class="tag">SCORE ≥ 0.85 · AUTO_LINK</div><b>Strong match</b><span>Associate with existing issue</span></div>
+          <div class="sim-outcome reveal" data-step="5" style="transition-delay:.08s;"><div class="tag">SCORE ≥ 0.50 · CANDIDATE</div><b>Possible match</b><span>Queue for human review</span></div>
+          <div class="sim-outcome so-new reveal" data-step="5" style="transition-delay:.16s;"><div class="tag">SCORE &lt; 0.50 · NEW_ISSUE</div><b>No sufficient match</b><span>Create a separate record</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 25 — THREE MATCHING OUTCOMES ============ -->
+    <section class="slide" id="slide-25" data-steps="4">
+      <div class="section-mark reveal shown">MATCHING OUTCOMES</div>
+      <h1 class="headline" style="margin-top:14px;">One Similarity Score.<br>Three Controlled Outcomes.</h1>
+      <p class="muted" style="font-size:14px;margin-top:8px;max-width:680px;">The final route depends on configured thresholds and safety checks — visual similarity alone cannot auto-link.</p>
+      <div class="three-layout" style="margin-top:24px;">
+        <div class="source-card reveal" data-step="1"><b>Weighted<br>similarity score</b><p>Computed from text, visual, geographic, and category signals.</p></div>
+        <div class="decision-card auto reveal scale" data-step="1"><div class="num">01 · AUTO_LINK ≥ 0.85</div><h2>Strong match</h2><p>Associate with an existing issue where thresholds support it.</p></div>
+        <div class="decision-card reveal scale" data-step="2"><div class="num">02 · CANDIDATE ≥ 0.50</div><h2>Uncertain match</h2><p>Surface for human review before any association is made.</p></div>
+        <div class="decision-card new reveal scale" data-step="3"><div class="num">03 · NEW_ISSUE &lt; 0.50</div><h2>No suitable match</h2><p>Create a separate issue record instead.</p></div>
+      </div>
+      <div class="tech-foot reveal" data-step="4">Visual similarity alone cannot promote a report to AUTO_LINK. If text evidence is insufficient, the result is downgraded to CANDIDATE.</div>
+    </section>
+
+    <!-- ============ SLIDE 26 — AUTOMATIC LINKING ============ -->
+    <section class="slide" id="slide-26" data-steps="4">
       <div class="section-mark reveal shown">AUTOMATIC LINKING</div>
       <h1 class="headline" style="margin-top:14px;">Strong matches can be<br>linked automatically.</h1>
       <div class="link-layout">
