@@ -41,11 +41,19 @@ def create_report(
     x_idempotency_key: str | None = Header(None, alias="X-Idempotency-Key"),
     db: Session = Depends(get_db),
 ) -> ReportRead:
-    """Ingest, validate, and store a new citizen report.
+    """Ingest, validate, store, and automatically AI-process a new citizen report.
 
-    The report initializes strictly in the `SUBMITTED` state.
-    If the request is an idempotent replay with a recognized client_report_id or
-    X-Idempotency-Key, the existing report is returned with HTTP 200 OK.
+    After persistence, the synchronous AI pipeline is triggered automatically.
+    The response reflects the actual post-processing lifecycle state:
+
+    - ``AI_PROCESSED``: High-confidence automated triage completed.
+    - ``VERIFICATION_REQUIRED``: Low confidence or conflict; queued for human review.
+    - ``SUBMITTED``: Report persisted but AI processing failed (retryable via
+      ``POST /reports/{id}/ai/process``).
+
+    If the request is an idempotent replay with a recognized ``client_report_id`` or
+    ``X-Idempotency-Key``, the existing report is returned with HTTP 200 OK and no
+    duplicate processing is triggered.
     """
     if payload.client_report_id is None and x_idempotency_key is not None:
         try:
@@ -98,10 +106,19 @@ def list_reports(
         None,
         description="Filter reports linked to an aggregated issue",
     ),
+    sort_by: str = Query(
+        "created_at",
+        description="Field to sort by (created_at, tracking_id, category, status, priority)",
+    ),
+    sort_order: str = Query(
+        "desc",
+        pattern="^(asc|desc)$",
+        description="Sort direction (asc or desc)",
+    ),
     pagination: PaginationParams = Depends(get_pagination),
     db: Session = Depends(get_db),
 ) -> ReportListResponse:
-    """Retrieve a paginated list of citizen reports sorted by submission time."""
+    """Retrieve a paginated list of citizen reports with dynamic sorting and filtering."""
     skip = (pagination.page - 1) * pagination.page_size
     items, total = report_service.list_reports(
         db,
@@ -114,6 +131,8 @@ def list_reports(
         priority=priority,
         reassignment_required=reassignment_required,
         issue_id=issue_id,
+        sort_by=sort_by,
+        sort_order=sort_order,
     )
 
     sanitized_items = []

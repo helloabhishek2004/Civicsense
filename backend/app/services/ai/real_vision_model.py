@@ -8,6 +8,7 @@ Explicitly distinguishes real Other predictions from errors or unavailable state
 from __future__ import annotations
 
 import io
+import math
 import sys
 import time
 from pathlib import Path
@@ -324,3 +325,44 @@ class RealVisionModel(VisionModel):
         """Convenience method returning class probabilities and inference outcome."""
         pred = self.predict(image_bytes)
         return pred.class_probabilities, pred.outcome
+
+    def extract_embedding(self, image_bytes: bytes) -> list[float] | None:
+        """Extract a 576-dimensional visual feature embedding from raw image bytes.
+
+        Returns a L2-normalized feature vector extracted from the penultimate layer
+        (after adaptive average pooling, before the classifier head). Returns None
+        if the model is unavailable, the image is invalid, or extraction fails.
+
+        The embedding is suitable for cosine similarity comparison between images.
+        """
+        if self._status != VisionModelStatus.READY or self._model is None:
+            return None
+
+        if not image_bytes:
+            return None
+
+        try:
+            with Image.open(io.BytesIO(image_bytes)) as pil_img:
+                rgb_img = pil_img.convert("RGB")
+                tensor = self._transform(rgb_img).unsqueeze(0).to(self.device)
+        except Exception:
+            return None
+
+        try:
+            with torch.no_grad():
+                # Run through features + avgpool only (skip classifier)
+                model = self._model
+                assert model is not None
+                features = model.features(tensor)  # type: ignore[union-attr]
+                pooled = model.avgpool(features)  # type: ignore[union-attr]
+                flattened = pooled.flatten(start_dim=1)
+                embedding = flattened.squeeze(0).cpu().tolist()
+
+                # L2-normalize for cosine similarity compatibility
+                norm = math.sqrt(sum(x * x for x in embedding))
+                if norm < 1e-9:
+                    return None
+                embedding = [x / norm for x in embedding]
+                return embedding
+        except Exception:
+            return None

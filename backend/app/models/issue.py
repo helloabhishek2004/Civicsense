@@ -32,6 +32,9 @@ class Issue(Base):
     text_embedding: Mapped[list[Any] | None] = mapped_column(JSON, nullable=True)
     embedding_model_version: Mapped[str | None] = mapped_column(String(64), nullable=True)
 
+    image_embedding: Mapped[list[Any] | None] = mapped_column(JSON, nullable=True)
+    vision_model_version: Mapped[str | None] = mapped_column(String(64), nullable=True)
+
     # Dynamic priority ranking (computed by priority engine)
     priority_score: Mapped[float | None] = mapped_column(Float, nullable=True, index=True)
     priority_level: Mapped[str | None] = mapped_column(String(32), nullable=True, index=True)

@@ -17,6 +17,7 @@ from app.models.evidence import Evidence
 from app.models.issue import Issue
 from app.models.model_version import ModelVersion
 from app.models.report import Report
+from app.models.report_issue_match import ReportIssueMatch
 from app.models.resolution import Resolution
 from app.models.verification import Verification
 
@@ -39,6 +40,7 @@ __all__ = [
     "AIAnalysis",
     "Verification",
     "Resolution",
+    "ReportIssueMatch",
     "AIJob",
     "AIJobEvent",
 ]

@@ -41,6 +41,7 @@ class ReportIssueMatch(Base):
     text_similarity: Mapped[float] = mapped_column(Float, nullable=False)
     distance_meters: Mapped[float] = mapped_column(Float, nullable=False)
     category_match: Mapped[float] = mapped_column(Float, nullable=False)
+    visual_similarity: Mapped[float] = mapped_column(Float, nullable=False, default=0.0)
 
     reasoning: Mapped[list[Any] | None] = mapped_column(JSON, nullable=True)
     embedding_model_version: Mapped[str | None] = mapped_column(String(64), nullable=True)

@@ -76,7 +76,7 @@ def test_create_report_with_edge_metadata(client: TestClient) -> None:
     data = response.json()
 
     assert data["id"] == client_uuid
-    assert data["status"] == "SUBMITTED"
+    assert data["status"] in ("SUBMITTED", "AI_PROCESSED", "VERIFICATION_REQUIRED")
     assert data["edge_metadata"] is not None
     assert data["edge_metadata"]["contract_version"] == "1.0.0"
     assert data["edge_metadata"]["client_processing"]["processor_version"] == "1.0.0"

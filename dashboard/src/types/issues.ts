@@ -60,6 +60,7 @@ export interface BackendMatchRead {
   text_similarity: number;
   distance_meters: number;
   category_match: number;
+  visual_similarity?: number;
   reasoning?: string[] | null;
   embedding_model_version?: string | null;
   reviewed_at?: string | null;
@@ -124,6 +125,7 @@ export interface CandidateMatchItem {
   textSimilarity: number;
   distanceMeters: number;
   categoryMatch: number;
+  visualSimilarity?: number;
   reasoning?: string[];
   embeddingModelVersion?: string;
   reviewedAt?: string;

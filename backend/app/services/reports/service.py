@@ -38,7 +38,27 @@ class ReportService:
         self.repo = report_repository
 
     def submit_report(self, db: Session, schema: ReportCreate) -> tuple[Report, bool]:
-        """Process and persist a citizen report submission."""
+        """Process and persist a citizen report submission.
+
+        Flow:
+            1. Report and evidence are durably committed (repository ``create()``).
+            2. Similarity matching is attempted (best-effort; failure is non-blocking).
+            3. AI processing is triggered automatically via ``ai_service.process_report()``.
+            4. The returned report reflects the post-AI lifecycle state.
+
+        Failure behavior:
+            If AI processing fails at any stage, the exception is caught and logged.
+            The processor explicitly resets the report to ``SUBMITTED`` state and
+            commits a FAILED job record. The officer can retry manually via
+            ``POST /reports/{id}/ai/process``.
+
+        Transaction semantics:
+            Multiple ``db.commit()`` calls occur: one in ``repo.create()``, one in
+            ``process_report()`` (job creation), and one per pipeline stage. A failure
+            at any stage rolls back uncommitted stage-level changes. Committed stages
+            are permanent. The FAILED job record and the SUBMITTED status reset are
+            committed atomically in the exception handler.
+        """
         logger.info(
             "Ingesting new citizen report: desc_len=%d evidences=%d client_report_id=%s",
             len(schema.description),
@@ -75,6 +95,31 @@ class ReportService:
                     report.tracking_id,
                     str(exc),
                 )
+
+            # Automatically trigger AI processing after successful report creation.
+            # Uses lazy import to avoid circular dependency between report and AI services.
+            try:
+                from app.services.ai.service import ai_service
+
+                logger.info(
+                    "Auto-triggering AI processing for report %s",
+                    report.tracking_id,
+                )
+                ai_service.process_report(db, str(report.id))
+                logger.info(
+                    "AI processing completed automatically for report %s",
+                    report.tracking_id,
+                )
+            except Exception as exc:
+                # AI processing failure must NOT prevent report creation.
+                # The processor's failure handler resets status to SUBMITTED and
+                # commits a FAILED job. Re-fetch to pick up the DB state.
+                logger.warning(
+                    "Automatic AI processing failed for report %s (report saved): %s",
+                    report.tracking_id,
+                    str(exc),
+                )
+                report = db.get(Report, report.id)
         else:
             logger.info(
                 "Idempotent replay matched existing report: id=%s tracking_id=%s status=%s",
@@ -114,8 +159,10 @@ class ReportService:
         priority: PriorityLevel | None = None,
         reassignment_required: bool | None = None,
         issue_id: uuid.UUID | None = None,
+        sort_by: str = "created_at",
+        sort_order: str = "desc",
     ) -> tuple[list[Report], int]:
-        """Fetch paginated list of reports, optionally filtered by criteria."""
+        """Fetch paginated list of reports, optionally filtered and sorted by criteria."""
         return self.repo.list_reports(
             db,
             skip=skip,
@@ -128,6 +175,8 @@ class ReportService:
             priority=priority,
             reassignment_required=reassignment_required,
             issue_id=issue_id,
+            sort_by=sort_by,
+            sort_order=sort_order,
         )
 
     def transition_status(
@@ -345,6 +394,63 @@ class ReportService:
             "humanOverrideRate": 8.4,
             "aiAgreementRate": 91.2,
         }
+
+    def reprocess_visual_embeddings(
+        self,
+        db: Session,
+        report_id: str,
+        force: bool = False,
+    ) -> dict[str, Any]:
+        """Reprocess visual embeddings for a report.
+
+        Idempotent: if a valid embedding already exists and force=False, skips.
+        Does NOT re-run similarity matching — only updates the embedding.
+
+        Returns a status dict with action taken and result.
+        """
+        report = self.get_report(db, report_id)
+
+        # Check if already has embedding and not forced
+        if report.image_embedding is not None and not force:
+            return {
+                "status": "skipped",
+                "reason": "embedding_already_exists",
+                "report_id": str(report.id),
+                "tracking_id": report.tracking_id,
+                "vision_model_version": report.vision_model_version,
+            }
+
+        from app.services.similarity.service import _generate_visual_embedding
+
+        _generate_visual_embedding(report)
+        db.flush()
+
+        if report.image_embedding is not None:
+            logger.info(
+                "Visual embedding reprocessed for report %s: dim=%d, model=%s",
+                report.tracking_id,
+                len(report.image_embedding),
+                report.vision_model_version,
+            )
+            return {
+                "status": "success",
+                "action": "reprocessed",
+                "report_id": str(report.id),
+                "tracking_id": report.tracking_id,
+                "embedding_dim": len(report.image_embedding),
+                "vision_model_version": report.vision_model_version,
+            }
+        else:
+            logger.warning(
+                "Visual embedding reprocessing failed for report %s: no embedding generated",
+                report.tracking_id,
+            )
+            return {
+                "status": "failed",
+                "reason": "embedding_generation_failed",
+                "report_id": str(report.id),
+                "tracking_id": report.tracking_id,
+            }
 
 
 report_service = ReportService()

@@ -26,13 +26,17 @@ class ReportLifecycleManager:
             ReportStatus.VERIFICATION_REQUIRED,
             ReportStatus.VERIFIED,
             ReportStatus.PRIORITIZED,
+            ReportStatus.ASSIGNED,  # Direct assignment after AI assessment
+            ReportStatus.CLOSED,  # Cancel/discard after AI assessment
         },
         ReportStatus.VERIFICATION_REQUIRED: {
             ReportStatus.VERIFIED,
             ReportStatus.CLOSED,  # Reviewer rejects report
+            ReportStatus.ASSIGNED,  # Direct assignment during manual review
         },
         ReportStatus.VERIFIED: {
             ReportStatus.PRIORITIZED,
+            ReportStatus.ASSIGNED,  # Direct department assignment after verification
             ReportStatus.CLOSED,
         },
         ReportStatus.PRIORITIZED: {

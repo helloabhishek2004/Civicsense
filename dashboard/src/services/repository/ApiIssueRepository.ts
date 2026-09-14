@@ -49,6 +49,7 @@ export function mapBackendToMatchItem(raw: BackendMatchRead): CandidateMatchItem
     textSimilarity: raw.text_similarity,
     distanceMeters: raw.distance_meters,
     categoryMatch: raw.category_match,
+    visualSimilarity: raw.visual_similarity ?? 0,
     reasoning: raw.reasoning || undefined,
     embeddingModelVersion: raw.embedding_model_version || undefined,
     reviewedAt: raw.reviewed_at ? normalizeIsoUtc(raw.reviewed_at) : undefined,

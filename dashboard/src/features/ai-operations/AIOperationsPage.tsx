@@ -337,6 +337,14 @@ export const AIOperationsPage: React.FC = () => {
             <span className="font-mono font-medium">{(item.textSimilarity * 100).toFixed(1)}%</span>
           </div>
           <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-300">
+            <span className="text-[11px] font-medium text-slate-400">Visual:</span>
+            <span className="font-mono font-medium text-purple-600 dark:text-purple-400">
+              {item.visualSimilarity !== undefined && item.visualSimilarity > 0
+                ? `${(item.visualSimilarity * 100).toFixed(1)}%`
+                : 'N/A'}
+            </span>
+          </div>
+          <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-300">
             <span className="text-[11px] font-medium text-slate-400">Distance:</span>
             <span className="font-mono font-medium">{item.distanceMeters.toFixed(1)} m</span>
           </div>
@@ -1131,7 +1139,7 @@ export const AIOperationsPage: React.FC = () => {
               <ErrorBanner title="Approval Failed" message={actionError} />
             )}
 
-            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 space-y-2">
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 space-y-2.5">
               <div className="flex justify-between">
                 <span className="text-slate-500 font-medium">Incoming Report:</span>
                 <span className="font-mono font-semibold text-blue-600 dark:text-blue-400">
@@ -1145,14 +1153,48 @@ export const AIOperationsPage: React.FC = () => {
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-500 font-medium">Model Similarity:</span>
+                <span className="text-slate-500 font-medium">Combined Match Confidence:</span>
                 <span className="font-mono font-bold text-amber-600 dark:text-amber-400">
                   {(selectedMatch.similarityScore * 100).toFixed(1)}%
                 </span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-slate-500 font-medium">Spatial Proximity:</span>
-                <span className="font-mono">{selectedMatch.distanceMeters.toFixed(1)} m</span>
+
+              <div className="pt-2 border-t border-slate-200 dark:border-slate-800 space-y-1.5">
+                <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 block">
+                  Multimodal Signal Verification
+                </span>
+                <div className="grid grid-cols-2 gap-2 text-[11px]">
+                  <div className="p-1.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                    <span className="text-slate-400 block text-[10px]">Text Similarity:</span>
+                    <span className="font-mono font-semibold text-slate-700 dark:text-slate-200">
+                      {(selectedMatch.textSimilarity * 100).toFixed(1)}%
+                    </span>
+                  </div>
+                  <div className="p-1.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                    <span className="text-slate-400 block text-[10px]">Visual Match:</span>
+                    <span className="font-mono font-semibold text-purple-600 dark:text-purple-400">
+                      {selectedMatch.visualSimilarity !== undefined && selectedMatch.visualSimilarity > 0
+                        ? `${(selectedMatch.visualSimilarity * 100).toFixed(1)}%`
+                        : 'N/A'}
+                    </span>
+                  </div>
+                  <div className="p-1.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                    <span className="text-slate-400 block text-[10px]">Distance:</span>
+                    <span className="font-mono font-semibold text-slate-700 dark:text-slate-200">
+                      {selectedMatch.distanceMeters.toFixed(1)} m
+                    </span>
+                  </div>
+                  <div className="p-1.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                    <span className="text-slate-400 block text-[10px]">Category Match:</span>
+                    <span className="font-semibold text-slate-700 dark:text-slate-200">
+                      {selectedMatch.categoryMatch === 1.0
+                        ? 'Exact Match'
+                        : selectedMatch.categoryMatch === 0.5
+                        ? 'Bridge Match'
+                        : 'Mismatch'}
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -1237,7 +1279,7 @@ export const AIOperationsPage: React.FC = () => {
               <ErrorBanner title="Rejection Failed" message={actionError} />
             )}
 
-            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 space-y-2">
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 space-y-2.5">
               <div className="flex justify-between">
                 <span className="text-slate-500 font-medium">Incoming Report:</span>
                 <span className="font-mono font-semibold text-blue-600 dark:text-blue-400">
@@ -1255,6 +1297,44 @@ export const AIOperationsPage: React.FC = () => {
                 <span className="font-mono font-bold text-amber-600 dark:text-amber-400">
                   {(selectedMatch.similarityScore * 100).toFixed(1)}%
                 </span>
+              </div>
+
+              <div className="pt-2 border-t border-slate-200 dark:border-slate-800 space-y-1.5">
+                <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 block">
+                  Multimodal Signal Verification
+                </span>
+                <div className="grid grid-cols-2 gap-2 text-[11px]">
+                  <div className="p-1.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                    <span className="text-slate-400 block text-[10px]">Text Similarity:</span>
+                    <span className="font-mono font-semibold text-slate-700 dark:text-slate-200">
+                      {(selectedMatch.textSimilarity * 100).toFixed(1)}%
+                    </span>
+                  </div>
+                  <div className="p-1.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                    <span className="text-slate-400 block text-[10px]">Visual Match:</span>
+                    <span className="font-mono font-semibold text-purple-600 dark:text-purple-400">
+                      {selectedMatch.visualSimilarity !== undefined && selectedMatch.visualSimilarity > 0
+                        ? `${(selectedMatch.visualSimilarity * 100).toFixed(1)}%`
+                        : 'N/A'}
+                    </span>
+                  </div>
+                  <div className="p-1.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                    <span className="text-slate-400 block text-[10px]">Distance:</span>
+                    <span className="font-mono font-semibold text-slate-700 dark:text-slate-200">
+                      {selectedMatch.distanceMeters.toFixed(1)} m
+                    </span>
+                  </div>
+                  <div className="p-1.5 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                    <span className="text-slate-400 block text-[10px]">Category Match:</span>
+                    <span className="font-semibold text-slate-700 dark:text-slate-200">
+                      {selectedMatch.categoryMatch === 1.0
+                        ? 'Exact Match'
+                        : selectedMatch.categoryMatch === 0.5
+                        ? 'Bridge Match'
+                        : 'Mismatch'}
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
 

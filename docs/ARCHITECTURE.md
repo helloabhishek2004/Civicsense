@@ -27,7 +27,8 @@ flowchart TD
 
     subgraph AI["AI Processing Pipeline"]
         E[Text Embedding<br/>MiniLM-L6-v2<br/>384-dim]
-        F[Similarity Engine<br/>Text + Spatial + Category]
+        V[Visual Embedding<br/>MobileNetV3-Small<br/>576-dim]
+        F[Similarity Engine<br/>Text + Visual + Spatial + Category]
         G[Decision Router<br/>AUTO_LINK / CANDIDATE / NEW_ISSUE]
     end
 
@@ -62,7 +63,9 @@ flowchart TD
     B --> C
     C --> D
     D --> E
+    D --> V
     E --> F
+    V --> F
     F --> G
     G -->|AUTO_LINK ≥ 0.70| J
     G -->|CANDIDATE 0.45-0.70| H
@@ -85,14 +88,15 @@ flowchart TD
 1. **Citizen** submits report via mobile app → **FastAPI Backend**
 2. **Validation** via Pydantic v2 schemas
 3. **Text Embedding** via MiniLM-L6-v2 (384-dim)
-4. **Similarity Search** against existing issues (text + spatial + category)
-5. **Decision Routing**:
+4. **Visual Embedding** via MobileNetV3-Small (576-dim) from evidence image
+5. **Similarity Search** against existing issues (text + visual + spatial + category)
+6. **Decision Routing**:
    - Score ≥ 0.70 → AUTO_LINK (automatic issue linkage)
    - Score 0.45–0.70 → CANDIDATE (human review required)
    - Score < 0.45 → NEW_ISSUE (new issue created)
-6. **Human Review** via dashboard (approve / reject / relink)
-7. **Priority Scoring** from 5 weighted factors
-8. **Dashboard** displays prioritized queues and audit trail
+7. **Human Review** via dashboard (approve / reject / relink)
+8. **Priority Scoring** from 5 weighted factors
+9. **Dashboard** displays prioritized queues and audit trail
 
 ---
 
@@ -111,15 +115,28 @@ flowchart TD
 - **Output:** L2-normalized dense embedding vector per report
 - **Fallback:** Degraded mode (no embedding) if model unavailable
 
-### 3. Similarity & Deduplication Engine (IMPLEMENTED)
+### 2b. Visual Analysis (IMPLEMENTED)
+- **Model:** `mobilenet_v3_small` (trained checkpoint, 576-dim embeddings)
+- **Approach:** Feature extraction from penultimate layer (after avgpool, before classifier)
+- **Output:** L2-normalized 576-dim visual embedding per evidence image
+- **Storage:** JSON columns on `reports.image_embedding` and `issues.image_embedding`
+- **Fallback:** Graceful degradation (no embedding) if model unavailable or image invalid
+- **Config:** `VISION_ENABLED`, `VISION_MODEL_CHECKPOINT`, `VISION_EMBEDDING_DIM`
+
+### 3. Similarity Matching Engine (IMPLEMENTED — MULTIMODAL)
+- **4-tier component scoring (dynamic normalization):**
+  - Text similarity: Cosine of MiniLM embeddings (weight: 0.40)
+  - Visual similarity: Cosine of MobileNetV3-Small embeddings (weight: 0.15)
+  - Spatial proximity: Haversine distance, 50m radius (weight: 0.35)
+  - Category match: Exact/bridge/mismatch (weight: 0.25)
+- **Missing-modality behavior:**
+  - When visual embeddings absent: Text+Distance+Category only (backward compatible)
+  - When visual embeddings present: All 4 normalized to sum to 1.0
+  - No false visual scores fabricated
 - **3-tier routing:**
   - `AUTO_LINK` (score ≥ 0.70): Auto-link report to existing issue
   - `CANDIDATE` (0.45 ≤ score < 0.70): Route to human review
   - `NEW_ISSUE` (score < 0.45): Create new issue
-- **Component scoring:**
-  - Text similarity: Cosine of MiniLM embeddings (weight: 0.40)
-  - Spatial proximity: Haversine distance, 50m radius (weight: 0.35)
-  - Category match: Exact/bridge/mismatch (weight: 0.25)
 - **Safety gates:**
   - Category mismatch forces `NEW_ISSUE` regardless of text/spatial proximity
   - Null Island (0,0) coordinates rejected

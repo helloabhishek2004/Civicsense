@@ -4,15 +4,18 @@ import hashlib
 import uuid
 from pathlib import Path
 
-from sqlalchemy import desc, func, select
+from sqlalchemy import asc, desc, func, select
 from sqlalchemy.orm import Session, joinedload
 
 from app.core.config import get_settings
+from app.core.logging import get_logger
 from app.models.enums import PriorityLevel, ReportStatus
 from app.models.evidence import Evidence
 from app.models.report import Report
 from app.repositories.base import BaseRepository
 from app.schemas.report import ReportCreate
+
+logger = get_logger(__name__)
 
 
 def generate_tracking_id() -> str:
@@ -100,8 +103,13 @@ class ReportRepository(BaseRepository[Report]):
                         f.write(raw_bytes)
 
                     storage_uri = f"/uploads/{filename}"
-                except Exception:
-                    pass
+                except Exception as exc:
+                    logger.warning(
+                        "Evidence storage failed for report %s: %s — "
+                        "report will be created without persisted evidence file",
+                        report.id,
+                        exc,
+                    )
 
             evidence_model = Evidence(
                 report_id=report.id,
@@ -162,12 +170,10 @@ class ReportRepository(BaseRepository[Report]):
         priority: PriorityLevel | None = None,
         reassignment_required: bool | None = None,
         issue_id: uuid.UUID | None = None,
+        sort_by: str = "created_at",
+        sort_order: str = "desc",
     ) -> tuple[list[Report], int]:
-        """List reports sorted descending by creation time with total count.
-
-        Supports filtering by citizen_id, department name, department_id,
-        status, category, priority, reassignment_required, and issue_id.
-        """
+        """List reports with total count, supporting dynamic sorting and filtering."""
         count_stmt = select(func.count()).select_from(Report)
         if citizen_id is not None:
             count_stmt = count_stmt.where(Report.citizen_id == citizen_id)
@@ -212,7 +218,24 @@ class ReportRepository(BaseRepository[Report]):
         if issue_id is not None:
             stmt = stmt.where(Report.issue_id == issue_id)
 
-        stmt = stmt.order_by(desc(Report.created_at)).offset(skip).limit(limit)
+        order_col = Report.created_at
+        clean_sort_by = (sort_by or "created_at").lower()
+        if clean_sort_by in ("tracking_id", "trackingid"):
+            order_col = Report.tracking_id
+        elif clean_sort_by in ("category",):
+            order_col = Report.category
+        elif clean_sort_by in ("status",):
+            order_col = Report.status
+        elif clean_sort_by in ("priority",):
+            order_col = Report.priority
+        elif clean_sort_by in ("updated_at", "updatedat"):
+            order_col = Report.updated_at
+        elif clean_sort_by in ("address_hint", "addresshint"):
+            order_col = Report.address_hint
+
+        is_asc = (sort_order or "desc").lower() == "asc"
+        primary_order = asc(order_col) if is_asc else desc(order_col)
+        stmt = stmt.order_by(primary_order, desc(Report.created_at)).offset(skip).limit(limit)
         items = list(db.scalars(stmt).unique().all())
         return items, total
 

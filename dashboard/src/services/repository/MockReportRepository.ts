@@ -169,12 +169,44 @@ export class MockReportRepository implements IReportRepository {
       LOW: 1,
     };
 
+    const statusWeight: Record<BackendReportStatus, number> = {
+      SUBMITTED: 1,
+      AI_PROCESSING: 2,
+      AI_PROCESSED: 3,
+      VERIFICATION_REQUIRED: 4,
+      VERIFIED: 5,
+      PRIORITIZED: 6,
+      ASSIGNED: 7,
+      IN_PROGRESS: 8,
+      RESOLVED: 9,
+      RESOLUTION_VERIFIED: 10,
+      CLOSED: 11,
+    };
+
     filtered.sort((a, b) => {
       if (sortBy === 'severity') {
-        return (severityWeight[a.severity] - severityWeight[b.severity]) * multiplier;
+        const diff = severityWeight[a.severity] - severityWeight[b.severity];
+        return diff !== 0 ? diff * multiplier : a.trackingId.localeCompare(b.trackingId) * multiplier;
       }
       if (sortBy === 'priority') {
-        return (priorityWeight[a.priority] - priorityWeight[b.priority]) * multiplier;
+        const diff = priorityWeight[a.priority] - priorityWeight[b.priority];
+        return diff !== 0 ? diff * multiplier : a.trackingId.localeCompare(b.trackingId) * multiplier;
+      }
+      if (sortBy === 'status') {
+        const diff = (statusWeight[a.status] || 0) - (statusWeight[b.status] || 0);
+        return diff !== 0 ? diff * multiplier : a.trackingId.localeCompare(b.trackingId) * multiplier;
+      }
+      if (sortBy === 'trackingId') {
+        return a.trackingId.localeCompare(b.trackingId, undefined, { numeric: true }) * multiplier;
+      }
+      if (sortBy === 'category') {
+        return a.category.localeCompare(b.category) * multiplier;
+      }
+      if (sortBy === 'addressHint') {
+        return (a.addressHint || '').localeCompare(b.addressHint || '') * multiplier;
+      }
+      if (sortBy === 'department') {
+        return (a.department || '').localeCompare(b.department || '') * multiplier;
       }
       if (sortBy === 'updatedAt') {
         return (new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime()) * multiplier;
@@ -364,7 +396,12 @@ export class MockReportRepository implements IReportRepository {
       action: `Assigned to ${department}${assignedOfficer ? ` (Officer: ${assignedOfficer})` : ''}`,
     });
 
-    if (report.status === 'VERIFIED' || report.status === 'PRIORITIZED') {
+    if (
+      report.status === 'VERIFIED' ||
+      report.status === 'PRIORITIZED' ||
+      report.status === 'AI_PROCESSED' ||
+      report.status === 'VERIFICATION_REQUIRED'
+    ) {
       return this.transitionStatus(id, 'ASSIGNED', undefined, undefined, actor);
     }
 
@@ -721,5 +758,15 @@ export class MockReportRepository implements IReportRepository {
       total_jobs_processed: this.aiJobs.length,
       timestamp: new Date().toISOString(),
     };
+  }
+
+  async resetReports(): Promise<void> {
+    await this.simulateLatency(50);
+    this.reports = JSON.parse(JSON.stringify(SEED_REPORTS));
+  }
+
+  async clearReports(): Promise<void> {
+    await this.simulateLatency(50);
+    this.reports = [];
   }
 }

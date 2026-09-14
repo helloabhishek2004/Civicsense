@@ -29,6 +29,15 @@ from app.services.reports.lifecycle import ReportLifecycleManager
 
 logger = get_logger(__name__)
 
+CATEGORY_SEVERITY_MAP: dict[str, SeverityLevel] = {
+    "Pothole": SeverityLevel.HIGH,
+    "Road Damage": SeverityLevel.MEDIUM,
+    "Water Leakage": SeverityLevel.HIGH,
+    "Garbage": SeverityLevel.MEDIUM,
+    "Streetlight": SeverityLevel.LOW,
+    "Other": SeverityLevel.LOW,
+}
+
 
 class DeterministicDemoProcessor:
     """Synchronous 8-stage deterministic prototype processor.
@@ -160,10 +169,13 @@ class DeterministicDemoProcessor:
             corrupt_reason = None
             settings = get_settings()
             upload_dir = Path(settings.UPLOADS_DIR)
+            raw_bytes: bytes | None = None
+            primary_evidence = None
 
             image_evidences = [ev for ev in report.evidences if ev.evidence_type.value == "IMAGE"]
             if image_evidences:
                 primary = image_evidences[0]
+                primary_evidence = primary
                 if primary.storage_uri and primary.storage_uri.startswith("/uploads/"):
                     rel_path = primary.storage_uri.replace("/uploads/", "")
                     file_path = upload_dir / rel_path
@@ -179,6 +191,7 @@ class DeterministicDemoProcessor:
                             )
                             has_corrupt_image = True
                             corrupt_reason = str(val_err)
+                            raw_bytes = None
 
             if has_corrupt_image:
                 vision_res = {
@@ -197,28 +210,82 @@ class DeterministicDemoProcessor:
                     ],
                 }
             else:
-                try:
-                    vision_res = self.vision_analyzer.analyze(report.evidences)
-                except Exception as vis_err:
-                    logger.warning(
-                        "Vision analyzer failed with %s; unimodal fallback active",
-                        vis_err,
-                    )
-                    vision_res = {
-                        "engine": "unimodal_text_fallback",
-                        "mode": "fallback",
-                        "has_image": False,
-                        "predicted_category": None,
-                        "predicted_severity": SeverityLevel.LOW,
-                        "confidence": 0.0,
-                        "features": {
-                            "fallback_reason": str(vis_err),
-                            "unimodal_fallback": True,
-                        },
-                        "limitations": [
-                            f"Vision analyzer error: {vis_err}. Running in degraded text mode."
-                        ],
-                    }
+                vision_res = None
+                meta = (primary_evidence.metadata_json or {}) if primary_evidence else {}
+                has_explicit_sim = bool(
+                    meta.get("prototype_category")
+                    or meta.get("simulated_category")
+                    or meta.get("visual_category")
+                )
+
+                # 1. Use real vision model when evidence bytes are available
+                # and no explicit simulated metadata was provided
+                if raw_bytes and settings.VISION_ENABLED and not has_explicit_sim:
+                    try:
+                        from app.services.ai.visual_embedding_service import (
+                            get_visual_embedding_service,
+                        )
+
+                        vis_svc = get_visual_embedding_service()
+                        if vis_svc.is_ready and vis_svc._model is not None:
+                            pred = vis_svc._model.predict(raw_bytes)
+                            if pred.predicted_category:
+                                pred_sev = CATEGORY_SEVERITY_MAP.get(
+                                    pred.predicted_category, SeverityLevel.MEDIUM
+                                )
+                                meta_dict = pred.metadata or {}
+                                vision_res = {
+                                    "engine": f"MobileNetV3-Small ({pred.model_name})",
+                                    "mode": "real_model",
+                                    "has_image": True,
+                                    "predicted_category": pred.predicted_category,
+                                    "predicted_severity": pred_sev,
+                                    "confidence": round(pred.confidence, 4),
+                                    "class_probabilities": pred.class_probabilities,
+                                    "features": {
+                                        "model_name": pred.model_name,
+                                        "model_version": pred.model_version,
+                                        "inference_time_ms": pred.inference_time_ms,
+                                        "class_probabilities": pred.class_probabilities,
+                                        "checkpoint_epoch": meta_dict.get("checkpoint_epoch"),
+                                        "best_val_macro_f1": meta_dict.get("best_val_macro_f1"),
+                                    },
+                                    "limitations": [
+                                        "Classification model inference "
+                                        "(MobileNetV3-Small, 6 canonical civic classes)."
+                                    ],
+                                }
+                    except Exception as real_vis_err:
+                        logger.warning(
+                            "Real vision inference failed with %s; "
+                            "falling back to heuristic analyzer",
+                            real_vis_err,
+                        )
+
+                # 2. Fallback to heuristic analyzer if real model did not produce a result
+                if vision_res is None:
+                    try:
+                        vision_res = self.vision_analyzer.analyze(report.evidences)
+                    except Exception as vis_err:
+                        logger.warning(
+                            "Vision analyzer failed with %s; unimodal fallback active",
+                            vis_err,
+                        )
+                        vision_res = {
+                            "engine": "unimodal_text_fallback",
+                            "mode": "fallback",
+                            "has_image": False,
+                            "predicted_category": None,
+                            "predicted_severity": SeverityLevel.LOW,
+                            "confidence": 0.0,
+                            "features": {
+                                "fallback_reason": str(vis_err),
+                                "unimodal_fallback": True,
+                            },
+                            "limitations": [
+                                f"Vision analyzer error: {vis_err}. Running in degraded text mode."
+                            ],
+                        }
 
             s3_dur_ms: int | None = (
                 max(0, int((time.perf_counter() - stage_start) * 1000))
@@ -541,6 +608,16 @@ class DeterministicDemoProcessor:
         except Exception as exc:
             db.rollback()
             logger.exception("AI processing job %s failed: %s", job.id, exc)
+            # After rollback, the report is detached and its AI_PROCESSING status
+            # (committed before the processor started) is NOT reverted by the rollback.
+            # We must explicitly reset the report status to SUBMITTED so the caller
+            # sees the correct recoverable state rather than a stale AI_PROCESSING.
+            try:
+                merged_report = db.merge(report)
+                merged_report.status = ReportStatus.SUBMITTED
+                merged_report.updated_at = datetime.datetime.now(datetime.UTC)
+            except Exception:
+                pass
             job.status = AIJobStatus.FAILED
             job.failed_at = datetime.datetime.now(datetime.UTC)
             job.error_code = "PROCESSING_FAILURE"

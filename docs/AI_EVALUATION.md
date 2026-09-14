@@ -36,7 +36,32 @@
 
 ---
 
-## 3. Spatial Constraints
+## 3. Visual Embedding Model
+
+| Property | Value |
+|---|---|
+| Model | `mobilenet_v3_small` (trained checkpoint) |
+| Architecture | MobileNetV3-Small |
+| Embedding Dimension | 576 (penultimate layer, before classifier) |
+| Framework | PyTorch |
+| Checkpoint | `models/mobilenet_v3_small_v1/exp_b/exp_b_best.pt` |
+| Classes | 6 (Pothole, Road Damage, Garbage, Water Leakage, Streetlight, Other) |
+
+### Visual Embedding Approach
+1. **Preprocessing:** Resize (256×256) → CenterCrop (224×224) → ToTensor → ImageNet Normalize
+2. **Feature extraction:** Forward pass through `model.features` + `model.avgpool` (skip classifier)
+3. **Flattening:** 576-dim feature vector from adaptive average pooling
+4. **Normalization:** L2 unit-norm projection for cosine similarity compatibility
+5. **Storage:** JSON column on `reports.image_embedding` and `issues.image_embedding`
+
+### Visual Similarity
+- Cosine similarity between report and issue image embeddings
+- Only computed when both report and issue have non-null image embeddings
+- Integrated into multimodal weighted scoring with dynamic normalization
+
+---
+
+## 4. Spatial Constraints
 
 | Parameter | Value | Notes |
 |---|---|---|
@@ -47,7 +72,34 @@
 
 ---
 
-## 4. Category Compatibility
+## 5. Multimodal Similarity Weights
+
+### Text-only mode (no visual embeddings available)
+```
+SIMILARITY_TEXT_WEIGHT = 0.40
+SIMILARITY_DISTANCE_WEIGHT = 0.35
+SIMILARITY_CATEGORY_WEIGHT = 0.25
+```
+
+### Multimodal mode (visual embeddings available)
+When both report and issue have image embeddings, all 4 weights are dynamically normalized to sum to 1.0:
+```
+SIMILARITY_TEXT_WEIGHT = 0.40
+SIMILARITY_DISTANCE_WEIGHT = 0.35
+SIMILARITY_CATEGORY_WEIGHT = 0.25
+SIMILARITY_VISUAL_WEIGHT = 0.15
+Total = 1.15 → normalized to [0.348, 0.304, 0.217, 0.130]
+```
+
+### Missing-modality behavior
+- When visual embeddings are absent: Text+Distance+Category weights are used as-is (preserving backward compatibility)
+- When visual embeddings are present: All 4 weights are normalized to sum to 1.0
+- No false visual scores are fabricated
+- Missing image_embedding is explicitly reported in reasoning
+
+---
+
+## 6. Match Decision Thresholds
 
 | Score | Meaning |
 |---|---|

@@ -158,6 +158,12 @@ export class ApiReportRepository implements IReportRepository {
     if (params.issueId) {
       queryParams.issue_id = params.issueId;
     }
+    if (params.sortBy) {
+      queryParams.sort_by = params.sortBy;
+    }
+    if (params.sortOrder) {
+      queryParams.sort_order = params.sortOrder;
+    }
 
     const response = await apiClient.get<BackendReportListResponse>(ENDPOINTS.REPORTS, {
       params: queryParams,

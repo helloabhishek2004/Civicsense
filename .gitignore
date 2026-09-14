@@ -57,3 +57,5 @@ data/processed/
 # Uploaded test & runtime evidence
 backend/uploads/*
 !backend/uploads/.gitkeep
+uploads/*
+!uploads/.gitkeep

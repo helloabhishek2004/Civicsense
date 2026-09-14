@@ -88,4 +88,6 @@ export interface IReportRepository {
   }): Promise<AIJobListResult>;
   getAIMetrics(): Promise<AIMetrics>;
   getAIHealth(): Promise<AIHealthStatus>;
+  resetReports?(): Promise<void>;
+  clearReports?(): Promise<void>;
 }

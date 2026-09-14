@@ -383,8 +383,10 @@
   .obj-bubble span{display:block;font-size:12.5px;color:var(--text-muted);margin-top:3px;line-height:1.4;}
 
   /* ================= SLIDE 8 — ARCHITECTURE ================= */
-  #slide-8{padding-top:64px;}
-  .arch-wrap{display:flex;flex-direction:column;align-items:center;gap:18px;margin-top:26px;flex:1;justify-content:center;}
+  #slide-8{padding-top:58px;padding-bottom:70px;}
+  #slide-8 h1.headline{font-size:40px;line-height:1.1;max-width:760px;}
+  #slide-8 .s6-head{align-items:flex-start;}
+  .arch-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:14px;flex:1;justify-content:center;}
   .arch-row{display:flex;align-items:stretch;gap:0;justify-content:center;}
 
   .arch-arrow{width:44px;flex:none;display:flex;align-items:center;justify-content:center;}
@@ -393,17 +395,17 @@
   .arch-arrow.shown path{stroke-dashoffset:0;}
 
   .arch-down-wrap{display:flex;align-items:center;justify-content:center;}
-  .arch-down-wrap svg{width:22px;height:30px;overflow:visible;}
+  .arch-down-wrap svg{width:20px;height:24px;overflow:visible;}
   .arch-down-wrap path{stroke:var(--civic-sage);stroke-width:2.5;fill:none;stroke-dasharray:50;stroke-dashoffset:50;transition:stroke-dashoffset .7s var(--ease);}
   .arch-down-wrap.shown path{stroke-dashoffset:0;}
 
   .arch-layer{
-    width:224px;border-radius:18px;padding:20px;border:1px solid var(--border);
+    width:210px;border-radius:17px;padding:14px 16px;border:1px solid var(--border);
     transition:transform .9s var(--ease-spring), opacity .8s;
   }
-  .arch-layer .alabel{font-size:10.5px;font-weight:700;letter-spacing:.05em;margin-bottom:10px;opacity:.7;}
-  .arch-layer .atitle{font-size:16px;font-weight:700;margin-bottom:10px;}
-  .arch-layer .aitem{font-size:12.5px;font-weight:500;padding:7px 0;border-top:1px solid rgba(0,0,0,0.06);display:flex;align-items:center;}
+  .arch-layer .alabel{font-size:9.5px;font-weight:700;letter-spacing:.06em;margin-bottom:6px;opacity:.7;}
+  .arch-layer .atitle{font-size:15px;font-weight:700;margin-bottom:6px;}
+  .arch-layer .aitem{font-size:11.5px;font-weight:500;padding:5px 0;border-top:1px solid rgba(0,0,0,0.06);display:flex;align-items:center;}
   .arch-layer .aitem:first-of-type{border-top:none;}
 
   .arch-layer.input{background:var(--soft-sage);}
@@ -455,6 +457,14 @@
   .demo-pill{position:relative;z-index:1;display:flex;align-items:center;gap:13px;padding:18px 26px;border-radius:999px;background:var(--bg-warm);color:var(--deep-green);box-shadow:0 24px 60px rgba(0,0,0,.25);}.demo-pill b{font-size:15px;letter-spacing:.09em;}.demo-pill span:last-child{font-size:12px;color:var(--text-muted);border-left:1px solid var(--border);padding-left:13px;}.demo-pill .dot{width:8px;height:8px;box-shadow:0 0 0 6px rgba(85,106,84,.14);}
   .conclusion-layout{display:grid;grid-template-columns:1.05fr .95fr;gap:80px;align-items:center;flex:1;}.conclusion-phrase{font-size:48px;font-weight:700;line-height:1.12;letter-spacing:-.035em;margin-top:24px;color:var(--deep-green);}.conclusion-phrase span{color:var(--civic-sage);}.takeaway-list{display:flex;flex-direction:column;gap:14px;position:relative;}.takeaway-list:before{content:'';position:absolute;left:24px;top:36px;bottom:36px;width:2px;background:var(--pale-sage);}.takeaway{position:relative;z-index:1;display:flex;align-items:center;gap:16px;padding:17px 19px;border:1px solid var(--border);border-radius:18px;background:var(--white);box-shadow:0 10px 25px rgba(42,51,40,.045);}.takeaway .marker{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;background:var(--soft-sage);color:var(--civic-sage);font-size:16px;font-weight:800;flex:none;}.takeaway b{font-size:15px;letter-spacing:-.015em;}.takeaway p{font-size:12px;color:var(--text-muted);margin-top:4px;line-height:1.35;}
   .thanks-stage{position:relative;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;}.thanks-route{position:absolute;width:920px;height:330px;left:92px;top:72px;pointer-events:none;opacity:.78;}.thanks-route path{stroke:var(--pale-sage);stroke-width:2;fill:none;stroke-dasharray:1000;stroke-dashoffset:1000;transition:stroke-dashoffset 1.6s var(--ease);}.thanks-route.shown path{stroke-dashoffset:0;}.thanks-route circle{fill:var(--civic-sage);}.official-logo{position:relative;width:132px;height:132px;object-fit:contain;box-shadow:0 20px 50px rgba(42,51,40,.13);z-index:1;}.thanks-stage h1{position:relative;z-index:1;font-size:66px;font-weight:700;letter-spacing:-.045em;line-height:1;margin-top:27px;}.thanks-stage p{position:relative;z-index:1;font-size:19px;color:var(--text-muted);margin-top:16px;}.thanks-footer{position:relative;z-index:1;margin-top:42px;font-size:12px;font-weight:600;letter-spacing:.04em;color:var(--civic-sage);}
+  /* ================= SLIDES 19–25 — ISSUE INTELLIGENCE ================= */
+  .match-layout{display:grid;grid-template-columns:220px 1fr 268px;gap:26px;align-items:center;flex:1;margin-top:20px;}.report-mini{padding:19px;border:1px solid var(--border);border-radius:18px;background:var(--white);box-shadow:0 14px 30px rgba(42,51,40,.06);}.report-mini .tag,.outcome-card .tag{font-size:10px;font-weight:800;letter-spacing:.08em;color:var(--civic-sage);}.report-mini b{display:block;font-size:16px;line-height:1.3;margin-top:8px;letter-spacing:-.02em;}.report-mini p{font-size:12px;line-height:1.45;color:var(--text-muted);margin-top:8px;}.match-engine{position:relative;min-height:300px;display:flex;align-items:center;justify-content:center;}.engine-core{position:relative;z-index:1;width:186px;height:186px;padding:31px 20px;display:flex;flex-direction:column;justify-content:center;text-align:center;border-radius:50%;background:var(--civic-sage);color:var(--bg-warm);box-shadow:0 22px 52px rgba(42,51,40,.2);}.engine-core b{font-size:19px;letter-spacing:-.025em;}.engine-core span{font-size:12px;line-height:1.4;color:rgba(245,247,240,.74);margin-top:8px;}.engine-link{position:absolute;top:50%;left:-28px;right:-28px;height:2px;background:var(--pale-sage);}.factor-chip{position:absolute;padding:7px 10px;border-radius:999px;background:var(--soft-sage);font-size:10.5px;font-weight:700;color:var(--civic-sage);white-space:nowrap;}.factor-chip.a{top:17px;left:35px}.factor-chip.b{top:31px;right:9px}.factor-chip.c{bottom:27px;left:5px}.factor-chip.d{bottom:8px;right:25px}.outcome-stack{display:flex;flex-direction:column;gap:10px;}.outcome-card{padding:13px 15px;border-radius:14px;border:1px solid var(--border);background:var(--white);}.outcome-card b{display:block;font-size:15px;margin-top:4px;}.outcome-card span{font-size:11.5px;color:var(--text-muted);}.outcome-card.auto{background:var(--soft-sage);border-color:transparent;}.outcome-card.candidate{background:#EFF1E9;}.outcome-card.new{background:var(--deep-green);color:var(--bg-warm);border-color:transparent;}.outcome-card.new .tag,.outcome-card.new span{color:rgba(245,247,240,.72);}.tech-foot{font-size:11px;letter-spacing:.02em;color:var(--text-muted);margin-top:14px;}
+  .link-layout{display:grid;grid-template-columns:1fr 96px 1.15fr;gap:16px;align-items:center;flex:1;margin-top:22px;}.link-cards{display:flex;flex-direction:column;gap:16px;}.link-arrow{height:2px;background:var(--civic-sage);position:relative;}.link-arrow:after{content:'›';position:absolute;right:-2px;top:-17px;font-size:29px;color:var(--civic-sage);}.issue-shell{padding:23px;border-radius:23px;background:var(--deep-green);color:var(--bg-warm);box-shadow:0 24px 50px rgba(42,51,40,.23);}.issue-shell .issue-label{font-size:10px;font-weight:800;letter-spacing:.08em;color:rgba(245,247,240,.66);}.issue-shell h2{font-size:23px;letter-spacing:-.03em;margin-top:9px;line-height:1.2;}.issue-shell p{font-size:13px;line-height:1.45;color:rgba(245,247,240,.74);margin-top:13px;}.signal-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}.signal-row span{font-size:10.5px;font-weight:700;padding:7px 9px;border-radius:999px;background:rgba(245,247,240,.12);}.auto-badge{display:inline-block;margin-top:17px;padding:7px 10px;border-radius:999px;background:var(--soft-sage);color:var(--deep-green);font-size:11px;font-weight:800;letter-spacing:.06em;}
+  .review-layout{display:grid;grid-template-columns:310px 1fr;gap:62px;align-items:center;flex:1;margin-top:18px;}.candidate-panel{padding:24px;border-radius:22px;background:var(--soft-sage);}.candidate-panel h2{font-size:22px;letter-spacing:-.025em;margin-top:11px;}.candidate-panel p{font-size:13px;line-height:1.45;color:var(--text-muted);margin-top:10px;}.review-board{padding:23px;border:1px solid var(--border);border-radius:22px;background:var(--white);box-shadow:0 18px 38px rgba(42,51,40,.07);}.review-board-head{display:flex;align-items:center;justify-content:space-between;}.review-board-head b{font-size:18px;letter-spacing:-.02em;}.review-board-head span{font-size:10px;font-weight:800;color:var(--civic-sage);}.evidence-row{display:flex;gap:9px;margin-top:20px;}.evidence-row span{flex:1;padding:11px 9px;border-radius:12px;background:var(--soft-sage);font-size:10.5px;font-weight:700;color:var(--civic-sage);text-align:center;}.review-actions{display:flex;gap:9px;margin-top:18px;}.review-actions span{padding:9px 11px;border-radius:10px;background:var(--deep-green);color:var(--bg-warm);font-size:11px;font-weight:700;}.review-actions span:nth-child(2){background:var(--pale-sage);color:var(--deep-green);}.review-actions span:nth-child(3){background:var(--white);color:var(--civic-sage);border:1px solid var(--border);}
+  .three-layout{display:grid;grid-template-columns:205px repeat(3,1fr);gap:16px;align-items:center;flex:1;margin-top:24px;}.source-card{padding:22px;border-radius:19px;background:var(--deep-green);color:var(--bg-warm);}.source-card b{font-size:19px;letter-spacing:-.02em;}.source-card p{font-size:12px;color:rgba(245,247,240,.7);margin-top:8px;line-height:1.4;}.decision-card{min-height:224px;padding:21px;border-radius:21px;background:var(--white);border:1px solid var(--border);}.decision-card .num{font-size:12px;font-weight:800;color:var(--civic-sage);}.decision-card h2{font-size:21px;letter-spacing:-.03em;margin-top:22px;}.decision-card p{font-size:12.5px;line-height:1.45;color:var(--text-muted);margin-top:10px;}.decision-card.auto{background:var(--soft-sage);border-color:transparent;}.decision-card.new{background:var(--civic-sage);color:var(--bg-warm);border-color:transparent;}.decision-card.new .num,.decision-card.new p{color:rgba(245,247,240,.76);}
+  .aggregate-layout{display:grid;grid-template-columns:1fr 105px 1.2fr;gap:19px;align-items:center;flex:1;margin-top:20px;}.report-pile{display:grid;grid-template-columns:1fr 1fr;gap:10px;}.report-pile .report-mini{padding:14px;}.report-pile .report-mini b{font-size:13px;}.aggregate-arrow{height:170px;position:relative;border-right:2px solid var(--civic-sage);}.aggregate-arrow:before,.aggregate-arrow:after{content:'';position:absolute;right:-2px;width:45px;border-top:2px solid var(--civic-sage);}.aggregate-arrow:before{top:32px}.aggregate-arrow:after{bottom:32px}.aggregate-arrow i{position:absolute;right:-10px;top:72px;width:18px;height:18px;border-radius:50%;background:var(--civic-sage);}.aggregate-issue{padding:25px;border-radius:23px;background:var(--deep-green);color:var(--bg-warm);}.aggregate-issue h2{font-size:25px;letter-spacing:-.03em;margin-top:10px;}.aggregate-issue .metadata{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px;}.aggregate-issue .metadata span{font-size:11px;padding:8px 10px;border-radius:10px;background:rgba(245,247,240,.11);}
+  .priority-layout{display:grid;grid-template-columns:1.1fr 300px;gap:62px;align-items:center;flex:1;margin-top:20px;}.factors-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;position:relative;}.factors-grid:after{content:'Priority';position:absolute;left:50%;top:51%;transform:translate(-50%,-50%);width:120px;height:120px;border-radius:50%;display:grid;place-items:center;background:var(--civic-sage);color:var(--bg-warm);font-size:18px;font-weight:700;box-shadow:0 16px 38px rgba(42,51,40,.2);}.factor-card{min-height:162px;padding:14px 11px;border:1px solid var(--border);border-radius:16px;background:var(--white);text-align:center;}.factor-card:nth-child(odd){transform:translateY(36px);}.factor-card b{font-size:13px;letter-spacing:-.01em;}.factor-card span{display:block;font-size:10.5px;line-height:1.35;color:var(--text-muted);margin-top:7px;}.priority-result{padding:24px;border-radius:23px;background:var(--soft-sage);}.priority-result .tag{font-size:10px;font-weight:800;letter-spacing:.08em;color:var(--civic-sage);}.priority-result h2{font-size:36px;letter-spacing:-.04em;margin-top:9px;}.priority-result p{font-size:12.5px;line-height:1.6;color:var(--text-muted);margin-top:13px;}
+  .trace-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;flex:1;margin-top:25px;align-items:center;}.trace-card{min-height:245px;padding:22px;border-radius:21px;border:1px solid var(--border);background:var(--white);}.trace-card .tag{font-size:10px;font-weight:800;letter-spacing:.08em;color:var(--civic-sage);}.trace-card h2{font-size:20px;letter-spacing:-.025em;margin-top:14px;}.review-state{display:flex;align-items:center;gap:8px;margin-top:24px;}.review-state span{padding:10px 12px;border-radius:10px;background:var(--soft-sage);font-size:11px;font-weight:800;color:var(--civic-sage);}.review-state i{font-style:normal;color:var(--text-muted);}.trace-flow{display:flex;flex-direction:column;gap:9px;margin-top:21px;}.trace-flow span{padding:9px 10px;border-radius:9px;background:var(--soft-sage);font-size:11px;font-weight:700;color:var(--civic-sage);}.trace-flow i{font-style:normal;text-align:center;color:var(--civic-sage);}.conflict-badge{margin-top:23px;padding:13px;border-radius:13px;background:var(--deep-green);color:var(--bg-warm);font-size:11px;line-height:1.5;font-weight:700;}.conflict-badge span{display:block;font-size:9px;color:rgba(245,247,240,.67);letter-spacing:.08em;}
 </style>
 </head>
 <body>
@@ -911,14 +921,76 @@
       </div>
     </section>
 
-    <!-- ============ SLIDE 19 — CONCLUSION ============ -->
-    <section class="slide" id="slide-19" data-steps="4">
+    <!-- ============ SLIDE 19 — RELATIONSHIP PROCESSING ============ -->
+    <section class="slide" id="slide-19" data-steps="5">
+      <div class="section-mark reveal shown">INTELLIGENCE IN ACTION</div>
+      <h1 class="headline" style="margin-top:14px;">Reports are not always<br>separate issues.</h1>
+      <div class="match-layout">
+        <div class="report-mini reveal scale" data-step="1"><div class="tag">INCOMING REPORT</div><b>“Deep pothole near the junction.”</b><p>New context arrives for assessment.</p></div>
+        <div class="match-engine"><div class="engine-link reveal" data-step="2"></div><div class="engine-core reveal scale" data-step="2"><b>Similarity<br>processing</b><span>Compare with existing issue context.</span></div><span class="factor-chip a reveal" data-step="3">Text similarity</span><span class="factor-chip b reveal" data-step="3">Geographic distance</span><span class="factor-chip c reveal" data-step="3">Category compatibility</span><span class="factor-chip d reveal" data-step="3">Existing issue context</span></div>
+        <div class="outcome-stack"><div class="outcome-card auto reveal" data-step="4"><div class="tag">AUTO_LINK</div><b>Strong match</b><span>Associate where thresholds support it.</span></div><div class="outcome-card candidate reveal" data-step="5"><div class="tag">CANDIDATE</div><b>Possible match</b><span>Surface for human review.</span></div><div class="outcome-card new reveal" data-step="5" style="transition-delay:.1s"><div class="tag">NEW_ISSUE</div><b>No suitable match</b><span>Create a separate record.</span></div></div>
+      </div><div class="tech-foot reveal" data-step="3">Semantic embeddings · cosine similarity · geographic distance · category compatibility</div>
+    </section>
+
+    <!-- ============ SLIDE 20 — AUTOMATIC LINKING ============ -->
+    <section class="slide" id="slide-20" data-steps="4">
+      <div class="section-mark reveal shown">AUTOMATIC LINKING</div>
+      <h1 class="headline" style="margin-top:14px;">Strong matches can be<br>linked automatically.</h1>
+      <div class="link-layout">
+        <div class="link-cards"><div class="report-mini reveal" data-step="1"><div class="tag">EXISTING ISSUE</div><b>Large pothole near Kariavattom junction.</b></div><div class="report-mini reveal" data-step="2"><div class="tag">INCOMING REPORT</div><b>Deep pothole at Kariavattom junction causing vehicles to slow down.</b></div></div>
+        <div class="link-arrow reveal" data-step="3"></div>
+        <div class="issue-shell reveal scale" data-step="4"><div class="issue-label">ONE UPDATED ISSUE</div><h2>Pothole near Kariavattom junction</h2><p>Existing issue updated instead of creating a duplicate.</p><div class="signal-row"><span>Semantic similarity</span><span>Category compatible</span><span>Geographically close</span></div><div class="auto-badge">AUTO_LINK</div></div>
+      </div><div class="tech-foot reveal" data-step="4">Automatic linking is constrained by compatibility checks and configured thresholds.</div>
+    </section>
+
+    <!-- ============ SLIDE 21 — CANDIDATE REVIEW ============ -->
+    <section class="slide" id="slide-21" data-steps="4">
+      <div class="section-mark reveal shown">CANDIDATE MATCHES / HUMAN REVIEW</div>
+      <h1 class="headline" style="margin-top:14px;">When confidence is not enough,<br>people review.</h1>
+      <div class="review-layout"><div class="candidate-panel reveal scale" data-step="1"><div class="eyebrow">CANDIDATE</div><h2>Garbage near the market</h2><p>“Waste is being dumped behind the market parking area.”</p><div class="signal-row"><span>Similar wording</span><span>Nearby location</span></div></div><div class="review-board reveal" data-step="2"><div class="review-board-head"><b>Reviewer workspace</b><span>HUMAN-IN-THE-LOOP</span></div><div class="evidence-row reveal" data-step="3"><span>Compare reports</span><span>Location + category</span><span>Similarity context</span></div><div class="review-actions reveal" data-step="4"><span>Approve match</span><span>Reject match</span><span>Relink issue</span></div></div></div>
+      <div class="tech-foot reveal" data-step="4">Human-in-the-loop review helps prevent incorrect merges.</div>
+    </section>
+
+    <!-- ============ SLIDE 22 — THREE-WAY DECISION ============ -->
+    <section class="slide" id="slide-22" data-steps="3">
+      <div class="section-mark reveal shown">THREE-WAY DECISION MODEL</div>
+      <h1 class="headline" style="margin-top:14px;">Three outcomes. One<br>controlled workflow.</h1>
+      <div class="three-layout"><div class="source-card reveal" data-step="1"><b>Incoming report</b><p>One assessment, three appropriate routes.</p></div><div class="decision-card auto reveal scale" data-step="1"><div class="num">01 · AUTO_LINK</div><h2>Strong match</h2><p>Automatically associate with an existing issue where thresholds support it.</p></div><div class="decision-card reveal scale" data-step="2"><div class="num">02 · CANDIDATE</div><h2>Uncertain match</h2><p>Send for human review before linking.</p></div><div class="decision-card new reveal scale" data-step="3"><div class="num">03 · NEW_ISSUE</div><h2>No suitable match</h2><p>Create a separate issue record.</p></div></div>
+      <div class="tech-foot reveal" data-step="3">The system avoids treating every similar-looking report as the same issue.</div>
+    </section>
+
+    <!-- ============ SLIDE 23 — ISSUE AGGREGATION ============ -->
+    <section class="slide" id="slide-23" data-steps="4">
+      <div class="section-mark reveal shown">ISSUE AGGREGATION</div>
+      <h1 class="headline" style="margin-top:14px;">From individual reports to<br>issue-level understanding.</h1>
+      <div class="aggregate-layout"><div class="report-pile"><div class="report-mini reveal" data-step="1"><b>Pothole near the bus stop</b></div><div class="report-mini reveal" data-step="1" style="transition-delay:.08s"><b>Deep road damage beside junction</b></div><div class="report-mini reveal" data-step="2"><b>Vehicles slowing due to pothole</b></div><div class="report-mini reveal" data-step="2" style="transition-delay:.08s"><b>Road surface broken after rain</b></div></div><div class="aggregate-arrow reveal" data-step="3"><i></i></div><div class="aggregate-issue reveal scale" data-step="4"><div class="issue-label">ISSUE RECORD</div><h2>Pothole near Main Road</h2><div class="metadata"><span>4 related reports</span><span>Road damage</span><span>Shared location</span><span>Severity context</span><span>Recurrence</span><span>Priority</span></div></div></div>
+      <div class="tech-foot reveal" data-step="4">Operators see patterns, recurrence, location, and urgency instead of isolated complaints.</div>
+    </section>
+
+    <!-- ============ SLIDE 24 — EXPLAINABLE PRIORITY ============ -->
+    <section class="slide" id="slide-24" data-steps="5">
+      <div class="section-mark reveal shown">EXPLAINABLE ISSUE PRIORITY</div>
+      <h1 class="headline" style="margin-top:14px;">Priority is more than<br>report count.</h1>
+      <div class="priority-layout"><div><div class="eyebrow reveal" data-step="1">PRIORITY IS INFORMED BY</div><div class="factors-grid"><div class="factor-card reveal" data-step="1"><b>Severity</b><span>Potential impact</span></div><div class="factor-card reveal" data-step="2"><b>Report volume</b><span>Related activity</span></div><div class="factor-card reveal" data-step="3"><b>Unique reporters</b><span>Independent signals</span></div><div class="factor-card reveal" data-step="4"><b>Recency</b><span>Current relevance</span></div><div class="factor-card reveal" data-step="5"><b>Persistence</b><span>Ongoing condition</span></div></div></div><div class="priority-result reveal scale" data-step="5"><div class="tag">ISSUE PRIORITY</div><h2>High</h2><p>High severity · multiple reports · different reporters · recent activity · persistent issue</p></div></div>
+      <div class="tech-foot reveal" data-step="5">The dashboard can expose contributing factors instead of presenting an unexplained ranking.</div>
+    </section>
+
+    <!-- ============ SLIDE 25 — TRACEABILITY ============ -->
+    <section class="slide" id="slide-25" data-steps="4">
+      <div class="section-mark reveal shown">REVIEW STATE, AUDIT &amp; CONTINUOUS UPDATES</div>
+      <h1 class="headline" style="margin-top:14px;">Decisions stay traceable.</h1>
+      <div class="trace-grid"><div class="trace-card reveal" data-step="1"><div class="tag">REVIEW STATE</div><h2>One controlled decision</h2><div class="review-state"><span>PENDING</span><i>→</i><span>APPROVED / REJECTED</span></div></div><div class="trace-card reveal" data-step="2"><div class="tag">ISSUE UPDATE</div><h2>New information, refreshed context</h2><div class="trace-flow"><span>Report linked</span><i>↓</i><span>Issue associations updated</span><i>↓</i><span>Priority recalculated</span></div></div><div class="trace-card reveal" data-step="4"><div class="tag">DECISION CONSISTENCY</div><h2>Review history is protected</h2><div class="conflict-badge"><span>HTTP 409 CONFLICT</span>MATCH_ALREADY_REVIEWED</div><p class="tech-foot">Reject and relink to another issue when the suggested match is incorrect.</p></div></div>
+    </section>
+
+    <!-- ============ SLIDE 26 — CONCLUSION ============ -->
+    <section class="slide" id="slide-26" data-steps="4">
       <div class="section-mark reveal shown">CONCLUSION</div>
       <div class="conclusion-layout">
         <div>
           <h1 class="headline big reveal" data-step="1">Turning Reports<br>Into Better Decisions</h1>
-          <div class="conclusion-phrase reveal" data-step="2">Observe <span>→</span><br>Understand <span>→</span><br>Prioritize</div>
+          <div class="conclusion-phrase reveal" data-step="2">Observe <span>→</span><br>Understand <span>→</span><br>Organize <span>→</span> Prioritize</div>
           <p class="lede reveal" data-step="4">CivicSense proposes an AI-assisted approach to make civic issue reporting more structured, accessible, and actionable.</p>
+          <p class="reveal" data-step="4" style="max-width:470px;margin-top:13px;font-size:13px;line-height:1.5;color:var(--text-muted);">By combining image and text understanding, similarity-based issue organization, and human review, the system can support more organized complaint handling and prioritization.</p>
         </div>
         <div class="takeaway-list">
           <div class="takeaway reveal" data-step="2"><div class="marker">01</div><div><b>Simplifies civic issue reporting</b><p>Images and descriptions establish a clearer starting point.</p></div></div>
@@ -928,8 +1000,8 @@
       </div>
     </section>
 
-    <!-- ============ SLIDE 20 — THANK YOU ============ -->
-    <section class="slide" id="slide-20" data-steps="3">
+    <!-- ============ SLIDE 27 — THANK YOU ============ -->
+    <section class="slide" id="slide-27" data-steps="3">
       <div class="thanks-stage">
         <svg class="thanks-route reveal" data-step="1" viewBox="0 0 920 330" aria-hidden="true"><path d="M34 220 C142 299 185 54 330 110 S481 269 595 192 S749 58 880 126"/><circle cx="34" cy="220" r="5"/><circle cx="330" cy="110" r="5"/><circle cx="595" cy="192" r="5"/><circle cx="880" cy="126" r="5"/></svg>
         <img class="official-logo reveal scale" data-step="1" src="file:///C:/Users/abhis/OneDrive/Desktop/icons%20civic%20sense/civicsense-logo-master.svg" alt="CivicSense official logo">
@@ -942,7 +1014,7 @@
     <div id="chrome">
       <div class="dot-nav" id="dotnav"></div>
     </div>
-    <div id="counter"><b id="cnum">01</b> / <span id="total">20</span></div>
+    <div id="counter"><b id="cnum">01</b> / <span id="total">27</span></div>
     <div class="hint">← → or space to navigate</div>
 
   </div>

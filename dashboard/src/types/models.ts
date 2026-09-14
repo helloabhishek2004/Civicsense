@@ -122,11 +122,11 @@ export interface ReportItem {
  * Server-authoritative transition map strictly matching backend ReportLifecycleManager._TRANSITION_MAP
  */
 export const ALLOWED_TRANSITIONS: Record<BackendReportStatus, readonly BackendReportStatus[]> = {
-  SUBMITTED: ['AI_PROCESSING', 'CLOSED'],
+  SUBMITTED: ['AI_PROCESSING', 'VERIFIED', 'CLOSED'],
   AI_PROCESSING: ['AI_PROCESSED', 'VERIFICATION_REQUIRED'],
-  AI_PROCESSED: ['VERIFICATION_REQUIRED', 'VERIFIED', 'PRIORITIZED'],
-  VERIFICATION_REQUIRED: ['VERIFIED', 'CLOSED'],
-  VERIFIED: ['PRIORITIZED', 'CLOSED'],
+  AI_PROCESSED: ['VERIFICATION_REQUIRED', 'VERIFIED', 'PRIORITIZED', 'ASSIGNED', 'CLOSED'],
+  VERIFICATION_REQUIRED: ['VERIFIED', 'CLOSED', 'ASSIGNED'],
+  VERIFIED: ['PRIORITIZED', 'ASSIGNED', 'CLOSED'],
   PRIORITIZED: ['ASSIGNED', 'IN_PROGRESS'],
   ASSIGNED: ['IN_PROGRESS', 'PRIORITIZED'],
   IN_PROGRESS: ['RESOLVED', 'ASSIGNED'],
@@ -147,7 +147,16 @@ export interface ReportFilterParams {
   search?: string;
   page?: number;
   pageSize?: number;
-  sortBy?: 'createdAt' | 'priority' | 'severity' | 'updatedAt';
+  sortBy?:
+    | 'createdAt'
+    | 'priority'
+    | 'severity'
+    | 'updatedAt'
+    | 'trackingId'
+    | 'category'
+    | 'status'
+    | 'addressHint'
+    | string;
   sortOrder?: 'asc' | 'desc';
 }
 

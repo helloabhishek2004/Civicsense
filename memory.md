@@ -151,7 +151,19 @@ The current high-level system architecture is a monorepo consisting of:
   - Hardened `dashboard/src/services/api/apiClient.ts` to automatically extract officer identity from `localStorage` (`civicsense_active_officer`) and inject `X-Reviewer-ID` header transparently on all API requests.
   - Implemented cross-realm compatible request timeout via `Promise.race([fetchPromise, timeoutPromise])` in `apiClient.ts`, resolving undici/jsdom `AbortSignal` prototype mismatches across browser, Node, and test environments.
   - Created live staging E2E test suite (`dashboard/src/test/stagingLiveE2E.test.tsx`) asserting real HTTP communication and React DOM workflows against the live running FastAPI backend.
-- **Verification**: 85 passing frontend tests across 14 test files (`npm test`), 0 TypeScript errors (`npm run typecheck`), production Vite build succeeded in 12.15s (`npm run build`), 439 passing backend tests (`pytest backend/tests -q`), and clean code quality (`ruff check app` 100% clean).
+- **Reports Work Queue Administrative Triage Actions**:
+  - *Contextual Quick Action & Overflow Action Menu*: Replaced the passive "View" button with a two-tier action control per row:
+    1. Primary contextual action dynamically advancing the report along its canonical lifecycle: `SUBMITTED` $\to$ "Run AI"; `AI_PROCESSED` or `VERIFICATION_REQUIRED` $\to$ "Verify"; `VERIFIED` or `PRIORITIZED` $\to$ "Assign Dept"; all others $\to$ "View".
+    2. "..." overflow dropdown action menu exposing all permitted officer triage actions with RBAC checks (`can(user, action)`): View Details, Start/Re-run AI Analysis, Verify & Set Severity, Assign Department, Set Priority (SLA), and Reject Report.
+  - *Integrated Triage Modals*:
+    - `VerifySeverityModal`: Allows human verification verdict (`CONFIRMED`, `CORRECTED`, `DUPLICATE`), category reassignment, and manual severity override (`LOW`, `MEDIUM`, `HIGH`, `CRITICAL`) with operational notes.
+    - `AssignDepartmentModal`: Dispatches verified/prioritized reports to municipal divisions (`ROADS`, `WASTE`, `WATER`, `ELECTRICITY`, `TRAFFIC`, `PARKS`) with operational notes.
+    - `SetPriorityModal`: Explicitly sets SLA target deadlines (`LOW` 14d, `MEDIUM` 7d, `HIGH` 48h, `CRITICAL` 24h).
+    - `RejectModal`: Enforces structured `ClosureReason` selection (`INVALID`, `SPAM`, `DUPLICATE`, `OUT_OF_SCOPE`, `RESOLVED_BY_OTHER`, `UNABLE_TO_REPRODUCE`) with mandatory justification.
+  - *Single-Report Manual AI Trigger*: Added manual "Run AI Analysis Now" trigger button on `ReportDetailPage` for reports in `SUBMITTED` state alongside the existing failed-run retry button.
+  - *Lifecycle Transition Alignment*: Expanded canonical transition graph in `backend/app/services/reports/lifecycle.py` (`_TRANSITION_MAP`) and frontend `ALLOWED_TRANSITIONS` to support `VERIFIED` $\to$ `ASSIGNED` directly, streamlining department dispatch post-verification without requiring a separate prioritization step.
+  - *Cache Invalidation & Real-Time Sync*: All row actions execute TanStack Query mutations that invalidate `reports.all`, `reports.detail(id)`, `reports.stats()`, `departments.all`, and `ai.all`, with an in-page animated status toast feedback banner.
+- **Verification**: 91 passing frontend tests across 15 test files (`npm test`, including dedicated `reportsPageActions.test.tsx`), 0 TypeScript errors (`npm run typecheck`), production Vite build succeeded (`npm run build`), 524 passing backend tests (`pytest backend/tests -q`), and clean code quality (`ruff check app` 100% clean).
 
 
 ---
@@ -184,11 +196,19 @@ The current high-level system architecture is a monorepo consisting of:
   - `POST /api/v1/reports/{id}/complete`: Records field remediation report (`resolver_notes`), updates assignment to `COMPLETED`, and transitions report to `RESOLVED`.
   - `POST /api/v1/reports/{id}/department-reject`: Department declines work ticket with structured rejection reason (`OUT_OF_JURISDICTION`, `INSUFFICIENT_ACCESS`, `DUPLICATE_WORK_ORDER`, `REQUIRES_MAJOR_BUDGET`, `INSUFFICIENT_INFORMATION`, `OTHER`) and justification notes. Updates assignment to `REJECTED`, transitions report status from `ASSIGNED` back to `PRIORITIZED`, flags `reassignment_required = True`, but preserves `Report.department` for triage auditability.
   - `GET /api/v1/reports/{id}/assignments`: Retrieves immutable assignment audit history for a report.
-- **Similarity & Deduplication Engine** (`app/services/similarity/`):
+- **Similarity Matching Engine** (`app/services/similarity/`):
+  - **Multimodal 4-component scoring (dynamic normalization)**:
+    - Text similarity: Cosine of MiniLM embeddings (weight: 0.40)
+    - Visual similarity: Cosine of MobileNetV3-Small 576-dim embeddings (weight: 0.15)
+    - Spatial proximity: Haversine distance, 50m radius (weight: 0.35)
+    - Category match: Exact/bridge/mismatch (weight: 0.25)
+  - **Dynamic normalization**: When visual embeddings present, all 4 weights normalized to sum to 1.0. When absent, only text+distance+category used (backward compatible).
+  - **Visual safety policy (strict mode)**: Visual similarity cannot independently promote to AUTO_LINK. If visual causes AUTO_LINK but text-only score is below the threshold, the match is downgraded to CANDIDATE for human review. Configurable via `VISUAL_SAFETY_MODE` and `VISUAL_AUTO_LINK_MIN_TEXT_SCORE`.
+  - **Text-only score tracking**: Each match includes `text_only_score`, `multimodal_score`, `visual_used`, `visual_influenced_decision`, and `routing_reason` in metadata for audit.
   - **3-tier routing**: AUTO_LINK (high confidence, `combined_score >= 0.70`), CANDIDATE (medium, `0.45 <= score < 0.70`), NEW_ISSUE (no match, `score < 0.45`).
-  - **Component scoring**: Haversine distance (50m radius), cosine text similarity (MiniLM embeddings), category match.
-  - **Audit trail**: `report_issue_matches` table (migration `0009`) stores every match decision with component scores, status (`PENDING`/`APPROVED`/`REJECTED`/`SUPERSEDED`), reviewer metadata.
-  - **Review workflow**: `MatchReviewService` with approve/reject/supersede logic.
+  - **Visual embedding generation**: `VisualEmbeddingService` wraps `RealVisionModel` with lazy loading, graceful degradation, and storage URI resolution. Generates 576-dim L2-normalized embeddings from MobileNetV3-Small penultimate layer.
+  - **Audit trail**: `report_issue_matches` table (migration `0009`, extended `0011`) stores every match decision with component scores including `visual_similarity`, status (`PENDING`/`APPROVED`/`REJECTED`/`SUPERSEDED`), reviewer metadata.
+  - **Review workflow**: `MatchReviewService` with approve/reject/supersede logic. Uses `_running_average` for embedding aggregation (consistent with `service.py`). Updates both text and image embeddings on approval or reassignment.
   - **Match review API**: `GET /api/v1/matches/pending`, `POST /api/v1/matches/:id/approve`, `POST /api/v1/matches/:id/reject` (requires `X-Reviewer-ID` header).
 - **Dynamic Priority Ranking Engine** (`app/services/priority/`):
   - **Formula**: `0.30*severity + 0.25*report_volume + 0.20*unique_reporters + 0.15*recency + 0.10*persistence` -> final [0,1] x 100 -> map to PriorityLevel via configurable thresholds.
@@ -224,11 +244,13 @@ The current high-level system architecture is a monorepo consisting of:
   - `0008_add_text_embeddings.py`: adds `text_embedding` (JSON) and `embedding_model_version` (VARCHAR 64) columns to `reports` and `issues` tables for MiniLM semantic vector storage.
   - `0009_add_report_issue_matches.py`: adds `report_issue_matches` audit trail table storing every AUTO_LINK, CANDIDATE, and NEW_ISSUE match decision with component scores, status (PENDING/APPROVED/REJECTED/SUPERSEDED), reviewer metadata, and timestamps.
   - `0010_add_issue_priority_fields.py`: adds `priority_score` (Float, indexed), `priority_level` (VARCHAR 32, indexed), `priority_computed_at` (timestamptz), and `priority_breakdown` (JSON) columns to `issues` table for dynamic priority ranking.
+  - `0011_add_image_embeddings.py`: adds `image_embedding` (JSON) and `vision_model_version` (VARCHAR 64) columns to `reports` and `issues` tables. Adds `visual_similarity` (Float, default 0.0) to `report_issue_matches` table for multimodal similarity scoring.
 - **Core Entities & Schema Decisions**:
   - **`Report != Issue`**: `Report` represents an individual citizen submission. `Issue` represents a real-world civic defect on the ground. Multiple reports can map to one issue via foreign key `reports.issue_id`.
   - **Primary Keys**: Internal database IDs use native `UUID`. Citizen-facing tracking IDs are stored separately as unique indexed strings (`tracking_id`).
   - **Departments & Assignments**: `departments` table models municipal operational divisions (`name`, `code`, `head_name`, `contact_email`, `contact_phone`, `sla_hours_default`). `report_assignments` records immutable lifecycle of departmental jobs (`department_id`, `assigned_by`, `assigned_to_officer`, `status`, `rejection_reason`, `notes`, `created_at`, `resolved_at`).
   - **Evidence Preservation**: `evidences` table stores raw asset metadata (`evidence_type`, `storage_uri`, `file_hash`, `mime_type`, `file_size_bytes`, `metadata_json`). Original evidence is preserved and not discarded when representations are generated.
+  - **Visual Embeddings**: `reports.image_embedding` and `issues.image_embedding` (JSON columns) store 576-dim L2-normalized MobileNetV3-Small feature vectors for visual similarity comparison. `reports.vision_model_version` and `issues.vision_model_version` track model provenance. `report_issue_matches.visual_similarity` stores the cosine similarity score between report and issue image embeddings.
   - **Model Provenance**: `model_versions` table records `model_name`, `model_version`, `preprocessing_version`, `embedding_model`, and `embedding_version`.
   - **Decoupled AI Outputs**: `ai_analyses` table keeps `confidence`, `severity` (`LOW`, `MEDIUM`, `HIGH`, `CRITICAL`), `priority` (`LOW`, `MEDIUM`, `HIGH`, `CRITICAL`), and `evidence_agreement` in separate independent columns (no monolithic "ai_score").
   - **Audit Tables**: `verifications` records human review verdicts (`CONFIRMED`, `CORRECTED`, `REJECTED`, `DUPLICATE`). `resolutions` records municipal repair completion on an `Issue` without deleting historical defect records.
@@ -921,13 +943,14 @@ Central triage officers and AI models do not fix potholes, repair blown streetli
   - `dashboard/src/features/auth/LoginPage.tsx` — Added prototype authentication disclosure notice
 
 - **Validation Results**:
-  - Backend tests: 470 PASS
-  - Frontend tests: 85 PASS (14 suites)
+  - Backend tests: 519 PASS (all unit + API tests including visual pipeline hardening)
+  - Frontend tests: 80 PASS (5 staging E2E require live backend, pre-existing)
   - Ruff: PASS (E,W,F,I clean)
   - TypeScript: PASS (0 errors)
   - Frontend build: PASS (14.84s)
   - Seed export: PASS (40 reports, 12 issues, 10 matches)
   - MiniLM model: READY (not degraded)
+  - Vision model: checkpoint exists at `models/mobilenet_v3_small_v1/exp_b/exp_b_best.pt`, lazy-loaded on first request
   - mypy: 13 pre-existing errors (AI pipeline modules, not blocking)
   - PostgreSQL smoke test: NOT RUN (requires running PostgreSQL instance)
   - Browser E2E: NOT RUN (no Playwright/Selenium configured)
@@ -952,3 +975,34 @@ Central triage officers and AI models do not fix potholes, repair blown streetli
   - `scripts/start_demo.sh` — One-command demo startup (Bash)
 
 - **Seed Command Consistency** — All documentation now uses `python scripts/seed_pilot_dataset.py --seed-db` (direct invocation). Both direct and `-m` module invocation work; direct invocation is preferred for clarity.
+
+---
+
+### 11. Visual Detection, Multimodal Duplicate Matching & Admin Triage Operations (2026-09-14)
+
+- **Restoration of Admin Triage Actions on Reports Queue (`dashboard/src/features/reports/ReportsPage.tsx`)**:
+  - Contextual quick-action buttons aligned with report lifecycle: `Run AI` (`SUBMITTED`), `Verify` (`AI_PROCESSED`, `VERIFICATION_REQUIRED`), `Assign` (`VERIFIED`, `PRIORITIZED`), and `View` (`ASSIGNED`, `IN_PROGRESS`, `RESOLVED`, `CLOSED`).
+  - Floating `MoreHorizontal` menu providing: Start/Re-run AI Analysis, Verify & Set Severity, Assign Department, Set Priority (SLA), and Reject Report with structured reasons.
+  - Dedicated accessible modals for category/severity verification, municipal department assignment, priority/SLA adjustment, and report rejection.
+  - Aligned lifecycle transitions in backend (`lifecycle.py`) and frontend (`models.ts`, `MockReportRepository.ts`) allowing direct assignment from `VERIFIED` state.
+  - Added manual "Run AI Analysis Now" button in `ReportDetailPage.tsx` for `SUBMITTED` reports.
+
+- **Real Visual Detection Pipeline Integration (`backend/app/services/ai/demo_processor.py`)**:
+  - Connected `RealVisionModel` (MobileNetV3-Small) via `get_visual_embedding_service()` to analyze raw uploaded image bytes in Stage 3 (`VISION_ANALYSIS`), replacing the static 50% fallback with real multi-class visual inference.
+  - Preserved synthetic test fixture metadata (`prototype_category`) overrides for deterministic testing.
+  - Added baseline `CATEGORY_SEVERITY_MAP` (`Pothole`/`Water Leakage` $\to$ `HIGH`, `Road Damage`/`Garbage` $\to$ `MEDIUM`, `Streetlight`/`Other` $\to$ `LOW`) to directly inform initial severity and priority recommendations.
+
+- **Multimodal 4-Component Duplicate Detection & Dashboard Visualization**:
+  - Preserved and surfaced all four similarity components: Semantic Text (MiniLM-L6-v2), Visual Embeddings (MobileNetV3), Haversine Spatial Distance, and Category Matching.
+  - Added `visual_similarity: float = 0.0` to backend schemas `MatchComponentRead` and `MatchRead` (`backend/app/schemas/match_review.py`).
+  - Added `visual_similarity` / `visualSimilarity` to frontend interfaces (`dashboard/src/types/issues.ts`) and repository mappers (`ApiIssueRepository.ts`, `MockIssueRepository.ts`).
+  - Rendered Visual Similarity pill in the duplicate candidate table on `AIOperationsPage.tsx` (`Visual: 78.4%`).
+  - Enhanced both Approve and Reject verification modals in `AIOperationsPage.tsx` with 4-signal verification comparison cards (Text, Visual, Distance, Category).
+  - Enhanced `ReportDetailPage.tsx` to display complete 4-signal duplicate detection breakdown on the Associated Issue card.
+
+- **Automated Validation Results**:
+  - Backend tests (`pytest backend/tests -q`): **524 passed, 17 warnings** in 39.88s (100% pass rate).
+  - Frontend tests (`npm test -- --run` in `dashboard/`): **91 passed** across 15 test suites (100% pass rate).
+  - Frontend TypeScript compilation (`npm run typecheck`): **0 errors**.
+  - Production build (`npm run build` in `dashboard/`): **Vite build succeeded**.
+

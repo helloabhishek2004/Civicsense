@@ -69,13 +69,24 @@ class MatchReviewService:
         issue.report_count += 1
         issue.updated_at = now
 
-        # Update issue embedding as running average
-        if report.text_embedding and issue.text_embedding:
-            avg = [
-                (a + b) / 2.0
-                for a, b in zip(issue.text_embedding, report.text_embedding, strict=True)
-            ]
-            issue.text_embedding = avg
+        # Update issue embeddings as running average (consistent with service.py)
+        from app.services.similarity.service import _running_average
+        if report.text_embedding:
+            issue.text_embedding = _running_average(
+                issue.text_embedding,
+                report.text_embedding,
+                issue.report_count - 1,
+            )
+        if report.image_embedding:
+            if issue.image_embedding:
+                issue.image_embedding = _running_average(
+                    issue.image_embedding,
+                    report.image_embedding,
+                    issue.report_count - 1,
+                )
+            else:
+                issue.image_embedding = list(report.image_embedding)
+                issue.vision_model_version = report.vision_model_version
 
         # Mark any other PENDING matches for this report as SUPERSEDED
         self._supersede_other_pending(db, record)
@@ -92,7 +103,7 @@ class MatchReviewService:
             from app.services.priority.service import apply_priority_to_issue
             apply_priority_to_issue(db, issue)
         except Exception:
-            pass  # priority recompute is best-effort
+            logger.debug("Priority recompute skipped for issue %s", issue.id)
 
         logger.info(
             "Candidate match APPROVED: match=%s report=%s issue=%s reviewer=%s",
@@ -146,12 +157,23 @@ class MatchReviewService:
             record.issue_id = issue.id  # update audit record to reflect actual link
             issue.report_count += 1
             issue.updated_at = now
-            if report.text_embedding and issue.text_embedding:
-                avg = [
-                    (a + b) / 2.0
-                    for a, b in zip(issue.text_embedding, report.text_embedding, strict=True)
-                ]
-                issue.text_embedding = avg
+            from app.services.similarity.service import _running_average
+            if report.text_embedding:
+                issue.text_embedding = _running_average(
+                    issue.text_embedding,
+                    report.text_embedding,
+                    issue.report_count - 1,
+                )
+            if report.image_embedding:
+                if issue.image_embedding:
+                    issue.image_embedding = _running_average(
+                        issue.image_embedding,
+                        report.image_embedding,
+                        issue.report_count - 1,
+                    )
+                else:
+                    issue.image_embedding = list(report.image_embedding)
+                    issue.vision_model_version = report.vision_model_version
 
             # Recompute priority on alternative issue after report linked
             try:

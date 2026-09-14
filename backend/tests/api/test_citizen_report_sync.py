@@ -87,4 +87,4 @@ def test_citizen_report_sync_filtering(client: TestClient) -> None:
     assert detail_data["tracking_id"] == tracking_id_a
     assert detail_data["citizen_id"] == citizen_a
     assert detail_data["category"] == "Road Damage"
-    assert detail_data["status"] == "SUBMITTED"
+    assert detail_data["status"] in ("SUBMITTED", "AI_PROCESSED", "VERIFICATION_REQUIRED")

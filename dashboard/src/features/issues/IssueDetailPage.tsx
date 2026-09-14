@@ -14,6 +14,7 @@ import {
   ChevronLeft,
   ChevronRight,
   TrendingUp,
+  RotateCcw,
 } from 'lucide-react';
 import { issueRepository } from '@/services/repository/issueRepository';
 import { queryKeys } from '@/services/queryKeys';
@@ -31,6 +32,30 @@ import { MapRenderer } from '@/features/map/MapRenderer';
 import { MapPoint } from '@/features/map/types';
 import { formatDateTime } from '@/core/utils/dateUtils';
 import { resolveMediaUrl } from '@/core/utils/mediaUtils';
+import { motion, type Variants } from 'motion/react';
+
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.06,
+      delayChildren: 0.02,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 8 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.35,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+};
 
 export const IssueDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -224,86 +249,106 @@ export const IssueDetailPage: React.FC = () => {
   ];
 
   return (
-    <div className="p-6 max-w-7xl mx-auto space-y-6">
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="show"
+      className="space-y-4 sm:space-y-4.5"
+    >
       {/* 1. Header & Navigation */}
-      <div className="space-y-3">
+      <motion.div variants={itemVariants} className="space-y-3">
         <div className="flex items-center justify-between">
           <CivicButton
             variant="ghost"
             size="sm"
             onClick={() => navigate(-1)}
-            className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100"
+            className="flex items-center gap-1.5 text-civic-text-secondary hover:text-civic-text-primary"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-3.5 h-3.5" />
             Back
           </CivicButton>
 
-          <CivicButton
-            variant="secondary"
-            size="sm"
-            onClick={() => refetchIssue()}
-          >
-            Refresh
-          </CivicButton>
+          <div className="flex items-center gap-2">
+            <Link
+              to={`/reports?issueId=${issue.id}`}
+              className="inline-flex items-center gap-1 text-xs font-medium text-civic-green dark:text-civic-green-light hover:underline"
+            >
+              <span>View in Reports Queue</span>
+              <ExternalLink className="w-3 h-3" />
+            </Link>
+            <CivicButton
+              variant="outline"
+              size="sm"
+              onClick={() => refetchIssue()}
+              leftIcon={<RotateCcw className="w-3 h-3" />}
+            >
+              Refresh
+            </CivicButton>
+          </div>
         </div>
 
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-5">
-          <div className="space-y-1.5">
-            <div className="flex flex-wrap items-center gap-2.5">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-xs font-semibold uppercase tracking-wider bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
-                <Layers className="w-3.5 h-3.5" />
-                Aggregated Issue
-              </span>
-              <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700">
-                {issue.category}
-              </span>
-              <PriorityBadge priority={issue.priorityLevel} />
-              <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
-                {issue.status}
-              </span>
-            </div>
+        <div className="p-4 sm:p-4.5 rounded-xl bg-civic-surface border border-civic-border/90 dark:bg-civic-dark-surface dark:border-civic-dark-border/90 shadow-xs">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+            <div className="space-y-1.5">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[11px] font-semibold uppercase tracking-wider bg-civic-green/10 dark:bg-civic-green/20 text-civic-green dark:text-civic-green-light border border-civic-green/25">
+                  <Layers className="w-3 h-3" />
+                  Aggregated Issue
+                </span>
+                <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-civic-surface-elevated dark:bg-civic-dark-surface-elevated text-civic-text-secondary dark:text-civic-dark-text-secondary border border-civic-border dark:border-civic-dark-border">
+                  {issue.category}
+                </span>
+                <PriorityBadge priority={issue.priorityLevel} size="sm" />
+                <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                  {issue.status}
+                </span>
+              </div>
 
-            <h1 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
-              {issue.title}
-            </h1>
+              <h1 className="text-xl sm:text-2xl font-bold text-civic-text-primary dark:text-civic-dark-text-primary tracking-tight">
+                {issue.title}
+              </h1>
 
-            <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 font-mono">
-              <span>Issue ID: {issue.id}</span>
-              <button
-                type="button"
-                onClick={handleCopyId}
-                className="hover:text-slate-900 dark:hover:text-white transition-colors"
-                title="Copy Issue ID"
-              >
-                {copied ? (
-                  <Check className="w-3.5 h-3.5 text-green-600" />
-                ) : (
-                  <Copy className="w-3.5 h-3.5" />
-                )}
-              </button>
+              <div className="flex items-center gap-2 text-xs text-civic-text-muted font-mono">
+                <span>Issue ID: {issue.id}</span>
+                <button
+                  type="button"
+                  onClick={handleCopyId}
+                  className="hover:text-civic-text-primary transition-colors"
+                  title="Copy Issue ID"
+                >
+                  {copied ? (
+                    <Check className="w-3.5 h-3.5 text-emerald-600" />
+                  ) : (
+                    <Copy className="w-3.5 h-3.5" />
+                  )}
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Notice Banner explaining Domain Concept */}
-      <div className="p-4 rounded-xl border border-blue-100 dark:border-blue-900/40 bg-blue-50/50 dark:bg-blue-950/20 text-xs text-blue-800 dark:text-blue-300 flex items-start gap-3">
-        <Layers className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
-        <div>
+      <motion.div
+        variants={itemVariants}
+        className="p-3.5 sm:p-4 rounded-xl border border-civic-green/20 bg-civic-green/5 dark:bg-civic-green/10 text-xs text-civic-text-primary dark:text-civic-dark-text-primary flex items-start gap-3"
+      >
+        <Layers className="w-4 h-4 text-civic-green shrink-0 mt-0.5" />
+        <div className="leading-relaxed">
           <span className="font-semibold">Defect Cluster Workspace: </span>
           This entity represents an aggregated physical problem identified across{' '}
           <span className="font-semibold">{issue.reportCount}</span> citizen submission
           {issue.reportCount === 1 ? '' : 's'}. Priority scoring and triage are computed
           at the issue level, while individual reports preserve original evidence, GPS data, and citizen contact records.
         </div>
-      </div>
+      </motion.div>
 
       {/* 2. Key Metrics Row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <motion.div variants={itemVariants} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-3.5">
         <StatCard
           title="Linked Citizen Reports"
           value={issue.reportCount}
-          icon={<FileText className="w-5 h-5 text-blue-600" />}
+          icon={<FileText className="w-4 h-4 text-blue-600" />}
           subtitle="Citizen submissions aggregated"
         />
 
@@ -314,7 +359,7 @@ export const IssueDetailPage: React.FC = () => {
               ? `${issue.priorityScore.toFixed(1)} / 100`
               : 'Uncalculated'
           }
-          icon={<TrendingUp className="w-5 h-5 text-amber-600" />}
+          icon={<TrendingUp className="w-4 h-4 text-amber-600" />}
           subtitle={
             issue.priorityLevel
               ? `Ranked Level: ${issue.priorityLevel}`
@@ -325,25 +370,25 @@ export const IssueDetailPage: React.FC = () => {
         <StatCard
           title="Centroid Coordinates"
           value={`${issue.latitude.toFixed(4)}, ${issue.longitude.toFixed(4)}`}
-          icon={<MapPin className="w-5 h-5 text-emerald-600" />}
+          icon={<MapPin className="w-4 h-4 text-civic-green" />}
           subtitle="Primary defect focal point"
         />
 
         <StatCard
           title="Last Reported"
           value={formatDateTime(issue.updatedAt)}
-          icon={<Clock className="w-5 h-5 text-indigo-600" />}
+          icon={<Clock className="w-4 h-4 text-indigo-600" />}
           subtitle={`First: ${formatDateTime(issue.createdAt)}`}
         />
-      </div>
+      </motion.div>
 
       {/* 3. Media Carousel & Map Visualization */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <motion.div variants={itemVariants} className="grid grid-cols-1 lg:grid-cols-2 gap-3.5 sm:gap-4">
         {/* Evidence Photos Carousel */}
-        <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm space-y-4 flex flex-col justify-between">
-          <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
-            <h2 className="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
-              <FileText className="w-4 h-4 text-blue-600" />
+        <div className="p-4 sm:p-4.5 rounded-xl bg-civic-surface border border-civic-border/90 shadow-xs dark:bg-civic-dark-surface dark:border-civic-dark-border/90 flex flex-col justify-between space-y-3">
+          <div className="flex items-center justify-between border-b border-civic-border/50 dark:border-civic-dark-border/50 pb-2.5">
+            <h2 className="text-xs font-semibold text-civic-text-primary dark:text-civic-dark-text-primary uppercase tracking-wider flex items-center gap-2">
+              <FileText className="w-3.5 h-3.5 text-civic-green" />
               Citizen Evidence Gallery ({allEvidences.length})
             </h2>
             {allEvidences.length > 1 && (
@@ -354,11 +399,11 @@ export const IssueDetailPage: React.FC = () => {
                   aria-label="Previous evidence photo"
                   disabled={activePhotoIndex === 0}
                   onClick={() => setActivePhotoIndex((i) => Math.max(0, i - 1))}
-                  className="p-1 h-7 w-7"
+                  className="p-1 h-6 w-6"
                 >
-                  <ChevronLeft className="w-4 h-4" />
+                  <ChevronLeft className="w-3.5 h-3.5" />
                 </CivicButton>
-                <span className="text-xs font-medium text-slate-500 dark:text-slate-400">
+                <span className="text-[11px] font-medium text-civic-text-muted">
                   {activePhotoIndex + 1} / {allEvidences.length}
                 </span>
                 <CivicButton
@@ -369,47 +414,46 @@ export const IssueDetailPage: React.FC = () => {
                   onClick={() =>
                     setActivePhotoIndex((i) => Math.min(allEvidences.length - 1, i + 1))
                   }
-                  className="p-1 h-7 w-7"
+                  className="p-1 h-6 w-6"
                 >
-                  <ChevronRight className="w-4 h-4" />
+                  <ChevronRight className="w-3.5 h-3.5" />
                 </CivicButton>
               </div>
             )}
           </div>
 
           {allEvidences.length > 0 ? (
-            <div className="space-y-3">
-              <div className="relative aspect-video w-full rounded-lg overflow-hidden bg-slate-950 flex items-center justify-center border border-slate-200 dark:border-slate-800">
+            <div className="space-y-2.5">
+              <div className="relative aspect-video w-full rounded-lg overflow-hidden bg-black/5 dark:bg-black/40 flex items-center justify-center border border-civic-border/80 dark:border-civic-dark-border/80">
                 <img
                   src={resolveMediaUrl(allEvidences[activePhotoIndex]?.storage_uri) || ''}
                   alt={`Evidence for ${allEvidences[activePhotoIndex]?.trackingId}`}
                   loading="lazy"
-                  className="max-h-full max-w-full object-contain"
+                  className="max-h-full max-w-full object-contain transition-opacity duration-200"
                   onError={(e) => {
-                    // Fallback placeholder
                     e.currentTarget.src =
                       'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="%23888" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>';
                   }}
                 />
               </div>
 
-              <div className="flex items-center justify-between text-xs text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/60 p-2.5 rounded-lg border border-slate-100 dark:border-slate-800">
+              <div className="flex items-center justify-between text-xs text-civic-text-secondary dark:text-civic-dark-text-secondary bg-civic-surface-elevated/70 dark:bg-civic-dark-surface-elevated/60 p-2.5 rounded-lg border border-civic-border/70 dark:border-civic-dark-border/70">
                 <div>
                   Originating Report:{' '}
                   <Link
                     to={`/reports/${allEvidences[activePhotoIndex]?.reportId}`}
-                    className="font-mono font-semibold text-blue-600 dark:text-blue-400 hover:underline"
+                    className="font-mono font-semibold text-civic-green dark:text-civic-green-light hover:underline"
                   >
                     {allEvidences[activePhotoIndex]?.trackingId}
                   </Link>
                 </div>
-                <div>{formatDateTime(allEvidences[activePhotoIndex]?.submittedAt)}</div>
+                <div className="text-civic-text-muted">{formatDateTime(allEvidences[activePhotoIndex]?.submittedAt)}</div>
               </div>
             </div>
           ) : (
-            <div className="py-12 text-center text-slate-500 dark:text-slate-400 space-y-1">
-              <p className="text-sm font-medium">No Photographic Evidence</p>
-              <p className="text-xs">
+            <div className="py-12 text-center text-civic-text-muted space-y-1">
+              <p className="text-xs font-medium">No Photographic Evidence</p>
+              <p className="text-[11px]">
                 No visual evidence has been submitted with the reports linked to this issue.
               </p>
             </div>
@@ -417,18 +461,18 @@ export const IssueDetailPage: React.FC = () => {
         </div>
 
         {/* Spatial Map View */}
-        <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm space-y-4 flex flex-col justify-between">
-          <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
-            <h2 className="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
-              <MapPin className="w-4 h-4 text-emerald-600" />
+        <div className="p-4 sm:p-4.5 rounded-xl bg-civic-surface border border-civic-border/90 shadow-xs dark:bg-civic-dark-surface dark:border-civic-dark-border/90 flex flex-col justify-between space-y-3">
+          <div className="flex items-center justify-between border-b border-civic-border/50 dark:border-civic-dark-border/50 pb-2.5">
+            <h2 className="text-xs font-semibold text-civic-text-primary dark:text-civic-dark-text-primary uppercase tracking-wider flex items-center gap-2">
+              <MapPin className="w-3.5 h-3.5 text-civic-green" />
               Spatial Distribution & Centroid
             </h2>
-            <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+            <span className="text-[11px] text-civic-text-muted font-mono">
               {mapPoints.length} Point{mapPoints.length === 1 ? '' : 's'}
             </span>
           </div>
 
-          <div className="h-72 w-full rounded-lg overflow-hidden border border-slate-200 dark:border-slate-800">
+          <div className="h-64 w-full rounded-lg overflow-hidden border border-civic-border/80 dark:border-civic-dark-border/80">
             <MapRenderer
               points={mapPoints}
               center={mapCenter}
@@ -438,132 +482,138 @@ export const IssueDetailPage: React.FC = () => {
             />
           </div>
 
-          <div className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2">
-            <MapPin className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+          <div className="text-[11px] text-civic-text-muted flex items-center gap-1.5">
+            <MapPin className="w-3 h-3 text-civic-green shrink-0" />
             <span>
               Primary Centroid at {issue.latitude.toFixed(5)}, {issue.longitude.toFixed(5)}.
-              Click map pins to navigate directly to citizen report records.
+              Click markers to inspect constituent reports.
             </span>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* 4. Priority Scorecard & Algorithmic Breakdown */}
       {priorityData && (
-        <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
+        <motion.div
+          variants={itemVariants}
+          className="p-4 sm:p-4.5 rounded-xl bg-civic-surface border border-civic-border/90 shadow-xs dark:bg-civic-dark-surface dark:border-civic-dark-border/90 space-y-3.5"
+        >
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-civic-border/50 dark:border-civic-dark-border/50 pb-2.5">
             <div>
-              <h2 className="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
-                <TrendingUp className="w-4 h-4 text-amber-500" />
+              <h2 className="text-xs font-semibold text-civic-text-primary dark:text-civic-dark-text-primary uppercase tracking-wider flex items-center gap-2">
+                <TrendingUp className="w-3.5 h-3.5 text-amber-500" />
                 Priority Scorecard Breakdown
               </h2>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
+              <p className="text-xs text-civic-text-muted">
                 Multi-factor operational ranking calculated by the CivicSense Priority Engine
               </p>
             </div>
             {priorityData.priorityComputedAt && (
-              <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+              <span className="text-[11px] text-civic-text-muted font-mono">
                 Computed: {formatDateTime(priorityData.priorityComputedAt)}
               </span>
             )}
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
-            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 space-y-1">
-              <span className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5">
+            <div className="p-3 rounded-xl bg-civic-surface-elevated/70 dark:bg-civic-dark-surface-elevated/60 border border-civic-border/80 dark:border-civic-dark-border/80 space-y-1">
+              <span className="text-[11px] text-civic-text-muted font-medium">
                 Overall Priority
               </span>
               <div className="flex items-baseline gap-1.5">
-                <span className="text-2xl font-bold font-mono text-slate-900 dark:text-white">
+                <span className="text-xl font-bold font-mono text-civic-text-primary dark:text-civic-dark-text-primary">
                   {priorityData.priorityScore !== null && priorityData.priorityScore !== undefined
                     ? priorityData.priorityScore.toFixed(1)
                     : '--'}
                 </span>
-                <span className="text-xs text-slate-400 font-mono">/ 100</span>
+                <span className="text-[11px] text-civic-text-muted font-mono">/ 100</span>
               </div>
-              <span className="text-[10px] text-slate-400 font-mono block">
+              <span className="text-[10px] text-civic-text-muted font-mono block">
                 Level: {priorityData.priorityLevel || 'UNSET'}
               </span>
             </div>
 
-            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 space-y-1">
-              <span className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
+            <div className="p-3 rounded-xl bg-civic-surface-elevated/70 dark:bg-civic-dark-surface-elevated/60 border border-civic-border/80 dark:border-civic-dark-border/80 space-y-1">
+              <span className="text-[11px] text-civic-text-muted font-medium">
                 Severity Factor
               </span>
-              <div className="text-lg font-bold font-mono text-slate-900 dark:text-white">
+              <div className="text-lg font-bold font-mono text-civic-text-primary dark:text-civic-dark-text-primary">
                 {priorityData.breakdown?.severity_score !== undefined
                   ? (priorityData.breakdown.severity_score * 100).toFixed(0)
                   : '--'}%
               </div>
-              <span className="text-[10px] text-slate-500 dark:text-slate-400 block">
+              <span className="text-[10px] text-civic-text-muted block">
                 Weight: 30% | {priorityData.breakdown?.max_severity || 'LOW'}
               </span>
             </div>
 
-            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 space-y-1">
-              <span className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
+            <div className="p-3 rounded-xl bg-civic-surface-elevated/70 dark:bg-civic-dark-surface-elevated/60 border border-civic-border/80 dark:border-civic-dark-border/80 space-y-1">
+              <span className="text-[11px] text-civic-text-muted font-medium">
                 Volume Factor
               </span>
-              <div className="text-lg font-bold font-mono text-slate-900 dark:text-white">
+              <div className="text-lg font-bold font-mono text-civic-text-primary dark:text-civic-dark-text-primary">
                 {priorityData.breakdown?.report_volume_score !== undefined
                   ? (priorityData.breakdown.report_volume_score * 100).toFixed(0)
                   : '--'}%
               </div>
-              <span className="text-[10px] text-slate-500 dark:text-slate-400 block">
+              <span className="text-[10px] text-civic-text-muted block">
                 Weight: 25% | {priorityData.breakdown?.report_count ?? issue.reportCount} rpts
               </span>
             </div>
 
-            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 space-y-1">
-              <span className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
+            <div className="p-3 rounded-xl bg-civic-surface-elevated/70 dark:bg-civic-dark-surface-elevated/60 border border-civic-border/80 dark:border-civic-dark-border/80 space-y-1">
+              <span className="text-[11px] text-civic-text-muted font-medium">
                 Reporter Diversity
               </span>
-              <div className="text-lg font-bold font-mono text-slate-900 dark:text-white">
+              <div className="text-lg font-bold font-mono text-civic-text-primary dark:text-civic-dark-text-primary">
                 {priorityData.breakdown?.unique_reporter_score !== undefined
                   ? (priorityData.breakdown.unique_reporter_score * 100).toFixed(0)
                   : '--'}%
               </div>
-              <span className="text-[10px] text-slate-500 dark:text-slate-400 block">
+              <span className="text-[10px] text-civic-text-muted block">
                 Weight: 20% | {priorityData.breakdown?.unique_reporter_count ?? 1} citizens
               </span>
             </div>
 
-            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 space-y-1">
-              <span className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
+            <div className="p-3 rounded-xl bg-civic-surface-elevated/70 dark:bg-civic-dark-surface-elevated/60 border border-civic-border/80 dark:border-civic-dark-border/80 space-y-1">
+              <span className="text-[11px] text-civic-text-muted font-medium">
                 Recency & Aging
               </span>
-              <div className="text-lg font-bold font-mono text-slate-900 dark:text-white">
+              <div className="text-lg font-bold font-mono text-civic-text-primary dark:text-civic-dark-text-primary">
                 {priorityData.breakdown?.recency_score !== undefined
                   ? (priorityData.breakdown.recency_score * 100).toFixed(0)
                   : '--'}%
               </div>
-              <span className="text-[10px] text-slate-500 dark:text-slate-400 block">
+              <span className="text-[10px] text-civic-text-muted block">
                 Weight: 25% (15% rec, 10% age)
               </span>
             </div>
           </div>
-          <p className="text-[11px] text-slate-400 italic">
+          <p className="text-[11px] text-civic-text-muted italic">
             Priority score is an automated decision-support estimate based on 5 weighted signals (Formula v{priorityData.breakdown?.formula_version || '1.0'}).
           </p>
-        </div>
+        </motion.div>
       )}
 
       {/* 5. Linked Reports Data Table */}
-      <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
+      <motion.div
+        variants={itemVariants}
+        className="p-4 sm:p-4.5 rounded-xl bg-civic-surface border border-civic-border/90 shadow-xs dark:bg-civic-dark-surface dark:border-civic-dark-border/90 space-y-3.5"
+      >
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-civic-border/50 dark:border-civic-dark-border/50 pb-2.5">
           <div>
-            <h2 className="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
-              <FileText className="w-4 h-4 text-blue-600" />
+            <h2 className="text-xs font-semibold text-civic-text-primary dark:text-civic-dark-text-primary uppercase tracking-wider flex items-center gap-2">
+              <FileText className="w-3.5 h-3.5 text-civic-green" />
               Constituent Citizen Reports ({reportsData?.total || 0})
             </h2>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
+            <p className="text-xs text-civic-text-muted">
               Individual citizen submissions deduplicated and linked under this aggregated issue
             </p>
           </div>
 
           <Link
             to={`/reports?issueId=${issue.id}`}
-            className="text-xs font-medium text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 self-start sm:self-auto"
+            className="text-xs font-medium text-civic-green dark:text-civic-green-light hover:underline flex items-center gap-1 self-start sm:self-auto"
           >
             View in Reports Queue
             <ExternalLink className="w-3 h-3" />
@@ -591,7 +641,7 @@ export const IssueDetailPage: React.FC = () => {
           onPageChange={setReportPage}
           onRowClick={(item) => navigate(`/reports/${item.id}`)}
         />
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };

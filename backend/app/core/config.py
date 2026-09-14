@@ -80,6 +80,25 @@ class Settings(BaseSettings):
     # Batch recomputation
     PRIORITY_BATCH_SIZE: int = 100
 
+    # Vision Model Configuration
+    VISION_MODEL_CHECKPOINT: str = ""  # resolved at startup relative to PROJECT_ROOT
+    VISION_EMBEDDING_DIM: int = 576  # MobileNetV3-Small penultimate layer dimension
+    VISION_CONFIDENCE_THRESHOLD: float = 0.60
+    VISION_ENABLED: bool = True  # Set False to disable vision processing entirely
+
+    # Multimodal Similarity Weights (text + visual + distance + category)
+    SIMILARITY_VISUAL_WEIGHT: float = 0.15
+
+    # Visual Safety Policy
+    # "strict": visual similarity cannot independently promote to AUTO_LINK
+    # "relaxed": visual similarity contributes normally to scoring
+    VISUAL_SAFETY_MODE: str = "strict"
+
+    # When strict mode is active, visual similarity cannot cause AUTO_LINK unless
+    # the text-only score (without visual) also exceeds this threshold.
+    # Set to 0.0 to allow visual to promote only when text score is below medium_threshold.
+    VISUAL_AUTO_LINK_MIN_TEXT_SCORE: float = 0.0
+
     @property
     def similarity_model_path(self) -> Path:
         """Resolve the MiniLM model directory to an absolute path.
@@ -101,6 +120,27 @@ class Settings(BaseSettings):
 
         cwd_default = Path.cwd() / "models" / "all_minilm_l6_v2"
         return cwd_default
+
+    @property
+    def vision_model_path(self) -> Path:
+        """Resolve the vision model checkpoint to an absolute path.
+
+        Priority:
+          1. Explicit VISION_MODEL_CHECKPOINT if non-empty and exists
+          2. models/mobilenet_v3_small_v1/exp_b/exp_b_best.pt relative to PROJECT_ROOT
+          3. Fallback to PROJECT_ROOT/models/mobilenet_v3_small_v1/exp_b/exp_b_best.pt
+        """
+        if self.VISION_MODEL_CHECKPOINT:
+            explicit = Path(self.VISION_MODEL_CHECKPOINT)
+            if explicit.is_absolute():
+                return explicit
+            return _PROJECT_ROOT / explicit
+
+        project_default = (
+            _PROJECT_ROOT / "models" / "mobilenet_v3_small_v1"
+            / "exp_b" / "exp_b_best.pt"
+        )
+        return project_default
 
     model_config = SettingsConfigDict(
         env_file=".env",

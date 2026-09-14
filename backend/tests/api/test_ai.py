@@ -36,9 +36,9 @@ def test_process_report_ai_complete_pipeline(
     assert create_res.status_code == 201
     report_data = create_res.json()
     report_id = report_data["id"]
-    assert report_data["status"] == "SUBMITTED"
+    assert report_data["status"] != "SUBMITTED"  # AI runs automatically
 
-    # 2. Trigger AI processing
+    # 2. Report already processed automatically; manual trigger is idempotent
     process_res = client.post(f"/api/v1/reports/{report_id}/ai/process")
     assert process_res.status_code == 202
     job_data = process_res.json()

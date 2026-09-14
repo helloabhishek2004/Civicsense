@@ -64,6 +64,9 @@ class Report(Base):
     text_embedding: Mapped[list[Any] | None] = mapped_column(JSON, nullable=True)
     embedding_model_version: Mapped[str | None] = mapped_column(String(64), nullable=True)
 
+    image_embedding: Mapped[list[Any] | None] = mapped_column(JSON, nullable=True)
+    vision_model_version: Mapped[str | None] = mapped_column(String(64), nullable=True)
+
     created_at: Mapped[datetime.datetime] = mapped_column(
         DateTime(timezone=True),
         default=lambda: datetime.datetime.now(datetime.UTC),

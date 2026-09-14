@@ -18,6 +18,7 @@ def test_all_valid_transitions() -> None:
         (ReportStatus.VERIFICATION_REQUIRED, ReportStatus.VERIFIED),
         (ReportStatus.VERIFICATION_REQUIRED, ReportStatus.CLOSED),
         (ReportStatus.VERIFIED, ReportStatus.PRIORITIZED),
+        (ReportStatus.VERIFIED, ReportStatus.ASSIGNED),
         (ReportStatus.VERIFIED, ReportStatus.CLOSED),
         (ReportStatus.PRIORITIZED, ReportStatus.ASSIGNED),
         (ReportStatus.PRIORITIZED, ReportStatus.IN_PROGRESS),

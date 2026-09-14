@@ -14,6 +14,7 @@ class MatchComponentRead(BaseModel):
     text_similarity: float
     distance_meters: float
     category_match: float
+    visual_similarity: float = 0.0
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -30,6 +31,7 @@ class MatchRead(BaseModel):
     text_similarity: float
     distance_meters: float
     category_match: float
+    visual_similarity: float = 0.0
     reasoning: list[str] | None = None
     embedding_model_version: str | None = None
     reviewed_at: datetime.datetime | None = None

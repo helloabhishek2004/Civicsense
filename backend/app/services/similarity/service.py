@@ -1,14 +1,24 @@
-"""CivicSense Similarity & Deduplication Engine (Sprint 3 + 1.5 hardening).
+"""CivicSense Similarity Engine (multimodal visual + hardening).
 
 Implements Report-to-Issue matching via multimodal similarity scoring:
 - Text cosine similarity (MiniLM embeddings or fallback)
+- Visual cosine similarity (MobileNetV3-Small embeddings — auxiliary signal only)
 - Geographic proximity (Haversine distance decay)
 - Category compatibility (exact, Other bridge, or mismatch)
+
+Visual similarity is an auxiliary matching signal. The current vision model
+is trained for classification; retrieval/duplicate quality is not yet validated.
+Human review is required for uncertain matches.
 
 Three-tier routing:
   score >= HIGH_THRESHOLD  -> AUTO_LINK   (report linked to existing issue)
   score >= MEDIUM_THRESHOLD -> CANDIDATE   (pending human review, no issue created)
   score < MEDIUM_THRESHOLD  -> NEW_ISSUE   (new issue created)
+
+Safety policy:
+  In strict mode, visual similarity cannot independently promote to AUTO_LINK.
+  If visual causes AUTO_LINK but text-only score is below the threshold,
+  the match is downgraded to CANDIDATE for human review.
 
 Every scoring decision produces a persistent ReportIssueMatch audit record.
 """
@@ -56,6 +66,7 @@ class MatchComponent:
     text_similarity: float
     distance_meters: float
     category_match: float
+    visual_similarity: float
     raw_score: float
     weighted_score: float
 
@@ -67,6 +78,11 @@ class SimilarityMatch:
     score: float
     components: MatchComponent
     reasoning: list[str]
+    text_only_score: float = 0.0
+    multimodal_score: float = 0.0
+    visual_used: bool = False
+    visual_influenced_decision: bool = False
+    routing_reason: str = ""
 
 
 @dataclass
@@ -78,6 +94,7 @@ class SimilarityConfig:
     high_threshold: float
     medium_threshold: float
     embedding_model_version: str
+    visual_weight: float = 0.0
     model_dir: Any = None  # Path, resolved from config
 
 
@@ -87,10 +104,12 @@ class SimilarityConfig:
 
 def _load_config() -> SimilarityConfig:
     s = get_settings()
+    # Use original weights for text-only mode; multimodal weights only when visual is available
     return SimilarityConfig(
         text_weight=s.SIMILARITY_TEXT_WEIGHT,
         distance_weight=s.SIMILARITY_DISTANCE_WEIGHT,
         category_weight=s.SIMILARITY_CATEGORY_WEIGHT,
+        visual_weight=s.SIMILARITY_VISUAL_WEIGHT if s.VISION_ENABLED else 0.0,
         radius_meters=s.SIMILARITY_RADIUS_METERS,
         high_threshold=s.SIMILARITY_HIGH_THRESHOLD,
         medium_threshold=s.SIMILARITY_MEDIUM_THRESHOLD,
@@ -123,6 +142,42 @@ def cosine_similarity(a: list[float], b: list[float]) -> float:
     if norm_a < 1e-9 or norm_b < 1e-9:
         return 0.0
     return max(-1.0, min(1.0, dot / (norm_a * norm_b)))
+
+
+def _running_average(
+    old_avg: list[float] | None,
+    new_embedding: list[float],
+    old_count: int,
+) -> list[float]:
+    """Compute true running average of embeddings with L2 re-normalization.
+
+    Uses the formula: new_avg = (old_avg * old_count + new_embedding) / (old_count + 1)
+
+    When old_avg is None or old_count <= 0, returns a copy of new_embedding.
+    The result is L2-normalized to maintain unit norm for cosine similarity.
+    """
+    if old_avg is None or old_count <= 0:
+        return list(new_embedding)
+
+    if len(old_avg) != len(new_embedding):
+        logger.warning(
+            "Embedding dimension mismatch during averaging: old=%d new=%d; using new embedding",
+            len(old_avg), len(new_embedding),
+        )
+        return list(new_embedding)
+
+    count = max(old_count, 1)
+    avg = [
+        (a * count + b) / (count + 1)
+        for a, b in zip(old_avg, new_embedding, strict=True)
+    ]
+
+    # Re-normalize to unit L2 norm for cosine similarity compatibility
+    norm = math.sqrt(sum(x * x for x in avg))
+    if norm > 1e-9:
+        avg = [x / norm for x in avg]
+
+    return avg
 
 
 def distance_score(distance_meters: float, radius_meters: float) -> float:
@@ -232,10 +287,69 @@ def _compute_text_embedding(description: str) -> list[float] | None:
     return None
 
 
-def validate_model_availability() -> dict[str, Any]:
-    """Validate MiniLM model at startup and return status report.
+def _generate_visual_embedding(report: Report) -> None:
+    """Generate visual embedding from the first evidence image attached to the report.
 
-    Returns a dict with: model_dir, exists, status, embedding_dim, degraded_mode.
+    Sets report.image_embedding and report.vision_model_version if successful.
+    Gracefully degrades to no embedding on any failure.
+    """
+    settings = get_settings()
+    if not settings.VISION_ENABLED:
+        return
+
+    # Find the first IMAGE evidence with a storage_uri
+    image_evidence = None
+    for ev in report.evidences:
+        if ev.storage_uri and ev.mime_type and ev.mime_type.startswith("image/"):
+            image_evidence = ev
+            break
+
+    if image_evidence is None:
+        return
+
+    try:
+        from app.services.ai.visual_embedding_service import get_visual_embedding_service
+
+        service = get_visual_embedding_service()
+        if not service.is_ready:
+            logger.info(
+                "Visual embedding skipped for report %s: service not ready (%s)",
+                report.tracking_id,
+                service.status.get("load_error", "unknown"),
+            )
+            return
+
+        embedding = service.extract_embedding_from_storage_uri(
+            image_evidence.storage_uri, uploads_dir=settings.UPLOADS_DIR
+        )
+        if embedding is not None:
+            report.image_embedding = embedding
+            ckpt_name = settings.VISION_MODEL_CHECKPOINT or "exp_b"
+            report.vision_model_version = f"mobilenet_v3_small-{ckpt_name}"
+            logger.debug(
+                "Visual embedding generated for report %s: dim=%d",
+                report.tracking_id,
+                len(embedding),
+            )
+        else:
+            logger.info(
+                "Visual embedding extraction returned None for report %s (evidence=%s)",
+                report.tracking_id,
+                image_evidence.storage_uri,
+            )
+    except Exception as exc:
+        logger.warning(
+            "Visual embedding generation failed for report %s: %s",
+            report.tracking_id,
+            exc,
+        )
+
+
+def validate_model_availability() -> dict[str, Any]:
+    """Validate MiniLM and vision models at startup and return status report.
+
+    Returns a dict with: model_dir, exists, status, embedding_dim, degraded_mode,
+    vision_model status.
     """
     cfg = _load_config()
     model_dir = cfg.model_dir
@@ -283,6 +397,15 @@ def validate_model_availability() -> dict[str, Any]:
             exc,
         )
 
+    # Check vision model status
+    try:
+        from app.services.ai.visual_embedding_service import get_visual_embedding_service
+
+        vision_service = get_visual_embedding_service()
+        report["vision_model"] = vision_service.status
+    except Exception as exc:
+        report["vision_model"] = {"model_ready": False, "load_error": str(exc)}
+
     return report
 
 
@@ -317,12 +440,25 @@ def match_report_to_issue(
     best_match: SimilarityMatch | None = None
     best_score = -1.0
 
+    settings = get_settings()
+    visual_safety_mode = getattr(settings, "VISUAL_SAFETY_MODE", "strict")
+
     for issue in candidates:
         # Text similarity (normalized cosine)
         if report_emb and issue.text_embedding:
             text_sim = cosine_similarity(report_emb, issue.text_embedding)
         else:
             text_sim = 0.0
+
+        # Visual similarity (cosine of image embeddings)
+        vis_sim = 0.0
+        has_visual = (
+            cfg.visual_weight > 0
+            and report.image_embedding
+            and issue.image_embedding
+        )
+        if has_visual:
+            vis_sim = cosine_similarity(report.image_embedding, issue.image_embedding)
 
         # Distance (exponential decay, output in [0, 1])
         dist = haversine_distance_meters(
@@ -334,31 +470,78 @@ def match_report_to_issue(
         # Category (output in {0.0, 0.5, 1.0})
         cat_sc = category_score(report.category, issue.category)
 
-        # Weighted score (convex combination of [0, 1] components)
-        weighted = (
-            cfg.text_weight * text_sim
-            + cfg.distance_weight * dist_sc
-            + cfg.category_weight * cat_sc
-        )
+        # Dynamic weight normalization:
+        # When visual embeddings are available, normalize all 4 weights to sum to 1.0
+        # When visual is missing, use only text+distance+category
+        if has_visual:
+            total_w = (
+                cfg.text_weight + cfg.distance_weight
+                + cfg.category_weight + cfg.visual_weight
+            )
+            if total_w > 0:
+                norm_tw = cfg.text_weight / total_w
+                norm_dw = cfg.distance_weight / total_w
+                norm_cw = cfg.category_weight / total_w
+                norm_vw = cfg.visual_weight / total_w
+            else:
+                norm_tw, norm_dw, norm_cw, norm_vw = 0.40, 0.35, 0.25, 0.0
+        else:
+            total_w = cfg.text_weight + cfg.distance_weight + cfg.category_weight
+            if total_w > 0:
+                norm_tw = cfg.text_weight / total_w
+                norm_dw = cfg.distance_weight / total_w
+                norm_cw = cfg.category_weight / total_w
+            else:
+                norm_tw, norm_dw, norm_cw = 0.40, 0.35, 0.25
+            norm_vw = 0.0
 
-        # Clamp to [0, 1] for safety
+        # Multimodal score (includes visual when available)
+        weighted = (
+            norm_tw * text_sim
+            + norm_dw * dist_sc
+            + norm_cw * cat_sc
+            + norm_vw * vis_sim
+        )
         weighted = max(0.0, min(1.0, weighted))
+
+        # Text-only score (visual excluded, weights re-normalized)
+        text_only_total = cfg.text_weight + cfg.distance_weight + cfg.category_weight
+        if text_only_total > 0:
+            text_only_score = (
+                (cfg.text_weight / text_only_total) * text_sim
+                + (cfg.distance_weight / text_only_total) * dist_sc
+                + (cfg.category_weight / text_only_total) * cat_sc
+            )
+        else:
+            text_only_score = 0.0
+        text_only_score = max(0.0, min(1.0, text_only_score))
+
+        # Visual safety policy: determine if visual influenced routing
+        visual_used = has_visual and vis_sim > 0
+        visual_influenced = False
+        routing_reason = ""
 
         reasoning_parts: list[str] = []
         if report_emb and issue.text_embedding:
             reasoning_parts.append(f"text_similarity={text_sim:.4f}")
         else:
             reasoning_parts.append("text_similarity=N/A(no_embeddings)")
+        if has_visual:
+            reasoning_parts.append(f"visual_similarity={vis_sim:.4f}")
+        else:
+            reasoning_parts.append("visual_similarity=N/A(no_image_embeddings)")
         reasoning_parts.append(f"distance={dist:.1f}m,dist_score={dist_sc:.4f}")
         reasoning_parts.append(
             f"category_match={cat_sc:.1f}(report={report.category},issue={issue.category})"
         )
         reasoning_parts.append(f"weighted_score={weighted:.4f}")
+        reasoning_parts.append(f"text_only_score={text_only_score:.4f}")
 
         components = MatchComponent(
             text_similarity=text_sim,
             distance_meters=dist,
             category_match=cat_sc,
+            visual_similarity=vis_sim,
             raw_score=weighted,
             weighted_score=weighted,
         )
@@ -376,17 +559,39 @@ def match_report_to_issue(
             )
             if is_category_conflict:
                 action = MatchAction.NEW_ISSUE
+                routing_reason = "category_mismatch"
                 reasoning_parts.append(
                     f"ACTION=NEW_ISSUE(category_mismatch: {report.category} vs {issue.category})"
                 )
             elif weighted >= cfg.high_threshold:
-                action = MatchAction.AUTO_LINK
-                reasoning_parts.append(f"ACTION=AUTO_LINK(threshold={cfg.high_threshold})")
+                # Visual safety policy (strict mode):
+                # If visual similarity promoted this to AUTO_LINK but text-only
+                # would not have reached AUTO_LINK threshold, downgrade to CANDIDATE.
+                if (
+                    visual_safety_mode == "strict"
+                    and visual_used
+                    and text_only_score < cfg.high_threshold
+                    and text_only_score < (weighted - 0.01)
+                ):
+                    action = MatchAction.CANDIDATE
+                    visual_influenced = True
+                    routing_reason = "visual_downgraded_to_candidate"
+                    reasoning_parts.append(
+                        f"ACTION=CANDIDATE(visual_safety: text_only={text_only_score:.4f} "
+                        f"< high_threshold={cfg.high_threshold}, "
+                        f"multimodal={weighted:.4f} downgraded from AUTO_LINK)"
+                    )
+                else:
+                    action = MatchAction.AUTO_LINK
+                    routing_reason = "multimodal_threshold"
+                    reasoning_parts.append(f"ACTION=AUTO_LINK(threshold={cfg.high_threshold})")
             elif weighted >= cfg.medium_threshold:
                 action = MatchAction.CANDIDATE
+                routing_reason = "below_high_threshold"
                 reasoning_parts.append(f"ACTION=CANDIDATE(threshold={cfg.medium_threshold})")
             else:
                 action = MatchAction.NEW_ISSUE
+                routing_reason = "below_medium_threshold"
                 reasoning_parts.append(f"ACTION=NEW_ISSUE(below={cfg.medium_threshold})")
 
             best_match = SimilarityMatch(
@@ -395,6 +600,11 @@ def match_report_to_issue(
                 score=weighted,
                 components=components,
                 reasoning=reasoning_parts,
+                text_only_score=text_only_score,
+                multimodal_score=weighted,
+                visual_used=visual_used,
+                visual_influenced_decision=visual_influenced,
+                routing_reason=routing_reason,
             )
 
     return best_match
@@ -422,6 +632,7 @@ def _create_match_record(
         text_similarity=match.components.text_similarity,
         distance_meters=match.components.distance_meters,
         category_match=match.components.category_match,
+        visual_similarity=match.components.visual_similarity,
         reasoning=match.reasoning,
         embedding_model_version=report.embedding_model_version,
     )
@@ -446,13 +657,17 @@ def process_similarity_match(
     """
     cfg = config or _load_config()
 
-    # Generate embedding if report doesn't have one
+    # Generate text embedding if report doesn't have one
     if report.text_embedding is None and report.description:
         embedding = _compute_text_embedding(report.description)
         if embedding is not None:
             report.text_embedding = embedding
             report.embedding_model_version = cfg.embedding_model_version
             db.flush()
+
+    # Generate visual embedding from evidence image if available and not already present
+    if report.image_embedding is None and report.evidences:
+        _generate_visual_embedding(report)
 
     # Find best match
     match = match_report_to_issue(db, report, cfg)
@@ -469,6 +684,8 @@ def process_similarity_match(
             report_count=1,
             text_embedding=report.text_embedding,
             embedding_model_version=cfg.embedding_model_version,
+            image_embedding=report.image_embedding,
+            vision_model_version=report.vision_model_version,
         )
         db.add(new_issue)
         db.flush()
@@ -482,7 +699,8 @@ def process_similarity_match(
             score=0.0,
             components=MatchComponent(
                 text_similarity=0.0, distance_meters=0.0,
-                category_match=0.0, raw_score=0.0, weighted_score=0.0,
+                category_match=0.0, visual_similarity=0.0,
+                raw_score=0.0, weighted_score=0.0,
             ),
             reasoning=["No nearby issues found. Created new issue."],
         )
@@ -513,13 +731,25 @@ def process_similarity_match(
         issue.report_count += 1
         issue.updated_at = report.updated_at
 
-        # Update issue embedding as running average if both have embeddings
-        if report.text_embedding and issue.text_embedding:
-            avg = [
-                (a + b) / 2.0
-                for a, b in zip(issue.text_embedding, report.text_embedding, strict=True)
-            ]
-            issue.text_embedding = avg
+        # Update issue text embedding as running average
+        if report.text_embedding:
+            issue.text_embedding = _running_average(
+                issue.text_embedding,
+                report.text_embedding,
+                issue.report_count - 1,
+            )
+
+        # Update issue image embedding as running average
+        if report.image_embedding:
+            if issue.image_embedding:
+                issue.image_embedding = _running_average(
+                    issue.image_embedding,
+                    report.image_embedding,
+                    issue.report_count - 1,
+                )
+            else:
+                issue.image_embedding = list(report.image_embedding)
+                issue.vision_model_version = report.vision_model_version
 
         db.flush()
         count = issue.report_count
@@ -566,6 +796,8 @@ def process_similarity_match(
             report_count=1,
             text_embedding=report.text_embedding,
             embedding_model_version=cfg.embedding_model_version,
+            image_embedding=report.image_embedding,
+            vision_model_version=report.vision_model_version,
         )
         db.add(new_issue)
         db.flush()
@@ -609,10 +841,17 @@ def store_match_metadata(
             "matched_issue_id": str(match.issue_id) if match.issue_id else None,
             "components": {
                 "text_similarity": round(match.components.text_similarity, 4),
+                "visual_similarity": round(match.components.visual_similarity, 4),
                 "distance_meters": round(match.components.distance_meters, 1),
                 "category_match": round(match.components.category_match, 1),
             },
+            "text_only_score": round(match.text_only_score, 4),
+            "multimodal_score": round(match.multimodal_score, 4),
+            "visual_used": match.visual_used,
+            "visual_influenced_decision": match.visual_influenced_decision,
+            "routing_reason": match.routing_reason,
             "reasoning": match.reasoning,
             "embedding_model_version": report.embedding_model_version,
+            "vision_model_version": report.vision_model_version,
         }
     }

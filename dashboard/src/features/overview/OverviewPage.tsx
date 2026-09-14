@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import {
@@ -56,24 +56,16 @@ const itemVariants: Variants = {
   },
 };
 
-const INTAKE_TREND_DATA = [
-  { day: 'Mon', intake: 14, resolved: 11 },
-  { day: 'Tue', intake: 19, resolved: 16 },
-  { day: 'Wed', intake: 24, resolved: 18 },
-  { day: 'Thu', intake: 17, resolved: 15 },
-  { day: 'Fri', intake: 22, resolved: 20 },
-  { day: 'Sat', intake: 11, resolved: 14 },
-  { day: 'Sun', intake: 8, resolved: 9 },
-];
-
-const CATEGORY_DATA = [
-  { name: 'Pothole', count: 34, color: '#526B55' },
-  { name: 'Water Leakage', count: 22, color: '#1A73E8' },
-  { name: 'Garbage', count: 19, color: '#E37400' },
-  { name: 'Streetlight', count: 14, color: '#9333EA' },
-  { name: 'Road Damage', count: 12, color: '#D93025' },
-  { name: 'Drainage', count: 8, color: '#0D9488' },
-];
+const CATEGORY_COLORS: Record<string, string> = {
+  Pothole: '#526B55',
+  'Water Leakage': '#1A73E8',
+  Garbage: '#E37400',
+  Streetlight: '#9333EA',
+  'Road Damage': '#D93025',
+  Drainage: '#0D9488',
+  Infrastructure: '#2563EB',
+  Other: '#6B7280',
+};
 
 export const OverviewPage: React.FC = () => {
   const navigate = useNavigate();
@@ -86,6 +78,14 @@ export const OverviewPage: React.FC = () => {
     refetchOnWindowFocus: true,
   });
 
+  const { data: allReportsData } = useQuery({
+    queryKey: queryKeys.reports.list({ pageSize: 100 }),
+    queryFn: () => reportRepository.getReports({ pageSize: 100 }),
+    refetchInterval: 10000,
+    refetchIntervalInBackground: false,
+    refetchOnWindowFocus: true,
+  });
+
   const { data: urgentReports, isLoading: isUrgentLoading } = useQuery({
     queryKey: queryKeys.reports.list({ pageSize: 5, sortBy: 'priority', sortOrder: 'desc' }),
     queryFn: () => reportRepository.getReports({ pageSize: 5, sortBy: 'priority', sortOrder: 'desc' }),
@@ -93,6 +93,68 @@ export const OverviewPage: React.FC = () => {
     refetchIntervalInBackground: false,
     refetchOnWindowFocus: true,
   });
+
+  // Dynamically calculate category breakdown from actual report data
+  const categoryBreakdown = useMemo(() => {
+    const items = allReportsData?.items || [];
+    if (items.length === 0) return [];
+
+    const counts: Record<string, number> = {};
+    items.forEach((r) => {
+      const cat = r.category || 'Other';
+      counts[cat] = (counts[cat] || 0) + 1;
+    });
+
+    return Object.entries(counts)
+      .map(([name, count]) => ({
+        name,
+        count,
+        percentage: Math.round((count / items.length) * 100),
+        color: CATEGORY_COLORS[name] || '#526B55',
+      }))
+      .sort((a, b) => b.count - a.count);
+  }, [allReportsData?.items]);
+
+  // Dynamically calculate 7-day intake and resolution velocity from actual report timestamps
+  const weeklyVelocityData = useMemo(() => {
+    const items = allReportsData?.items || [];
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const orderedDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    const buckets: Record<string, { intake: number; resolved: number }> = {
+      Mon: { intake: 0, resolved: 0 },
+      Tue: { intake: 0, resolved: 0 },
+      Wed: { intake: 0, resolved: 0 },
+      Thu: { intake: 0, resolved: 0 },
+      Fri: { intake: 0, resolved: 0 },
+      Sat: { intake: 0, resolved: 0 },
+      Sun: { intake: 0, resolved: 0 },
+    };
+
+    items.forEach((r) => {
+      const createdDate = new Date(r.createdAt);
+      if (!isNaN(createdDate.getTime())) {
+        const dayName = days[createdDate.getDay()];
+        if (buckets[dayName]) {
+          buckets[dayName].intake += 1;
+        }
+      }
+      if (['RESOLVED', 'RESOLUTION_VERIFIED', 'CLOSED'].includes(r.status)) {
+        const resolvedDate = new Date(r.resolvedAt || r.updatedAt);
+        if (!isNaN(resolvedDate.getTime())) {
+          const dayName = days[resolvedDate.getDay()];
+          if (buckets[dayName]) {
+            buckets[dayName].resolved += 1;
+          }
+        }
+      }
+    });
+
+    return orderedDays.map((day) => ({
+      day,
+      intake: buckets[day].intake,
+      resolved: buckets[day].resolved,
+    }));
+  }, [allReportsData?.items]);
 
   return (
     <motion.div
@@ -187,10 +249,10 @@ export const OverviewPage: React.FC = () => {
 
             <div className="h-60 w-full">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={INTAKE_TREND_DATA} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                <BarChart data={weeklyVelocityData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} opacity={0.15} />
                   <XAxis dataKey="day" tick={{ fontSize: 11 }} tickLine={false} axisLine={false} />
-                  <YAxis tick={{ fontSize: 11 }} tickLine={false} axisLine={false} />
+                  <YAxis tick={{ fontSize: 11 }} tickLine={false} axisLine={false} allowDecimals={false} />
                   <Tooltip
                     contentStyle={{
                       backgroundColor: '#FFFFFF',
@@ -217,45 +279,59 @@ export const OverviewPage: React.FC = () => {
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 items-center">
-              <div className="h-48 w-full">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={CATEGORY_DATA}
-                      dataKey="count"
-                      nameKey="name"
-                      cx="50%"
-                      cy="50%"
-                      innerRadius={46}
-                      outerRadius={70}
-                      paddingAngle={3}
-                    >
-                      {CATEGORY_DATA.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.color} />
-                      ))}
-                    </Pie>
-                    <Tooltip
-                      contentStyle={{
-                        backgroundColor: '#FFFFFF',
-                        borderRadius: '8px',
-                        border: '1px solid #E6E8E3',
-                        fontSize: '12px',
-                      }}
-                    />
-                  </PieChart>
-                </ResponsiveContainer>
+              <div className="h-48 w-full flex items-center justify-center">
+                {categoryBreakdown.length === 0 ? (
+                  <div className="text-xs text-civic-text-muted text-center py-6">
+                    No defect categories recorded yet
+                  </div>
+                ) : (
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={categoryBreakdown}
+                        dataKey="count"
+                        nameKey="name"
+                        cx="50%"
+                        cy="50%"
+                        innerRadius={46}
+                        outerRadius={70}
+                        paddingAngle={3}
+                      >
+                        {categoryBreakdown.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.color} />
+                        ))}
+                      </Pie>
+                      <Tooltip
+                        contentStyle={{
+                          backgroundColor: '#FFFFFF',
+                          borderRadius: '8px',
+                          border: '1px solid #E6E8E3',
+                          fontSize: '12px',
+                        }}
+                      />
+                    </PieChart>
+                  </ResponsiveContainer>
+                )}
               </div>
 
-              <div className="space-y-1.5">
-                {CATEGORY_DATA.map((cat) => (
-                  <div key={cat.name} className="flex items-center justify-between text-xs py-0.5">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: cat.color }} />
-                      <span className="text-civic-text-secondary dark:text-civic-dark-text-secondary">{cat.name}</span>
-                    </div>
-                    <span className="font-semibold text-civic-text-primary dark:text-civic-dark-text-primary">{cat.count}%</span>
+              <div className="space-y-1.5 max-h-48 overflow-y-auto pr-1">
+                {categoryBreakdown.length === 0 ? (
+                  <div className="text-xs text-civic-text-muted py-4 text-center">
+                    No category data available
                   </div>
-                ))}
+                ) : (
+                  categoryBreakdown.map((cat) => (
+                    <div key={cat.name} className="flex items-center justify-between text-xs py-0.5">
+                      <div className="flex items-center gap-2 truncate pr-2">
+                        <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: cat.color }} />
+                        <span className="text-civic-text-secondary dark:text-civic-dark-text-secondary truncate">{cat.name}</span>
+                      </div>
+                      <span className="font-semibold text-civic-text-primary dark:text-civic-dark-text-primary shrink-0">
+                        {cat.percentage}% <span className="text-[10px] font-normal text-civic-text-muted">({cat.count})</span>
+                      </span>
+                    </div>
+                  ))
+                )}
               </div>
             </div>
           </div>

@@ -25,8 +25,9 @@ def test_case_a_high_confidence_agreement(client: TestClient) -> None:
     assert create_res.status_code == 201
     report_data = create_res.json()
     report_id = report_data["id"]
-    assert report_data["status"] == "SUBMITTED"
+    assert report_data["status"] != "SUBMITTED"  # AI runs automatically
 
+    # Manual trigger is idempotent after auto-processing
     proc_res = client.post(f"/api/v1/reports/{report_id}/ai/process")
     assert proc_res.status_code == 202
     job_data = proc_res.json()
@@ -184,7 +185,7 @@ def test_case_e_reprocessing_preserves_history_and_creates_new_job(client: TestC
 
     report_res = client.get(f"/api/v1/reports/{report_id}")
     analyses = report_res.json()["ai_analyses"]
-    assert len(analyses) == 2
+    assert len(analyses) == 3  # auto + 2 manual triggers
 
 
 def test_case_f_human_verification_lifecycle(client: TestClient) -> None:

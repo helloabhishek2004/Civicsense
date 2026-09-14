@@ -865,30 +865,59 @@ export const ReportDetailPage: React.FC = () => {
               {aiDisplay.message}
             </p>
 
-            {/* STATE: SUBMITTED (Not processed yet) */}
+            {/* STATE: SUBMITTED (AI processing should have started automatically) */}
             {report.status === 'SUBMITTED' && !aiResult?.ai_analysis && (
               <div className="p-5 rounded-lg bg-gray-50/70 dark:bg-civic-dark-surface-elevated/40 border border-dashed border-civic-border dark:border-civic-dark-border text-xs text-civic-text-secondary dark:text-civic-dark-text-secondary text-center space-y-3">
-                <div className="w-10 h-10 mx-auto rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500">
-                  <Cpu className="w-5 h-5" />
-                </div>
-                <div>
-                  <p className="font-semibold text-civic-text-primary dark:text-civic-dark-text-primary">
-                    AI multimodal analysis has not been run for this report
-                  </p>
-                  <p className="text-[11px] text-civic-text-muted mt-0.5">
-                    The citizen submission is in the intake queue. Queueing will invoke the 8-stage multimodal pipeline.
-                  </p>
-                </div>
-                {canVerify && (
-                  <CivicButton
-                    variant="primary"
-                    size="sm"
-                    leftIcon={<Play className="w-3.5 h-3.5" />}
-                    isLoading={aiProcessMutation.isPending}
-                    onClick={() => aiProcessMutation.mutate()}
-                  >
-                    Queue AI Processing
-                  </CivicButton>
+                {aiResult?.latest_job?.status === 'FAILED' ? (
+                  <>
+                    <div className="w-10 h-10 mx-auto rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center text-red-500">
+                      <AlertTriangle className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-civic-text-primary dark:text-civic-dark-text-primary">
+                        AI processing failed
+                      </p>
+                      <p className="text-[11px] text-civic-text-muted mt-0.5">
+                        The automatic inference pipeline encountered an error. You can retry processing manually.
+                      </p>
+                    </div>
+                    {canVerify && (
+                      <CivicButton
+                        variant="primary"
+                        size="sm"
+                        leftIcon={<RotateCcw className="w-3.5 h-3.5" />}
+                        isLoading={aiProcessMutation.isPending}
+                        onClick={() => aiProcessMutation.mutate()}
+                      >
+                        Retry AI Processing
+                      </CivicButton>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <div className="w-10 h-10 mx-auto rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500">
+                      <Cpu className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-civic-text-primary dark:text-civic-dark-text-primary">
+                        AI processing pending
+                      </p>
+                      <p className="text-[11px] text-civic-text-muted mt-0.5">
+                        The citizen submission is in the intake queue. AI multimodal inference will process automatically.
+                      </p>
+                    </div>
+                    {canVerify && (
+                      <CivicButton
+                        variant="secondary"
+                        size="sm"
+                        leftIcon={<Play className="w-3.5 h-3.5" />}
+                        isLoading={aiProcessMutation.isPending}
+                        onClick={() => aiProcessMutation.mutate()}
+                      >
+                        Queue AI Processing
+                      </CivicButton>
+                    )}
+                  </>
                 )}
               </div>
             )}
@@ -1230,6 +1259,51 @@ export const ReportDetailPage: React.FC = () => {
                 This citizen report is aggregated under a confirmed civic defect cluster.
               </p>
 
+              {/* Multimodal Linkage Signals */}
+              {(() => {
+                const simMatch = (report.edgeMetadata as Record<string, any>)?.similarity_match;
+                if (!simMatch?.components) return null;
+                return (
+                  <div className="pt-2 border-t border-blue-200/80 dark:border-blue-800/60 space-y-1.5 text-[11px]">
+                    <span className="text-[10px] uppercase font-bold tracking-wider text-blue-700 dark:text-blue-300 block">
+                      Multimodal Duplicate Signals (Confidence: {Math.round((simMatch.score ?? 0) * 100)}%)
+                    </span>
+                    <div className="grid grid-cols-2 gap-1.5 font-mono text-[10px]">
+                      <div className="p-1.5 rounded bg-white/80 dark:bg-black/30 border border-blue-200/50 dark:border-blue-800/40">
+                        <span className="text-slate-400 block text-[9px]">Text Match:</span>
+                        <span className="font-semibold text-slate-700 dark:text-slate-200">
+                          {Math.round((simMatch.components.text_similarity ?? 0) * 100)}%
+                        </span>
+                      </div>
+                      <div className="p-1.5 rounded bg-white/80 dark:bg-black/30 border border-blue-200/50 dark:border-blue-800/40">
+                        <span className="text-slate-400 block text-[9px]">Visual Match:</span>
+                        <span className="font-semibold text-purple-600 dark:text-purple-400">
+                          {simMatch.components.visual_similarity !== undefined && simMatch.components.visual_similarity > 0
+                            ? `${Math.round(simMatch.components.visual_similarity * 100)}%`
+                            : 'N/A'}
+                        </span>
+                      </div>
+                      <div className="p-1.5 rounded bg-white/80 dark:bg-black/30 border border-blue-200/50 dark:border-blue-800/40">
+                        <span className="text-slate-400 block text-[9px]">Distance:</span>
+                        <span className="font-semibold text-slate-700 dark:text-slate-200">
+                          {simMatch.components.distance_meters?.toFixed(1) ?? 0}m
+                        </span>
+                      </div>
+                      <div className="p-1.5 rounded bg-white/80 dark:bg-black/30 border border-blue-200/50 dark:border-blue-800/40">
+                        <span className="text-slate-400 block text-[9px]">Category Match:</span>
+                        <span className="font-semibold text-slate-700 dark:text-slate-200">
+                          {simMatch.components.category_match === 1
+                            ? 'Exact'
+                            : simMatch.components.category_match === 0.5
+                            ? 'Bridge'
+                            : 'Mismatch'}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
+
               <CivicButton
                 variant="primary"
                 size="sm"
@@ -1255,16 +1329,40 @@ export const ReportDetailPage: React.FC = () => {
               {/* STATE: SUBMITTED */}
               {report.status === 'SUBMITTED' && (
                 <>
-                  <CivicButton
-                    variant="primary"
-                    size="md"
-                    className="w-full"
-                    leftIcon={<Play className="w-4 h-4" />}
-                    isLoading={aiProcessMutation.isPending}
-                    onClick={() => aiProcessMutation.mutate()}
-                  >
-                    Run AI Inference Pipeline
-                  </CivicButton>
+                  {aiResult?.latest_job?.status === 'FAILED' ? (
+                    <CivicButton
+                      variant="primary"
+                      size="md"
+                      className="w-full"
+                      leftIcon={<RotateCcw className="w-4 h-4" />}
+                      isLoading={aiProcessMutation.isPending}
+                      onClick={() => aiProcessMutation.mutate()}
+                    >
+                      Retry AI Processing
+                    </CivicButton>
+                  ) : (
+                    <>
+                      <div className="p-3 rounded-lg bg-slate-50/70 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                        <div className="w-2 h-2 rounded-full bg-slate-400 animate-ping shrink-0" />
+                        <div>
+                          <span className="font-semibold block">Awaiting AI Processing</span>
+                          <span className="text-[11px] text-slate-500 dark:text-slate-400">
+                            Automatic inference will process this report shortly.
+                          </span>
+                        </div>
+                      </div>
+                      <CivicButton
+                        variant="primary"
+                        size="md"
+                        className="w-full"
+                        leftIcon={<Play className="w-4 h-4" />}
+                        isLoading={aiProcessMutation.isPending}
+                        onClick={() => aiProcessMutation.mutate()}
+                      >
+                        Run AI Analysis Now
+                      </CivicButton>
+                    </>
+                  )}
 
                   {canClose && (
                     <CivicButton
@@ -1386,7 +1484,34 @@ export const ReportDetailPage: React.FC = () => {
                         setActiveModal('PRIORITIZE');
                       }}
                     >
-                      Direct Operational Priority
+                      Set Operational Priority (SLA)
+                    </CivicButton>
+                  )}
+
+                  {canAssign && (
+                    <CivicButton
+                      variant="outline"
+                      size="md"
+                      className="w-full"
+                      leftIcon={<Building className="w-4 h-4" />}
+                      onClick={() => {
+                        setTargetDepartment(report.department || 'Roads & Bridges');
+                        setActiveModal('ASSIGN');
+                      }}
+                    >
+                      Assign Department & Crew
+                    </CivicButton>
+                  )}
+
+                  {canClose && (
+                    <CivicButton
+                      variant="ghost"
+                      size="sm"
+                      className="w-full text-red-600 hover:bg-red-50 dark:hover:bg-red-950/20"
+                      leftIcon={<XCircle className="w-4 h-4" />}
+                      onClick={() => setActiveModal('REJECT')}
+                    >
+                      Cancel / Close Report
                     </CivicButton>
                   )}
                 </>
@@ -1408,6 +1533,36 @@ export const ReportDetailPage: React.FC = () => {
                       }}
                     >
                       Verify & Confirm Report
+                    </CivicButton>
+                  )}
+
+                  {canPrioritize && (
+                    <CivicButton
+                      variant="secondary"
+                      size="md"
+                      className="w-full"
+                      leftIcon={<Send className="w-4 h-4" />}
+                      onClick={() => {
+                        setTargetPriority(report.priority);
+                        setActiveModal('PRIORITIZE');
+                      }}
+                    >
+                      Set Operational Priority (SLA)
+                    </CivicButton>
+                  )}
+
+                  {canAssign && (
+                    <CivicButton
+                      variant="outline"
+                      size="md"
+                      className="w-full"
+                      leftIcon={<Building className="w-4 h-4" />}
+                      onClick={() => {
+                        setTargetDepartment(report.department || 'Roads & Bridges');
+                        setActiveModal('ASSIGN');
+                      }}
+                    >
+                      Assign Department & Crew
                     </CivicButton>
                   )}
 
