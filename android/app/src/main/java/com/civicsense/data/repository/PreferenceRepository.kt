@@ -30,6 +30,7 @@ class PreferenceRepository(private val context: Context) {
         val APP_THEME = stringPreferencesKey("app_theme_mode")
         val CITIZEN_ID = stringPreferencesKey("citizen_id")
         val SUBMITTED_REPORT_IDS = stringSetPreferencesKey("submitted_report_ids")
+        val CUSTOM_SERVER_URL = stringPreferencesKey("custom_server_url")
     }
 
     val userProfileFlow: Flow<UserProfile> = context.dataStore.data.map { preferences ->
@@ -42,6 +43,19 @@ class PreferenceRepository(private val context: Context) {
             isOnboardingCompleted = preferences[PreferencesKeys.ONBOARDING_COMPLETED] ?: false,
             isProfileCompleted = preferences[PreferencesKeys.PROFILE_COMPLETED] ?: false
         )
+    }
+
+    val serverUrlFlow: Flow<String> = context.dataStore.data.map { preferences ->
+        val custom = preferences[PreferencesKeys.CUSTOM_SERVER_URL]?.trim()
+        if (!custom.isNullOrBlank()) {
+            custom
+        } else {
+            try {
+                com.civicsense.BuildConfig.API_BASE_URL
+            } catch (_: Throwable) {
+                "http://10.0.2.2:8000"
+            }
+        }
     }
 
     val appThemeFlow: Flow<AppTheme> = context.dataStore.data.map { preferences ->
@@ -103,6 +117,28 @@ class PreferenceRepository(private val context: Context) {
     suspend fun setOnboardingCompleted(completed: Boolean) {
         context.dataStore.edit { preferences ->
             preferences[PreferencesKeys.ONBOARDING_COMPLETED] = completed
+        }
+    }
+
+    suspend fun getServerUrl(): String {
+        val custom = context.dataStore.data.firstOrNull()?.get(PreferencesKeys.CUSTOM_SERVER_URL)?.trim()
+        if (!custom.isNullOrBlank()) {
+            return custom
+        }
+        return try {
+            com.civicsense.BuildConfig.API_BASE_URL
+        } catch (_: Throwable) {
+            "http://10.0.2.2:8000"
+        }
+    }
+
+    suspend fun setCustomServerUrl(url: String) {
+        context.dataStore.edit { preferences ->
+            if (url.isBlank()) {
+                preferences.remove(PreferencesKeys.CUSTOM_SERVER_URL)
+            } else {
+                preferences[PreferencesKeys.CUSTOM_SERVER_URL] = url.trim()
+            }
         }
     }
 

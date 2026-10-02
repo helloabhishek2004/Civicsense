@@ -24,6 +24,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.civicsense.BuildConfig
 import com.civicsense.data.model.AppTheme
 import com.civicsense.data.model.UserProfile
 import com.civicsense.data.repository.PreferenceRepository
@@ -48,6 +49,7 @@ fun CivicSenseNavHost(
 ) {
     val userProfile by preferenceRepository.userProfileFlow.collectAsState(initial = null)
     val appTheme by preferenceRepository.appThemeFlow.collectAsState(initial = AppTheme.SYSTEM)
+    val currentServerUrl by preferenceRepository.serverUrlFlow.collectAsState(initial = BuildConfig.API_BASE_URL)
     val reports by reportRepository.reports.collectAsState()
     val scope = rememberCoroutineScope()
 
@@ -190,9 +192,15 @@ fun CivicSenseNavHost(
                                 ProfileScreen(
                                     userProfile = userProfile ?: UserProfile(),
                                     currentTheme = appTheme,
+                                    serverUrl = currentServerUrl,
                                     onThemeChanged = { newTheme ->
                                         scope.launch {
                                             preferenceRepository.setAppTheme(newTheme)
+                                        }
+                                    },
+                                    onServerUrlChanged = { newUrl ->
+                                        scope.launch {
+                                            preferenceRepository.setCustomServerUrl(newUrl)
                                         }
                                     },
                                     onViewOnboardingAgain = {

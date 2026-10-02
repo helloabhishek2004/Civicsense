@@ -1,6 +1,8 @@
+import re
 import time
 import uuid
 from pathlib import Path
+from typing import Any
 
 from fastapi import FastAPI, Request, Response
 from fastapi.exceptions import RequestValidationError
@@ -63,6 +65,22 @@ class RequestContextMiddleware(BaseHTTPMiddleware):
             request_id_ctx.reset(token)
 
 
+class NormalizePathMiddleware:
+    """Normalize double/consecutive slashes in incoming request paths (e.g. //api/v1/reports)."""
+
+    def __init__(self, app: Any) -> None:
+        self.app = app
+
+    async def __call__(self, scope: Any, receive: Any, send: Any) -> None:
+        if scope.get("type") == "http":
+            path = scope.get("path", "")
+            if "//" in path:
+                scope["path"] = re.sub(r"/+", "/", path)
+                if "raw_path" in scope:
+                    scope["raw_path"] = re.sub(rb"/+", b"/", scope["raw_path"])
+        await self.app(scope, receive, send)
+
+
 def create_application() -> FastAPI:
     """FastAPI application factory."""
     app = FastAPI(
@@ -78,15 +96,16 @@ def create_application() -> FastAPI:
     )
 
     # Middleware
-    app.add_middleware(RequestContextMiddleware)
     app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.CORS_ORIGINS,
-        allow_origin_regex=r"^https?://(localhost|127\.0\.0\.1)(:\d+)?$",
+        allow_origin_regex=r"^https?://(localhost|127\.0\.0\.1|10\.\d+\.\d+\.\d+|192\.168\.\d+\.\d+|172\.(1[6-9]|2\d|3[0-1])\.\d+\.\d+)(:\d+)?$",
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
     )
+    app.add_middleware(RequestContextMiddleware)
+    app.add_middleware(NormalizePathMiddleware)
 
     # Exception Handlers
     app.add_exception_handler(CivicSenseException, civicsense_exception_handler)  # type: ignore[arg-type]
@@ -98,6 +117,11 @@ def create_application() -> FastAPI:
 
     # Static uploads directory for evidence media
     uploads_path = Path(settings.UPLOADS_DIR)
+    if not uploads_path.is_absolute():
+        from app.core.config import _BACKEND_DIR
+        candidate = _BACKEND_DIR / settings.UPLOADS_DIR
+        if candidate.is_dir():
+            uploads_path = candidate
     uploads_path.mkdir(parents=True, exist_ok=True)
     app.mount("/uploads", StaticFiles(directory=str(uploads_path)), name="uploads")
 

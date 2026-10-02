@@ -29,6 +29,7 @@ import androidx.compose.material.icons.outlined.Phone
 import androidx.compose.material.icons.outlined.Pin
 import androidx.compose.material.icons.outlined.PrivacyTip
 import androidx.compose.material.icons.outlined.RestartAlt
+import androidx.compose.material.icons.outlined.Dns
 import androidx.compose.material.icons.outlined.School
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
@@ -37,6 +38,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
@@ -57,6 +59,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.civicsense.BuildConfig
 import com.civicsense.core.design.CivicOutlinedButton
 import com.civicsense.core.design.CivicSectionHeading
 import com.civicsense.core.theme.CivicGreen
@@ -68,7 +71,9 @@ import com.civicsense.data.model.UserProfile
 fun ProfileScreen(
     userProfile: UserProfile,
     currentTheme: AppTheme = AppTheme.SYSTEM,
+    serverUrl: String = BuildConfig.API_BASE_URL,
     onThemeChanged: (AppTheme) -> Unit = {},
+    onServerUrlChanged: (String) -> Unit = {},
     onViewOnboardingAgain: () -> Unit,
     onResetDemoData: () -> Unit,
     onEditProfile: () -> Unit,
@@ -77,6 +82,8 @@ fun ProfileScreen(
     var notificationsEnabled by remember { mutableStateOf(true) }
     var showResetDialog by remember { mutableStateOf(false) }
     var showThemeDialog by remember { mutableStateOf(false) }
+    var showServerDialog by remember { mutableStateOf(false) }
+    var editedServerUrl by remember(serverUrl) { mutableStateOf(serverUrl) }
 
     if (showResetDialog) {
         AlertDialog(
@@ -141,6 +148,60 @@ fun ProfileScreen(
             confirmButton = {
                 TextButton(onClick = { showThemeDialog = false }) {
                     Text("Dismiss")
+                }
+            }
+        )
+    }
+
+    if (showServerDialog) {
+        AlertDialog(
+            onDismissRequest = { showServerDialog = false },
+            title = { Text("Backend Server URL") },
+            text = {
+                Column {
+                    Text(
+                        text = "Configure the FastAPI server address for live demonstration over Wi-Fi or mobile hotspot.",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+                    OutlinedTextField(
+                        value = editedServerUrl,
+                        onValueChange = { editedServerUrl = it },
+                        label = { Text("Base URL") },
+                        placeholder = { Text("http://10.11.201.7:8000") },
+                        singleLine = true,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.End
+                    ) {
+                        TextButton(
+                            onClick = { editedServerUrl = BuildConfig.API_BASE_URL }
+                        ) {
+                            Text("Reset to Default", style = MaterialTheme.typography.labelMedium)
+                        }
+                    }
+                }
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        showServerDialog = false
+                        onServerUrlChanged(editedServerUrl.trim())
+                    }
+                ) {
+                    Text("Save", color = CivicGreen)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = {
+                    editedServerUrl = serverUrl
+                    showServerDialog = false
+                }) {
+                    Text("Cancel")
                 }
             }
         )
@@ -314,6 +375,53 @@ fun ProfileScreen(
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,
                             contentDescription = "Change appearance",
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.size(16.dp)
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Backend Server URL Setting
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable {
+                                editedServerUrl = serverUrl
+                                showServerDialog = true
+                            }
+                            .padding(vertical = 4.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Row(
+                            modifier = Modifier.weight(1f),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.Dns,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier.size(20.dp)
+                            )
+                            Spacer(modifier = Modifier.width(12.dp))
+                            Column {
+                                Text(
+                                    text = "Backend Server URL",
+                                    style = MaterialTheme.typography.titleSmall,
+                                    fontWeight = FontWeight.Medium
+                                )
+                                Text(
+                                    text = serverUrl.ifBlank { BuildConfig.API_BASE_URL },
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.primary,
+                                    maxLines = 1
+                                )
+                            }
+                        }
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,
+                            contentDescription = "Change server URL",
                             tint = MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier.size(16.dp)
                         )

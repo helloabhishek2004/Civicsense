@@ -39,8 +39,9 @@ class RemoteReportsDataSource(
     }
 
     override suspend fun fetchReports(): List<Report> = withContext(Dispatchers.IO) {
+        val effectiveBaseUrl = preferenceRepository?.getServerUrl() ?: baseUrl
         val citizenId = citizenIdProvider?.invoke() ?: preferenceRepository?.getOrCreateCitizenId().orEmpty()
-        val url = "${baseUrl.trimEnd('/')}/api/v1/reports?citizen_id=$citizenId&page_size=50"
+        val url = "${effectiveBaseUrl.trimEnd('/')}/api/v1/reports?citizen_id=$citizenId&page_size=50"
         Log.i(TAG, "Fetching citizen reports: url=$url")
 
         val request = Request.Builder()
@@ -66,7 +67,7 @@ class RemoteReportsDataSource(
             for (i in 0 until itemsArray.length()) {
                 val itemObj = itemsArray.optJSONObject(i) ?: continue
                 try {
-                    val report = ReportStatusMapper.parseReport(itemObj, baseUrl)
+                    val report = ReportStatusMapper.parseReport(itemObj, effectiveBaseUrl)
                     resultList.add(report)
                 } catch (e: Exception) {
                     Log.w(TAG, "Skipping malformed report item at index $i: ${e.message}")
@@ -83,7 +84,8 @@ class RemoteReportsDataSource(
 
     override suspend fun fetchReport(identifier: String): Report? = withContext(Dispatchers.IO) {
         if (identifier.isBlank()) return@withContext null
-        val url = "${baseUrl.trimEnd('/')}/api/v1/reports/$identifier"
+        val effectiveBaseUrl = preferenceRepository?.getServerUrl() ?: baseUrl
+        val url = "${effectiveBaseUrl.trimEnd('/')}/api/v1/reports/$identifier"
         Log.i(TAG, "Fetching single report detail: url=$url")
 
         val request = Request.Builder()
@@ -108,7 +110,7 @@ class RemoteReportsDataSource(
             }
 
             val json = JSONObject(body)
-            val report = ReportStatusMapper.parseReport(json, baseUrl)
+            val report = ReportStatusMapper.parseReport(json, effectiveBaseUrl)
             Log.i(TAG, "Successfully fetched report $identifier (status=${report.status})")
             report
         } catch (e: Exception) {

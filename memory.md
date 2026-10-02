@@ -1006,3 +1006,34 @@ Central triage officers and AI models do not fix potholes, repair blown streetli
   - Frontend TypeScript compilation (`npm run typecheck`): **0 errors**.
   - Production build (`npm run build` in `dashboard/`): **Vite build succeeded**.
 
+---
+
+### 12. Laptop Demonstration Infrastructure & Cross-Device Android Network Connectivity (2026-09-16)
+
+- **Standalone Demonstration Runtime (Zero-Docker Portability)**:
+  - Configured standalone SQLite demonstration pipeline using `backend/civicsense.db` (seeded with 42 verified reports, 14 aggregated issues, 6 municipal departments, and precomputed MiniLM/MobileNetV3 embeddings at migration head `0011_add_image_embeddings`).
+  - Isolated Python 3.14 virtual environment configured at `C:\Users\LOQ\civicsense_venv` outside OneDrive to permanently eliminate Windows file-locking race conditions (`WinError 32: process cannot access the file because it is being used by another process`).
+  - Updated `backend/app/core/config.py` `SettingsConfigDict` to search `(_BACKEND_DIR / ".env", ".env")`, ensuring seamless configuration discovery across root and subdirectory invocations.
+  - Normalized SQLite relative paths in `backend/app/db/session.py` and static uploads path in `backend/app/main.py` relative to `_BACKEND_DIR`, guaranteeing consistent database and media resolution regardless of process CWD.
+
+- **Dynamic Cross-Device LAN IP & Network Configuration**:
+  - `scripts/get_lan_ip.ps1`: Automated PowerShell utility prioritizing active Wi-Fi and mobile hotspot network adapters to detect current LAN IPv4 (e.g. `10.11.201.7`) and dynamically update `android/local.properties` (`API_BASE_URL=http://<LAN_IP>:8000`).
+  - Updated CORS middleware in `backend/app/main.py` with `allow_origin_regex` to automatically permit private LAN IPv4 ranges (`10.*`, `192.168.*`, `172.16-31.*`) alongside localhost for seamless cross-device mobile and dashboard communication.
+  - `scripts/start_demo.ps1`: Unified one-click demonstration launcher automatically resolving Python venv, Node.js PATH, LAN IP detection, SQLite and Docker fallback modes, background dashboard launch, and clear mobile connection instructions.
+  - Documented complete presentation workflow, phone connectivity checks, and campus Wi-Fi AP isolation mitigation (switching to phone mobile hotspot) in `SETUP_NEW_LAPTOP.md`.
+
+- **Android In-App Dynamic Server URL Switching**:
+  - `PreferenceRepository.kt`: Added `KEY_CUSTOM_SERVER_URL` preference key, `serverUrlFlow`, `getServerUrl()`, and `setCustomServerUrl(url)`.
+  - `RemoteReportsDataSource.kt` & `CivicReportUploadClient.kt`: Updated network operations to dynamically query `PreferenceRepository.getServerUrl()` on each request with fallback to `BuildConfig.API_BASE_URL`.
+  - `ProfileScreen.kt` & `CivicSenseNavHost.kt`: Exposed interactive "Backend Server URL" setting row under Preferences with Material 3 `AlertDialog` allowing live server IP configuration and quick-reset to default without recompiling the APK.
+
+- **Automated Validation Results**:
+  - Backend API Health Check (`GET /health`): **200 OK** (`database: healthy`, `models: {minilm: READY, degraded_mode: false}`).
+  - Backend Reports Intake (`GET /api/v1/reports`): **200 OK** (42 reports returned).
+  - Backend Issues & Departments (`GET /api/v1/issues`, `GET /api/v1/departments`): **200 OK** (14 issues, 6 departments).
+  - Static Evidence Delivery (`GET /uploads/...`): **200 OK** verified over Wi-Fi LAN IP `10.11.201.7`.
+  - Vision Model Penetration: Penultimate layer MobileNetV3-Small verified extracting 576-dim feature vectors from actual evidence images in `backend/uploads/`.
+  - MiniLM Text Encoder: 384-dim semantic embedding generation verified.
+  - Frontend TypeScript Check (`dashboard/`): **0 errors**.
+
+

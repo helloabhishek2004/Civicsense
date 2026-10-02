@@ -95,8 +95,8 @@ data class ReportUiState(
 class ReportViewModel(
     private val reportRepository: ReportRepository = ReportRepository.getInstance(),
     private val edgeProcessor: CivicSenseEdgeProcessor = CivicSenseEdgeProcessor.getInstance(),
-    private val uploadClient: CivicReportUploadClient = CivicReportUploadClient(),
-    private val preferenceRepository: PreferenceRepository? = null
+    private val preferenceRepository: PreferenceRepository? = null,
+    private val uploadClient: CivicReportUploadClient = CivicReportUploadClient(preferenceRepository = preferenceRepository)
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ReportUiState())

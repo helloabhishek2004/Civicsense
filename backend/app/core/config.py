@@ -143,7 +143,7 @@ class Settings(BaseSettings):
         return project_default
 
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=(_BACKEND_DIR / ".env", ".env"),
         env_file_encoding="utf-8",
         extra="ignore",
     )

@@ -53,6 +53,7 @@ data/processed/
 *.log
 *.sqlite
 *.db
+*.pb
 
 # Uploaded test & runtime evidence
 backend/uploads/*

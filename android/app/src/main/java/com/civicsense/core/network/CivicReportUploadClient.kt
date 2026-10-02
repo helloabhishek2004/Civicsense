@@ -44,7 +44,8 @@ sealed interface UploadResult {
  */
 class CivicReportUploadClient(
     private val baseUrl: String = DEFAULT_BASE_URL,
-    private val client: OkHttpClient = createDefaultOkHttpClient()
+    private val client: OkHttpClient = createDefaultOkHttpClient(),
+    private val preferenceRepository: com.civicsense.data.repository.PreferenceRepository? = null
 ) {
 
     companion object {
@@ -107,7 +108,8 @@ class CivicReportUploadClient(
         val buildDuration = System.currentTimeMillis() - buildStart
         Log.i("CivicSenseSubmit", "REQUEST_BUILD_COMPLETE duration_ms=$buildDuration")
 
-        val targetUrl = "$baseUrl/api/v1/reports"
+        val effectiveBaseUrl = preferenceRepository?.getServerUrl() ?: baseUrl
+        val targetUrl = "${effectiveBaseUrl.trimEnd('/')}/api/v1/reports"
         Log.i(TAG, "[CivicSense][Upload] Target URL: $targetUrl")
         Log.i("CivicSenseSubmit", "HTTP_REQUEST_HEADERS_READY Content-Type=application/json X-Client-Report-ID=${reportPackage.clientReportId}")
         Log.i("CivicSenseSubmit", "HTTP_REQUEST_BODY_READY bytes=${payloadBytes.size}")
