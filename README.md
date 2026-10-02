@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="android/app/src/main/res/drawable/ic_civicsense_path_logo.xml" width="72" alt="CivicSense logo" />
+<img src="dashboard/public/civicsense_icon.svg" width="72" alt="CivicSense logo" />
 
 # CivicSense
 
