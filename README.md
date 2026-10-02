@@ -1,230 +1,291 @@
-# CivicSense — From Citizen Reports to Civic Intelligence
+<div align="center">
 
-**CivicSense** is an AI-assisted civic decision-support and intelligence platform that bridges citizen defect reporting with municipal operational response. It combines text semantic similarity, geospatial proximity analysis, human-in-the-loop match review, dynamic priority ranking, and departmental workflow orchestration.
+<img src="android/app/src/main/res/drawable/ic_civicsense_path_logo.xml" width="72" alt="CivicSense logo" />
 
----
+# CivicSense
 
-## 1. Current Status
+**Citizen-to-Municipality Issue Reporting with AI-Assisted Triage**
 
-| Component | Status | Tests |
-| :--- | :--- | :--- |
-| **Backend API** | IMPLEMENTED | 470 passing |
-| **Similarity & Dedup Engine** | IMPLEMENTED | 67 unit + 21 API tests |
-| **Priority Ranking Engine** | IMPLEMENTED | 53 tests |
-| **Issue Management API** | IMPLEMENTED | 5 endpoint tests |
-| **Match Review Workflow** | IMPLEMENTED | 38 tests |
-| **Department Operations** | IMPLEMENTED | Tested |
-| **Web Dashboard** | IMPLEMENTED | 85 passing |
-| **Android Mobile App** | IMPLEMENTED | 76 passing |
-| **React Native Expo** | SCAFFOLD | — |
-| **Image Classification** | PILOT ONLY | Not integrated |
-| **Production Auth** | NOT IMPLEMENTED | Prototype X-Reviewer-ID only |
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Android](https://img.shields.io/badge/Android-Kotlin%20%7C%20Compose-3DDC84?logo=android)](android/)
+[![Backend](https://img.shields.io/badge/Backend-FastAPI%20%7C%20Python%203.11-009688?logo=fastapi)](backend/)
+[![Dashboard](https://img.shields.io/badge/Dashboard-React%20%7C%20TypeScript-61DAFB?logo=react)](dashboard/)
+[![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL%2016-336791?logo=postgresql)](docker-compose.yml)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+
+[Features](#-features) · [Architecture](#-architecture) · [Quick Start](#-quick-start) · [Tech Stack](#-tech-stack) · [Contributing](#-contributing) · [License](#-license)
+
+</div>
 
 ---
 
-## 2. Core Architectural Principles
+CivicSense is an open-source civic issue reporting platform that bridges citizens and municipal authorities. Citizens photograph and describe problems in their neighbourhood — potholes, broken streetlights, garbage dumping, water leaks — and the platform uses multimodal AI to classify, deduplicate, and route reports for human-verified triage.
 
-1. **`Report != Issue`**: An individual submission from a citizen is a `Report`. An underlying real-world civic problem on the ground is an `Issue`. Multiple reports can map to one issue.
-2. **`Confidence != Severity != Priority`**:
-   - `Confidence`: Model's statistical certainty in its categorization.
-   - `Severity`: Physical seriousness or structural risk of the defect.
-   - `Priority`: Urgency of administrative response, calculated from severity, recurrence, safety indicators, and location.
-3. **`Evidence Preservation`**: Raw images and text are never discarded in favor of embeddings. Original evidence remains retrievable for human verification and legal audits.
-4. **`Prediction != Decision`**: AI outputs are preliminary evidence; the Decision Engine decides whether a case proceeds automatically or routes to human review.
-5. **`Model Provenance`**: Every future AI result records its `model_name`, `model_version`, `preprocessing_version`, and `embedding_model`.
+> **Status:** Pre-production research prototype (v0.1.0). All AI outputs are estimates and subject to mandatory human verification before any operational decision is made.
 
 ---
 
-## 3. Repository Structure
+## ✨ Features
 
-```text
-Civicsense/
-├── .env.example              # Environment variables template
-├── docker-compose.yml        # PostgreSQL 16 infrastructure
-├── Makefile                  # Cross-platform developer commands
-├── README.md                 # This file
-│
-├── docs/                     # Architecture, API, deployment, demo docs
-│   ├── ARCHITECTURE.md       # System architecture, component status, and Mermaid diagram
-│   ├── API.md                # REST API reference with 29 endpoints
-│   ├── DEPLOYMENT.md         # Setup and deployment guide
-│   ├── DEMO_RUNBOOK.md       # Demo scenario and navigation guide
-│   ├── AI_EVALUATION.md      # AI methodology and evaluation
-│   ├── PROJECT_OVERVIEW.md   # Project summary and workflow
-│   ├── PROBLEM_STATEMENT.md  # Problem definition and motivation
-│   ├── SYSTEM_OBJECTIVES.md  # System design objectives
-│   ├── METHODOLOGY.md        # Technical methodology
-│   ├── RESULTS_AND_LIMITATIONS.md # Test results and limitations
-│   ├── PRESENTATION_OUTLINE.md    # 12-slide presentation structure
-│   ├── PRESENTATION_DEMO_SCRIPT.md # 5-8 min live demo script
-│   ├── PORTFOLIO_DESCRIPTION.md   # Portfolio-ready summary
-│   ├── architecture/         # System diagrams
-│   ├── api/                  # API reference (legacy)
-│   └── decisions/            # Architectural Decision Records
-│
-├── backend/                  # FastAPI Application
-│   ├── app/                  # Application core, api, models, services
-│   ├── alembic/              # Database migrations (0001-0010)
-│   ├── tests/                # 470 passing pytest tests
-│   └── pyproject.toml        # Dependencies and tool config
-│
-├── dashboard/                # React + Vite Admin Portal
-│   ├── src/                  # Components, features, services
-│   └── package.json          # Dependencies and scripts
-│
-├── android/                  # Native Android (Kotlin + Compose)
-├── mobile/                   # React Native Expo scaffold
-├── models/                   # MiniLM model artifacts
-├── scripts/                  # Dev scripts, seed, evaluation tools
-│   ├── seed_pilot_dataset.py # Pilot data seeding
-│   └── smoke_test_postgres.py# PostgreSQL smoke test
-└── datasets/                 # Evaluation benchmarks and pilot data
+### Citizen Android App
+- Native Android (Kotlin + Jetpack Compose, Material 3)
+- 4-step reporting wizard: evidence capture → description → live map location → review
+- Camera capture with FileProvider, gallery picker, EXIF stripping
+- Real-time report status tracking with timeline display
+- Automatic silent polling (status updates every 6–10 s while app is open)
+- Offline report queueing with graceful recovery
+- Material 3 pull-to-refresh, expressive loading animations
+- Adaptive icon, themed icon (Android 13+), high-refresh-rate support
+
+### Authority Web Dashboard
+- React 18 + TypeScript SPA with server-side data via TanStack Query
+- Report queue with sortable, filterable table view
+- Interactive map (Leaflet + OpenStreetMap) with issue cluster overlay
+- Analytics charts (category distribution, trend lines, resolution rates)
+- AI operations panel (confidence scores, embedding explorer)
+- Department management and assignment workflow
+
+### FastAPI Backend
+- Versioned REST API at `/api/v1/`
+- Pydantic v2 request/response validation
+- 11-migration Alembic schema with strict `Report` ↔ `Issue` domain separation
+- Multimodal AI pipeline: MiniLM text embeddings + MobileNetV3-Small visual embeddings
+- Cosine-similarity duplicate detection and issue clustering
+- Confidence, severity, and priority scores as independent fields — never conflated
+- Human verification layer (AI outputs flagged, never auto-applied)
+- PostgreSQL 16 via SQLAlchemy 2.0 async ORM (psycopg3)
+
+### AI / ML Pipeline
+- **Text**: MiniLM L6 v2 (384-dim sentence embeddings) for category classification and duplicate text matching
+- **Vision**: MobileNetV3-Small fine-tuned on civic categories (576-dim feature embeddings)
+- **Fusion**: Weighted concatenation baseline; empirically evaluated against unimodal baselines
+- Benchmark dataset (`datasets/benchmark_v1/`) with 6 civic categories
+- Evaluation runs with confusion matrices, latency reports, and calibration reports (`datasets/evaluation_runs/`)
+
+---
+
+## 🏛 Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        CivicSense                               │
+│                                                                 │
+│  ┌──────────────┐     ┌─────────────────┐    ┌──────────────┐  │
+│  │ Android App  │────▶│  FastAPI Backend │◀───│ Web Dashboard│  │
+│  │ (Kotlin/     │     │  /api/v1/        │    │ (React/Vite) │  │
+│  │  Compose)    │     │                 │    │              │  │
+│  └──────────────┘     │  ┌───────────┐  │    └──────────────┘  │
+│                       │  │ AI/ML     │  │                       │
+│  ┌──────────────┐     │  │ Pipeline  │  │    ┌──────────────┐  │
+│  │ React Native │────▶│  │ MiniLM +  │  │    │  PostgreSQL  │  │
+│  │ (Expo/RN)    │     │  │ MobNetV3  │  │───▶│     16       │  │
+│  └──────────────┘     │  └───────────┘  │    └──────────────┘  │
+│                       └─────────────────┘                       │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**Key domain rule:** A `Report` is a single citizen submission event. An `Issue` is a deduplicated real-world defect that may be supported by multiple reports. The pipeline never merges these automatically without human confirmation.
+
+**AI decision chain:**
+
+```
+Raw Report
+    │
+    ├─▶ Text Embedding (MiniLM) ─────────────────┐
+    │                                            ├─▶ Fusion ─▶ Category Confidence
+    ├─▶ Vision Embedding (MobileNetV3-Small) ────┘           Severity Score
+    │                                                         Priority Score
+    ├─▶ Duplicate Detection (cosine similarity)               ↓
+    │                                                 Human Verification
+    └─▶ Issue Linkage (cluster matching)                       ↓
+                                                    Verified / Corrected / Rejected
 ```
 
 ---
 
-## 4. Technology Stack
-
-- **Backend**: Python 3.12+, FastAPI, Pydantic v2, SQLAlchemy 2.0, Alembic, PostgreSQL 16 (`psycopg` 3)
-- **Mobile**: React Native, Expo SDK 52, TypeScript (strict mode)
-- **Code Quality**: Ruff (linting & formatting), mypy (strict type checking), pytest
-- **Infrastructure**: Docker Compose (PostgreSQL)
-
----
-
-## 5. Quickstart Guide
+## ⚡ Quick Start
 
 ### Prerequisites
-- Python 3.12+
-- Node.js 18+ and npm
-- Docker Desktop (for PostgreSQL 16)
 
-### A. Setup Environment
+| Tool | Version |
+|------|---------|
+| Python | 3.11+ |
+| Node.js | 20+ |
+| Docker | 24+ (for PostgreSQL) |
+| Android Studio | Ladybug (2024.2) |
+| JDK | 21 |
 
-```powershell
-# Copy environment template
+### 1. Clone and configure
+
+```bash
+git clone https://github.com/helloabhishek2004/Civicsense.git
+cd Civicsense
+
+# Copy and edit root environment variables
 cp .env.example .env
+# Required: set DATABASE_URL, VITE_GOOGLE_MAPS_API_KEY, etc.
 ```
 
-### B. Start PostgreSQL
+### 2. Start the database
 
-```powershell
+```bash
 docker compose up -d
 ```
 
-### C. Install Dependencies
+### 3. Start the backend
 
-```powershell
-# Backend
+```bash
 cd backend
-python -m pip install -e ".[dev]"
+python -m venv .venv
+# Windows:
+.venv\Scripts\activate
+# macOS/Linux:
+source .venv/bin/activate
+
+pip install -e ".[dev]"
+alembic upgrade head
+uvicorn app.main:app --reload
+# API available at http://localhost:8000
+# Docs at http://localhost:8000/docs
+```
+
+### 4. Start the web dashboard
+
+```bash
+cd dashboard
+npm install
+cp .env.example .env   # or create dashboard/.env
+npm run dev
+# Dashboard at http://localhost:5173
+```
+
+### 5. Build the Android app
+
+```bash
+cd android
+cp local.properties.example local.properties
+# Edit local.properties: set MAPS_API_KEY and API_BASE_URL
+./gradlew assembleDebug
+# APK at android/app/build/outputs/apk/debug/app-debug.apk
+```
+
+Or open the `android/` folder in Android Studio and run directly on device/emulator.
+
+> **One-command local demo (Windows):** Run `start_demo.bat` from the repo root. See [`docs/DEMO_RUNBOOK.md`](docs/DEMO_RUNBOOK.md) for the full walkthrough.
+
+---
+
+## 🧰 Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Android App | Kotlin 2.0, Jetpack Compose (BOM 2024.10), Material 3 1.3, Google Maps Compose 6.2 |
+| Mobile Scaffold | React Native / Expo SDK 52 + TypeScript |
+| Web Dashboard | React 18.3, TypeScript 5.6, Vite 5.4, Tailwind CSS 3.4, TanStack Query v5, Recharts, Leaflet |
+| Backend | Python 3.11, FastAPI 0.115, Pydantic v2, SQLAlchemy 2.0, Alembic, psycopg3 |
+| Database | PostgreSQL 16 |
+| AI — Text | MiniLM L6 v2 (sentence-transformers, 384-dim) |
+| AI — Vision | MobileNetV3-Small fine-tuned (PyTorch/torchvision, 576-dim) |
+| Infrastructure | Docker Compose |
+| Testing | pytest + Vitest + Android Instrumented Tests |
+
+---
+
+## 📁 Repository Structure
+
+```
+Civicsense/
+├── android/              # Native Android app (Kotlin + Compose)
+├── backend/              # FastAPI Python backend + Alembic migrations
+├── dashboard/            # React + Vite web authority dashboard
+├── mobile/               # React Native / Expo scaffold
+├── ml/                   # ML training, evaluation, and inference scripts
+├── models/               # Downloaded model weights (gitignored — see below)
+├── datasets/             # Benchmark datasets and evaluation run results
+├── shared/               # Canonical JSON schemas shared across clients
+├── docs/                 # Architecture, API reference, deployment guide
+├── scripts/              # Developer utilities (demo, ADB, LAN setup)
+├── presentation/         # HTML project presentation
+├── artifacts/            # ML experiment artifacts and reports
+├── docker-compose.yml    # PostgreSQL 16 local database
+├── Makefile              # Common developer commands
+├── .env.example          # Environment variable template
+└── CONTRIBUTING.md       # Contribution guide
+```
+
+> **`models/` directory** is gitignored. Model weights are downloaded automatically by `backend/app/services/` on first run, or can be seeded via `ml/scripts/download_models.py`. See [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
+
+---
+
+## 🤖 AI / ML Design Principles
+
+CivicSense is explicit about the nature and limitations of its AI pipeline:
+
+- **Confidence ≠ Severity ≠ Priority.** These are three independent fields, each computed by separate heuristics, and all displayed separately to human reviewers.
+- **No auto-apply.** AI classifications are always subject to human verification (`VERIFIED` / `CORRECTED` / `REJECTED`) before influencing any operational decision.
+- **Explicit uncertainty.** The system supports `UNKNOWN`, `OTHER`, `REVIEW_REQUIRED`, `LOW_CONFIDENCE`, and `CONFLICTING_EVIDENCE` states — never forcing an input into a false category.
+- **Baselines first.** Text and vision unimodal baselines were benchmarked independently before fusion was introduced. Evaluation reports are in `datasets/evaluation_runs/`.
+- **Raw evidence is never discarded.** Original photos are durably stored; embeddings are derived views, not replacements.
+
+---
+
+## 📖 Documentation
+
+| Document | Description |
+|----------|-------------|
+| [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | System design, component boundaries, data flow |
+| [`docs/API.md`](docs/API.md) | REST API reference for `/api/v1/` endpoints |
+| [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) | Full deployment and environment setup guide |
+| [`docs/DEMO_RUNBOOK.md`](docs/DEMO_RUNBOOK.md) | Step-by-step demo instructions |
+| [`docs/AI_EVALUATION.md`](docs/AI_EVALUATION.md) | ML evaluation methodology and results |
+| [`docs/METHODOLOGY.md`](docs/METHODOLOGY.md) | Research design and dataset curation approach |
+
+---
+
+## 🧪 Testing
+
+```bash
+# Backend
+cd backend && pytest
 
 # Dashboard
-cd ../dashboard
-npm install
+cd dashboard && npm test
+
+# Android unit tests
+cd android && ./gradlew testDebugUnitTest
+
+# Dashboard type check
+cd dashboard && npx tsc --noEmit
+
+# Backend lint + type check
+cd backend && ruff check . && mypy .
 ```
 
-### D. Apply Migrations
-
-```powershell
-cd backend
-python -m alembic upgrade head
-```
-
-### E. Seed Pilot Data (Optional)
-
-```powershell
-python scripts/seed_pilot_dataset.py --seed-db
-```
-
-### F. Start Services
-
-```powershell
-# Terminal 1: Backend
-cd backend
-python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
-
-# Terminal 2: Dashboard
-cd dashboard
-npm run dev
-```
-
-### G. Open Dashboard
-
-Navigate to `http://localhost:5173`
-
-- Login with any badge number (prototype auth)
-- Go to AI Operations → Candidate Duplicate Reviews tab
-- See 6 pending candidate matches from the pilot dataset
+Current test coverage:
+- **Android**: 74 unit tests — 100% pass
+- **Dashboard**: 85 unit tests — 100% pass
+- **Backend**: pytest suite covering API endpoints, services, and ML pipeline contracts
 
 ---
 
-## 6. Running Tests & Quality Checks
+## 🤝 Contributing
 
-```powershell
-# Backend tests (470 passing, in-memory SQLite)
-cd backend
-python -m pytest tests -q
+CivicSense welcomes contributions — bug reports, feature ideas, documentation improvements, and ML dataset contributions.
 
-# Backend linting
-python -m ruff check app --select=E,W,F,I --ignore=E501
+Please read [`CONTRIBUTING.md`](CONTRIBUTING.md) before opening a PR. All contributors are expected to follow the [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md).
 
-# Frontend tests (85 passing)
-cd ../dashboard
-npm test -- --run
-
-# Frontend type check
-npm run typecheck
-
-# Frontend build
-npm run build
-```
+**Found a security vulnerability?** Please read [`SECURITY.md`](SECURITY.md) and report privately — do not open a public issue.
 
 ---
 
-## 7. API Documentation
+## 📜 License
 
-- **Interactive Swagger:** `http://localhost:8000/docs`
-- **ReDoc:** `http://localhost:8000/redoc`
-- **API Reference:** See `docs/API.md`
+CivicSense is released under the [MIT License](LICENSE).
 
-**Key endpoints:**
-- `GET /health` — System health check
-- `POST /api/v1/reports` — Submit citizen report
-- `GET /api/v1/reports` — List reports (filterable by issue_id)
-- `GET /api/v1/issues` — List issues sorted by priority
-- `GET /api/v1/matches/pending` — Pending candidate matches
-- `POST /api/v1/matches/{id}/approve` — Approve match (requires X-Reviewer-ID)
-- `POST /api/v1/matches/{id}/reject` — Reject match (requires X-Reviewer-ID)
+Copyright © 2026 CivicSense Team
 
 ---
 
-## 8. Demo
-
-See `docs/DEMO_RUNBOOK.md` for:
-- Step-by-step demo scenarios
-- Navigation instructions
-- Expected outcomes
-- Reset and troubleshooting
-
----
-
-## 9. Documentation
-
-| Document | Purpose |
-|---|---|
-| `docs/ARCHITECTURE.md` | System architecture, component status, and Mermaid diagram |
-| `docs/API.md` | REST API reference with 29 endpoints |
-| `docs/DEPLOYMENT.md` | Setup and deployment guide |
-| `docs/DEMO_RUNBOOK.md` | Demo scenarios and navigation |
-| `docs/AI_EVALUATION.md` | AI methodology and evaluation metrics |
-| `docs/PROJECT_OVERVIEW.md` | Project summary, technologies, workflow |
-| `docs/PROBLEM_STATEMENT.md` | Problem definition and motivation |
-| `docs/SYSTEM_OBJECTIVES.md` | System design objectives and requirements |
-| `docs/METHODOLOGY.md` | Technical methodology and implementation status |
-| `docs/RESULTS_AND_LIMITATIONS.md` | Test results, evaluation, and known limitations |
-| `docs/PRESENTATION_OUTLINE.md` | 12-slide presentation structure |
-| `docs/PRESENTATION_DEMO_SCRIPT.md` | 5-8 minute live demo script |
-| `docs/PORTFOLIO_DESCRIPTION.md` | Portfolio-ready project summary |
-| `memory.md` | Implementation memory and current state |
-| `AGENTS.md` | Agent operating guidelines |
+<div align="center">
+Built with ❤️ for civic technology
+</div>

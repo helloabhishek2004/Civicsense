@@ -1,0 +1,59 @@
+name: Feature Request
+description: Suggest an improvement or new capability
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have an idea that would make CivicSense better? Describe it here.
+        For large architectural changes, please open a discussion first.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or motivation
+      description: What problem does this feature solve? Who benefits?
+      placeholder: "As a [citizen / authority officer / developer], I want to... so that..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: Describe the feature you'd like to see.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Affected component
+      options:
+        - Android App
+        - Web Dashboard
+        - Backend API
+        - ML / AI Pipeline
+        - Database Schema
+        - React Native Scaffold
+        - Documentation
+        - CI / Build / DevEx
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: What other approaches did you consider? Why did you prefer this one?
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Mockups, links, references, or anything else that helps explain the request.
+    validations:
+      required: false

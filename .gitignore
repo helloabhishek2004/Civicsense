@@ -60,3 +60,20 @@ backend/uploads/*
 !backend/uploads/.gitkeep
 uploads/*
 !uploads/.gitkeep
+
+# Release APK binaries (root-level named release artifacts are tracked intentionally)
+# Build-dir APKs are excluded by android/app/build/ rule above
+*.apk
+!CivicSense-Android-*.apk
+
+# Android build outputs
+android/app/build/
+android/.gradle/
+android/local.properties
+
+# AI agent / IDE internal files
+memory.md
+skills-lock.json
+CivicSense_Project_Context.md
+CivicSense_AI_Edge_Phase_Objectives.md
+.agents/

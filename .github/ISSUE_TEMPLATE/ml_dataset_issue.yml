@@ -1,0 +1,85 @@
+name: ML / Dataset Issue
+description: Report a model accuracy problem, dataset error, or evaluation concern
+title: "[ML] "
+labels: ["ml", "data"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template for issues with the AI/ML pipeline, training data, evaluation metrics, or model behavior.
+
+  - type: dropdown
+    id: issue_type
+    attributes:
+      label: Issue type
+      options:
+        - Dataset quality / labeling error
+        - Model accuracy problem
+        - Evaluation metric concern
+        - Missing civic category
+        - Annotation guideline unclear
+        - Pipeline bug (training / inference / evaluation)
+        - Other ML issue
+    validations:
+      required: true
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Affected component
+      options:
+        - Text classifier (MiniLM embeddings)
+        - Vision classifier (MobileNetV3-Small)
+        - Multimodal fusion pipeline
+        - Duplicate / similarity detection
+        - Severity scorer
+        - Priority heuristic
+        - Evaluation scripts (ml/)
+        - Benchmark dataset (datasets/benchmark_v1/)
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the problem clearly. What is wrong or missing?
+    validations:
+      required: true
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: Example inputs and outputs
+      description: |
+        Provide example inputs (report text, image description, category) and the current model output vs the expected output.
+      placeholder: |
+        Input text: "Water pipe burst near the main road intersection"
+        Current category: GARBAGE_DUMPING (confidence 0.67)
+        Expected category: WATER_LEAK
+    validations:
+      required: false
+
+  - type: input
+    id: current_metric
+    attributes:
+      label: Current metric (if known)
+      placeholder: "e.g. F1 = 0.71 on benchmark_v1"
+    validations:
+      required: false
+
+  - type: input
+    id: expected_metric
+    attributes:
+      label: Expected / acceptable metric
+      placeholder: "e.g. F1 ≥ 0.80"
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Links to evaluation run results, confusion matrix excerpts, or relevant dataset entries.
+    validations:
+      required: false

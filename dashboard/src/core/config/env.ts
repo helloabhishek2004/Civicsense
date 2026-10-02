@@ -38,10 +38,9 @@ function getValidatedEnv(): EnvConfig {
     import.meta.env.VITE_MAP_ATTRIBUTION ||
     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
-  const googleMapsApiKey = (
-    import.meta.env.VITE_GOOGLE_MAPS_API_KEY ||
-    'AIzaSyBfu83qLayQRq4xrmzQStrcV7vXMSIm0Mw'
-  ).trim();
+  // Google Maps API key must be supplied via VITE_GOOGLE_MAPS_API_KEY in .env.
+  // Without it the map features will be disabled. See .env.example for setup instructions.
+  const googleMapsApiKey = (import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '').trim();
 
   return {
     dataMode: rawMode as DataMode,
